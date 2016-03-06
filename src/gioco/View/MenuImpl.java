@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -15,19 +17,19 @@ import javax.swing.JTextField;
 
 public class MenuImpl {
 	
-	private Icon icon_play = new ImageIcon("res/ci_sta.jpeg");
-	private Icon icon_ranked = new ImageIcon("res/rrrr.jpeg");
-	private Icon icon_options = new ImageIcon("res/bau.jpg");
-	private Icon icon_exit = new ImageIcon("res/exit.jpeg");
+	private final Icon icon_play = new ImageIcon("res/ci_sta.jpeg");
+	private final Icon icon_ranked = new ImageIcon("res/rrrr.jpeg");
+	private final Icon icon_options = new ImageIcon("res/bau.jpg");
+	private final Icon icon_exit = new ImageIcon("res/exit.jpeg");
 	
-	private JFrame menu = new JFrame("MORPHEUS");
-	private JPanel panel_title = new JPanel();
-	private JPanel panel_menu = new JPanel();
-	private JTextField text = new JTextField("MENU");
-	private JButton play = new JButton(icon_play);
-	private JButton ranked = new JButton(icon_ranked);
-	private JButton options = new JButton(icon_options);
-	private JButton exit = new JButton(icon_exit);
+	private final JFrame menu = new JFrame("MORPHEUS");
+	private final JPanel panel_title = new JPanel();
+	private final JPanel panel_menu = new JPanel();
+	private final JTextField text = new JTextField("MENU");
+	private final JButton play = new JButton(icon_play);
+	private final JButton ranked = new JButton(icon_ranked);
+	private final JButton options = new JButton(icon_options);
+	private final JButton exit = new JButton(icon_exit);
 	
 	public MenuImpl(){
 		
@@ -62,6 +64,47 @@ public class MenuImpl {
 		panel_title.setBackground(Color.BLACK);
 		panel_menu.setBackground(Color.BLACK);
 		//menu.setBackground(Color.BLACK);
+		
+		
+		
+		play.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				menu.setVisible(false);
+				new GameImpl();
+			}
+		});
+		
+		ranked.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				menu.setVisible(false);
+				new RankedImpl();
+			}
+		});
+
+		options.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				menu.setVisible(false);
+				new OptionsImpl();
+			}
+		});
+
+		exit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.exit(0);
+			}
+		});
 		
 		menu.setVisible(true);
 	}
