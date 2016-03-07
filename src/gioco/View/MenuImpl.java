@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import gioco.Main.MainGame;
+
 public class MenuImpl {
 	
 	private final Icon icon_play = new ImageIcon("res/ci_sta.jpeg");
@@ -30,6 +32,8 @@ public class MenuImpl {
 	private final JButton ranked = new JButton(icon_ranked);
 	private final JButton options = new JButton(icon_options);
 	private final JButton exit = new JButton(icon_exit);
+	
+	private MainGame game = new MainGame();
 	
 	public MenuImpl(){
 		
@@ -107,5 +111,7 @@ public class MenuImpl {
 		});
 		
 		menu.setVisible(true);
+		
+		game.start();
 	}
 }
