@@ -12,6 +12,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -26,7 +27,7 @@ public class MenuImpl {
 	
 	private final JPanel panel_title = new JPanel();
 	private final JPanel panel_menu = new JPanel();
-	private final JTextField text = new JTextField("MENU");
+	private final JLabel text = new JLabel("MENU");
 	private final JButton play = new JButton(icon_play);
 	private final JButton ranked = new JButton(icon_ranked);
 	private final JButton options = new JButton(icon_options);
@@ -51,7 +52,7 @@ public class MenuImpl {
 		text.setForeground(Color.WHITE);
 		text.setHorizontalAlignment(JTextField.CENTER);
 		text.setFont(new Font("NUOVO", Font.PLAIN, 40));//Modificare nuovo e plain
-		text.setEditable(false);
+		//text.setEditable(false);
 		
 		panel_title.setLayout(new BorderLayout());
 		panel_title.add(text, BorderLayout.CENTER);
