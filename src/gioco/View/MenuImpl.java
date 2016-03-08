@@ -24,7 +24,6 @@ public class MenuImpl {
 	private final Icon icon_options = new ImageIcon("res/bau.jpg");
 	private final Icon icon_exit = new ImageIcon("res/exit.jpeg");
 	
-	private final JFrame menu = new JFrame("MORPHEUS");
 	private final JPanel panel_title = new JPanel();
 	private final JPanel panel_menu = new JPanel();
 	private final JTextField text = new JTextField("MENU");
@@ -33,7 +32,7 @@ public class MenuImpl {
 	private final JButton options = new JButton(icon_options);
 	private final JButton exit = new JButton(icon_exit);
 	
-	private MainGame game = new MainGame();
+	private MainGame menu = new MainGame();
 	
 	public MenuImpl(){
 		
@@ -41,11 +40,6 @@ public class MenuImpl {
 		ranked.setMargin(new Insets(0, 0, 0, 0));
 		options.setMargin(new Insets(0, 0, 0, 0));
 		exit.setMargin(new Insets(0, 0, 0, 0));
-		
-		menu.setSize(600, 300);
-		menu.setResizable(false);
-		menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		menu.setLayout(new BorderLayout());
 		
 		panel_menu.setLayout(new FlowLayout());
 		panel_menu.add(play);
@@ -112,6 +106,6 @@ public class MenuImpl {
 		
 		menu.setVisible(true);
 		
-		game.start();
+		menu.start();
 	}
 }

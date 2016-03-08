@@ -1,5 +1,9 @@
 package gioco.Main;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+
 import gioco.View.MenuImpl;
 
 /*
@@ -21,7 +25,8 @@ import gioco.View.MenuImpl;
 /**
  * . Classe principale con gestione tramite Thread
  */
-public class MainGame implements Runnable {
+public class MainGame extends JFrame implements Runnable {
+	
     // Costante (di semplice utility) che indica il numero di millisecondi in un
     // secondo
     private static final int MSINASECONDS = 1000;
@@ -41,6 +46,21 @@ public class MainGame implements Runnable {
     // Serve per indicare il momento in cui é possibile renderizzare la scena
     private boolean canRender = false;
 
+    
+    public MainGame(){
+    	
+    	//E' solo per evitare il travaso! 
+    	this.setTitle("MORPHEUS");
+    	this.setSize(600, 300);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(new BorderLayout());
+    }
+    
+    
+    
+    
+    
     private void render() {
         // Qui andrá inserita la parte grafica proveniente per lo piú dal Model
     }
@@ -161,8 +181,8 @@ public class MainGame implements Runnable {
      * @param args
      */
     public static void main(final String[] args) {
+    	
         new MenuImpl();
-
     }
 
 }
