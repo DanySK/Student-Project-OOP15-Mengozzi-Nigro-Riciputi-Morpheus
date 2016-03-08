@@ -16,4 +16,14 @@ public class ModelImpl implements Model {
         }
         
     }
+
+    @Override
+    public void setKeyJump() {
+        
+    }
+
+    @Override
+    public String getKeyJump() {
+        return null;
+    }
 }
