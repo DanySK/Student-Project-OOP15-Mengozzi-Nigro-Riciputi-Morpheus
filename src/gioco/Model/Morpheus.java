@@ -2,32 +2,50 @@ package gioco.Model;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-public class Morpheus extends Thread{
-    private final int height;
-    private final int width;
-    private int x;
-    private int y;
-    private BufferedImage morpheus;
+/**
+ * 
+ * @author jacopo
+ *
+ */
+public class Morpheus extends Drawable {
+    /**
+     * velocità iniziale.
+     */
+    public static final int INITIAL_VEL = 5;
+    
     private volatile boolean run;
-    private int velRun = 5;
+    private int velRun = INITIAL_VEL;
     private int velFly = 10;
     private int vel = 100;
 
-    public Morpheus (final int height, final int width, final int x, final int y, final BufferedImage image, Graphics g) {
-        this.height = height;
-        this.width = width;
-        this.x = x;
-        this.y = y;
-        this.morpheus = image;
+    /**
+     * 
+     * L'oggetto prende in input l'altezza e la larghezza dell'immagine a schermo, le sue cordinate 
+     * e un BufferedImage che sarà l'immagine che si andrà a disegnare sull'oggetto graphics passato al costruttore.
+     * @param height
+     *          altezza
+     * @param width
+     *          larghezza
+     * @param x
+     *          posizione sull'asse x
+     * @param y
+     *          posizione sull'asse y
+     * @param image
+     *          Immagine di riferimento
+     * @param g
+     *          Elemento graphics su cui si andrà a disegnare l'immagine
+     */
+    public Morpheus(final int height, final int width, final int x, final int y, final BufferedImage image, final Graphics g) {
+        super(height, width, x, y, image, g);
         this.run = true;
-        g.drawImage(morpheus, this.x, this.y, this.width, this.height, null);
     }
-
-    public void Run() {
-        while(run) {
+    
+    /**
+     * 
+     */
+    public void run() {
+        while (run) {
             goOn();
-            getUp();
             try {
                 Thread.sleep(vel);
             } catch (InterruptedException e) {
@@ -36,11 +54,29 @@ public class Morpheus extends Thread{
             }
         }
     }
-    private void goOn(){
-        this.x += velRun;
+    
+    /**
+     * Fa muovere l'immagine di Morpheus sull'asse orrizzontale.
+     */
+    private void goOn() {
+        this.incX(velRun);
     }
 
-    private void getUp(){
-        this.y += velFly;
+    /**
+     * Permette all'oggetto Morpheus di alzarsi.
+     * 
+     */
+    public void goUp() {
+        this.incY(velFly);
     }
+    
+    /**
+     * Permette all'oggetto Morpheus di abbssarsi.
+     */
+    public void goDown() {
+        this.decY(velFly);
+    }
+
+    
+    
 }
