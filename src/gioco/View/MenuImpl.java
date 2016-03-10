@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import gioco.Main.MainGame;
+import gioco.Main.Morpheus;
 
 public class MenuImpl {
 	
@@ -33,7 +33,7 @@ public class MenuImpl {
 	private final JButton options = new JButton(icon_options);
 	private final JButton exit = new JButton(icon_exit);
 	
-	private MainGame menu = new MainGame();
+	private Morpheus menu = new Morpheus();
 	
 	public MenuImpl(){
 		

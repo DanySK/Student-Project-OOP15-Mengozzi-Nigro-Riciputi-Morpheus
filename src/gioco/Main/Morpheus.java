@@ -1,10 +1,13 @@
 package gioco.Main;
 
-import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
-
-import gioco.View.MenuImpl;
 
 /*
  * PREAMBOLO SULLA STRUTTURA GENERALE(INFO)
@@ -25,8 +28,15 @@ import gioco.View.MenuImpl;
 /**
  * . Classe principale con gestione tramite Thread
  */
-public class MainGame extends JFrame implements Runnable {
-	
+// Canvas é la classe che ci permette di attuare la BufferStrategy
+public class Morpheus extends Canvas implements Runnable {
+
+    private static final long serialVersionUID = 4143231894678455397L;
+
+    private static final String TITLE = "MORPHEUS";
+    public static final int LARGHEZZA = 600;
+    public static final int ALTEZZA = 300;
+
     // Costante (di semplice utility) che indica il numero di millisecondi in un
     // secondo
     private static final int MSINASECONDS = 1000;
@@ -46,23 +56,57 @@ public class MainGame extends JFrame implements Runnable {
     // Serve per indicare il momento in cui é possibile renderizzare la scena
     private boolean canRender = false;
 
-    
-    public MainGame(){
-    	
-    	//E' solo per evitare il travaso! 
-    	this.setTitle("MORPHEUS");
-    	this.setSize(600, 300);
-		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(new BorderLayout());
+    public Morpheus() {
+        JFrame frame = new JFrame(TITLE);
+        frame.getContentPane().add(this);
+        frame.setSize(LARGHEZZA, ALTEZZA);
+        frame.setResizable(false);
+        // Fa in modo che sia ultizzabile la "telecamera" di gioco
+        frame.setFocusable(true);
+        // Ferma il Thread se si chiude dalla x della finestra
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.err.println("Exiting game");
+                stop();
+            }
+        });
+        // Fa comparire la finestra al centro dello schermo
+        frame.setLocationRelativeTo(null);
+        // Diretta conseguenza del metodo setFocusable() e permette di mantenere
+        // il focus sul frame in questione
+        frame.requestFocus();
+        frame.setVisible(true);
+        start();
+
     }
-    
-    
-    
-    
-    
+
     private void render() {
-        // Qui andrá inserita la parte grafica proveniente per lo piú dal Model
+        BufferStrategy bs = getBufferStrategy();
+        // Probabilmente non sará impostata di default una bufferstrategy
+        // inizialmente quindi se é cosí la creiamo noi
+        if (bs == null) {
+            // Il numero 3 sta ad indicare che sará presente un triplo buffer
+            // che risulta essere il mix perfetto tra prestazioni e fluiditá
+            // delle animazioni
+            createBufferStrategy(3);
+            return;
+        }
+        // Setta la BufferStrategy sulla variabile Graphics che poi useremo per
+        // renderizzare tutto
+        Graphics g = bs.getDrawGraphics();
+        // Questo é solo un esempio (DEBUG) per capire se tutto funziona correttamente
+        
+        ///////////////////////////////////////////////////////////////////
+        g.setColor(Color.RED);
+        g.fillRect(0, 0, LARGHEZZA, ALTEZZA);
+        //////////////////////////////////////////////////////////////////
+        
+        // Rilascia ogni risorsa utilizzata fino ad ora e prepara il buffer per
+        // accogliere nuove risorse
+        g.dispose();
+        // Mostra ció che é stato processato
+        bs.show();
     }
 
     private void tick() {
@@ -181,8 +225,8 @@ public class MainGame extends JFrame implements Runnable {
      * @param args
      */
     public static void main(final String[] args) {
-    	
-        new MenuImpl();
+        new Morpheus();
+
     }
 
 }
