@@ -1,4 +1,4 @@
-package gioco.Model;
+package morpheus.model;
 /**
  * 
  * @author jacopo

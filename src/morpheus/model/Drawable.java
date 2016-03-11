@@ -1,4 +1,4 @@
-package gioco.Model;
+package morpheus.model;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

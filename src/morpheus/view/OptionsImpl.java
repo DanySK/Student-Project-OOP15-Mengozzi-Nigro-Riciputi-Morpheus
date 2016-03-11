@@ -1,4 +1,4 @@
-package gioco.View;
+package morpheus.view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

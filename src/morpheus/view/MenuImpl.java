@@ -1,4 +1,4 @@
-package gioco.View;
+package morpheus.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import gioco.Main.Morpheus;
+import morpheus.Morpheus;
 
 public class MenuImpl {
 	

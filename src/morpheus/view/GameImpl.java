@@ -1,4 +1,4 @@
-package gioco.View;
+package morpheus.view;
 
 import java.awt.Graphics;
 import java.awt.Image;

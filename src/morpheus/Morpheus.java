@@ -1,4 +1,4 @@
-package gioco.Main;
+package morpheus;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -34,18 +34,24 @@ public class Morpheus extends Canvas implements Runnable {
     private static final long serialVersionUID = 4143231894678455397L;
 
     private static final String TITLE = "MORPHEUS";
-    public static final int LARGHEZZA = 600;
-    public static final int ALTEZZA = 300;
+    /**
+     * . Larghezza del Frame di gioco principale
+     */
+    public static final int WIDTH = 600;
+    /**
+     * . Altezza del Frame di gioco principale
+     */
+    public static final int HEIGHT = 300;
 
     // Costante (di semplice utility) che indica il numero di millisecondi in un
     // secondo
-    private static final int MSINASECONDS = 1000;
+    private static final int MS_IN_A_SECONDS = 1000;
     // Utilizzo di volatile per evitare problemi di caching sul valore
     private volatile boolean running;
     // numero frame e tick al secondo che vogliamo ottenere
     private static final double TARGET = 60.0;
     // numero di ns utilizzati per eseguire un singolo tick
-    private static final double NSPERTICK = 1000000000.0 / TARGET;
+    private static final double NS_PER_TICK = 1000000000.0 / TARGET;
     // Indica la quantitá di tick che non é stata ancora processata e ci da un
     // metro di quando dovremo fare il prossimo tick
     private double unprocessed = 0.0;
@@ -56,26 +62,26 @@ public class Morpheus extends Canvas implements Runnable {
     // Serve per indicare il momento in cui é possibile renderizzare la scena
     private boolean canRender = false;
 
+    /**
+     * . Costruttore che inizializza il Frame principale
+     */
     public Morpheus() {
         JFrame frame = new JFrame(TITLE);
         frame.getContentPane().add(this);
-        frame.setSize(LARGHEZZA, ALTEZZA);
+        frame.setSize(WIDTH, HEIGHT);
         frame.setResizable(false);
-        // Fa in modo che sia ultizzabile la "telecamera" di gioco
+        // Fa in modo che si possa fare focus sul frame
         frame.setFocusable(true);
         // Ferma il Thread se si chiude dalla x della finestra
         frame.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(final WindowEvent e) {
                 System.err.println("Exiting game");
                 stop();
             }
         });
         // Fa comparire la finestra al centro dello schermo
         frame.setLocationRelativeTo(null);
-        // Diretta conseguenza del metodo setFocusable() e permette di mantenere
-        // il focus sul frame in questione
-        frame.requestFocus();
         frame.setVisible(true);
         start();
 
@@ -95,13 +101,14 @@ public class Morpheus extends Canvas implements Runnable {
         // Setta la BufferStrategy sulla variabile Graphics che poi useremo per
         // renderizzare tutto
         Graphics g = bs.getDrawGraphics();
-        // Questo é solo un esempio (DEBUG) per capire se tutto funziona correttamente
-        
+        // Questo é solo un esempio (DEBUG) per capire se tutto funziona
+        // correttamente
+
         ///////////////////////////////////////////////////////////////////
         g.setColor(Color.RED);
-        g.fillRect(0, 0, LARGHEZZA, ALTEZZA);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
         //////////////////////////////////////////////////////////////////
-        
+
         // Rilascia ogni risorsa utilizzata fino ad ora e prepara il buffer per
         // accogliere nuove risorse
         g.dispose();
@@ -140,6 +147,9 @@ public class Morpheus extends Canvas implements Runnable {
 
     @Override
     public void run() {
+        // Diretta conseguenza del metodo setFocusable() e permette di mantenere
+        // il focus non solo sul frame ma sull'intero gioco
+        requestFocus();
         // Giusto per debugging e per verificare che il Thread parta
         // correttamente
         System.out.println("Running");
@@ -156,7 +166,7 @@ public class Morpheus extends Canvas implements Runnable {
             // tick che diviso per NSPERTICK (durata di un singolo tick) ci da
             // numero di ticks non effettuati e quindi non ancora processati in
             // quel lasso di tempo
-            unprocessed += (now - lastTime) / NSPERTICK;
+            unprocessed += (now - lastTime) / NS_PER_TICK;
             // Aggiorna la variabile lastTime settando il tempo del tick
             // corrente come ultimo tick effettuato per poter ricalcolare poi i
             // ticks non processati al loop successivo
@@ -165,6 +175,11 @@ public class Morpheus extends Canvas implements Runnable {
             if (unprocessed >= 1.0) {
                 // Fase di processing dei ticks
                 tick();
+                // Aggiornamento dei tasti della tastiera premuti e non
+                //KeyInput.update();
+                // Aggiornamento dei tasti del mouse premuti e non oltre al
+                // tracking della posizione dello stesso
+                //MouseInput.update();
                 // Scaliamo i ticks che processiamo
                 unprocessed--;
                 // Manteniamo il calcolo dei ticks al secondo processati
@@ -202,11 +217,11 @@ public class Morpheus extends Canvas implements Runnable {
             // target di 60; il motivo per cui il tempo corrente si diminuisce
             // di un secondo é semplicemente per evitare di mostrare la prima
             // stampa dove fps e tps sono a 0
-            if (System.currentTimeMillis() - MSINASECONDS > timer) {
+            if (System.currentTimeMillis() - MS_IN_A_SECONDS > timer) {
                 // Aggiorniamo il timer iniziale ogni volta di un secondo per
                 // evitare che il tempo corrente superi quello nella variabile
                 // timer in modo da mantenere un certo ritmo
-                timer += MSINASECONDS;
+                timer += MS_IN_A_SECONDS;
                 System.out.println("FPS: " + fps + " | TPS: " + tps);
                 // Resettiamo sia gli fps sia i tps per evitare che superino il
                 // valore del nostro target (60); a livello di performance non
@@ -223,6 +238,7 @@ public class Morpheus extends Canvas implements Runnable {
      * . Metodo Main
      * 
      * @param args
+     *            .
      */
     public static void main(final String[] args) {
         new Morpheus();

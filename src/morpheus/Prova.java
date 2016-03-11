@@ -1,6 +1,6 @@
-package gioco.Main;
+package morpheus;
 
-import gioco.View.MenuImpl;
+import morpheus.view.MenuImpl;
 
 public class Prova {
 
