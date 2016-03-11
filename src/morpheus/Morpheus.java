@@ -3,11 +3,15 @@ package morpheus;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
+
+import morpheus.controller.KeyInput;
+import morpheus.controller.MouseInput;
 
 /*
  * PREAMBOLO SULLA STRUTTURA GENERALE(INFO)
@@ -66,6 +70,12 @@ public class Morpheus extends Canvas implements Runnable {
      * . Costruttore che inizializza il Frame principale
      */
     public Morpheus() {
+        addKeyListener(new KeyInput());
+        MouseInput mi = new MouseInput();
+        addMouseListener(mi);
+        addMouseMotionListener(mi);
+
+        ///////////// FRAME PRINCIPALE/////////////
         JFrame frame = new JFrame(TITLE);
         frame.getContentPane().add(this);
         frame.setSize(WIDTH, HEIGHT);
@@ -176,10 +186,10 @@ public class Morpheus extends Canvas implements Runnable {
                 // Fase di processing dei ticks
                 tick();
                 // Aggiornamento dei tasti della tastiera premuti e non
-                //KeyInput.update();
+                KeyInput.update();
                 // Aggiornamento dei tasti del mouse premuti e non oltre al
                 // tracking della posizione dello stesso
-                //MouseInput.update();
+                MouseInput.update();
                 // Scaliamo i ticks che processiamo
                 unprocessed--;
                 // Manteniamo il calcolo dei ticks al secondo processati
