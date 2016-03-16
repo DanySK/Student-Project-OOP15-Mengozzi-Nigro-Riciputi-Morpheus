@@ -1,0 +1,10 @@
+Pippo	5000000
+Luca 	100002
+Matteo	100001
+Mauro	10000
+Mario	1999
+Jacopo	1500
+Pal	10
+Jack	2
+Giacomo	1
+Sullej	-1

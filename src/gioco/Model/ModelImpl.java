@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
  *
  */
 public class ModelImpl implements Model {
+    
     /**
      * @param file
      *          path
@@ -29,12 +30,12 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void setKeyJump() {
+    public void setKeyJump(final String key) {
         
     }
     
     @Override
-    public void setKeyDown() {   
+    public void setKeyDown(final String key) {   
     }
     
     @Override
@@ -53,4 +54,6 @@ public class ModelImpl implements Model {
     public boolean intersects(final Area a, final Area b) {
         return a.intersects(b.getBounds());
     }
+
+   
 }

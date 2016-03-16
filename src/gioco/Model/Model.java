@@ -19,12 +19,18 @@ public interface Model {
      BufferedImage loader(final String file);
     /**
      * Setta il tasto per alzarsi.
+     * 
+     * @param key
+     *          Valore del tasto da settare in formato stringa
      */
-    void setKeyJump();
+    void setKeyJump(String key);
     /**
      * Setta il tasto per abbassarsi.
+     * 
+     * @param key
+     *          Valore del tasto da settare in formato stringa
      */
-    void setKeyDown();
+    void setKeyDown(String key);
     
     /**
      * 
