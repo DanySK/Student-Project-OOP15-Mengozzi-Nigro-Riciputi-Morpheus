@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,14 +12,13 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import morpheus.Morpheus;
 
-public class MenuImpl {
+public class MenuState implements State{
 	
 	private final Icon icon_play = new ImageIcon("res/ci_sta.jpeg");
 	private final Icon icon_ranked = new ImageIcon("res/rrrr.jpeg");
@@ -35,7 +35,7 @@ public class MenuImpl {
 	
 	private Morpheus menu = new Morpheus();
 	
-	public MenuImpl(){
+	public MenuState(){
 		
 		play.setMargin(new Insets(0, 0, 0, 0));
 		ranked.setMargin(new Insets(0, 0, 0, 0));
@@ -57,8 +57,10 @@ public class MenuImpl {
 		panel_title.setLayout(new BorderLayout());
 		panel_title.add(text, BorderLayout.CENTER);
 		
+		
+		/*
 		menu.getContentPane().add(panel_title, BorderLayout.CENTER);
-		menu.getContentPane().add(panel_menu, BorderLayout.SOUTH);
+		menu.getContentPane().add(panel_menu, BorderLayout.SOUTH);*/
 		
 		panel_title.setBackground(Color.BLACK);
 		panel_menu.setBackground(Color.BLACK);
@@ -72,7 +74,7 @@ public class MenuImpl {
 			public void actionPerformed(ActionEvent e) {
 				
 				menu.setVisible(false);
-				new GameImpl();
+				new GameState();
 			}
 		});
 		
@@ -82,7 +84,7 @@ public class MenuImpl {
 			public void actionPerformed(ActionEvent e) {
 				
 				menu.setVisible(false);
-				new RankedImpl();
+				new RankedState();
 			}
 		});
 
@@ -92,7 +94,7 @@ public class MenuImpl {
 			public void actionPerformed(ActionEvent e) {
 				
 				menu.setVisible(false);
-				new OptionsImpl();
+				new OptionsState();
 			}
 		});
 
@@ -108,5 +110,35 @@ public class MenuImpl {
 		menu.setVisible(true);
 		
 		menu.start();
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void enter() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
