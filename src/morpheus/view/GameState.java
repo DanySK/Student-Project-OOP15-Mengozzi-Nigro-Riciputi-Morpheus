@@ -24,9 +24,9 @@ public class GameState implements State {
 		game.setSize(961, 481);
 		game.setResizable(false);
 		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		game.getContentPane().add(panel);
+		//game.getContentPane().add(panel);
 		
-		game.setVisible(true);
+		//game.setVisible(true);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class GameState implements State {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "game";
 	}
 }

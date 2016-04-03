@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
+import morpheus.view.GameState;
+import morpheus.view.MenuState;
 import morpheus.view.StateManager;
 
 /*
@@ -46,12 +48,12 @@ public class Morpheus extends Canvas implements Runnable {
 	/**
 	 * Larghezza del Frame di gioco principale
 	 */
-	public static final int WIDTH = 600;
+	public static final int WIDTH = 800;
 	
 	/**
 	 * Altezza del Frame di gioco principale
 	 */
-	public static final int HEIGHT = 300;
+	public static final int HEIGHT = 500;
 
 	// Costante (di semplice utility) che indica il numero di millisecondi in un
 	// secondo
@@ -89,6 +91,10 @@ public class Morpheus extends Canvas implements Runnable {
 		MouseInput mi = new MouseInput();
 		addMouseListener(mi);
 		addMouseMotionListener(mi);
+		
+		stateManager = new StateManager();
+		stateManager.addState(new MenuState());
+		stateManager.addState(new GameState());
 
 		///////////// FRAME PRINCIPALE/////////////
 		JFrame frame = new JFrame(TITLE);
@@ -129,8 +135,9 @@ public class Morpheus extends Canvas implements Runnable {
 		// correttamente
 		Graphics2D g2D = (Graphics2D) g;
 		// /////////////////////////////////////////////////////////////////
-		g2D.setColor(Color.RED);
-		g2D.fillRect(0, 0, WIDTH, HEIGHT);
+		//g2D.setColor(Color.RED);
+		//g2D.fillRect(0, 0, WIDTH, HEIGHT);
+		stateManager.render(g2D);
 		// ////////////////////////////////////////////////////////////////
 
 		// Rilascia ogni risorsa utilizzata fino ad ora e prepara il buffer per
@@ -143,6 +150,7 @@ public class Morpheus extends Canvas implements Runnable {
 	private void tick() {
 		// Qui andrá inserita tutta la parte logica proveniente per lo piú dal
 		// controller
+		stateManager.tick();
 	}
 
 	/**
