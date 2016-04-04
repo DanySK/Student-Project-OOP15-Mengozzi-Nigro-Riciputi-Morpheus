@@ -58,4 +58,10 @@ public class GameState implements State {
 		
 		return "game";
 	}
+
+	@Override
+	public void tick(StateManager stateManager) {
+		// TODO Auto-generated method stub
+		
+	}
 }

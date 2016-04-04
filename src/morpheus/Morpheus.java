@@ -151,6 +151,7 @@ public class Morpheus extends Canvas implements Runnable {
 		// Qui andrá inserita tutta la parte logica proveniente per lo piú dal
 		// controller
 		stateManager.tick();
+		//menustate.tick(stateManager);
 	}
 
 	/**

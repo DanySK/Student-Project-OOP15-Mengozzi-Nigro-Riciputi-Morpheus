@@ -58,4 +58,10 @@ public class RankedState implements State {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void tick(StateManager stateManager) {
+		// TODO Auto-generated method stub
+		
+	}
 }

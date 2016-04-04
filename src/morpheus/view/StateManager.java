@@ -63,7 +63,7 @@ public class StateManager{
 	//Classico metodo tick
 	public void tick(){
 		
-		//currentState.tick(this);
+		currentState.tick(this);
 	}
 
 	//Classico metodo render
@@ -71,5 +71,4 @@ public class StateManager{
 		
 		currentState.render(g);
 	}
-
 }

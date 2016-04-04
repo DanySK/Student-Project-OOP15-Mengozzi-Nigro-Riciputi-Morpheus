@@ -10,7 +10,7 @@ public interface State {
 
 	public void enter();
 
-	//public void tick(StateManager stateManager);
+	public void tick(StateManager stateManager);
 
 	public void render(Graphics2D g);
 
