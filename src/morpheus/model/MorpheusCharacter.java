@@ -1,7 +1,8 @@
 package morpheus.model;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
+
+import morpheus.view.Texture;
 /**
  * 
  * @author jacopo
@@ -44,8 +45,8 @@ public class MorpheusCharacter extends Drawable {
      * @param g
      *          Elemento graphics su cui si andrà a disegnare l'immagine
      */
-    public MorpheusCharacter(final int height, final int width, final int x, final int y, final BufferedImage image, final Graphics g) {
-        super(height, width, x, y, image, g);
+    public MorpheusCharacter(final Texture t, final int x, final int y, final Graphics2D g) {
+        super(t, x, y, g);
         this.run = true;
     }
     

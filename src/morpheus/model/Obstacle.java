@@ -1,6 +1,8 @@
 package morpheus.model;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import morpheus.view.Texture;
 
 /**
  * 
@@ -22,7 +24,7 @@ public class Obstacle extends Drawable {
      * @param g 
      *          il Graphics su cui disegnare l'immagine
      */
-    public Obstacle(final int height, final int width, final int x, final int y, final Graphics g) {
-        super(height, width, x, y, g);
+    public Obstacle(final Texture t, final int x, final int y, final Graphics2D g) {
+        super(t, x, y, g);
     }
 }

@@ -1,9 +1,11 @@
 package morpheus.model;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
+
+import morpheus.view.Texture;
 /**
  * 
  * @author jacopo
@@ -11,59 +13,33 @@ import java.awt.image.BufferedImage;
  */
 public class Drawable extends Thread {
    
-    private final int height;
-    private final int width;
+    private final Texture texture;
     private int x;
     private int y;
-    private BufferedImage image;
-    private Graphics g;
+    
+    private Graphics2D g;
     //aggiungere metodo render e tick 
     /**
      * 
      * L'oggetto prende in input l'altezza e la larghezza dell'immagine a schermo, le sue cordinate 
      * e un BufferedImage che sarà l'immagine che si andrà a disegnare sull'oggetto graphics passato al costruttore.
-     * @param height
-     *          altezza
-     * @param width
-     *          larghezza
+     * 
+     * @param t
+     *          Texture, with the BufferdImage, the width and the height
      * @param x
      *          posizione sull'asse x
      * @param y
      *          posizione sull'asse y
-     * @param image
-     *          Immagine di riferimento
      * @param g
      *          Elemento graphics su cui si andrà a disegnare l'immagine
      */
-    public Drawable(final int height, final int width, final int x, final int y, final BufferedImage image, final Graphics g) {
-        this.height = height;
-        this.width = width;
-        this.x = x;
-        this.y = y;
-        this.image = image;
-        this.g = g;
-        this.g.drawImage(image, this.x, this.y, this.width, this.height, null);
-    }
-    
-    /**
-     * 
-     * @param height
-     *          altezza
-     * @param width
-     *          larghezza
-     * @param x
-     *          posizione sull'asse x
-     * @param y
-     *          posizione sull'asse y
-     * @param g 
-     *          il Graphics su cui disegnare l'immagine
-     */
-    public Drawable(final int height, final int width, final int x, final int y, final Graphics g) {
-        this.height = height;
-        this.width = width;
+    public Drawable(final Texture t, final int x, final int y, final Graphics2D g) {
+        texture = t;
         this.x = x;
         this.y = y;
         this.g = g;
+        
+        this.g.drawImage(this.texture.getImage(), this.x, this.y, texture.getWidth(), this.getHeight(), null);
     }
     
     /**
@@ -151,7 +127,7 @@ public class Drawable extends Thread {
      * Disegna l'immagine sull'elemento Graphics.
      */
     public void render() {
-        this.g.drawImage(image, this.x, this.y, this.width, this.height, null);
+        texture.render(g, (double)x, (double)y);
     }
     
     /**
@@ -177,7 +153,7 @@ public class Drawable extends Thread {
      *          immagine rappresentativa di Morpheus
      */
     public void setImage(final BufferedImage image) {
-        this.image = image;
+        //da implementare
     }
     
     /**
@@ -204,7 +180,7 @@ public class Drawable extends Thread {
      *          Il BufferedImage relativo a Morpheus
      */
     public BufferedImage getImage() {
-        return this.image;
+        return texture.getImage();
     }
     
     /**
@@ -213,7 +189,7 @@ public class Drawable extends Thread {
      *          L'altezza dell'immagine
      */
     public int getHeight() {
-        return this.height;
+        return texture.getHeight();
     }
     
     /**
@@ -222,7 +198,7 @@ public class Drawable extends Thread {
      *          La larghezza dell'immagine
      */
     public int getWidth() {
-        return this.width;
+        return texture.getWidth();
     }
     
     /**
@@ -230,7 +206,7 @@ public class Drawable extends Thread {
      * @param g
      *          il nuovo Graphics
      */
-    public void setGraphics(final Graphics g) {
+    public void setGraphics(final Graphics2D g) {
         this.g = g;
     }
     
@@ -239,7 +215,7 @@ public class Drawable extends Thread {
      * @return
      *          L'elemento Graphics su cui si sta disegnando
      */
-    public Graphics getGraphics() {
+    public Graphics2D getGraphics() {
         return this.g;
     }
 
