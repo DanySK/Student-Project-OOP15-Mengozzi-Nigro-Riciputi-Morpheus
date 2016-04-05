@@ -55,4 +55,24 @@ public interface Model {
      *          true se collidono , false altrimenti
      */
     boolean intersects(final Area a, final Area b);
+    
+    /**
+     * Aggiunge alla mappa delle texture una nuova texture.
+     * @param p
+     *          un Pair con:
+     *                  - nome da associare alla texture;
+     *                  - path del file da caricare;
+     */
+    void addTexture(Pair<String, String> p);
+    
+    /**
+     * Fornisce la texture richiesta.
+     * @param name
+     *          nome associato alla texture
+     * @return
+     *          la texture o null se non è tra quelle caricate
+     */
+    BufferedImage getTexture(String name);
+    
+   
 }

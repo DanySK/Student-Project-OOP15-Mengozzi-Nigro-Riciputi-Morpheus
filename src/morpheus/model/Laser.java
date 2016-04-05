@@ -27,8 +27,8 @@ public class Laser extends Obstacle {
      *          Elemento graphics su cui si andrà a disegnare l'immagine
      */
     public Laser(final int height, final int width, final int x, final int y, final BufferedImage image, final Graphics g) {
-        super(height, width, x, y);
+        super(height, width, x, y, g);
         this.setImage(image);
-        g.drawImage(this.getImage(), this.getX(), this.getY(), null);
+        this.getGraphics().drawImage(this.getImage(), this.getX(), this.getY(), null);
     }
 }

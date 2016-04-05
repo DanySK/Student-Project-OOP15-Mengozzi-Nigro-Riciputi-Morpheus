@@ -7,16 +7,25 @@ import java.awt.image.BufferedImage;
  * @author jacopo
  *
  */
-public class Morpheus extends Drawable {
+public class MorpheusCharacter extends Drawable {
     /**
      * velocità iniziale.
      */
-    public static final int INITIAL_VEL = 5;
-    
+    public static final int INITIAL_VEL = 7;
+    /**
+     * velocità iniziale volo.
+     */
+    public static final int INITIAL_VEL_FLY = 5;
+    /**
+     * Gravità di partenza.
+     */
+    public static final int INITIAL_GRAVITY = 1;
     private volatile boolean run;
     private int velRun = INITIAL_VEL;
-    private int velFly = 10;
+    private int velFly = INITIAL_VEL_FLY;
     private int vel = 100;
+    private int jmp = 10;
+    private int gravity = INITIAL_GRAVITY;
 
     /**
      * 
@@ -35,7 +44,7 @@ public class Morpheus extends Drawable {
      * @param g
      *          Elemento graphics su cui si andrà a disegnare l'immagine
      */
-    public Morpheus(final int height, final int width, final int x, final int y, final BufferedImage image, final Graphics g) {
+    public MorpheusCharacter(final int height, final int width, final int x, final int y, final BufferedImage image, final Graphics g) {
         super(height, width, x, y, image, g);
         this.run = true;
     }
@@ -60,6 +69,7 @@ public class Morpheus extends Drawable {
      */
     private void goOn() {
         this.incX(velRun);
+        this.decY(gravity);
     }
 
     /**
@@ -68,6 +78,7 @@ public class Morpheus extends Drawable {
      */
     public void goUp() {
         this.incY(velFly);
+        
     }
     
     /**
@@ -76,7 +87,12 @@ public class Morpheus extends Drawable {
     public void goDown() {
         this.decY(velFly);
     }
-
     
+    /**
+     * Permette all'oggetto Morpheus di saltare.
+     */
+    public void jump() {
+        this.incX(jmp);
+    }  
     
 }

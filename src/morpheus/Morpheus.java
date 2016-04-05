@@ -1,7 +1,6 @@
 package morpheus;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.WindowAdapter;
@@ -40,7 +39,7 @@ public class Morpheus extends Canvas implements Runnable {
 	//Generato numero seriale
 	private static final long serialVersionUID = 4143231894678455397L;
 
-	/**
+	/**.
 	 * Larghezza del Frame di gioco principale
 	 */
 	private static final String TITLE = "MORPHEUS";

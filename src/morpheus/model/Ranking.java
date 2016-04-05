@@ -1,29 +1,29 @@
 package morpheus.model;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.NavigableSet;
 import java.util.TreeSet;
-
-import javafx.util.Pair;
 
 /**
  * 
  * @author jacopo
  *
  */
-public class Ranking {
-    private final String fileName;
+public class Ranking extends Storable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3005073739818117637L;
+    private static final String FILE_NAME = "/res/Ranking.dat";
     private NavigableSet<Element> values;
     private List<String> app;
-
+    
+    
+    
     /**
      * Legge la classifica e la carica in memoria.
      * 
@@ -33,11 +33,26 @@ public class Ranking {
      *             In caso il file non esistesse
      */
     public Ranking(final String fileName) throws IOException {
-        this.fileName = fileName;
-
-        app = new LinkedList<>(java.nio.file.Files.readAllLines(FileSystems.getDefault().getPath(this.fileName)));
-        values = new TreeSet<>(new Element());
-        associate();
+        super(fileName);
+        final Ranking rank = (Ranking) this.readObject();
+        this.values = rank.getRanking();
+        this.app = rank.getPlayers();
+       
+        this.getRankingOnTerm();
+    }
+    
+    /**
+     * Legge la classifica e la carica in memoria.
+     * 
+     * @throws IOException
+     *             In caso il file non esistesse
+     */
+    public Ranking() throws IOException {
+        super(FILE_NAME);
+        final Ranking rank = (Ranking) this.readObject();
+        this.values = rank.getRanking();
+        this.app = rank.getPlayers();
+       
         this.getRankingOnTerm();
     }
 
@@ -56,7 +71,22 @@ public class Ranking {
         app.add(el.getKey());
         values.add(new Element(el));
     }
-
+    
+    /**
+     * Forza l'aggiornamento dello score di un Risultato già inserito.
+     * @param el
+     *         Elemento da aggiornare:
+     *                  chiave-> il nome;
+     *                  valore-> il punteggio 
+     */
+    public void forceAdd(final Pair<String, Integer> el) {
+        for (Element e : values) {
+            if (e.getName().equals(el.getKey())) {
+                e.setScore(el.getValue());
+            }
+        }
+    }
+/*
     private void associate() {
         int y = 0;
         List<String> appList = new ArrayList<>();
@@ -78,7 +108,7 @@ public class Ranking {
             }
             app = new ArrayList<>(appList);
         }
-    }
+    }*/
 
     /**
      * Stampa la classifica su terminale.
@@ -96,13 +126,7 @@ public class Ranking {
      *             In caso il file non esistesse
      */
     public void close() throws IOException {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.fileName))) {
-            for (Element e : values) {
-                bw.write(e.getText());
-                bw.newLine();
-            }
-
-        }
+        this.writeObject(this);
     }
 
     /**
@@ -116,7 +140,7 @@ public class Ranking {
      *         classifica
      * 
      */
-    public NavigableSet<Element> getRanking(final int x) {
+    public NavigableSet<Element> getPartOfRanking(final int x) {
         NavigableSet<Element> set = new TreeSet<>(new Element());
         for (Element e : values) {
             set.add(new Element(new Pair<>(e.getName(), e.getScore())));
@@ -125,6 +149,35 @@ public class Ranking {
             }
         }
         return set;
+    }
+    
+    /**
+     * Ritorna la classifica per intero.
+     * @return
+     *          un NavigableSet con l'intera classifica
+     */
+    public NavigableSet<Element> getRanking() {
+        return new TreeSet<>(values);
+    }
+    
+    /**
+     * La lista dei nomi del giocatori presenti nella classifica.
+     * @return
+     *         La lista dei nomi del giocatori presenti nella classifica
+     */
+    public List<String> getPlayers() {
+        return new ArrayList<>(this.app);
+    }
+    
+    /**
+     * Fornisce il punteggio massimo e il giocatore che l'ha fatto.
+     * @return
+     *          un Pair composto da:
+     *                  -Nome giocatore;
+     *                  -Punteggio.
+     */
+    public Pair<String, Integer> getRecord() {
+        return this.values.first().getAsPair();
     }
 
     /**
@@ -146,6 +199,15 @@ public class Ranking {
         Element(final Pair<String, Integer> pair) {
             this.name = pair.getKey();
             this.score = pair.getValue();
+        }
+        
+        /**
+         * Setta lo score.
+         * @param score
+         *              valore del nuovo score
+         */
+        public void setScore(final int score) {
+            this.score = score;
         }
 
         /**
@@ -170,6 +232,15 @@ public class Ranking {
          */
         public String getText() {
             return this.name + "\t" + this.score;
+        }
+        
+        /**
+         * Un Pair che rappresenta l'elemento.
+         * @return
+         *      Un Pair che rappresenta l'elemento
+         */
+        public Pair<String, Integer> getAsPair() {
+            return new Pair<String, Integer>(this.getName(), this.getScore());
         }
 
         @Override

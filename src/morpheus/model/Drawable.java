@@ -16,7 +16,8 @@ public class Drawable extends Thread {
     private int x;
     private int y;
     private BufferedImage image;
-    
+    private Graphics g;
+    //aggiungere metodo render e tick 
     /**
      * 
      * L'oggetto prende in input l'altezza e la larghezza dell'immagine a schermo, le sue cordinate 
@@ -40,7 +41,8 @@ public class Drawable extends Thread {
         this.x = x;
         this.y = y;
         this.image = image;
-        g.drawImage(image, this.x, this.y, this.width, this.height, null);
+        this.g = g;
+        this.g.drawImage(image, this.x, this.y, this.width, this.height, null);
     }
     
     /**
@@ -53,12 +55,15 @@ public class Drawable extends Thread {
      *          posizione sull'asse x
      * @param y
      *          posizione sull'asse y
+     * @param g 
+     *          il Graphics su cui disegnare l'immagine
      */
-    public Drawable(final int height, final int width, final int x, final int y) {
+    public Drawable(final int height, final int width, final int x, final int y, final Graphics g) {
         this.height = height;
         this.width = width;
         this.x = x;
         this.y = y;
+        this.g = g;
     }
     
     /**
@@ -66,7 +71,7 @@ public class Drawable extends Thread {
      * @param add
      *          Valore da aggiungere
      */
-    protected void incX(final int add) {
+    protected void incX(final double add) {
         this.x += add;
     }
     
@@ -98,12 +103,55 @@ public class Drawable extends Thread {
     }
     
     /**
-     * 
+     * L'area sotto forma di rettangolo che delimita l'immagine.
      * @return
      *          L'area sotto forma di rettangolo che delimita l'immagine
      */
     public Area getArea() {
-        return new Area(new Rectangle(this.getX(), this.getY(), this.getHeight(), this.getWidth()));
+        return new Area(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()));
+    }
+    
+    /**
+     * Un rettangolo che rappresenta il lato superiore.
+     * @return
+     *          Un rettangolo che rappresenta il lato superiore
+     */
+    public Rectangle getUpperSide() {
+        return new Rectangle(this.getX(), this.getY() - this.getHeight(), this.getWidth(), 1);
+    }
+    
+    /**
+     * Un rettangolo che rappresenta il lato di sinistra.
+     * @return
+     *          Un rettangolo che rappresenta il lato di sinistra
+     */
+    public Rectangle getLeftSide() {
+        return new Rectangle(this.getX(), this.getY(), 1, this.getHeight());
+    }
+    
+    /**
+     * Un rettangolo che rappresenta il lato di destra.
+     * @return
+     *          Un rettangolo che rappresenta il lato di destra
+     */
+    public Rectangle getRightSide() {
+        return new Rectangle(this.getX() + this.getWidth(), this.getY(), 1, this.getHeight());
+    }
+    
+    /**
+     * Un rettangolo che rappresenta il lato inferiore.
+     * @return
+     *          Un rettangolo che rappresenta il lato inferiore
+     */
+    public Rectangle getLowerSide() {
+        return new Rectangle(this.getX(), this.getY(), this.getHeight(), 1);
+    }
+    
+    /**
+     * Disegna l'immagine sull'elemento Graphics.
+     */
+    public void render() {
+        this.g.drawImage(image, this.x, this.y, this.width, this.height, null);
     }
     
     /**
@@ -175,6 +223,24 @@ public class Drawable extends Thread {
      */
     public int getWidth() {
         return this.width;
+    }
+    
+    /**
+     * Cambia l'elemento Graphics su cui disegnare l'immagine.
+     * @param g
+     *          il nuovo Graphics
+     */
+    public void setGraphics(final Graphics g) {
+        this.g = g;
+    }
+    
+    /**
+     * Ritorna l'elemento Graphics su cui si sta disegnando.
+     * @return
+     *          L'elemento Graphics su cui si sta disegnando
+     */
+    public Graphics getGraphics() {
+        return this.g;
     }
 
     @Override
