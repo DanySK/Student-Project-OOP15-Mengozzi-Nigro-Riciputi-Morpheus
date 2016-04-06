@@ -32,8 +32,8 @@ public class Button extends Rectangle {
 
 	public void render(Graphics2D g) {
 		
-		this.x = (300 - mainTexture.getImage().getWidth()) / 2;
-		//this.x = (Morpheus.WIDTH - mainTexture.getImage().getWidth()) / 2;
+		//this.x = (300 - mainTexture.getImage().getWidth()) / 2;
+		this.x = (Morpheus.WIDTH - mainTexture.getImage().getWidth()) / 2;
 		this.y = yPosition - mainTexture.getImage().getHeight();
 		width = mainTexture.getImage().getWidth();
 		height = mainTexture.getImage().getHeight();

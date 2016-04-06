@@ -7,9 +7,6 @@ import java.awt.event.MouseEvent;
 
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
-import morpheus.view.Button;
-import morpheus.view.StateManager;
-import morpheus.view.Texture;
 
 public class MenuState implements State{
 	
@@ -80,8 +77,9 @@ public class MenuState implements State{
 	public void render(Graphics2D g) {
 		
 		background.render(g, 0, 0);
-		morpheus.render(g, 475, 250);
-		titolo.render(g, 375, 50);
+		//Rimettere morpheus e titolo più avanti
+		//morpheus.render(g, 475, 250);
+		//titolo.render(g, 375, 50);
 		
 		//Renderizzo il bottone selezionato
 		for (int i=0; i<options.length; i++) {
@@ -115,7 +113,7 @@ public class MenuState implements State{
 		
 		case 0:
 			//Magari cambiarlo
-			stateManager.setState("game_state");
+			stateManager.setState("Game");
 			break;
 		case 1:
 			System.out.println("Leaderboard");
