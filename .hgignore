@@ -6,5 +6,6 @@ syntax: glob
 *hs_err_pid*
 */bin/*
 *bin/*.*
-
+*.pmd
+*.checkstyle
 
