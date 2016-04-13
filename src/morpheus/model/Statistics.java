@@ -16,6 +16,8 @@ public class Statistics extends Storable {
     private static final long serialVersionUID = 3751161991209059959L;
     private static final String FILE_NAME = "/res/Statistics.dat";
     private int coin;
+    private int jumpKey;
+    private int downKey;
     private boolean blueMorpheus;
     private boolean redMorpheus;
     /**
@@ -27,15 +29,17 @@ public class Statistics extends Storable {
      */
     public Statistics(final String fileName) {
             super(fileName);
-            if (this.readObject() == null) {
-                this.coin = 0;
-                this.blueMorpheus = false;
-                this.redMorpheus = false;
+            if (readObject() == null) {
+                coin = 0;
+                blueMorpheus = false;
+                redMorpheus = false;
             } else {
-                final Statistics stat = this.readObject();
-                this.coin = stat.getCoin();
-                this.blueMorpheus = stat.getBlueMorpheusOpen();
-                this.redMorpheus = stat.getRedMorpheusOpen();
+                final Statistics stat = (Statistics) readObject();
+                coin = stat.getCoins();
+                blueMorpheus = stat.getBlueMorpheusOpen();
+                redMorpheus = stat.getRedMorpheusOpen();
+                downKey = stat.getKeyDown();
+                jumpKey = stat.getKeyJump();
             }
     }
     
@@ -44,24 +48,41 @@ public class Statistics extends Storable {
      */
     public Statistics() {
         super(FILE_NAME);
-        if (this.readObject() == null) {
-            this.coin = 0;
-            this.blueMorpheus = false;
-            this.redMorpheus = false;
+        if (readObject() == null) {
+            coin = 0;
+            blueMorpheus = false;
+            redMorpheus = false;
         } else {
-            final Statistics stat = this.readObject();
-            this.coin = stat.getCoin();
-            this.blueMorpheus = stat.getBlueMorpheusOpen();
-            this.redMorpheus = stat.getRedMorpheusOpen();
+            final Statistics stat = (Statistics) readObject();
+            coin = stat.getCoins();
+            blueMorpheus = stat.getBlueMorpheusOpen();
+            redMorpheus = stat.getRedMorpheusOpen();
+            downKey = stat.getKeyDown();
+            jumpKey = stat.getKeyJump();
         }
     }
     
+    /**
+     * Increase the value of coin of one.
+     */
+    public void incCoins() {
+        coin++;
+    }
+    
+    /**
+     * Increase the value of coin of x.
+     * @param x
+     *          value to add
+     */
+    public void incCoins(final int x) {
+        coin += x;
+    }
     /**
      * Il totale dei soldi a disposizione del giocatore.
      * @return
      *          Il totale dei soldi a disposizione del giocatore.
      */
-    public int getCoin() {
+    public int getCoins() {
         return this.coin;
     }
     
@@ -83,6 +104,41 @@ public class Statistics extends Storable {
      */
     public boolean getRedMorpheusOpen() {
         return this.redMorpheus;
+    }
+    
+    /**
+     * Setta il tasto per alzarsi.
+     * 
+     * @param key
+     *          Valore del tasto da settare in formato intero
+     */
+    public void setKeyJump(final int key) {
+        jumpKey = key;
+    }
+    /**
+     * Setta il tasto per abbassarsi.
+     * 
+     * @param key
+     *          Valore del tasto da settare in formato intero
+     */
+    public void setKeyDown(final int key) {
+        downKey = key;
+    }
+    
+    /**
+     * 
+     * @return
+     *          il valore in formato stringa del tasto per alzarsi
+     */
+    public int getKeyJump() {
+        return jumpKey;
+    }
+    /**
+     * @return          
+     *          il valore in formato stringa del tasto per abbassarsi
+     */
+    public int getKeyDown() {
+        return downKey;
     }
    
 }

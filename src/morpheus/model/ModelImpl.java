@@ -53,7 +53,8 @@ public class ModelImpl implements Model {
     }
     
     @Override
-    public void setKeyDown(final String key) {   
+    public void setKeyDown(final String key) { 
+        
     }
     
     @Override

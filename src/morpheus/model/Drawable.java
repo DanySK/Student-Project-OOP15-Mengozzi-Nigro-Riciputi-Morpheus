@@ -127,7 +127,7 @@ public class Drawable extends Thread {
      * Disegna l'immagine sull'elemento Graphics.
      */
     public void render() {
-        texture.render(g, (double)x, (double)y);
+        texture.render(g, (double) x, (double) y);
     }
     
     /**
