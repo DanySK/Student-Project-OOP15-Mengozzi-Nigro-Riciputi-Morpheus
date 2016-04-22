@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Sprite {
     
-    private List<BufferedImage> frames;
+    private final List<BufferedImage> frames;
     
     /**
      * Create a sub image of the Texture with position (x,y) in the matrix.
@@ -65,7 +65,7 @@ public class Sprite {
     public BufferedImage[] getFramesAsList() {
        BufferedImage[] images = new BufferedImage[]{ };
        int i = 0;
-       for (BufferedImage b : frames) {
+       for (final BufferedImage b : frames) {
            images[i] = b;
            i++;
        }

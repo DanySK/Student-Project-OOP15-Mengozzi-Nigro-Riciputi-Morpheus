@@ -1,12 +1,10 @@
 package morpheus.model;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
-import java.util.NavigableSet;
-import java.util.TreeSet;
 
 /**
  * 
@@ -18,103 +16,99 @@ public class Ranking extends Storable {
      * 
      */
     private static final long serialVersionUID = 3005073739818117637L;
-    private static final String FILE_NAME = "/res/Ranking.dat";
-    private NavigableSet<Element> values;
-    private List<String> app;
-    
-    
-    
     /**
-     * Legge la classifica e la carica in memoria.
      * 
-     * @param fileName
-     *            path del file
-     * @throws IOException
-     *             In caso il file non esistesse
      */
-    public Ranking(final String fileName) throws IOException {
-        super(fileName);
-        final Ranking rank = (Ranking) this.readObject();
-        this.values = rank.getRanking();
-        this.app = rank.getPlayers();
-       
-        this.getRankingOnTerm();
-    }
-    
+    private static final String FILE = "res/Ranking.dat";
+    /**
+     * 
+     */
+    private static final int MAX_SIZE = 10;
+    private final List<Element> values;
+    private final List<String> app;
+    private boolean toSort;
+
     /**
      * Legge la classifica e la carica in memoria.
      * 
      * @throws IOException
      *             In caso il file non esistesse
      */
-    public Ranking() throws IOException {
-        super(FILE_NAME);
-        final Ranking rank = (Ranking) this.readObject();
-        this.values = rank.getRanking();
-        this.app = rank.getPlayers();
-       
-        this.getRankingOnTerm();
+    public Ranking() {
+        super(FILE);
+        boolean avvert = false;
+        Ranking rank = null;
+        try {
+            rank = (Ranking) this.readObject();
+        } catch (IOException e) {
+            new File(FILE);
+            avvert = true;
+        }
+        if (avvert) { 
+            this.values = new ArrayList<>();
+            this.app = new ArrayList<>();
+        } else {
+            this.values = rank.getRanking();
+            this.app = rank.getPlayers();
+        }
     }
+
 
     /**
      * Aggiunge un elemento alla classifica.
+     *
+     *!!!! Appunto da togliere !!!
+     * per mengo se non mi ricordo di dirtelo, questo metodo lancia eccezione perchè nel caso un elemento con quel nome
+     * si già presente avevo pensato che era carino che dalla view si lanciasse una finestra (tipo JDialogo) che chieda se si
+     * è sicuro di aggiornare il risultato, nel caso si risponda di aggiornare il risultato a quel punto devi chiamare il metodo forceAdd
+     * 
      * 
      * @param el
-     *            Elemento da aggiungere alla classifica:
-     *                  chiave-> il nome;
-     *                  valore-> il punteggio.
+     *            Elemento da aggiungere alla classifica: chiave-> il nome;
+     *            valore-> il punteggio.
+     * @throws IllegalArgumentException
+     *             se contiene già un elemento con quel nome.
+     *             !!! Appunto da togliere !!!
+     *             Leggere descrizione sopra per il lancio dell'eccezione
      */
-    public void add(final Pair<String, Integer> el) {
-        if (app.contains(el.getKey())) {
+    public void add(final Element el) throws IllegalArgumentException {
+        if (app.contains(el.getName())) {
             throw new IllegalArgumentException();
         }
-        app.add(el.getKey());
-        values.add(new Element(el));
+        app.add(el.getName());
+        values.add(el);
+        toSort = true;
+        if (values.size() > MAX_SIZE) {
+           remove(); 
+        }
     }
-    
+
     /**
      * Forza l'aggiornamento dello score di un Risultato già inserito.
+     * 
      * @param el
-     *         Elemento da aggiornare:
-     *                  chiave-> il nome;
-     *                  valore-> il punteggio 
+     *            Elemento da aggiornare: chiave-> il nome; valore-> il
+     *            punteggio
      */
     public void forceAdd(final Pair<String, Integer> el) {
-        for (Element e : values) {
+        for (final Element e : values) {
             if (e.getName().equals(el.getKey())) {
                 e.setScore(el.getValue());
+                toSort = true;
             }
         }
     }
-/*
-    private void associate() {
-        int y = 0;
-        List<String> appList = new ArrayList<>();
-        if (app.isEmpty()) {
-            values = null;
-        } else {
-
-            for (String e : app) {
-                y = 0;
-                for (Character x : e.toCharArray()) {
-                    if (x.equals('\t')) {
-                        values.add(new Element(new Pair<>(e.substring(0, y), Integer.parseInt(e.substring(y + 1)))));
-                        appList.add(e.substring(0, y));
-                        break;
-                    }
-                    y++;
-                }
-
-            }
-            app = new ArrayList<>(appList);
-        }
-    }*/
-
+    
     /**
      * Stampa la classifica su terminale.
      */
     public void getRankingOnTerm() {
-        for (Element e : values) {
+        if (toSort) {
+            Collections.sort(values, new Element()::compare);
+            toSort = false;
+        }
+
+        for (final Element e : values) {
             System.out.println(e.getName() + "\t" + e.getScore());
         }
     }
@@ -126,126 +120,88 @@ public class Ranking extends Storable {
      *             In caso il file non esistesse
      */
     public void close() throws IOException {
+        if (toSort) {
+            Collections.sort(values, new Element()::compare);
+            toSort = false;
+        }
         this.writeObject(this);
     }
 
     /**
-     * Ritorna un NavigableSet con i primi x elementi desiderati, se x è più
-     * grande del numero degli elementi disponibili verranno riportati tutti gli
+     * Ritorna una Lista con i primi x elementi desiderati, se x è più grande
+     * del numero degli elementi disponibili verranno riportati tutti gli
      * elementi.
      * 
      * @param x
      *            il numero degli elementi da ritornare
-     * @return un NavigableSet, già ordinato con i primi x elementi della
-     *         classifica
+     * @return una Lista, già ordinato con i primi x elementi della classifica
      * 
      */
-    public NavigableSet<Element> getPartOfRanking(final int x) {
-        NavigableSet<Element> set = new TreeSet<>(new Element());
-        for (Element e : values) {
-            set.add(new Element(new Pair<>(e.getName(), e.getScore())));
-            if (set.size() == x) {
-                break;
-            }
+    public List<Element> getPartOfRanking(final int x) {
+        if (toSort) {
+            Collections.sort(values, new Element()::compare);
+            toSort = false;
         }
-        return set;
+        return new ArrayList<>(values.subList(0, x - 1));
     }
-    
+
     /**
      * Ritorna la classifica per intero.
-     * @return
-     *          un NavigableSet con l'intera classifica
+     * 
+     * @return una Lista con l'intera classifica
      */
-    public NavigableSet<Element> getRanking() {
-        return new TreeSet<>(values);
+    public List<Element> getRanking() {
+        if (toSort) {
+            Collections.sort(values, new Element()::compare);
+            toSort = false;
+        }
+        return new ArrayList<>(values);
     }
-    
+
     /**
      * La lista dei nomi del giocatori presenti nella classifica.
-     * @return
-     *         La lista dei nomi del giocatori presenti nella classifica
+     * 
+     * @return La lista dei nomi del giocatori presenti nella classifica
      */
     public List<String> getPlayers() {
-        return new ArrayList<>(this.app);
+        return new ArrayList<>(app);
     }
-    
+
+    /**
+     * Get the Element at the x position.
+     * @param x
+     *          rank of the element
+     * @return
+     *          the desidered element
+     */
+    public Element getPosition(final int x) {
+        if (toSort) {
+            Collections.sort(values, new Element()::compare);
+            toSort = false;
+        }
+        return values.get(x - 1);
+    }
+
     /**
      * Fornisce il punteggio massimo e il giocatore che l'ha fatto.
-     * @return
-     *          un Pair composto da:
-     *                  -Nome giocatore;
-     *                  -Punteggio.
+     * 
+     * @return un Pair composto da: -Nome giocatore; -Punteggio.
      */
     public Pair<String, Integer> getRecord() {
-        return this.values.first().getAsPair();
+        return values.get(0).getAsPair();
     }
 
     /**
-     * 
-     * @author jacopo
-     *
+     * @return the toSort
      */
-    public static class Element implements Comparator<Element>, Serializable {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 5071215386654123511L;
-        private String name;
-        private int score;
-
-        Element() {
-        }
-
-        Element(final Pair<String, Integer> pair) {
-            this.name = pair.getKey();
-            this.score = pair.getValue();
-        }
-        
-        /**
-         * Setta lo score.
-         * @param score
-         *              valore del nuovo score
-         */
-        public void setScore(final int score) {
-            this.score = score;
-        }
-
-        /**
-         * 
-         * @return Il nome dell'elemento
-         */
-        public String getName() {
-            return this.name;
-        }
-
-        /**
-         * 
-         * @return Il punteggio dell'elemento
-         */
-        public int getScore() {
-            return this.score;
-        }
-
-        /**
-         * 
-         * @return La descrizione Stringa dell'elemento
-         */
-        public String getText() {
-            return this.name + "\t" + this.score;
-        }
-        
-        /**
-         * Un Pair che rappresenta l'elemento.
-         * @return
-         *      Un Pair che rappresenta l'elemento
-         */
-        public Pair<String, Integer> getAsPair() {
-            return new Pair<String, Integer>(this.getName(), this.getScore());
-        }
-
-        @Override
-        public int compare(final Element a, final Element b) {
-            return b.score - a.score;
-        }
+    public boolean isToSort() {
+        return toSort;
     }
+    
+    private void remove() {
+        Collections.sort(values, new Element() :: compare);
+        toSort = false;
+        values.remove(MAX_SIZE);
+    }
+
 }

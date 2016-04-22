@@ -3,13 +3,14 @@ package morpheus.model;
 import java.awt.Graphics2D;
 
 import morpheus.controller.KeyInput;
+import morpheus.model.Exceptions.OverRoofException;
 import morpheus.view.Texture;
 /**
  * 
  * @author jacopo
  *
  */
-public class MorpheusCharacter extends Drawable {
+public class MorpheusCharacter extends AbstractDrawable {
     /**
      * velocità iniziale.
      */
@@ -30,10 +31,13 @@ public class MorpheusCharacter extends Drawable {
      * Pavimento.
      */
     public static final int FLOOR = 40;
-    private volatile boolean run;
+    /**
+     * Tetto.
+     */
+    public static final int ROOF = 5;
+    private volatile boolean runGO;
     private int velRun = INITIAL_VEL;
     private int velFly = INITIAL_VEL_FLY;
-    private int vel = 100;
     private int jmp = 10;
     private int gravity = INITIAL_GRAVITY;
     private final Statistics s;
@@ -56,19 +60,25 @@ public class MorpheusCharacter extends Drawable {
         super(t, x, y, g);
         s = new Statistics();
         status = Status.FLY;
-        this.run = true;
+        this.runGO = true;
     }
     
     /**
      * Move the character.
      */
     public void tick() {
+        goOn();
         if (status == Status.DEATH) {
             death();
         } else {
             if (KeyInput.isDown(s.getKeyJump())) {
                 if (status == Status.FLY) {
-                    goUp();
+                    try {
+                        goUp();
+                    } catch (OverRoofException e) {
+                        this.decY(e.getDifference());
+                    }
+                    
                 } else {
                     jump();
                 }
@@ -77,28 +87,20 @@ public class MorpheusCharacter extends Drawable {
         
     }
     
-    /**
-     * 
-     */
-    public void run() {
-        while (run) {
-            goOn();
-            try {
-                Thread.sleep(vel);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
     
     
 
     /**
      * Permette all'oggetto Morpheus di alzarsi.
-     * 
+     * @throws OverRoofException
+     *          if the value of y is less then roof
      */
-    public void goUp() {
+    public void goUp() throws OverRoofException {
+        if (getY() - velFly < ROOF) {
+            final RuntimeException overRoof = new OverRoofException(ROOF - this.getY() - velFly);
+            throw overRoof;
+        }
+            
         this.incY(velFly);
         
     }
@@ -107,6 +109,10 @@ public class MorpheusCharacter extends Drawable {
      * Permette all'oggetto Morpheus di abbassarsi.
      */
     public void goDown() {
+        if (getY() - velFly < ROOF) {
+            final RuntimeException overRoof = new OverRoofException(ROOF - this.getY() - velFly);
+            throw overRoof;
+        }
         this.decY(velFly);
     }
     
@@ -114,21 +120,57 @@ public class MorpheusCharacter extends Drawable {
      * Permette all'oggetto Morpheus di saltare.
      */
     public void jump() {
-        this.incY(jmp);
+        this.decY(jmp);
     }  
+    
+    /**
+     * Set the high of the jump.
+     * @param x
+     *          the new valor of jump
+     */
+    public void setJump(final int x) {
+        this.jmp = x;
+    }
+    
+    /**
+     * Set the Fly velocity.
+     * @param x
+     *          the new valor
+     */
+    public void setFlyVelocity(final int x) {
+        this.velFly = x;
+    }
+    
+    /**
+     * Set the gravity.
+     * @param x
+     *          the new valor
+     */
+    public void setGravity(final int x) {
+        this.gravity = x;
+    }
     
     /**
      * Set the run on true, so the character start his running.
      */
     public void startRun() {
-        this.run = true;
+        this.runGO = true;
     }
     
     /**
      * Set the run on false, so stop the character's run.
      */
     public void stopRun() {
-        this.run = false;
+        this.runGO = false;
+    }
+    
+    /**
+     * Return true if the characters is moving. Else otherwise.
+     * @return
+     *        true if the characters is moving, else otherwise 
+     */
+    public boolean isRunning() {
+        return this.runGO;
     }
     
     /**
@@ -155,7 +197,7 @@ public class MorpheusCharacter extends Drawable {
      */
     private void goOn() {
         this.incX(velRun);
-        this.decY(gravity);
+        this.incY(gravity);
     }
     
     private void death() {

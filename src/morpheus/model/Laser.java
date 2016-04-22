@@ -10,7 +10,7 @@ import morpheus.view.Texture;
  * @author jacopo
  *
  */
-public class Laser extends Drawable {
+public class Laser extends AbstractDrawable {
 
     /**
      * Create a laser.
@@ -48,6 +48,12 @@ public class Laser extends Drawable {
      */
     public void reaction(final MorpheusCharacter m) {
         m.setStatus(Status.DEATH);
+    }
+
+    @Override
+    public void tick() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

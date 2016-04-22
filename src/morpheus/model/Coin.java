@@ -8,7 +8,7 @@ import morpheus.view.Texture;
  * @author jacopo
  *
  */
-public class Coin extends Drawable {
+public class Coin extends AbstractDrawable {
 
     private final TypeCoin type;
     /**
@@ -87,6 +87,12 @@ public class Coin extends Drawable {
          * X2      -> it's a particular coin, increase the total value of 2.
          */
         NORMAL, SPECIAL, X2;
+    }
+
+    @Override
+    public void tick() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

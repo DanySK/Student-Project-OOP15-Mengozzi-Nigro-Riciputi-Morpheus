@@ -1,6 +1,8 @@
 package morpheus.model;
 
-
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * 
@@ -14,7 +16,7 @@ public class Statistics extends Storable {
      * 
      */
     private static final long serialVersionUID = 3751161991209059959L;
-    private static final String FILE_NAME = "/res/Statistics.dat";
+    private static final String FILE_NAME = "res/Statistics.dat"; 
     private int coin;
     private int jumpKey;
     private int downKey;
@@ -29,17 +31,27 @@ public class Statistics extends Storable {
      */
     public Statistics(final String fileName) {
             super(fileName);
-            if (readObject() == null) {
+            try {
+                if (readObject() == null) {
+                    coin = 0;
+                    blueMorpheus = false;
+                    redMorpheus = false;
+                } else {
+                    final Statistics stat = (Statistics) readObject();
+                    coin = stat.getCoins();
+                    blueMorpheus = stat.isBlueMorpheusOpen();
+                    redMorpheus = stat.isRedMorpheusOpen();
+                    downKey = stat.getKeyDown();
+                    jumpKey = stat.getKeyJump();
+                }
+            
+            } catch (IOException e) {
+                new File(FILE_NAME);
                 coin = 0;
                 blueMorpheus = false;
                 redMorpheus = false;
-            } else {
-                final Statistics stat = (Statistics) readObject();
-                coin = stat.getCoins();
-                blueMorpheus = stat.getBlueMorpheusOpen();
-                redMorpheus = stat.getRedMorpheusOpen();
-                downKey = stat.getKeyDown();
-                jumpKey = stat.getKeyJump();
+                jumpKey = KeyEvent.VK_W;
+                downKey = KeyEvent.VK_S;
             }
     }
     
@@ -48,17 +60,27 @@ public class Statistics extends Storable {
      */
     public Statistics() {
         super(FILE_NAME);
-        if (readObject() == null) {
-            coin = 0;
-            blueMorpheus = false;
-            redMorpheus = false;
-        } else {
-            final Statistics stat = (Statistics) readObject();
-            coin = stat.getCoins();
-            blueMorpheus = stat.getBlueMorpheusOpen();
-            redMorpheus = stat.getRedMorpheusOpen();
-            downKey = stat.getKeyDown();
-            jumpKey = stat.getKeyJump();
+        try {
+            if (readObject() == null) {
+                coin = 0;
+                blueMorpheus = false;
+                redMorpheus = false;
+            } else {
+                final Statistics stat = (Statistics) readObject();
+                coin = stat.getCoins();
+                blueMorpheus = stat.isBlueMorpheusOpen();
+                redMorpheus = stat.isRedMorpheusOpen();
+                downKey = stat.getKeyDown();
+                jumpKey = stat.getKeyJump();
+            }
+        } catch (IOException e) {
+           new File(FILE_NAME);
+           coin = 0;
+           blueMorpheus = false;
+           redMorpheus = false;
+           jumpKey = KeyEvent.VK_W;
+           downKey = KeyEvent.VK_S;
+           
         }
     }
     
@@ -92,7 +114,7 @@ public class Statistics extends Storable {
      *          True -> Sbloccato;
      *          False -> Bloccato;
      */
-    public boolean getBlueMorpheusOpen() {
+    public boolean isBlueMorpheusOpen() {
         return this.blueMorpheus;
     }
     
@@ -102,7 +124,7 @@ public class Statistics extends Storable {
      *          True -> Sbloccato;
      *          False -> Bloccato;
      */
-    public boolean getRedMorpheusOpen() {
+    public boolean isRedMorpheusOpen() {
         return this.redMorpheus;
     }
     

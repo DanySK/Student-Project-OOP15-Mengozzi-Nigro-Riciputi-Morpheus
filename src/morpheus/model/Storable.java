@@ -6,13 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
+
 /**
  * 
  * @author jacopo
  *
  */
-public class Storable implements Serializable {
+public class Storable implements java.io.Serializable {
     /**
      * 
      */
@@ -31,22 +31,19 @@ public class Storable implements Serializable {
     
     /**
      * Legge l'oggetto dal file passato e fa direttamente il casting.
-     * @param <X> 
-     *          tipo di oggetto da ritornare
+     * 
      * @return
      *          l'oggetto gia castato
      *          null in caso il file non esista o in caso l'oggetto sul file non sia trovato
+     * @throws IOException 
+     *          if don't find the file
      *           
      */
-    @SuppressWarnings("unchecked")
-    protected <X> X readObject() {
+    protected Object readObject() throws IOException {
         
         try (ObjectInputStream in = new ObjectInputStream(
                 new FileInputStream(fileName))) {
-            return (X) in.readObject();
-            
-        } catch (IOException e) {
-            return null;
+            return in.readObject();
         } catch (ClassNotFoundException e) {
             return null;
         }
@@ -63,14 +60,16 @@ public class Storable implements Serializable {
      *          oggetto da salvare
      */
     protected <X> void writeObject(final X object) {
+        System.out.println(fileName);
         try (ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream(fileName))) { 
+                new FileOutputStream(fileName))) {
+            
             out.writeObject(object);
             
         } catch (FileNotFoundException e) {
             System.out.println("File inestistente!");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("File non trovato");
         }
         
     }

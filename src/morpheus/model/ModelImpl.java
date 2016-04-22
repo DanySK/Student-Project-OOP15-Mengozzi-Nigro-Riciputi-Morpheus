@@ -88,7 +88,7 @@ public class ModelImpl implements Model {
     }
     
     private void associate(final Map<String, String> map) {
-        for (Entry<String, String> e : map.entrySet()) {
+        for (final Entry<String, String> e : map.entrySet()) {
             textureMap.put(e.getKey(), this.loader(e.getValue()));
         }
     }

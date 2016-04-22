@@ -11,14 +11,13 @@ import morpheus.view.Texture;
  * @author jacopo
  *
  */
-public class Drawable extends Thread {
+public abstract class AbstractDrawable {
    
     private final Texture texture;
     private int x;
     private int y;
     
-    private Graphics2D g;
-    //aggiungere metodo render e tick 
+    private Graphics2D g; 
     /**
      * 
      * L'oggetto prende in input l'altezza e la larghezza dell'immagine a schermo, le sue cordinate 
@@ -33,15 +32,19 @@ public class Drawable extends Thread {
      * @param g
      *          Elemento graphics su cui si andrà a disegnare l'immagine
      */
-    public Drawable(final Texture t, final int x, final int y, final Graphics2D g) {
+    public AbstractDrawable(final Texture t, final int x, final int y, final Graphics2D g) {
         texture = t;
         this.x = x;
         this.y = y;
         this.g = g;
         
-        this.g.drawImage(this.texture.getImage(), this.x, this.y, texture.getWidth(), this.getHeight(), null);
+        //this.g.drawImage(this.texture.getImage(), this.x, this.y, texture.getWidth(), texture.getHeight(), null);
     }
     
+    /**
+     * Logic implementation for the object move.
+     */
+    public abstract void tick();
     /**
      * Incrementa la posizione sull'asse X.
      * @param add
@@ -147,14 +150,8 @@ public class Drawable extends Thread {
     public void setY(final int y) {
         this.y = y;
     }
-    /**
-     * Setter del BufferedImage che rapressenta l'immagine.
-     * @param image
-     *          immagine rappresentativa di Morpheus
-     */
-    public void setImage(final BufferedImage image) {
-        //da implementare
-    }
+    
+    
     
     /**
      * 
@@ -219,7 +216,5 @@ public class Drawable extends Thread {
         return this.g;
     }
 
-    @Override
-    public void run() {
-    }
+    
 }
