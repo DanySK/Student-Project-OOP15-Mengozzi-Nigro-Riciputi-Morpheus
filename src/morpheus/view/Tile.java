@@ -21,7 +21,7 @@ public class Tile {
 
 	public void render(Graphics2D g) {
 		sprite.render(g, x, y);
-		if (Morpheus.DEBUG) {
+		/*if (Morpheus.DEBUG) {
 			g.setColor(Color.BLACK);
 			g.draw(getTop());
 			g.setColor(Color.BLUE);
@@ -30,7 +30,7 @@ public class Tile {
 			g.draw(getLeft());
 			g.setColor(Color.ORANGE);
 			g.draw(getRight());
-		}
+		}*/
 
 	}
 

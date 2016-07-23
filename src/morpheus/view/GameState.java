@@ -41,7 +41,7 @@ public class GameState implements State {
 		for (int i = 0; i < 10; i++) {
 			
 			//Sto riprendendo sempre la stessa immagine
-			tiles.add(new Tile(x, y, new Sprite(new SpriteSheet(new Texture("res/Terrain.png"), 64), 1, 1)));
+			tiles.add(new Tile(x, y, new Sprite(new SpriteSheet(new Texture("res/ground2.png"), 64), 5, 8)));
 			//Sto modificando solo le x e infatti le y rimangono uguali :)
 			x += 64;
 		}
