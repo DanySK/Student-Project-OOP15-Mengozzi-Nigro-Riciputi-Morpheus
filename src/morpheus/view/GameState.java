@@ -29,7 +29,7 @@ public class GameState implements State {
 		//Posso inserire infinite parallassi
 		//ParallaxLayer mid = new ParallaxLayer(new Texture("res/cloud210.png"), (int) ((16 * 0.25) * -0.25));
 		//ParallaxLayer mid = new ParallaxLayer(new Texture("res/cazzobuco.jpeg"), (int) ((16 * 0.25) * -0.25));
-		ParallaxLayer front = new ParallaxLayer(new Texture("res/cloud210.png"), (int) ((16 * 0.25) * -0.5));
+		ParallaxLayer front = new ParallaxLayer(new Texture("res/nuvole_nere.png"), (int) ((16 * 0.25) * -0.5));
 		this.parallaxEngine = new ParallaxEngine(back, /*mid,*/ front);
 		this.camera = new Camera(0, 0);
 		this.tiles = new ArrayList<>();
