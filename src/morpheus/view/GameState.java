@@ -25,20 +25,29 @@ public class GameState implements State {
 	@Override
 	public void init() {
 		
-		ParallaxLayer back = new ParallaxLayer(new Texture("res/sfondo.png"), (int) ((16 * 0.25) * -0.15));
-		this.parallaxEngine = new ParallaxEngine(back);
+		ParallaxLayer back = new ParallaxLayer(new Texture("res/forsebuono.png"), (int) ((16 * 0.25) * -0.15));
+		ParallaxLayer mid = new ParallaxLayer(new Texture("res/cloud210.png"), (int) ((16 * 0.25) * -0.25));
+		//ParallaxLayer mid = new ParallaxLayer(new Texture("res/cazzobuco.jpeg"), (int) ((16 * 0.25) * -0.25));
+		ParallaxLayer front = new ParallaxLayer(new Texture("res/cloud210.png"), (int) ((16 * 0.25) * -0.5));
+		this.parallaxEngine = new ParallaxEngine(back, mid, front);
 		this.camera = new Camera(0, 0);
 		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
 		this.player = new Player(100, 100, this);
+		//E' il valore delle x dove si posizioneranno gli oggetti
 		double x = 0;
-		double y = Morpheus.HEIGHT - 100;
+		//E' il valore delle y dove si posizioneranno gli oggetti
+		double y = Morpheus.HEIGHT - 35;
 		for (int i = 0; i < 10; i++) {
 			
+			//Sto riprendendo sempre la stessa immagine
 			tiles.add(new Tile(x, y, new Sprite(new SpriteSheet(new Texture("res/Terrain.png"), 64), 1, 1)));
+			//Sto modificando solo le x e infatti le y rimangono uguali :)
 			x += 64;
 		}
-		tiles.add(new Tile(300, 150, new Sprite(new SpriteSheet(new Texture("res/Terrain.png"), 64), 1, 1)));
+		//Sto aggiungendo una volta sola nella posizione 300, 150 la texture grande 64 nella posizione 1,1
+		//1,1 è il posto come in una matrice(C'e il calcolo nella sprite)
+		tiles.add(new Tile(300, 150, new Sprite(new SpriteSheet(new Texture("res/Terrain.png"), 64), 2, 1)));
 	}
 
 	@Override

@@ -74,13 +74,13 @@ public class ModelImpl implements Model {
         return a.intersects(b.getBounds());
     }
 
-    @Override
+    /*@Override
     public void addTexture(final Pair<String, String> p) {
         if (textureMap.containsKey(p.getKey())) {
             throw new IllegalArgumentException();
         }
         textureMap.put(p.getKey(), this.loader(p.getValue()));
-    }
+    }*/
     
     @Override
     public BufferedImage getTexture(final String name) {

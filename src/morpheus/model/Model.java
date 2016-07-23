@@ -63,7 +63,7 @@ public interface Model {
      *                  - nome da associare alla texture;
      *                  - path del file da caricare;
      */
-    void addTexture(Pair<String, String> p);
+    //void addTexture(Pair<String, String> p);
     
     /**
      * Fornisce la texture richiesta.

@@ -4,6 +4,7 @@ import morpheus.Morpheus;
 import morpheus.model.Player;
 
 public class Camera {
+	
 	private double x, y;
 
 	public Camera(double x, double y) {
@@ -13,7 +14,7 @@ public class Camera {
 	}
 
 	public void tick(Player player) {
-		x = -player.getX() + Morpheus.WIDTH / 2;
+		x = -player.getX() + Morpheus.WIDTH / 8;//Rimettere /2 anziche /8
 	}
 
 	public void setX(double x) {
@@ -31,5 +32,4 @@ public class Camera {
 	public double getY() {
 		return y;
 	}
-
 }

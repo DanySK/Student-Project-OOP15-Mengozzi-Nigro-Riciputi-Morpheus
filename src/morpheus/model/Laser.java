@@ -2,7 +2,7 @@ package morpheus.model;
 
 import java.awt.Graphics2D;
 
-import morpheus.model.MorpheusCharacter.Status;
+//import morpheus.model.MorpheusCharacter.Status;
 import morpheus.view.Texture;
 
 /**
@@ -10,7 +10,7 @@ import morpheus.view.Texture;
  * @author jacopo
  *
  */
-public class Laser extends AbstractDrawable {
+//public class Laser extends AbstractDrawable {
 
     /**
      * Create a laser.
@@ -23,10 +23,10 @@ public class Laser extends AbstractDrawable {
      * @param g 
      *          il Graphics su cui disegnare l'immagine
      */
-    public Laser(final Texture t, final int x, final int y, final Graphics2D g) {
-        super(t, x, y, g);
+//    public Laser(final Texture t, final int x, final int y, final Graphics2D g) {
+ //       super(t, x, y, g);
         
-    }
+  //  }
     
     /**
      * Create a laser.
@@ -37,23 +37,23 @@ public class Laser extends AbstractDrawable {
      * @param g 
      *          il Graphics su cui disegnare l'immagine
      */
-    public Laser(final int x, final int y, final Graphics2D g) {
-        super(new Texture("res/Laser.png"), x, y, g);
-    }
+   // public Laser(final int x, final int y, final Graphics2D g) {
+     //   super(new Texture("res/Laser.png"), x, y, g);
+  //  }
     /**
      * The reaction at the intersection with the main character.
      * Leads the death of him.
      * @param m
      *          the main character
      */
-    public void reaction(final MorpheusCharacter m) {
-        m.setStatus(Status.DEATH);
-    }
+    //public void reaction(final MorpheusCharacter m) {
+    //    m.setStatus(Status.DEATH);
+//    }
 
-    @Override
-    public void tick() {
+  //  @Override
+    //public void tick() {
         // TODO Auto-generated method stub
         
-    }
+   // }
 
-}
+//}

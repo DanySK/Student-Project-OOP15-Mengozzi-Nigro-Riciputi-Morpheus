@@ -27,7 +27,7 @@ public abstract class Entity {
 
 	public void render(Graphics2D g) {
 		sprite.render(g, x, y);
-		if (Morpheus.DEBUG) {
+		/*if (Morpheus.DEBUG) {
 			g.setColor(Color.RED);
 			g.draw(getTop());
 			g.setColor(Color.BLUE);
@@ -36,7 +36,7 @@ public abstract class Entity {
 			g.draw(getLeft());
 			g.setColor(Color.ORANGE);
 			g.draw(getRight());
-		}
+		}per ora lo commento*/
 
 	}
 

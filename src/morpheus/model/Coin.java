@@ -8,9 +8,9 @@ import morpheus.view.Texture;
  * @author jacopo
  *
  */
-public class Coin extends AbstractDrawable {
+//public class Coin {
 
-    private final TypeCoin type;
+  //  private final TypeCoin type;
     /**
      * Create a coin.
      * @param t
@@ -24,12 +24,12 @@ public class Coin extends AbstractDrawable {
      * @param type
      *          the type of coin
      */
-    public Coin(final Texture t, final int x, final int y, final Graphics2D g, final TypeCoin type) {
-        super(t, x, y, g);
-        this.type = type;
+    //public Coin(final Texture t, final int x, final int y, final Graphics2D g, final TypeCoin type) {
+      //  super(t, x, y, g);
+        //this.type = type;
         
         
-    }
+  //  }
     
     /**
      * Create a normal coin.
@@ -41,10 +41,10 @@ public class Coin extends AbstractDrawable {
      *          il Graphics su cui disegnare l'immagine
      *z
      */
-    public Coin(final int x, final int y, final Graphics2D g) {
-        super(new Texture("res/NormalCoin.png"), x, y, g);
-        this.type = TypeCoin.NORMAL;
-    }
+    //public Coin(final int x, final int y, final Graphics2D g) {
+      //  super(new Texture("res/NormalCoin.png"), x, y, g);
+        //this.type = TypeCoin.NORMAL;
+    //}
     
     /**
      * The reaction at the intersection with the main character.
@@ -52,47 +52,47 @@ public class Coin extends AbstractDrawable {
      * @param s
      *          the total value of coins
      */
-    public void reaction(final Statistics s) {
-        switch(type) {
-        case NORMAL:
-            s.incCoins();
-            break;
-        case SPECIAL:
-            s.incCoins(10);
-            break;
-        case X2:
-            s.incCoins(2);
-            break;
-        default:
-            break;
-        }
-    }
+   // public void reaction(final Statistics s) {
+     //   switch(type) {
+       // case NORMAL:
+         //   s.incCoins();
+           // break;
+       // case SPECIAL:
+         //   s.incCoins(10);
+           // break;
+        //case X2:
+          //  s.incCoins(2);
+            //break;
+        //default:
+          //7  break;
+        //}
+   // }
     
     /**
      * @return the type
      */
-    public TypeCoin getType() {
-        return type;
-    }
+    //public TypeCoin getType() {
+//       return type;
+ //   }
 
     /**
      * 
      * @author jacopo
      *
      */
-    public enum TypeCoin {
+   // public enum TypeCoin {
         /**
          * NORMAL  -> it's a normal coin, increase the total value of 1;
          * SPECIAL -> it's a important coin, increase the total value of 10;
          * X2      -> it's a particular coin, increase the total value of 2.
          */
-        NORMAL, SPECIAL, X2;
-    }
+     //   NORMAL, SPECIAL, X2;
+    //}
 
-    @Override
-    public void tick() {
+   // @Override
+ //   public void tick() {
         // TODO Auto-generated method stub
         
-    }
+    //}
 
-}
+//}

@@ -14,13 +14,11 @@ public class Player extends Mob {
 	// parametro di new Animation (pi� alto sar� il numero pi� lenta andr�
 	// l�animazione)
 	public Player(double x, double y, GameState state) {
-		super(new Sprite(new SpriteSheet(new Texture("res/player_sheet.png"), 64), 1, 1), x, y, state,
-				new Animation(5, new Sprite(new SpriteSheet(new Texture("res/player_sheet.png"), 64), 1, 1),
-						new Sprite(new SpriteSheet(new Texture("res/player_sheet.png"), 64), 2, 1),
-						new Sprite(new SpriteSheet(new Texture("res/player_sheet.png"), 64), 3, 1),
-						new Sprite(new SpriteSheet(new Texture("res/player_sheet.png"), 64), 4, 1),
-						new Sprite(new SpriteSheet(new Texture("res/player_sheet.png"), 64), 1, 2),
-						new Sprite(new SpriteSheet(new Texture("res/player_sheet.png"), 64), 2, 2)));
+		super(new Sprite(new SpriteSheet(new Texture("res/sayan.png"), 55/*largh*/, 80/*alt*/), 1, 2), x, y, state,
+				new Animation(5, new Sprite(new SpriteSheet(new Texture("res/sayan.png"), 55, 80), 1, 1),
+						new Sprite(new SpriteSheet(new Texture("res/sayan.png"), 55, 80), 2, 1),
+						new Sprite(new SpriteSheet(new Texture("res/sayan.png"), 55, 80), 3, 1),
+						new Sprite(new SpriteSheet(new Texture("res/sayan.png"), 55, 80), 4, 1)));
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public class Sprite {
 		
 		this.image = spriteSheet.getTexture().getImage().getSubimage(
 				x * spriteSheet.getWidth() - spriteSheet.getWidth(),
-				y * spriteSheet.getHeight() - spriteSheet.getHeight(), spriteSheet.getHeight(),
+				y * spriteSheet.getHeight() - spriteSheet.getHeight(), spriteSheet.getWidth(),//C'era un errore bravo luca
 				spriteSheet.getHeight());
 	}
 	
