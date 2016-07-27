@@ -1,6 +1,5 @@
 package morpheus.model;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public class Sprite {
     
-    private final List<BufferedImage> frames;
+    private final List<Image> frames;
     
     /**
      * Create a sub image of the Texture with position (x,y) in the matrix.
@@ -29,10 +28,10 @@ public class Sprite {
         int k = 0;
         for (int i = 0; i < lines; i++) {
             for (int j = 0; j < columns; j++) {
-                frames.add(sheet.getTexture().getImage().getSubimage(i * sheet.getWidth(),
+                frames.add(new Image(sheet.getTexture().getImage().getSubimage(i * sheet.getWidth(),
                         j * sheet.getHeight(), 
                         sheet.getWidth(),
-                        sheet.getHeight()));
+                        sheet.getHeight())));
                 k++;
                 if (k == x) {
                     k = -1;
@@ -53,7 +52,7 @@ public class Sprite {
      * @return
      *          a list of BufferedImage
      */
-    public List<BufferedImage> getFrames() {
+    public List<Image> getFrames() {
         return new ArrayList<>(frames);
     }
     
@@ -62,10 +61,10 @@ public class Sprite {
      * @return
      *          an array of frames for the animation
      */
-    public BufferedImage[] getFramesAsList() {
-       BufferedImage[] images = new BufferedImage[]{ };
+    public Image[] getFramesAsList() {
+       Image[] images = new Image[frames.size()];
        int i = 0;
-       for (final BufferedImage b : frames) {
+       for (final Image b : frames) {
            images[i] = b;
            i++;
        }
@@ -73,6 +72,14 @@ public class Sprite {
          
     }
     
+    /**
+     * Returns the main Frame.
+     * @return
+     * 		the main Frame
+     */
+    public Image getMainFrame() {
+    	return frames.get(0);
+    }
    
     
 }

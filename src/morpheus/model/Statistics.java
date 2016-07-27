@@ -16,7 +16,12 @@ public class Statistics extends Storable {
      * 
      */
     private static final long serialVersionUID = 3751161991209059959L;
-    private static final String FILE_NAME = "res/Statistics.dat"; 
+    
+    private static final String FILE_NAME = "res/Statistics.dat";
+    private static final transient int DEFAULT_JUMP_KEY = KeyEvent.VK_W;
+    private static final transient int DEFAULT_DOWN_KEY = KeyEvent.VK_S;
+    private final boolean firstOpen;
+   
     private int coin;
     private int jumpKey;
     private int downKey;
@@ -28,7 +33,7 @@ public class Statistics extends Storable {
      * @param fileName
      *            path del file
      * 
-     */
+     *//**
     public Statistics(final String fileName) {
             super(fileName);
             try {
@@ -53,35 +58,31 @@ public class Statistics extends Storable {
                 jumpKey = KeyEvent.VK_W;
                 downKey = KeyEvent.VK_S;
             }
-    }
+    }*/
     
     /**
      * Legge le Statistiche dal file predefinito e le carica in memoria.
      */
     public Statistics() {
         super(FILE_NAME);
+        boolean app = false;
         try {
-            if (readObject() == null) {
-                coin = 0;
-                blueMorpheus = false;
-                redMorpheus = false;
-            } else {
-                final Statistics stat = (Statistics) readObject();
-                coin = stat.getCoins();
-                blueMorpheus = stat.isBlueMorpheusOpen();
-                redMorpheus = stat.isRedMorpheusOpen();
-                downKey = stat.getKeyDown();
-                jumpKey = stat.getKeyJump();
-            }
+             final Statistics stat = (Statistics) readObject();
+             coin = stat.getCoins();
+             blueMorpheus = stat.isBlueMorpheusOpen();
+             redMorpheus = stat.isRedMorpheusOpen();
+             downKey = stat.getKeyDown();
+             jumpKey = stat.getKeyJump();
         } catch (IOException e) {
            new File(FILE_NAME);
+           app = true;
            coin = 0;
            blueMorpheus = false;
            redMorpheus = false;
            jumpKey = KeyEvent.VK_W;
            downKey = KeyEvent.VK_S;
-           
         }
+        firstOpen = app;
     }
     
     /**
@@ -161,6 +162,34 @@ public class Statistics extends Storable {
      */
     public int getKeyDown() {
         return downKey;
+    }
+    
+    /**
+     * Save the file.
+     */
+    public void close() {
+        this.writeObject(this);
+    }
+
+    /**
+     * @return the firstOpen
+     */
+    public boolean isFirstOpen() {
+        return firstOpen;
+    }
+
+    /**
+     * @return the defaultdownkey
+     */
+    public static int getDefaultDownKey() {
+        return DEFAULT_DOWN_KEY;
+    }
+
+    /**
+     * @return the defaultjumpkey
+     */
+    public static int getDefaultJumpKey() {
+        return DEFAULT_JUMP_KEY;
     }
    
 }
