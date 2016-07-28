@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
  * necessaria più volte
  */
 public class Texture {
-	
+
 	// Mappa utile per memorizzare le Texture al suo interno ed evitare di
 	// caricare un oggetto ogni volta che si ha bisogno di una texture(quando
 	// viene richiesta si prende direttamente da qui essendo precaricata)
@@ -24,22 +24,22 @@ public class Texture {
 	private String fileName;
 
 	public Texture(String fileName) {
-		
+
 		this.fileName = fileName;
 		TextureManager oldTexture = texMap.get(fileName);
 		if (oldTexture != null) {
-			
+
 			manager = oldTexture;
 		} else {
-			
+
 			try {
-				
+
 				System.out.println("loading textures: " + fileName);
 				// Carico le Texture ex novo dalle risorse
 				manager = new TextureManager(ImageIO.read(new File(fileName)));
 				texMap.put(fileName, manager);
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
 		}
@@ -47,29 +47,23 @@ public class Texture {
 	}
 
 	public void render(Graphics2D g, double x, double y) {
-		
+
 		g.drawImage(manager.getImage(), (int) x, (int) y, null);
 	}
 
-	// Serve solo per i livelli di parallasse del background
-	public void parallaxRender(Graphics2D g, int destX1, int destX2, int srcX1, int srcX2, int y) {
-		
-		g.drawImage(manager.getImage(), destX1, y, destX2, y + manager.getHeight(), srcX1, 0, srcX2,
-				manager.getHeight(), null);
-	}
 
 	public BufferedImage getImage() {
-		
+
 		return manager.getImage();
 	}
 
 	public int getWidth() {
-		
+
 		return manager.getWidth();
 	}
 
 	public int getHeight() {
-		
+
 		return manager.getHeight();
 	}
 

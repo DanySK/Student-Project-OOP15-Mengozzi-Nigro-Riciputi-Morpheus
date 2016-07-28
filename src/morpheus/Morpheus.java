@@ -1,6 +1,7 @@
 package morpheus;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.WindowAdapter;
@@ -62,7 +63,7 @@ public class Morpheus extends Canvas implements Runnable {
 	private volatile boolean running;
 	
 	//Da eliminare se non serve
-	public static boolean DEBUG = true;
+	public static boolean DEBUG = false;
 	
 	// numero frame e tick al secondo che vogliamo ottenere
 	private static final double TARGET = 60.0;
@@ -137,8 +138,8 @@ public class Morpheus extends Canvas implements Runnable {
 		// correttamente
 		Graphics2D g2D = (Graphics2D) g;
 		// /////////////////////////////////////////////////////////////////
-		//g2D.setColor(Color.RED);
-		//g2D.fillRect(0, 0, WIDTH, HEIGHT);
+		g2D.setColor(Color.RED);
+		g2D.fillRect(0, 0, WIDTH, HEIGHT);
 		stateManager.render(g2D);
 		// ////////////////////////////////////////////////////////////////
 

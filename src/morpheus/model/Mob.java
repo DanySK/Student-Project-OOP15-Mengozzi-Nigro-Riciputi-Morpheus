@@ -8,13 +8,15 @@ import morpheus.view.GameState;
 import morpheus.view.Tile;
 
 public abstract class Mob extends Entity {
-	protected double dX, dY;
+	protected double dX;
+	protected double dY;
 	protected double maxDY;
 	protected double gravity;
 	protected boolean falling;
 	protected boolean canJump;
 	protected boolean moving;
 	protected Animation anime;
+
 
 	public Mob(Sprite sprite, double x, double y, GameState state, Animation anime) {
 		super(sprite, x, y, state);
@@ -44,16 +46,18 @@ public abstract class Mob extends Entity {
 		if (!moving) {
 			super.render(g);
 		} else {
-			anime.render(g, x, y);
+			anime.render(g, X, Y);
 		}
 	}
 
 	public void move() {
+
 		if (!hasHorizontalCollision()) {
-			x += dX;
+			X += dX;
+
 		}
 		if (!hasVerticalCollision()) {
-			y += dY;
+			Y += dY;
 		}
 	}
 
@@ -122,6 +126,10 @@ public abstract class Mob extends Entity {
 
 	public boolean isMoving() {
 		return moving;
+	}
+
+	public double getdX() {
+		return dX;
 	}
 
 }
