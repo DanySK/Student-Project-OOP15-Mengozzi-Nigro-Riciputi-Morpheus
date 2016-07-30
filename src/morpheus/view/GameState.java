@@ -111,29 +111,14 @@ public class GameState implements State {
 
 	@Override
 	public void tick(StateManager stateManager) {
-<<<<<<< local
-	
-		if (player.isMoving()) {
-			parallaxEngine.move();
-			//parallaxEngine.stop();
-		}
 
-		if (player.isMovingLeft()) {
-			parallaxEngine.setLeft();
-			//parallaxEngine.stop();
-		}
-		if (player.isMovingRight()) {
-			parallaxEngine.setRight();
-			//parallaxEngine.stop();
-		}
-=======
 		parallaxMove1 += 2;
 		parallaxMove2 += 2;
 		speedX1 += 2;
 		parallaxCloud1 += 1;
 		parallaxCloud2 += 1;
 		speedX2 += 1;
->>>>>>> other
+
 
 		for (Entity e : entities) {
 			e.tick();
