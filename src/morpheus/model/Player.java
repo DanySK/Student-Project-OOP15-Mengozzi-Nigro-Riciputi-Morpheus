@@ -32,25 +32,25 @@ public class Player extends Mob {
 		/*
 		 * if (KeyInput.isDown(KeyEvent.VK_S)) { dY = 2; }
 		 */
-		if (KeyInput.isDown(KeyEvent.VK_A)) {
-			dX = -2;
-		}
+//		if (KeyInput.isDown(KeyEvent.VK_A)) {
+//			dX = -2;
+//		}
 		
 		//NON SO PERCHE SE PREMO A NON LAGGA
-		dX = 2;//In modo che vada sempre
+		dX = 10;//In modo che vada sempre
 		
 		
-		if (KeyInput.isDown(KeyEvent.VK_D)) {//Uno sprint
-			dX = 4;//Modificare anche quello giu probabilmente
-		}
+//		if (KeyInput.isDown(KeyEvent.VK_D)) {//Uno sprint
+//			dX = 4;//Modificare anche quello giu probabilmente
+//		}
 
 		/*
 		 * if(KeyInput.isRealeased(KeyEvent.VK_W) ||
 		 * KeyInput.isRealeased(KeyEvent.VK_S)) { dY = 0; }
 		 */
-		if (KeyInput.isRealeased(KeyEvent.VK_A) || KeyInput.isRealeased(KeyEvent.VK_D)) {
-			dX = 0;
-		}
+//		if (KeyInput.isRealeased(KeyEvent.VK_A) || KeyInput.isRealeased(KeyEvent.VK_D)) {
+//			dX = 0;
+//		}
 		super.tick();
 	}
 
