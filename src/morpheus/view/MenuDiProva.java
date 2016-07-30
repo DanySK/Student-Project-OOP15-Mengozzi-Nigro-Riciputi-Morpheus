@@ -91,7 +91,7 @@ public class MenuDiProva {
 			public void actionPerformed(ActionEvent e) {
 				
 				//menu.setVisible(false);
-				new OptionsState();
+				new SettingsState();
 			}
 		});
 

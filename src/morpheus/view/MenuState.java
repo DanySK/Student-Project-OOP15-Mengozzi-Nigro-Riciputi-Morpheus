@@ -116,13 +116,12 @@ public class MenuState implements State{
 			stateManager.setState("Game");
 			break;
 		case 1:
-			System.out.println("Leaderboard");
+			stateManager.setState("Ranked");
 			break;
 		case 2:
-			System.out.println("Settings");
+			stateManager.setState("Settings");
 			break;
 		case 3:
-			System.out.println("Exit");
 			System.exit(0);
 			break;
 		}

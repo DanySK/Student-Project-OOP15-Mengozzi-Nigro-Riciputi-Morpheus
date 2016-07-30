@@ -35,8 +35,13 @@ public class Player extends Mob {
 		if (KeyInput.isDown(KeyEvent.VK_A)) {
 			dX = -2;
 		}
-		if (KeyInput.isDown(KeyEvent.VK_D)) {
-			dX = 2;
+		
+		//NON SO PERCHE SE PREMO A NON LAGGA
+		dX = 2;//In modo che vada sempre
+		
+		
+		if (KeyInput.isDown(KeyEvent.VK_D)) {//Uno sprint
+			dX = 4;//Modificare anche quello giu probabilmente
 		}
 
 		/*

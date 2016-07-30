@@ -5,18 +5,23 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class RankedState implements State {
 
-	private final JFrame game = new JFrame("MORPHEUS");
+	private Texture background;
+	private final JFrame frame = new JFrame();
 	private final JPanel panel = new JPanel();
 	private final JTextArea text = new JTextArea();
+	private final JLabel label = new JLabel("Leaderboard");
 	
 	public RankedState(){
 		
-		game.setSize(1000, 600);
+		
+		
+		/*game.setSize(1000, 600);
 		game.setResizable(false);
 		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game.getContentPane().add(panel);
@@ -24,21 +29,22 @@ public class RankedState implements State {
 		panel.add(text);
 		text.setText("QUA CI SARANNO I PUNTEGGI DAL FILE DI TESTO FATTO DAL MODEL");
 		text.setFont(new Font("NUOVO", Font.PLAIN, 10));
-		panel.setBackground(Color.BLACK);
+		panel.setBackground(Color.BLACK);*/
 		
-		game.setVisible(true);
+		
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void enter() {
-		// TODO Auto-generated method stub
 		
+		frame.setSize(400, 200);
+		frame.setVisible(true);
 	}
 
 	@Override
@@ -49,14 +55,17 @@ public class RankedState implements State {
 
 	@Override
 	public void exit() {
-		// TODO Auto-generated method stub
 		
+
+		//stateManager.setState("Menu");
+		//Altrimenti si passa il numero di frame al menustate che nel suo tick() quando vede che
+		//c'e solo il prìncipale si seleziona se stesso
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "ranked";
 	}
 
 	@Override
