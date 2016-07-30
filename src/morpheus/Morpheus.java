@@ -41,10 +41,7 @@ public class Morpheus extends Canvas implements Runnable {
 
 	//Generato numero seriale
 	private static final long serialVersionUID = 4143231894678455397L;
-
-	/**.
-	 * Larghezza del Frame di gioco principale
-	 */
+	
 	private static final String TITLE = "MORPHEUS";
 	
 	/**
@@ -97,6 +94,8 @@ public class Morpheus extends Canvas implements Runnable {
 		addMouseListener(mi);
 		addMouseMotionListener(mi);
 		
+		
+		
 		stateManager = new StateManager();
 		stateManager.addState(new MenuState());
 		stateManager.addState(new GameState());
@@ -104,7 +103,7 @@ public class Morpheus extends Canvas implements Runnable {
 		stateManager.addState(new SettingsState());
 
 		///////////// FRAME PRINCIPALE/////////////
-		JFrame frame = new JFrame(TITLE);
+		final JFrame frame = new JFrame(TITLE);
 		frame.getContentPane().add(this);
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setResizable(false);

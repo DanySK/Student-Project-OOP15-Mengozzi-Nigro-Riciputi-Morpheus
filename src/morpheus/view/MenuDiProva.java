@@ -81,7 +81,7 @@ public class MenuDiProva {
 			public void actionPerformed(ActionEvent e) {
 				
 				//menu.setVisible(false);
-				new RankedState();
+				//new RankedState();
 			}
 		});
 
