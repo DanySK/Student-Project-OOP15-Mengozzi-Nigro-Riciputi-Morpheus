@@ -12,15 +12,17 @@ public class BackgroundRankedState extends JPanel{
 	
 
 		private static final long serialVersionUID = 8773250085938571559L;
-		private Image img = Toolkit.getDefaultToolkit().createImage("res/leader.png");
+		private Image img;
+
+		public BackgroundRankedState(){
+			
+			img = Toolkit.getDefaultToolkit().createImage("res/coppap2.png");
+			check();
+		}
 		
-		
-		  protected void paintComponent(Graphics g) {
-			  
-		    setOpaque(false);
-		    g.drawImage(img, 90, 0, null);
-		    super.paintComponent(g);
-		    MediaTracker track = new MediaTracker(this);
+		private void check(){
+			
+			MediaTracker track = new MediaTracker(this);
 			track.addImage(img, 0);
 			try {
 				track.waitForID(0);
@@ -28,7 +30,14 @@ public class BackgroundRankedState extends JPanel{
 				
 				e.printStackTrace();
 			}
-		  }
+		}
+		
+		protected void paintComponent(Graphics g) {
+			  
+		   setOpaque(false);
+		   g.drawImage(img, 90, 0, null);
+		   super.paintComponent(g);
+		}
 
 		  
 }
