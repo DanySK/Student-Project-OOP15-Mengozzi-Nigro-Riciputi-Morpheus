@@ -13,8 +13,6 @@ import morpheus.view.GameState;
  */
 public class Penguin extends Monster {
 
-    private boolean step = false;
-
     /**
      * 
      * @param x
@@ -52,7 +50,6 @@ public class Penguin extends Monster {
     
     @Override
     public void render(final Graphics2D g) {
-        this.tick();
         if (getAnimation() != null) {
 
             getAnimation().render(g, getX(), getY());
