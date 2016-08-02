@@ -1,6 +1,6 @@
 package morpheus.model;
 
-import morpheus.model.MorpheusCharacter.Status;
+import morpheus.model.MainPlayer.Status;
 import morpheus.view.GameState;
 
 /**
@@ -47,7 +47,7 @@ public class Obstacle extends AbstractDrawable {
      * @param m
      *          the main character
      */
-    public void reaction(final MorpheusCharacter m) {
+    public void reaction(final MainPlayer m) {
         m.setStatus(Status.DEATH);
   }
 

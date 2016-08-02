@@ -34,7 +34,7 @@ public class ModelAnimation {
 		this.numFrames = frames.length;
 	}
 
-	private void nextFrame() {
+	protected void nextFrame() {
 		currentFrame = frames[index];
 		index++;
 		if (index >= numFrames) {
