@@ -140,11 +140,9 @@ public class Morpheus extends Canvas implements Runnable {
 		// Questo é solo un esempio (DEBUG) per capire se tutto funziona
 		// correttamente
 		Graphics2D g2D = (Graphics2D) g;
-<<<<<<< local
+
 		g.translate(0, -30);
-=======
-		//g.translate(0, -30); fatto per prova
->>>>>>> other
+
 		// /////////////////////////////////////////////////////////////////
 		g2D.setColor(Color.RED);
 		g2D.fillRect(0, 0, WIDTH, HEIGHT);
