@@ -21,16 +21,20 @@ public class SettingsState implements State {
 	private JPanel p2 = new JPanel();
 	private JPanel p3 = new JPanel();
 	private JPanel p4 = new JPanel();
+	private JPanel p5 = new JPanel();
 	private final JLabel player = new JLabel("PLAYER:");
 	private final JLabel jump = new JLabel("JUMP:");
 	private final JLabel shoot = new JLabel("SHOOT:");
+	private final JLabel sound = new JLabel("SOUND:");
 	private JComboBox<String> j;
 	private JComboBox<String> s;
+	private JComboBox<Integer> m;
 	private final JButton blonde = new JButton("Valpiani");
 	private final JButton violet = new JButton("Gulizia");
-	private final JButton save = new JButton("Save");
+	private final JButton menu = new JButton("Return to Menu");//Posso anche toglierlo
 	private final String listj[] = new String[3];
 	private final String lists[] = new String[3];
+	private final Integer listm[] = new Integer[6];
 	
 	public SettingsState(){
 		
@@ -50,6 +54,13 @@ public class SettingsState implements State {
 		lists[2] = "G";
 		
 		s = new JComboBox<>(lists);
+		
+		for (int i=0; i<6; i++){
+			
+			listm[i] = i;
+		}
+		
+		m = new JComboBox<>(listm);
 	}
 
 	@Override
@@ -83,9 +94,16 @@ public class SettingsState implements State {
 	
 	frame.getContentPane().add(p3);
 	
-	p4.add(save);
+	sound.setFont(new Font("TimesRoman", Font.BOLD, 24));
+	p4.add(sound);
+	p4.add(m);
+	
 	
 	frame.getContentPane().add(p4);
+	
+	p5.add(menu);
+	
+	frame.getContentPane().add(p5);
 	
 	
 	
