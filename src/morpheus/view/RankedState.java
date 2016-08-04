@@ -102,6 +102,7 @@ public class RankedState implements State {
 		background.add(res5);
 		
 		frame.setSize(500, 300);
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
