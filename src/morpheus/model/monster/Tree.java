@@ -108,7 +108,7 @@ public class Tree extends Monster {
         
         private TreeBullet shoot() {
                   return new TreeBullet(tree.getX(), tree.getY(), tree.getState(), 
-                                  new Image(new Texture("res/zucca.png").getImage()));     
+                                  new Image(new Texture("res/zucca.png").getImage(), 18, 18));     
         }
        
         

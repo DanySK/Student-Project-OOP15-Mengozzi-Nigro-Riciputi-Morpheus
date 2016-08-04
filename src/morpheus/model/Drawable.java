@@ -26,7 +26,7 @@ public interface Drawable {
      * @return
      *          L'area sotto forma di rettangolo che delimita l'immagine
      */
-    Area getArea();
+    Rectangle getBounds();
     
     /**
      * Un rettangolo che rappresenta il lato superiore.

@@ -32,7 +32,7 @@ public class Sprite {
                 frames.add(new Image(sheet.getTexture().getImage().getSubimage(i * sheet.getWidth(),
                         j * sheet.getHeight(), 
                         sheet.getWidth(),
-                        sheet.getHeight())));
+                        sheet.getHeight()), sheet.getWidth(), sheet.getHeight()));
                 k++;
                 System.out.println("Linea");
                 if (k == x) {

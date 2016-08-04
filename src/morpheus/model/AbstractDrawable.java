@@ -2,7 +2,6 @@ package morpheus.model;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +43,7 @@ public abstract class AbstractDrawable implements Drawable {
 		this.x = x;
 		this.y = y;
 		this.state = game;
-		//this.state.addEntity(this);
+		this.state.addEntity(this);
 		image = Arrays.copyOf(i, i.length);
 		mainFrame = image[0];
 
@@ -66,7 +65,7 @@ public abstract class AbstractDrawable implements Drawable {
 		this.x = x;
 		this.y = y;
 		this.state = game;
-		//this.state.addState(this);
+		this.state.addEntity(this);
 		mainFrame = i;
 
 	}
@@ -121,8 +120,9 @@ public abstract class AbstractDrawable implements Drawable {
 	 * 
 	 * @return L'area sotto forma di rettangolo che delimita l'immagine
 	 */
-	public Area getArea() {
-		return new Area(new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), this.getHeight()));
+	public Rectangle getBounds() {
+		return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), this.getHeight());
+		
 	}
 
 	/**
@@ -224,7 +224,8 @@ public abstract class AbstractDrawable implements Drawable {
 	 * @return L'altezza dell'immagine
 	 */
 	public int getHeight() {
-		return image[0].getHeigth();
+	        
+		return mainFrame.getHeigth();
 	}
 
 	/**
@@ -232,7 +233,7 @@ public abstract class AbstractDrawable implements Drawable {
 	 * @return La larghezza dell'immagine
 	 */
 	public int getWidth() {
-		return image[0].getWidth();
+		return mainFrame.getWidth();
 	}
 	
 	/**

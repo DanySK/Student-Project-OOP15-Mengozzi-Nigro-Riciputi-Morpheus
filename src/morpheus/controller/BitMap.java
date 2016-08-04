@@ -1,4 +1,4 @@
-package morpheus.controller;
+ package morpheus.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,12 +7,12 @@ import morpheus.Morpheus;
 import morpheus.view.RandomTile;
 
 public class BitMap {
-	// Semplicemente le dimensioni delle Tile (DEVONO ESSERE QUESTE, ALTRIMENTI É CAMBIARE TUTTO)
+	// Semplicemente le dimensioni delle Tile (DEVONO ESSERE QUESTE, ALTRIMENTI ï¿½ CAMBIARE TUTTO)
 	public static double TILE_WIDTH = 64;
 	public static double TILE_HEIGHT = 64;
-	// La BitMap é composta da 4 mappe che si susseguono tra loro e ripetendosi formano un paesaggio infinito,
+	// La BitMap ï¿½ composta da 4 mappe che si susseguono tra loro e ripetendosi formano un paesaggio infinito,
 	// ho scelto 4 mappe per fare in modo che ci sia una maggiore randomicita del sistema e
-	// soprattutto perché per fare in modo che il mondo di gioco sia 'infinito' dovevo creare un sorta di coda di mappe appunto
+	// soprattutto perchï¿½ per fare in modo che il mondo di gioco sia 'infinito' dovevo creare un sorta di coda di mappe appunto
 	private int map[];
 	private int map1[];
 	private int map2[];
@@ -31,22 +31,22 @@ public class BitMap {
 	public void init() {
 		// Per calcolare la dimensione degli array basta dividere le dimensioni dello schermo 
 		// (assumendo che le mappe siano grandi quanto lo schermo stesso) e dividerle per le dimensioni delle Tile.
-		// Ho aggiunto un offset alla larghezza percheé ho assunto che le mappe sarebbero state larghe il 50% in piú dello schermo
-		// per far si che fosse possibile inserire in quello spazio in piú il punto in cui cambiare
+		// Ho aggiunto un offset alla larghezza percheï¿½ ho assunto che le mappe sarebbero state larghe il 50% in piï¿½ dello schermo
+		// per far si che fosse possibile inserire in quello spazio in piï¿½ il punto in cui cambiare
 		// posizione alle mappe stesse in modo che non sia visibile a schermo tale operazione
 		width = (int) Math.ceil((Morpheus.WIDTH + 400) / TILE_WIDTH);
 		height = (int) Math.ceil(Morpheus.HEIGHT / TILE_HEIGHT);
 		// riempimento delle mappe: notare come gli zeri equivalgano a delle non-Tile (ossia degli spazi vuoti) e gli 1 invece indichino le posizioni delle Tile.
-		// l´inizializzazione delle mappe é formattata in questo modo e non su un unica riga non tanto per risparmiare spazio quanto per facilitare l´inserimento dei valori, 
-		// infatti si puó notare come le righe e le colonne siano lo stesso numero del valore delle variabili width e height e quindi tale formattazione rispecchia esattamente 
-		//ció che verrá visionato a schermo. Consiglio di mantenere questa formattazione sempre.(19 colonne e 8 righe)
+		// lï¿½inizializzazione delle mappe ï¿½ formattata in questo modo e non su un unica riga non tanto per risparmiare spazio quanto per facilitare lï¿½inserimento dei valori, 
+		// infatti si puï¿½ notare come le righe e le colonne siano lo stesso numero del valore delle variabili width e height e quindi tale formattazione rispecchia esattamente 
+		//ciï¿½ che verrï¿½ visionato a schermo. Consiglio di mantenere questa formattazione sempre.(19 colonne e 8 righe)
 		 map = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				  		 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				  		 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				  		 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				  		 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				  		 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				  		 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				  		 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
 				  		 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,};
 		
 		map1 = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -79,8 +79,8 @@ public class BitMap {
 	// Metodi che servono per convertire i valori degli Array soprastanti in Tile da renderizzare a schermo
 	public List<RandomTile> build() {
 		for (int i = 0; i < map.length; i++) {
-			// É un po' difficile da spiegare a parole comunque numera prima le righe e poi le colonne
-			// e quei numeri saranno le coordinate in cui verrá renderizzata la tale Tile nella BitMap
+			// ï¿½ un po' difficile da spiegare a parole comunque numera prima le righe e poi le colonne
+			// e quei numeri saranno le coordinate in cui verrï¿½ renderizzata la tale Tile nella BitMap
 			int x = i % width;
 			int y = i / width;
 			// Crea la la Tile

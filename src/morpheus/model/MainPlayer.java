@@ -1,6 +1,7 @@
 package morpheus.model;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Area;
 
 import morpheus.controller.KeyInput;
 import morpheus.model.Exceptions.NoBulletException;
@@ -23,7 +24,7 @@ public class MainPlayer extends AbstractDrawable {
 	/**
 	 * velocità iniziale.
 	 */
-	public static final int INITIAL_VEL = 7;
+	public static final int INITIAL_VEL = 5;
 	/**
 	 * velocità iniziale volo.
 	 */
@@ -31,7 +32,7 @@ public class MainPlayer extends AbstractDrawable {
 	/**
 	 * Gravità di partenza.
 	 */
-	public static final int INITIAL_GRAVITY = 1;
+	public static final double INITIAL_GRAVITY = 1.6;
 	/**
 	 * Per animazione morte.
 	 */
@@ -46,14 +47,24 @@ public class MainPlayer extends AbstractDrawable {
 	public static final int ROOF = 5;
 	private static final int BULLETSIZE = 24;
 	private volatile boolean runGO;
-	private int velRun = INITIAL_VEL;
+	
 	private int velFly = INITIAL_VEL_FLY;
 	private int jmp = 10;
-	private int gravity = INITIAL_GRAVITY;
+	private double gravity = INITIAL_GRAVITY;
 	private final Statistics s;
 	private Status status;
 	private final ModelAnimation animation;
 	private final Item item;
+	public int tileSynch;
+	public boolean falling;
+	public final int maxDY = 7;
+	public boolean verticalCollision = false;
+	private int velRun = INITIAL_VEL;
+	public boolean canJump = true;
+	public double velY = INITIAL_GRAVITY;
+	public boolean isJumping = false;
+	public final int timeJump = 11;
+	public int counterJump = 0;
 	/**
 	 * 
 	 * L'oggetto prende in input l'altezza e la larghezza dell'immagine a
@@ -69,13 +80,15 @@ public class MainPlayer extends AbstractDrawable {
 	 * @param state
 	 *            state of game
 	 */
-	public MainPlayer(final double x, final double y, final GameState state, final Image... i) {
+	private MainPlayer(final double x, final double y, final GameState state, final Image... i) {
 		super(x, y, state, i);
 		s = new Statistics();
 		status = Status.RUN;
 		this.runGO = true;
-		animation = new ModelAnimation(2, i);
+		animation = new ModelAnimation(4, i);
 		item = new Item();
+		tileSynch = 200;
+		falling = true;
 	}
 	
 	/**
@@ -95,6 +108,7 @@ public class MainPlayer extends AbstractDrawable {
 	            if (player == null) {
 	                player = new MainPlayer(x, y, state, 
 	                                new Sprite(new SpriteSheet(new Texture("res/sayan.png"), PLAYERWIDTH, PLAYERHEIGTH), 4, 1, 4).getFramesAsList());
+	                        
 	            }
 	        }
 	    }
@@ -115,17 +129,53 @@ public class MainPlayer extends AbstractDrawable {
 	 * Move the character.
 	 */
 	public void tick() {
-		goOn();
-		animation.run();
-		if (status == Status.DEATH) {
-			death();
-		} else {
-			if (KeyInput.isDown(s.getKeyJump())) {
-				jump();
-			}
-		}
+	    if (isRunning()) {
+	        goOn();
+	    }
+	    if(!verticalCollision) {
+	        fall();
+	        super.incY(velY);
+	    }
+	    if(counterJump >= 1) {
+	        jumping();
+	    } 
+	    if(!falling && counterJump == 0) {
+	        animation.run();
+	    }
+		
+	    if (status == Status.DEATH) {
+	        death();
+	    } else {
+	        if (KeyInput.isDown(s.getKeyJump())) {
+	            jump();
+	           
+	        }
+			
+	    }
 
 	}
+	/**
+         * Fa muovere l'immagine di Morpheus sull'asse orrizzontale.
+         */
+        private void goOn() {
+            
+            this.incX(velRun);
+            tileSynch += velRun;
+            
+       
+        }
+        
+        protected void fall() {
+           if (falling) {
+               velY = gravity;
+               if (velY > maxDY) {
+                   velY = maxDY;
+               }
+           } 
+           super.incY(velY);
+       }
+    
+
 
 	/**
 	 * Permette all'oggetto Morpheus di alzarsi.
@@ -134,11 +184,7 @@ public class MainPlayer extends AbstractDrawable {
 	 *             if the value of y is less then roof
 	 */
 	public void goUp() throws OverRoofException {
-		if (getY() - velFly < ROOF) {
-			final RuntimeException overRoof = new OverRoofException(ROOF - (int) this.getY() - velFly);
-			throw overRoof;
-		}
-
+		
 		this.incY(velFly);
 
 	}
@@ -158,7 +204,40 @@ public class MainPlayer extends AbstractDrawable {
 	 * Permette all'oggetto Morpheus di saltare.
 	 */
 	public void jump() {
-		this.decY(jmp);
+	    if (canJump) {
+		this.isJumping = true;
+	        this.decY(jmp);
+		canJump = false;
+		this.counterJump = 1;
+		this.falling = false;
+		
+	    }
+	    
+	   
+	}
+	
+	private void jumping() {
+	    this.decY(jmp);
+	    counterJump++;
+	    if(counterJump >= this.timeJump) {
+	        counterJump = 0;
+	        this.isJumping = false;
+	    }
+	}
+	
+	public void stopJumping() {
+	    this.counterJump = -1;
+	}
+	
+	public void jumpPermission() {
+	    this.counterJump = 0;
+	}
+	public int getVelRun() {
+	    return this.velRun;
+	}
+	
+	public void incY(final double inc) {
+	    super.incY(inc);
 	}
 	
 	/**
@@ -212,6 +291,8 @@ public class MainPlayer extends AbstractDrawable {
 	public void startRun() {
 		this.runGO = true;
 	}
+	
+	
 
 	/**
 	 * Set the run on false, so stop the character's run.
@@ -229,6 +310,9 @@ public class MainPlayer extends AbstractDrawable {
 		return this.runGO;
 	}
 
+	public int getJump() {
+	    return jmp;
+	}
 	/**
 	 * Set the field status.
 	 * 
@@ -249,13 +333,8 @@ public class MainPlayer extends AbstractDrawable {
 		return status;
 	}
 
-	/**
-	 * Fa muovere l'immagine di Morpheus sull'asse orrizzontale.
-	 */
-	private void goOn() {
-		this.incX(velRun);
-		this.incY(gravity);
-	}
+	
+	
 
 	private void death() {
 		if (getY() == FLOOR) {
@@ -265,13 +344,20 @@ public class MainPlayer extends AbstractDrawable {
 		}
 	}
 	
+	public void setVelRun(final int vel) {
+	    this.velRun = vel;
+	}
 	@Override
 	public void render(final Graphics2D g) {
-		if (status.equals(Status.RUN)) {
+		if (status.equals(Status.RUN) && isRunning()) {
 			animation.render(g, getX(), getY());
+			
 		} else {
 			super.render(g);
 		}
+		stopRun();
+	                
+	         
 	}
 	
 	/**
@@ -345,6 +431,20 @@ public class MainPlayer extends AbstractDrawable {
 	
 
 	/**
+     * @return the tileSynch
+     */
+    public int getTileSynch() {
+        return tileSynch;
+    }
+    
+    public double getGravity() {
+        return gravity;
+    }
+    
+    
+   
+
+    /**
 	 * 
 	 * @author jacopo
 	 *
@@ -355,6 +455,9 @@ public class MainPlayer extends AbstractDrawable {
 		 */
 		FLY, RUN, DEATH;
 	}
+
+
+
 
 
 

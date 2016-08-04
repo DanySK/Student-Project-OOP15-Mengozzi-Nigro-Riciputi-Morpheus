@@ -1,5 +1,6 @@
 package morpheus;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
@@ -118,6 +120,7 @@ public class Morpheus extends Canvas implements Runnable {
 			}
 		});
 		// Fa comparire la finestra al centro dello schermo
+	
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		start();

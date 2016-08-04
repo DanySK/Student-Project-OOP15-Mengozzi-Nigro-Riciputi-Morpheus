@@ -32,6 +32,7 @@ public class ModelAnimation {
 		this.speed = speed;
 		this.frames = frames;
 		this.numFrames = frames.length;
+		nextFrame();
 	}
 
 	protected void nextFrame() {

@@ -10,8 +10,10 @@ import javax.imageio.ImageIO;
 
 import morpheus.Morpheus;
 import morpheus.controller.BitMap;
-import morpheus.model.Entity;
-import morpheus.model.Player;
+import morpheus.controller.Camera;
+import morpheus.controller.Collision;
+import morpheus.model.AbstractDrawable;
+import morpheus.model.MainPlayer;
 
 public class GameState implements State {
 
@@ -24,20 +26,20 @@ public class GameState implements State {
 	private static int SECONDEDGE = 1304;
 	// Distanza a cui verranno renderizzate le prime 3 BitMap
 	private static int DISTANCE1 = 4000;
-	// Distaza a cui verrá renderizzata la terza BitMap
+	// Distaza a cui verrï¿½ renderizzata la terza BitMap
 	private static int DISTANCE2 = 5600;
-	// Valore di cui la posizione delle RandomTile verrá incrementata per poter
-	// traslare da una posizione all´altra nello spazioe e dare l´impressione di
+	// Valore di cui la posizione delle RandomTile verrï¿½ incrementata per poter
+	// traslare da una posizione allï¿½altra nello spazioe e dare lï¿½impressione di
 	// infinito
 	private static int MOVEINCR = 4800;
-	// Valore incrementativo dell´offset della posizione dell RandomTile e delle
+	// Valore incrementativo dellï¿½offset della posizione dell RandomTile e delle
 	// loro collisioni
 	private static int OFFSETINCR = 800;
 
 	private ArrayList<Tile> tiles;
-	private ArrayList<Entity> entities;
+	private ArrayList<AbstractDrawable> entities;
 	private Camera camera;
-	private Player player;
+	private MainPlayer player;
 	private BufferedImage background;
 	private BufferedImage background2;
 	// Variabili per la gestione dello scrolling dei background e permettono
@@ -47,11 +49,11 @@ public class GameState implements State {
 	private int parallaxCloud1 = 0;
 	private int parallaxCloud2 = 795;
 	// Serve per mantenere aggiornate le coordinate delle collisioni rispetto
-	// alla posizione delle Tile all´interno dell´algoritmo procedurale
+	// alla posizione delle Tile allï¿½interno dellï¿½algoritmo procedurale
 	private int Offset1 = 0;
 	private int Offset2 = 0;
 	// Serve per la verifica della condizione che scandisce la successione di
-	// ogni BitMap successiva all´altra
+	// ogni BitMap successiva allï¿½altra
 	private int check = 1;
 	// Indicano i punti esatti in cui le BitMap vengono renderizzate
 	private int point = 0;
@@ -66,15 +68,15 @@ public class GameState implements State {
 	// Creiamo una BitMap per costruire la mappa di gioco
 	private BitMap bitMap;
 	// Ho utilizzato 4 Array di RandomTile e non uno solo per cercare rendere il
-	// piú randomico possibile sistema e per fare si che sia possibile una
-	// proceduralitá delle BitMap stesse(sistema randomico non ancora
+	// piï¿½ randomico possibile sistema e per fare si che sia possibile una
+	// proceduralitï¿½ delle BitMap stesse(sistema randomico non ancora
 	// implementato)
 	private ArrayList<RandomTile> randomTiles;
 	private ArrayList<RandomTile> randomTiles1;
 	private ArrayList<RandomTile> randomTiles2;
 	private ArrayList<RandomTile> randomTiles3;
 	private ArrayList<RandomTile> allRandomTiles;
-
+	private Collision coll;
 	@Override
 	public void init() {
 		randomTiles = new ArrayList<>();
@@ -96,8 +98,8 @@ public class GameState implements State {
 		this.camera = new Camera(0, 0);
 		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
-		this.player = new Player(100, 100, this);
-
+		this.player = MainPlayer.getPlayer(150, 200, this);
+		coll = new Collision(this);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
 		// BitMap in Tile da renderizzare nella scena e le aggiungo alla lista
 		// di Tile da renderizzare nel metodo render()
@@ -129,7 +131,7 @@ public class GameState implements State {
 
 		g.translate(camera.getX(), camera.getY());
 		// ENTITA'
-		for (Entity e : entities) {
+		for (AbstractDrawable e : entities) {
 			e.render(g);
 		}
 		// Renderizzo le RandomTile
@@ -160,7 +162,10 @@ public class GameState implements State {
 		parallaxCloud2 += 1;
 		speedX2 += 1;
 
-		for (Entity e : entities) {
+		for (AbstractDrawable e : entities) {
+		        if (e instanceof MainPlayer) {
+		            coll.tick();
+		        }
 			e.tick();
 		}
 		camera.tick(player);
@@ -193,7 +198,7 @@ public class GameState implements State {
 		return allRandomTiles;
 	}
 
-	public void addEntity(Entity entity) {
+	public void addEntity(AbstractDrawable entity) {
 
 		entities.add(entity);
 	}
@@ -238,7 +243,7 @@ public class GameState implements State {
 		// errati
 		if (player.tileSynch != MOVEINCR * check) {
 			// Questa if decide che le bitmap vengono renderizzate ad una
-			// distanza di 4000 l´una dall´altra, l´offset qui serve per fare in
+			// distanza di 4000 lï¿½una dallï¿½altra, lï¿½offset qui serve per fare in
 			// modo che vengano renderizzate prima e non si veda nella scena la
 			// loro effetiva comparsa
 			if ((player.tileSynch - (DISTANCE1 + Offset1)) % DISTANCE1 == 0) {
@@ -251,11 +256,11 @@ public class GameState implements State {
 			}
 		}
 		// Faccio la stessa cosa con la terza BitMap che rimane separata dalle
-		// altre perché se le spostassi tutte insieme sparirebbe il terreno
+		// altre perchï¿½ se le spostassi tutte insieme sparirebbe il terreno
 		// sotto il giocatore non permettendogli di avanzare
 		if ((player.tileSynch - (DISTANCE2 - Offset2)) % DISTANCE2 == 0) {
 			point3 += MOVEINCR;
-			// Incremento la variabile del check qui perché il valore del
+			// Incremento la variabile del check qui perchï¿½ il valore del
 			// controllo in questione viene poco dopo i valori in cui verranno
 			// renderizzate le prime tre BitMap e se lo incrementassi prima il
 			// valore non sarebbe aggioranto per il check successivo sballando

@@ -10,13 +10,17 @@ import java.awt.image.BufferedImage;
  */
 public class Image {
 	private final BufferedImage image;
+	private final int heigth;
+	private final int width;
 	/**
 	 * Create an image.
 	 * @param image
 	 * 		the image
 	 */
-	public Image(final BufferedImage image) {
+	public Image(final BufferedImage image, final int width, final int heigth) {
 		this.image = image;
+		this.width = width;
+		this.heigth = heigth;
 	}
 	
 	/**
@@ -34,7 +38,7 @@ public class Image {
 	 * 		the image's height
 	 */
 	public int getHeigth() {
-		return image.getHeight();
+		return this.heigth;
 	}
 	
 	/**
@@ -43,7 +47,7 @@ public class Image {
 	 * 		the image's width
 	 */
 	public int getWidth() {
-		return image.getWidth();
+		return this.width;
 	}
 	
 	/**
