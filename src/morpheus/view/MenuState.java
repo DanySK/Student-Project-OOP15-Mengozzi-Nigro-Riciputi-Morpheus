@@ -7,12 +7,12 @@ import java.awt.event.MouseEvent;
 
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
+import morpheus.model.ModelAnimation;
 
 public class MenuState implements State{
 	
 	private Texture background;
-	private Texture morpheus;
-	private Texture titolo;
+	private ModelAnimation player;
 	private Button[] options;
 	private int currentSelection;
 	private static final int HITBOX_OFFSET = 15;
@@ -21,16 +21,20 @@ public class MenuState implements State{
 	public void init() {
 		
 		background = new Texture("res/matrix_blu.jpg");
-		morpheus = new Texture("res/morpheus_giga.png");
-		titolo = new Texture("res/titolo.png");
+		player = new ModelAnimation(5, new Sprite(new SpriteSheet(new Texture("res/sayan2.png"), 83, 120), 4, 1, 4).getFramesAsList());
 		
 		options = new Button[4];
 		
-		//Capire cos'e il primo numero
-		options[0] = new Button(150, "res/play_bianco.png", "res/play_nero.png");
-		options[1] = new Button(200, "res/ranking_bianco.png", "res/ranking_nero.png");
-		options[2] = new Button(250, "res/settings_bianco.png", "res/settings_nero.png");
-		options[3] = new Button(300, "res/exit_bianco.png", "res/exit_nero.png");
+		options[0] = new Button(175, "res/play_bianco.png", "res/play_nero.png");
+		options[1] = new Button(225, "res/ranking_bianco.png", "res/ranking_nero.png");
+		options[2] = new Button(275, "res/settings_bianco.png", "res/settings_nero.png");
+		options[3] = new Button(325, "res/exit_bianco.png", "res/exit_nero.png");
+		
+//		SI POSSONO FARE I BOTTONI PIU DISTANZIATI
+//		options[0] = new Button(150, "res/play_bianco.png", "res/play_nero.png");
+//		options[1] = new Button(225, "res/ranking_bianco.png", "res/ranking_nero.png");
+//		options[2] = new Button(300, "res/settings_bianco.png", "res/settings_nero.png");
+//		options[3] = new Button(375, "res/exit_bianco.png", "res/exit_nero.png");
 	}
 
 	@Override
@@ -77,9 +81,7 @@ public class MenuState implements State{
 	public void render(Graphics2D g) {
 		
 		background.render(g, 0, 0);
-		//Rimettere morpheus e titolo più avanti
-		//morpheus.render(g, 475, 250);
-		//titolo.render(g, 375, 50);
+		player.render(g, 500, 175);
 		
 		//Renderizzo il bottone selezionato
 		for (int i=0; i<options.length; i++) {
@@ -93,6 +95,9 @@ public class MenuState implements State{
 			}
 			options[i].render(g);
 		}
+		
+		//Tick dell'animazione
+		player.run();
 	}
 
 	@Override
