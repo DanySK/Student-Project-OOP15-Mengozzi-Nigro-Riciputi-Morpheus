@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -16,7 +17,7 @@ import javax.swing.JTextArea;
 
 public class RankedState implements State {
 
-	private final JFrame frame = new JFrame("Leaderboard");
+	private JFrame frame;
 	private final JLabel num1 = new JLabel("1.");
 	private final JLabel num2 = new JLabel("2.");
 	private final JLabel num3 = new JLabel("3.");
@@ -36,7 +37,6 @@ public class RankedState implements State {
 	
 	public RankedState(){
 		
-		
 	}
 
 	@Override
@@ -48,6 +48,7 @@ public class RankedState implements State {
 	@Override
 	public void enter() {
 		
+		frame = new JFrame("Leaderboard");
 		exit = false;
 		BackgroundRankedState background = new BackgroundRankedState();
 		background.setLayout(new GridLayout(5, 3));
@@ -105,7 +106,8 @@ public class RankedState implements State {
 		background.add(res5);
 
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-	    frame.addWindowListener(new WindowListener() {
+		
+		frame.addWindowListener(new WindowListener() {
 			
 			@Override
 			public void windowOpened(WindowEvent e) {

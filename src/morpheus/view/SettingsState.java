@@ -17,10 +17,11 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 
 public class SettingsState implements State {
 
-	private final JFrame frame = new JFrame("Options");
+	private JFrame frame;
 	private JPanel p1 = new JPanel();
 	private JPanel p2 = new JPanel();
 	private JPanel p3 = new JPanel();
@@ -32,13 +33,12 @@ public class SettingsState implements State {
 	private final JLabel sound = new JLabel("SOUND:");
 	private JComboBox<String> j;
 	private JComboBox<String> s;
-	private JComboBox<Integer> m;
+	private JSlider m = new JSlider(0, 100);
 	private final JButton blonde = new JButton("Valpiani");
 	private final JButton violet = new JButton("Gulizia");
 	private final JButton menu = new JButton("Return to Menu");//Posso anche toglierlo
 	private final String listj[] = new String[3];
 	private final String lists[] = new String[3];
-	private final Integer listm[] = new Integer[6];
 	private boolean exit;
 	
 	public SettingsState(){
@@ -62,18 +62,13 @@ public class SettingsState implements State {
 		
 		s = new JComboBox<>(lists);
 		
-		for (int i=0; i<6; i++){
-			
-			listm[i] = i;
-		}
-		
-		m = new JComboBox<>(listm);
 	}
 
 	@Override
 	public void enter() {
 		
 	exit = false;
+	frame  = new JFrame("Options");
 	frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 	
 	p1.setLayout(new FlowLayout());

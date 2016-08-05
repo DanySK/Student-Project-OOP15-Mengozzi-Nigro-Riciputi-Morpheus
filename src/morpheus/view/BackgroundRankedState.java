@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 
 public class BackgroundRankedState extends JPanel{
 	
-	
-
 		private static final long serialVersionUID = 8773250085938571559L;
 		private Image img;
 
