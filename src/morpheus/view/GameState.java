@@ -89,7 +89,7 @@ public class GameState implements State {
 		bitMap.init();
 
 		try {
-			background = ImageIO.read(new File("res/forsebuono.png"));
+			background = ImageIO.read(new File("res/ultimo.png"));//Ci sono anche wow.png e wow2.png
 			background2 = ImageIO.read(new File("res/nuvole_buone.png"));
 		} catch (IOException e) {
 			System.out.println("Failed to load background image");

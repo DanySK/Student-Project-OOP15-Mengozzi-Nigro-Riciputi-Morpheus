@@ -134,22 +134,6 @@ public class SettingsState implements State {
 	
 	//frame.pack();
 	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-		
-		
-		
 	   
 	    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	    frame.addWindowListener(new WindowListener() {
