@@ -241,12 +241,12 @@ public class GameState implements State {
 	public void renderWorld(Graphics2D g) {
 		// Condizione per evitare che le BitMap si posizionino a dei valori
 		// errati
-		if (player.tileSynch != MOVEINCR * check) {
+		if (player.getTileSynch() != MOVEINCR * check) {
 			// Questa if decide che le bitmap vengono renderizzate ad una
 			// distanza di 4000 l�una dall�altra, l�offset qui serve per fare in
 			// modo che vengano renderizzate prima e non si veda nella scena la
 			// loro effetiva comparsa
-			if ((player.tileSynch - (DISTANCE1 + Offset1)) % DISTANCE1 == 0) {
+			if ((player.getTileSynch() - (DISTANCE1 + Offset1)) % DISTANCE1 == 0) {
 				// Incremento le variabili per "spostare" le BitMap ogni 4000 +
 				// offset punti
 				point += MOVEINCR;
@@ -258,7 +258,7 @@ public class GameState implements State {
 		// Faccio la stessa cosa con la terza BitMap che rimane separata dalle
 		// altre perch� se le spostassi tutte insieme sparirebbe il terreno
 		// sotto il giocatore non permettendogli di avanzare
-		if ((player.tileSynch - (DISTANCE2 - Offset2)) % DISTANCE2 == 0) {
+		if ((player.getTileSynch() - (DISTANCE2 - Offset2)) % DISTANCE2 == 0) {
 			point3 += MOVEINCR;
 			// Incremento la variabile del check qui perch� il valore del
 			// controllo in questione viene poco dopo i valori in cui verranno

@@ -7,124 +7,157 @@ import java.util.List;
 import morpheus.model.Bullet;
 import morpheus.model.Image;
 import morpheus.model.ModelAnimation;
-import morpheus.model.Sprite;
-import morpheus.model.SpriteSheet;
 import morpheus.view.GameState;
 import morpheus.view.Texture;
 
-public class Tree extends Monster {
+/**
+ * 
+ * @author jacopo
+ *
+ */
+public class Tree extends AbstractMonster {
 
     private final List<TreeBullet> bullets;
-    private final Thread th;
-    private volatile boolean stop;
-    public Tree(double x, double y, GameState game, Image[] i) {
+    private volatile boolean threadStop;
+
+    /**
+     * Create a Tree monster.
+     * 
+     * @param x
+     *            X position
+     * @param y
+     *            Y position
+     * @param game
+     *            GameState
+     * @param i
+     *            the animation's images
+     */
+    public Tree(final double x, final double y, final GameState game, final Image... i) {
         super(x, y, game, i);
-        final TreeAnimation anime = new TreeAnimation(i, this);
+        final TreeAnimation anime = new TreeAnimation(this, i);
         setAnime(anime);
         bullets = new ArrayList<>();
-        stop = false;
-        th = new Thread(anime);
-        th.start();
+        threadStop = false;
+        new Thread(anime).start();
     }
 
     @Override
     public void tick() {
-        for(TreeBullet tb : bullets) {
+        for (final TreeBullet tb : bullets) {
             tb.tick();
         }
     }
-    
-    public void render(final Graphics2D g) {    
-       getAnimation().render(g, getX(), getY());
-     
-       
-       //da togliere
-       tick();
-      
-       
-       for(Bullet b : bullets) {
-          
-           b.render(g);
-       }
+
+    /**
+     * Render on screen the tree.
+     * 
+     * @param g
+     *            the graphics
+     */
+    public void render(final Graphics2D g) {
+        getAnimation().render(g, getX(), getY());
+        for (final Bullet b : bullets) {
+            b.render(g);
+        }
     }
 
+    /**
+     * Add a bullet on the tree bullet's list.
+     * 
+     * @param b
+     *            the new bullet
+     */
     public void addBullet(final TreeBullet b) {
         bullets.add(b);
     }
-    
+
+    /**
+     * Stop the thread.
+     */
     public void stop() {
-        stop = true;
+        threadStop = true;
     }
-    
+
     private static class TreeAnimation extends ModelAnimation implements Runnable {
 
-        
+        private static final int THREADSLEEP = 1500;
+        private static final int BULLETDIMENSION = 18;
         private final Tree tree;
-        public TreeAnimation( Image[] frames, final Tree tree) {
+
+        TreeAnimation(final Tree tree, final Image... frames) {
             super(2, frames);
-            tree.stop = false;
+            tree.threadStop = false;
             this.tree = tree;
             this.currentFrame = frames[0];
         }
-        
+
         public void run() {
-            
-            while(!tree.stop) {
+
+            while (!tree.threadStop) {
                 super.run();
                 tree.addBullet(shoot());
-               
-                
-                
+
                 try {
-                  
+
                     Thread.sleep(100);
                     super.run();
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.out.println("ThreadError");
                 }
                 try {
                     Thread.sleep(100);
                     super.run();
-                  
+
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.out.println("ThreadError");
                 }
-                
+
                 try {
-                    Thread.sleep(1500);
+                    Thread.sleep(THREADSLEEP);
                     super.run();
-                    
+
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.out.println("ThreadError");
                 }
-                
-                
+
             }
         }
-        
-        
+
         private TreeBullet shoot() {
-                  return new TreeBullet(tree.getX(), tree.getY(), tree.getState(), 
-                                  new Image(new Texture("res/zucca.png").getImage(), 18, 18));     
+            return new TreeBullet(tree.getX(), tree.getY(), tree.getState(),
+                    new Image(new Texture("res/zucca.png").getImage(), BULLETDIMENSION, BULLETDIMENSION));
         }
-       
-        
+
     }
-    
+
+    /**
+     * 
+     * @author jacopo
+     *
+     */
     public static class TreeBullet extends Bullet {
 
-        public TreeBullet(double x, double y, GameState game, Image i) {
+        /**
+         * Create a tree bullet.
+         * 
+         * @param x
+         *            X position
+         * @param y
+         *            Y position
+         * @param game
+         *            GameState
+         * @param i
+         *            the image
+         */
+        public TreeBullet(final double x, final double y, final GameState game, final Image i) {
             super(x, y, game, i);
-           
+
         }
-        
+
         @Override
         public void tick() {
             this.decX(this.getBulletVelocity());
         }
-        
+
     }
 }

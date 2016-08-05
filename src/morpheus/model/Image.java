@@ -8,19 +8,26 @@ import java.awt.image.BufferedImage;
  * @author jacopo
  *
  */
+
 public class Image {
-	private final BufferedImage image;
-	private final int heigth;
+    
+	private final BufferedImage img;
+	private final int height;
 	private final int width;
+	
 	/**
 	 * Create an image.
 	 * @param image
-	 * 		the image
+	 *             the image
+	 * @param width
+	 *             his width
+	 * @param height
+	 *             his height
 	 */
-	public Image(final BufferedImage image, final int width, final int heigth) {
-		this.image = image;
+	public Image(final BufferedImage image, final int width, final int height) {
+		this.img = image;
 		this.width = width;
-		this.heigth = heigth;
+		this.height = height;
 	}
 	
 	/**
@@ -29,7 +36,7 @@ public class Image {
 	 * 		the image
 	 */
 	public BufferedImage getImage() {
-		return image;
+		return img;
 	}
 	
 	/**
@@ -38,7 +45,7 @@ public class Image {
 	 * 		the image's height
 	 */
 	public int getHeigth() {
-		return this.heigth;
+		return this.height;
 	}
 	
 	/**
@@ -60,7 +67,7 @@ public class Image {
 	 * 		the y position
 	 */
 	public void render(final Graphics2D g, final double x, final double y) {
-		g.drawImage(image, (int) x, (int) y, null);
+		g.drawImage(img, (int) x, (int) y, null);
 	}
 	
 }

@@ -20,9 +20,9 @@ public class RandomTile {
 		this.y = 0;
 		this.solid = true;
 		this.offset = 0;
-		// idSprite non é altro che il valore della BitMap della singola Tile che determina quale Tile verrá renderizzata.
+		// idSprite non ï¿½ altro che il valore della BitMap della singola Tile che determina quale Tile verrï¿½ renderizzata.
 		// Per ora ho inserito solo un tipo di tile ma ho gia fatto 
-		// lo spazio per le altre quindi ci sará modo e tempo per inserirle
+		// lo spazio per le altre quindi ci sarï¿½ modo e tempo per inserirle
 		switch (idSprite) {
 		case 1:
 			this.sprite = new Sprite(new SpriteSheet(new Texture("res/ground2.png"), 64), 5, 8);
@@ -33,7 +33,7 @@ public class RandomTile {
 		case 4:
 		}
 	}
-	// Metodo render analogo a quello delle Tile normali se non per l´offset relativo alle collisioni
+	// Metodo render analogo a quello delle Tile normali se non per lï¿½offset relativo alle collisioni
 	public void render(Graphics2D g, int offset) {
 		sprite.render(g, x + offset, y);
 		setOffset(offset);
@@ -86,16 +86,16 @@ public class RandomTile {
 		return new Rectangle((int) x + offset, (int) y + 6, 4, sprite.getHeight() - 6);
 	}
 
-	// Metodo per spostare le tile all´interno della scena, riceve in input dei
+	// Metodo per spostare le tile allï¿½interno della scena, riceve in input dei
 	// valori interi e li trasforma in coordinate pixel moltiplicando tali
-	// valori per la larghezza e l´altezza delle tile stesse
+	// valori per la larghezza e lï¿½altezza delle tile stesse
 	public void setLocation(int x, int y) {
 		if (sprite != null) {
 			this.x = x * BitMap.TILE_WIDTH;
 			this.y = y * BitMap.TILE_HEIGHT;
 		}
 	}
-	// Metodo per impostare velocemente l´offset delle collisioni
+	// Metodo per impostare velocemente lï¿½offset delle collisioni
 	public void setOffset(int offset) {
 		this.offset = offset;
 	}

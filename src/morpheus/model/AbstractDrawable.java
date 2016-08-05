@@ -21,7 +21,7 @@ public abstract class AbstractDrawable implements Drawable {
 	private final Image mainFrame;
 	private double x;
 	private double y;
-	private GameState state;
+	private final GameState state;
 	
 
 	/**
@@ -158,7 +158,7 @@ public abstract class AbstractDrawable implements Drawable {
 	 * @return Un rettangolo che rappresenta il lato inferiore
 	 */
 	public Rectangle getLowerSide() {
-		return new Rectangle((int) this.getX(), (int) this.getY(), this.getHeight(), 1);
+		return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth() - 25, 1);
 	}
 
 	/**

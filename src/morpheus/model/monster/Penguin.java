@@ -11,16 +11,22 @@ import morpheus.view.GameState;
  * @author jacopo
  *
  */
-public class Penguin extends Monster {
+public class Penguin extends AbstractMonster {
 
+    private static final int PENGUINOFFSET = 30;
+    
     /**
-     * 
+     * Create a Penguin monster.
      * @param x
+     *          his X
      * @param y
+     *          his Y
      * @param game
+     *          the GameState
      * @param i
+     *          the animation image
      */
-    public Penguin(final double x, final double y, final GameState game, final Image[] i) {
+    public Penguin(final double x, final double y, final GameState game, final Image... i) {
         super(x, y, game, i);
         setAnime(new PenguinAnimation(2, i));
     }
@@ -28,10 +34,10 @@ public class Penguin extends Monster {
     @Override
     public void tick() {
 
-        if (getDirection()) {
+        if (isDirection()) {
             
             incX(1);
-            if (getX() >= getInitialX() + 30) {
+            if (getX() >= getInitialX() + PENGUINOFFSET) {
                 getAnimation().run();
                 
                 changeDirection();
@@ -40,7 +46,7 @@ public class Penguin extends Monster {
 
            
             decX(1);
-            if (getX() <= getInitialX() - 30) {
+            if (getX() <= getInitialX() - PENGUINOFFSET) {
                 getAnimation().run();
                 
                 changeDirection();
@@ -50,29 +56,25 @@ public class Penguin extends Monster {
     
     @Override
     public void render(final Graphics2D g) {
-        if (getAnimation() != null) {
-
-            getAnimation().render(g, getX(), getY());
-        } else {
+        if (getAnimation() == null) {
             super.render(g);
-
+        } else {
+            getAnimation().render(g, getX(), getY());
         }
     }
 
     private static class PenguinAnimation extends ModelAnimation {
 
-        private int index;
+        
       
         /**
          * 
          * @param speed
          * @param frames
          */
-        PenguinAnimation(final int speed, final Image[] frames) {
+        PenguinAnimation(final int speed, final Image... frames) {
             super(speed, frames);
-            index = 1;
-            this.currentFrame = frames[index];
-           
+            this.currentFrame = frames[1];
         }
 
         

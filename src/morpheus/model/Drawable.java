@@ -2,7 +2,6 @@ package morpheus.model;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 
 /**
