@@ -12,16 +12,20 @@ import morpheus.model.ModelAnimation;
 public class MenuState implements State{
 	
 	private Texture background;
-	private ModelAnimation player;
+	private ModelAnimation player1;
+	private ModelAnimation player2;
 	private Button[] options;
 	private int currentSelection;
+	//Se è true c'e il biondo
+	public static boolean defaultAnimation = true;
 	private static final int HITBOX_OFFSET = 15;
 
 	@Override
 	public void init() {
 		
 		background = new Texture("res/matrix_blu.jpg");
-		player = new ModelAnimation(5, new Sprite(new SpriteSheet(new Texture("res/sayan2.png"), 83, 120), 4, 1, 4).getFramesAsList());
+		player1 = new ModelAnimation(5, new Sprite(new SpriteSheet(new Texture("res/sayan2.png"), 83, 120), 4, 1, 4).getFramesAsList());
+		player2 = new ModelAnimation(5, new Sprite(new SpriteSheet(new Texture("res/violet2.png"), 83, 120), 4, 1, 4).getFramesAsList());
 		
 		options = new Button[4];
 		
@@ -75,13 +79,31 @@ public class MenuState implements State{
 		if (clicked || KeyInput.isPressed(KeyEvent.VK_ENTER)) {
 			select(stateManager);
 		}
+		
+		//Tick dell'animazione
+		if (defaultAnimation){
+			
+			player1.run();
+		}
+		else{
+			
+			player2.run();
+		}
 	}
 	
 	@Override
 	public void render(Graphics2D g) {
 		
 		background.render(g, 0, 0);
-		player.render(g, 500, 175);
+		if (defaultAnimation){
+			
+			player1.render(g, 500, 175);
+		}
+		else{
+			
+			player2.render(g, 500, 175);
+		}
+		
 		
 		//Renderizzo il bottone selezionato
 		for (int i=0; i<options.length; i++) {
@@ -95,9 +117,6 @@ public class MenuState implements State{
 			}
 			options[i].render(g);
 		}
-		
-		//Tick dell'animazione
-		player.run();
 	}
 
 	@Override
@@ -117,7 +136,6 @@ public class MenuState implements State{
 		switch (currentSelection) {
 		
 		case 0:
-			//Magari cambiarlo
 			stateManager.setState("Game");
 			break;
 		case 1:

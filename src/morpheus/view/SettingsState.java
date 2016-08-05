@@ -6,6 +6,10 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,6 +39,7 @@ public class SettingsState implements State {
 	private final String listj[] = new String[3];
 	private final String lists[] = new String[3];
 	private final Integer listm[] = new Integer[6];
+	private boolean exit;
 	
 	public SettingsState(){
 		
@@ -42,6 +47,8 @@ public class SettingsState implements State {
 
 	@Override
 	public void init() {
+		
+		blonde.setEnabled(false);
 		
 		listj[0] = "Q";
 		listj[1] = "W";
@@ -66,7 +73,7 @@ public class SettingsState implements State {
 	@Override
 	public void enter() {
 		
-		
+	exit = false;
 	frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 	
 	p1.setLayout(new FlowLayout());
@@ -76,7 +83,32 @@ public class SettingsState implements State {
 	p1.add(player);
 	p1.add(blonde);
 	p1.add(violet);
-	blonde.setEnabled(false);
+	
+	//Dico ai bottoni cosa devono fare
+	blonde.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			blonde.setEnabled(false);
+			violet.setEnabled(true);
+			MenuState.defaultAnimation = true;
+		}
+	});
+
+	violet.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			blonde.setEnabled(true);
+			violet.setEnabled(false);
+			MenuState.defaultAnimation = false;
+		}
+	});
+	
+	
+	
 	
 	frame.getContentPane().add(p1);
 	
@@ -105,7 +137,7 @@ public class SettingsState implements State {
 	
 	frame.getContentPane().add(p5);
 	
-	
+	//frame.pack();
 	
 		
 		
@@ -124,7 +156,51 @@ public class SettingsState implements State {
 		
 		
 	   
-	    
+	    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	    frame.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+				exit = true;
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	    frame.setSize(500, 500);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -150,7 +226,11 @@ public class SettingsState implements State {
 
 	@Override
 	public void tick(StateManager stateManager) {
-		// TODO Auto-generated method stub
 		
+		if (exit == true){
+			
+			stateManager.setMenuState();
+			frame.dispose();
+		}
 	}
 }

@@ -18,8 +18,8 @@ public final class MainPlayer extends AbstractDrawable {
 
     private static MainPlayer player;
 
-    private static final int PLAYERHEIGTH = 80;
-    private static final int PLAYERWIDTH = 55;
+    private static final int PLAYERHEIGTH = 60;
+    private static final int PLAYERWIDTH = 41;
 
     private static final int NJUMP = 11;
     private static final int CHECKINJUMP = 1;
@@ -108,7 +108,7 @@ public final class MainPlayer extends AbstractDrawable {
         synchronized (MainPlayer.class) {
             if (player == null) {
                 player = new MainPlayer(x, y, state,
-                        new Sprite(new SpriteSheet(new Texture("res/sayan.png"), PLAYERWIDTH, PLAYERHEIGTH), 4, 1, 4)
+                        new Sprite(new SpriteSheet(new Texture("res/sayan60.png"), PLAYERWIDTH, PLAYERHEIGTH), 4, 1, 4)
                                 .getFramesAsList());
 
             }

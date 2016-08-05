@@ -71,4 +71,9 @@ public class StateManager{
 		
 		currentState.render(g);
 	}
+	
+	public void setMenuState(){
+		
+		currentState = map.get("MENU");
+	}
 }

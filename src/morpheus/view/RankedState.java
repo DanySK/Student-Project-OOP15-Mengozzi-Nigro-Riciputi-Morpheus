@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,6 +32,7 @@ public class RankedState implements State {
 	private final JLabel res3 = new JLabel("400");
 	private final JLabel res4 = new JLabel("398");
 	private final JLabel res5 = new JLabel("5");
+	private boolean exit;
 	
 	public RankedState(){
 		
@@ -45,7 +48,7 @@ public class RankedState implements State {
 	@Override
 	public void enter() {
 		
-		
+		exit = false;
 		BackgroundRankedState background = new BackgroundRankedState();
 		background.setLayout(new GridLayout(5, 3));
 	    frame.getContentPane().add(background);
@@ -100,6 +103,52 @@ public class RankedState implements State {
 		background.add(num5);
 		background.add(name5);
 		background.add(res5);
+
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	    frame.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+				exit = true;
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		frame.setSize(500, 300);
 		frame.setResizable(false);
@@ -117,9 +166,6 @@ public class RankedState implements State {
 	public void exit() {
 		
 
-		//stateManager.setState("Menu");
-		//Altrimenti si passa il numero di frame al menustate che nel suo tick() quando vede che
-		//c'e solo il prìncipale si seleziona se stesso
 	}
 
 	@Override
@@ -130,7 +176,11 @@ public class RankedState implements State {
 
 	@Override
 	public void tick(StateManager stateManager) {
-		// TODO Auto-generated method stub
 		
+		if (exit == true){
+			
+			stateManager.setMenuState();
+			frame.dispose();
+		}
 	}
 }
