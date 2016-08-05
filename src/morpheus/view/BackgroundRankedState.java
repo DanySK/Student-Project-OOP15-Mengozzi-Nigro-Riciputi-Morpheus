@@ -16,6 +16,7 @@ public class BackgroundRankedState extends JPanel{
 			
 			img = Toolkit.getDefaultToolkit().createImage("res/coppap2.png");
 			check();
+			//this.setSize(500, 300);
 		}
 		
 		private void check(){

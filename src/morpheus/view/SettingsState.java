@@ -67,11 +67,20 @@ public class SettingsState implements State {
 	@Override
 	public void enter() {
 		
-	exit = false;
 	frame  = new JFrame("Options");
-	frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+	exit = false;
+	BackgroundSettingsState background = new BackgroundSettingsState();
+	frame.getContentPane().add(background);
+	background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
 	
-	p1.setLayout(new FlowLayout());
+	
+	p1.setOpaque(false);
+	p2.setOpaque(false);
+	p3.setOpaque(false);
+	p4.setOpaque(false);
+	p5.setOpaque(false);
+	
+	
 	player.setFont(new Font("TimesRoman", Font.BOLD, 24));
 	//player.setHorizontalAlignment(JLabel.LEFT);
 
@@ -103,34 +112,41 @@ public class SettingsState implements State {
 	});
 	
 	
-	
-	
-	frame.getContentPane().add(p1);
+	background.add(p1);
 	
 	jump.setFont(new Font("TimesRoman", Font.BOLD, 24));
 	p2.add(jump);
 	p2.add(j);
 	
 	
-	frame.getContentPane().add(p2);
+	background.add(p2);
 	
 	shoot.setFont(new Font("TimesRoman", Font.BOLD, 24));
 	p3.add(shoot);
 	p3.add(s);
 	
 	
-	frame.getContentPane().add(p3);
+	background.add(p3);
 	
 	sound.setFont(new Font("TimesRoman", Font.BOLD, 24));
 	p4.add(sound);
 	p4.add(m);
 	
 	
-	frame.getContentPane().add(p4);
+	background.add(p4);
 	
 	p5.add(menu);
 	
-	frame.getContentPane().add(p5);
+	menu.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			exit = true;
+		}
+	});
+	
+	background.add(p5);
 	
 	//frame.pack();
 	
