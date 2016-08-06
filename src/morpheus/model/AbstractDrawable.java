@@ -130,8 +130,8 @@ public abstract class AbstractDrawable implements Drawable {
 	 * 
 	 * @return Un rettangolo che rappresenta il lato superiore
 	 */
-	public Rectangle getUpperSide() {
-		return new Rectangle((int) this.getX(), (int) this.getY() - this.getHeight(), this.getWidth(), 1);
+	public Rectangle getTop() {
+		return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), 1);
 	}
 
 	/**
@@ -139,7 +139,7 @@ public abstract class AbstractDrawable implements Drawable {
 	 * 
 	 * @return Un rettangolo che rappresenta il lato di sinistra
 	 */
-	public Rectangle getLeftSide() {
+	public Rectangle getLeft() {
 		return new Rectangle((int) this.getX(), (int) this.getY(), 1, this.getHeight());
 	}
 
@@ -148,7 +148,7 @@ public abstract class AbstractDrawable implements Drawable {
 	 * 
 	 * @return Un rettangolo che rappresenta il lato di destra
 	 */
-	public Rectangle getRightSide() {
+	public Rectangle getRight() {
 		return new Rectangle((int) this.getX() + this.getWidth(), (int) this.getY(), 1, this.getHeight());
 	}
 
@@ -157,8 +157,8 @@ public abstract class AbstractDrawable implements Drawable {
 	 * 
 	 * @return Un rettangolo che rappresenta il lato inferiore
 	 */
-	public Rectangle getLowerSide() {
-		return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth() - 25, 1);
+	public Rectangle getBottom() {
+		return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), 1);
 	}
 
 	/**

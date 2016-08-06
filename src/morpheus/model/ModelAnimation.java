@@ -10,16 +10,16 @@ import java.awt.Graphics2D;
 public class ModelAnimation {
 	private int count;
 	private int index;
-	private int speed;
-	private int numFrames;
+	private final int speed;
+	private final int numFrames;
 	/**
 	 * current frame.
 	 */
-	protected Image currentFrame;
+	private Image currentFrame;
 	/**
 	 * All the frames.
 	 */
-	protected Image[] frames;
+	private Image[] frames;
 
 	/**
 	 * Create an animation.
@@ -32,9 +32,12 @@ public class ModelAnimation {
 		this.speed = speed;
 		this.frames = frames;
 		this.numFrames = frames.length;
-		nextFrame();
+		currentFrame = frames[0];
 	}
 
+	/**
+	 * Change to the next frame.
+	 */
 	protected void nextFrame() {
 		currentFrame = frames[index];
 		index++;
@@ -68,6 +71,25 @@ public class ModelAnimation {
 		if (currentFrame != null) {
 			currentFrame.render(g, x, y);
 		}
+	}
+	
+	/**
+	 * Set the current frame.
+	 * @param i
+	 *             the new current frame
+	 */
+	protected void setCurrentFrame(final Image i) {
+	    currentFrame = i;
+	}
+	
+	/**
+	 * Returns the animation's images.
+	 * @return
+	 *             the animation's images
+	 */
+	protected Image[] getFrames() {
+	    Image[] i = frames;
+	    return i;
 	}
 	
 }

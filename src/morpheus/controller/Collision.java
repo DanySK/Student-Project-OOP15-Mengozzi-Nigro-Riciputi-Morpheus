@@ -20,7 +20,7 @@ public class Collision {
         // NORMAL TILES
         for (int i = 0; i < state.getTiles().size(); i++) {
             Tile t = state.getTiles().get(i);
-            if (player.getLowerSide().intersects(t.getTop()) && player.getVelY() > 0) {
+            if (player.getBottom().intersects(t.getTop()) && player.getVelY() > 0) {
                 player.groundCollission();
                 return true;
             } else {
@@ -40,7 +40,7 @@ public class Collision {
         // RANDOM TILES
         for (int i = 0; i < state.getAllRandomTiles().size(); i++) {
             RandomTile rt1 = state.getAllRandomTiles().get(i);
-            if (player.getLowerSide().intersects(rt1.getTop()) && player.getVelY() >= 0) {
+            if (player.getBottom().intersects(rt1.getTop()) && player.getVelY() >= 0) {
 
                 player.groundCollission();
                 return true;

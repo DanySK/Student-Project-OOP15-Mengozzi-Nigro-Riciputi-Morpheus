@@ -100,9 +100,9 @@ public class Bullet extends AbstractDrawable {
          * @param speed
          * @param frames
          */
-        BulletAnimation(final int speed, final Image[] frames) {
+        BulletAnimation(final int speed, final Image... frames) {
             super(speed, frames);
-            this.currentFrame = frames[0];
+            
         }
 
         @Override
@@ -110,7 +110,7 @@ public class Bullet extends AbstractDrawable {
          * The explosion of the bullet.
          */
         public void run() {
-            this.currentFrame = frames[1];
+            setCurrentFrame(getFrames()[1]);
         }
     }
 

@@ -1,8 +1,10 @@
 package morpheus.model;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import morpheus.Morpheus;
 import morpheus.controller.KeyInput;
 import morpheus.model.Exceptions.NoBulletException;
 import morpheus.view.GameState;
@@ -363,6 +365,16 @@ public final class MainPlayer extends AbstractDrawable {
         } else {
             super.render(g);
         }
+        if (Morpheus.DEBUG) {
+            g.setColor(Color.BLACK);
+            g.draw(this.getTop());
+            g.setColor(Color.BLUE);
+            g.draw(getBottom());
+            g.setColor(Color.MAGENTA);
+            g.draw(getLeft());
+            g.setColor(Color.ORANGE);
+            g.draw(getRight());
+    }
         stopRun();
 
     }
@@ -419,8 +431,8 @@ public final class MainPlayer extends AbstractDrawable {
         this.verticalCollision = verticalCollision;
     }
 
-    public Rectangle getLowerSide() {
-        return new Rectangle((int) getX() + 6, (int) getY() + getHeight() - 4, getWidth() - 25, 4);
+    public Rectangle getBottom() {
+        return new Rectangle((int) getX() + 5, (int) getY() + getHeight() -3 , getWidth() - 10, 1);
     }
     /**
      * 

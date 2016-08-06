@@ -100,7 +100,7 @@ public abstract class AbstractMonster extends AbstractDrawable {
      * 
      * @return the initial Y value.
      */
-    protected double getiInitialY() {
+    protected double getInitialY() {
         return initialY;
     }
     

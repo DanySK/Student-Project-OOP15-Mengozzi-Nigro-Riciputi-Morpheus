@@ -32,28 +32,28 @@ public interface Drawable {
      * @return
      *          Un rettangolo che rappresenta il lato superiore
      */
-    Rectangle getUpperSide();
+    Rectangle getTop();
     
     /**
      * Un rettangolo che rappresenta il lato di sinistra.
      * @return
      *          Un rettangolo che rappresenta il lato di sinistra
      */
-    Rectangle getLeftSide();
+    Rectangle getLeft();
     
     /**
      * Un rettangolo che rappresenta il lato di destra.
      * @return
      *          Un rettangolo che rappresenta il lato di destra
      */
-    Rectangle getRightSide();
+    Rectangle getRight();
     
     /**
      * Un rettangolo che rappresenta il lato inferiore.
      * @return
      *          Un rettangolo che rappresenta il lato inferiore
      */
-    Rectangle getLowerSide();
+    Rectangle getBottom();
     
     /**
      * Disegna l'immagine sull'elemento Graphics.
