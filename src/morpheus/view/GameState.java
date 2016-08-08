@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import morpheus.Morpheus;
+import morpheus.controller.AudioPlayer;
 import morpheus.controller.BitMap;
 import morpheus.controller.Camera;
 import morpheus.controller.Collision;
@@ -77,6 +78,8 @@ public class GameState implements State {
 	private ArrayList<RandomTile> randomTiles3;
 	private ArrayList<RandomTile> allRandomTiles;
 	private Collision coll;
+	AudioPlayer BGMusic;
+
 	@Override
 	public void init() {
 		randomTiles = new ArrayList<>();
@@ -89,7 +92,10 @@ public class GameState implements State {
 		bitMap.init();
 
 		try {
-			background = ImageIO.read(new File("res/ultimo.png"));//Ci sono anche wow.png e wow2.png
+			background = ImageIO.read(new File("res/ultimo.png"));// Ci sono
+																	// anche
+																	// wow.png e
+																	// wow2.png
 			background2 = ImageIO.read(new File("res/nuvole_buone.png"));
 		} catch (IOException e) {
 			System.out.println("Failed to load background image");
@@ -114,13 +120,14 @@ public class GameState implements State {
 		allRandomTiles.addAll(randomTiles1);
 		allRandomTiles.addAll(randomTiles2);
 		allRandomTiles.addAll(randomTiles3);
+		BGMusic = new AudioPlayer("res/BGMusic.wav");
 
 	}
 
 	@Override
 	public void enter() {
-		// TODO Auto-generated method stub
-
+		BGMusic.setVolume(0.50);
+		BGMusic.playAndLoop();
 	}
 
 	@Override
@@ -163,9 +170,9 @@ public class GameState implements State {
 		speedX2 += 1;
 
 		for (AbstractDrawable e : entities) {
-		        if (e instanceof MainPlayer) {
-		            coll.tick();
-		        }
+			if (e instanceof MainPlayer) {
+				coll.tick();
+			}
 			e.tick();
 		}
 		camera.tick(player);
