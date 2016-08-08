@@ -10,7 +10,7 @@ import morpheus.model.Image;
 
 /**
  * 
- * @author Luca
+ * @author Luca Mengozzi
  *
  */
 public class Sprite {

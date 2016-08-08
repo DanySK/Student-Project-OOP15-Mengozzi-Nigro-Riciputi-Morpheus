@@ -1,22 +1,37 @@
 package morpheus.view;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import morpheus.Morpheus;
 import morpheus.view.Texture;
 
+/**
+ *  
+ * @author Luca Mengozzi		 
+ * 
+ */
 public class Button extends Rectangle {
 
 	private static final long serialVersionUID = -4663253695375762967L;
-	//Dice se è selezionata
+	/**
+	 * 
+	 * Verifica la selezione del bottone, se è true è selezionato
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 * */
 	private boolean selected;
-	//Ancora non so cosa sia
 	private int yPosition;
-	//La texture normale e da selezionata
 	private Texture mainTexture, textureSelected;
 
+	/**
+	 * 
+	 * Costruttore che inizializza il bottone
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 */
 	public Button(int yPosition, String mainTexture, String textureSelected) {
 		
 		this.yPosition = yPosition;
@@ -24,24 +39,34 @@ public class Button extends Rectangle {
 		this.textureSelected = new Texture(textureSelected);
 	}
 
-	//Seleziona
+	/**
+	 * 
+	 * Setta il bottone a selezionato
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 */
 	public void setSelected(boolean selected) {
 		
 		this.selected = selected;
 	}
 
+	/**
+	 * 
+	 * Classico metodo render
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 */
 	public void render(Graphics2D g) {
 		
-		//this.x = (300 - mainTexture.getImage().getWidth()) / 2;
 		this.x = (Morpheus.WIDTH - mainTexture.getImage().getWidth()) / 4;
 		this.y = yPosition - mainTexture.getImage().getHeight();
+		//Le prossime tre righe dovrebbero essere superflue
 		width = mainTexture.getImage().getWidth();
 		height = mainTexture.getImage().getHeight();
 		mainTexture.render(g, x, y);
-		g.setColor(Color.BLACK);
-		//Togliere commento sotto per rettangoli
-		//g.drawRect(x, y, width, height);
-
+		
 		if (selected) {
 			
 			textureSelected.render(g, x, y);
@@ -49,7 +74,5 @@ public class Button extends Rectangle {
 			
 			mainTexture.render(g, x, y);
 		}
-
 	}
-
 }

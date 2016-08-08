@@ -3,10 +3,7 @@ package morpheus.model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
-import com.sun.org.apache.xpath.internal.compiler.Keywords;
 
 import morpheus.Morpheus;
 import morpheus.controller.KeyInput;

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import morpheus.Morpheus;
+import morpheus.controller.AudioPlayer;
 import morpheus.controller.BitMap;
 import morpheus.controller.Camera;
 import morpheus.controller.Collision;
@@ -132,9 +133,11 @@ public class GameState implements State {
 	private ArrayList<RandomTile> randomTiles3;
 	private ArrayList<RandomTile> allRandomTiles;
 	private Collision coll;
+	AudioPlayer BGMusic;
 	
 	@Override
 	public void init() {
+		
 		randomTiles = new ArrayList<>();
 		randomTiles1 = new ArrayList<>();
 		randomTiles2 = new ArrayList<>();
@@ -173,11 +176,14 @@ public class GameState implements State {
 		allRandomTiles.addAll(randomTiles1);
 		allRandomTiles.addAll(randomTiles2);
 		allRandomTiles.addAll(randomTiles3);
+		BGMusic = new AudioPlayer("res/BGMusic.wav");
 	}
 
 	@Override
 	public void enter() {
 		
+		BGMusic.setVolume(0.50);
+		BGMusic.playAndLoop();
 	}
 
 	@Override

@@ -1,8 +1,6 @@
 package morpheus;
 
-import java.awt.BorderLayout;
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.WindowAdapter;
@@ -10,8 +8,6 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
 import morpheus.view.state.GameState;
@@ -144,7 +140,7 @@ public class Morpheus extends Canvas implements Runnable {
 		// correttamente
 		Graphics2D g2D = (Graphics2D) g;
 
-		g.translate(0, 30);//Mettere -30
+		//g.translate(0, 30);//Mettere -30
 
 		// /////////////////////////////////////////////////////////////////
 		//g2D.setColor(Color.RED);
