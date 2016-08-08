@@ -27,14 +27,12 @@ public class SettingsState implements State {
 	private JPanel p2 = new JPanel();
 	private JPanel p3 = new JPanel();
 	private JPanel p4 = new JPanel();
-	private JPanel p5 = new JPanel();
 	private final JLabel player = new JLabel("PLAYER:");
 	private final JLabel jump = new JLabel("JUMP:");
 	private final JLabel shoot = new JLabel("SHOOT:");
 	private final JLabel sound = new JLabel("SOUND:");
 	private final JButton blonde = new JButton("Valpiani");
 	private final JButton violet = new JButton("Gulizia");
-	private final JButton menu = new JButton("Return to Menu");
 	private JComboBox<String> j;
 	private JComboBox<String> s;
 	private JSlider m = new JSlider(0, 100);
@@ -122,30 +120,16 @@ public class SettingsState implements State {
 		p4.add(sound);
 		p4.add(m);
 	
-		//PANNELLO 5
-		
-		p5.add(menu);
-		menu.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				exit = true;
-			}
-		});
-	
 		//Aggiungo i pannelli al pannello principale
 		background.add(p1);
 		background.add(p2);
 		background.add(p3);
 		background.add(p4);
-		background.add(p5);
 		p1.setOpaque(false);
 		p2.setOpaque(false);
 		p3.setOpaque(false);
 		p4.setOpaque(false);
-		p5.setOpaque(false);
-	
+		
 		//Personalizzo la finestra(il frame)
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowListener() {
@@ -187,7 +171,7 @@ public class SettingsState implements State {
 			}
 		});
 	
-	    frame.setSize(500, 500);
+	    frame.setSize(500, 250);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
