@@ -141,9 +141,11 @@ public class GameState implements State {
 	AudioPlayer BGMusic;
 	//Per ora le metto qui ma in realtà andranno nel model queste variabili che contengono
 	//il numero di vite e di proiettili
-	private int nBullet = 0;
+	private int nBullet = 5;
 	private int nLife = 3;
 	private Texture heart = new Texture("res/cuore.png");
+	private Texture bullet = new Texture("res/bullet2.png");
+	
 	
 	@Override
 	public void init() {
@@ -200,13 +202,6 @@ public class GameState implements State {
 	@Override
 	public void render(Graphics2D g) {
 		
-		heart.render(g, 200, 200);
-		
-		
-		
-		
-		
-		
 		// Lo sfondo è staccato sia dal movimento del giocatore sia dal
 		// movimento di camera
 		this.renderBG(g);
@@ -218,8 +213,39 @@ public class GameState implements State {
 		}
 		// Renderizzo le RandomTile
 		this.renderWorld(g);
-
 		g.translate(-camera.getX(), -camera.getY());
+		
+		//Renderizzo le vite
+		if (nLife>=1){
+			
+			heart.render(g, 700, 50);
+		}
+		if (nLife>=2){
+			
+			heart.render(g, 650, 50);
+		}
+		if (nLife>=3){
+			
+			heart.render(g, 600, 50);
+		}
+		
+		//Renderizzo i proiettili
+		if (nBullet>=1){
+					
+			bullet.render(g, 500, 50);
+		}
+		if (nBullet>=2){
+					
+			bullet.render(g, 450, 50);
+		}
+		if (nBullet>=3){
+				
+			bullet.render(g, 400, 50);
+		}
+		if (nBullet>=4){
+					
+			bullet.render(g, 350, 50);
+		}
 	}
 	
 	@Override
