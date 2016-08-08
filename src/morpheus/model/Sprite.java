@@ -27,14 +27,12 @@ public class Sprite {
         frames = new ArrayList<>();
         int k = 0;
         for (int i = 0; i < columns; i++) {
-            System.out.println("Colonna");
             for (int j = 0; j < lines; j++) {
                 frames.add(new Image(sheet.getTexture().getImage().getSubimage(i * sheet.getWidth(),
                         j * sheet.getHeight(), 
                         sheet.getWidth(),
                         sheet.getHeight()), sheet.getWidth(), sheet.getHeight()));
                 k++;
-                System.out.println("Linea");
                 if (k == x) {
                     k = -1;
                     break;

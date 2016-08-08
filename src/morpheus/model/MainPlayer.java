@@ -3,6 +3,10 @@ package morpheus.model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import com.sun.org.apache.xpath.internal.compiler.Keywords;
 
 import morpheus.Morpheus;
 import morpheus.controller.KeyInput;
@@ -24,8 +28,11 @@ public final class MainPlayer extends AbstractDrawable {
     private static final int PLAYERWIDTH = 41;
 
     private static final int NJUMP = 11;
+    private static final int NDOUBLEJUMP = 10;
     private static final int CHECKINJUMP = 1;
     private static final int TYLESYNCHSTART = 200;
+    private static final int NFALL = 55;
+    private static final double GRAVITYPLUS = 0.6;
     /**
      * velocità iniziale.
      */
@@ -43,7 +50,7 @@ public final class MainPlayer extends AbstractDrawable {
      * Pavimento.
      */
     public static final int FLOOR = 40;
-    
+
     private static final int BULLETSIZE = 24;
     private volatile boolean runGO;
 
@@ -56,14 +63,16 @@ public final class MainPlayer extends AbstractDrawable {
     private int tileSynch;
     private boolean inFall;
     private boolean verticalCollision;
-
+    private boolean doubleJump;
     private int velRun = INITIAL_VEL;
     private boolean canJump = true;
     private double velY = INITIAL_GRAVITY;
     private boolean inJump;
-    private final int timeJump;
+    private int timeJump;
     private int counterJump;
-
+    private final int timeFall;
+    private int counterFall;
+    
     /**
      * 
      * L'oggetto prende in input l'altezza e la larghezza dell'immagine a
@@ -88,10 +97,12 @@ public final class MainPlayer extends AbstractDrawable {
         item = new Item();
         tileSynch = TYLESYNCHSTART;
         inFall = true;
-        inJump = false;
+        inJump = true;
         verticalCollision = false;
         timeJump = NJUMP;
         counterJump = 0;
+        timeFall = NFALL;
+        counterFall = 0;
     }
 
     /**
@@ -139,7 +150,7 @@ public final class MainPlayer extends AbstractDrawable {
         }
         if (isRunning()) {
             goOn();
-        } 
+        }
         
         if (counterJump >= CHECKINJUMP) {
             jumping();
@@ -151,13 +162,24 @@ public final class MainPlayer extends AbstractDrawable {
         if (status == Status.DEATH) {
             death();
         } else {
-            if (KeyInput.isDown(s.getKeyJump())) {
-                jump();
-
+            if (KeyInput.isPressed(s.getKeyJump())) {
+                if (inFall && doubleJump) {
+                    counterJump = 0;
+                    doubleJump = false;
+                    canJump = true;
+                    timeJump = NDOUBLEJUMP;
+                    jump();
+                } else {
+                    jump();
+                }
+            }
+            if (KeyInput.isPressed(KeyEvent.VK_SPACE)) {
+                
+                shoot();
             }
 
         }
-        
+
     }
 
     /**
@@ -172,7 +194,12 @@ public final class MainPlayer extends AbstractDrawable {
 
     private void fall() {
         if (inFall) {
-            velY = gravity;
+            if (counterFall < timeFall) {
+                velY = gravity;
+                counterFall++;
+            } else {
+                velY = gravity + GRAVITYPLUS; 
+            }
         }
         super.incY(velY);
     }
@@ -215,6 +242,7 @@ public final class MainPlayer extends AbstractDrawable {
         canJump = true;
         inFall = false;
         velY = 0;
+        counterFall = 0;
         jumpPermission();
     }
 
@@ -231,12 +259,14 @@ public final class MainPlayer extends AbstractDrawable {
      */
     public void jumpPermission() {
         counterJump = 0;
+        doubleJump = true;
+        timeJump = NJUMP;
     }
 
     /**
      * Returns the run velocity.
-     * @return
-     *          the run velocity
+     * 
+     * @return the run velocity
      */
     public int getVelRun() {
         return this.velRun;
@@ -279,8 +309,8 @@ public final class MainPlayer extends AbstractDrawable {
 
     /**
      * Returns the Y change value.
-     * @return
-     *          the Y change value
+     * 
+     * @return the Y change value
      */
     public double getVelY() {
         return velY;
@@ -319,7 +349,6 @@ public final class MainPlayer extends AbstractDrawable {
         return this.runGO;
     }
 
-   
     /**
      * Set the field status.
      * 
@@ -350,8 +379,9 @@ public final class MainPlayer extends AbstractDrawable {
 
     /**
      * Set the run velocity.
+     * 
      * @param vel
-     *          the new velocity
+     *            the new velocity
      */
     public void setVelRun(final int vel) {
         this.velRun = vel;
@@ -374,15 +404,15 @@ public final class MainPlayer extends AbstractDrawable {
             g.draw(getLeft());
             g.setColor(Color.ORANGE);
             g.draw(getRight());
-    }
+        }
         stopRun();
 
     }
 
     /**
      * Returns the player's item.
-     * @return
-     *          the player's item
+     * 
+     * @return the player's item
      */
     public Item getItem() {
         return item;
@@ -404,6 +434,7 @@ public final class MainPlayer extends AbstractDrawable {
 
     /**
      * Set true if the player is in Jump, false otherwise.
+     * 
      * @param inJump
      *            the inJump to set
      */
@@ -413,8 +444,8 @@ public final class MainPlayer extends AbstractDrawable {
 
     /**
      * Returns true if the player has vertical collision, false otherwise.
-     * @return
-     *         true if the player has vertical collision, false otherwise. 
+     * 
+     * @return true if the player has vertical collision, false otherwise.
      */
     public boolean isVerticalCollision() {
         return verticalCollision;
@@ -425,15 +456,16 @@ public final class MainPlayer extends AbstractDrawable {
      * Set true if the player has vertical collision, false otherwise.
      * 
      * @param verticalCollision
-     *          true if the player has vertical collision, false otherwise.
+     *            true if the player has vertical collision, false otherwise.
      */
     public void setVerticalCollision(final boolean verticalCollision) {
         this.verticalCollision = verticalCollision;
     }
 
     public Rectangle getBottom() {
-        return new Rectangle((int) getX() + 5, (int) getY() + getHeight() -3 , getWidth() - 10, 1);
+        return new Rectangle((int) getX() + 5, (int) getY() + getHeight() - 3, getWidth() - 10, 1);
     }
+
     /**
      * 
      * @author jacopo

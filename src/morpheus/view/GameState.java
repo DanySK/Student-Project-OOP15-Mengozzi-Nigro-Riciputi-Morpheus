@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
 
@@ -39,6 +40,7 @@ public class GameState implements State {
 
 	private ArrayList<Tile> tiles;
 	private ArrayList<AbstractDrawable> entities;
+	private ArrayList<AbstractDrawable> appEntities;
 	private Camera camera;
 	private MainPlayer player;
 	private BufferedImage background;
@@ -104,6 +106,7 @@ public class GameState implements State {
 		this.camera = new Camera(0, 0);
 		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
+		appEntities = new ArrayList<>();
 		this.player = MainPlayer.getPlayer(150, 200, this);
 		coll = new Collision(this);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
@@ -169,13 +172,31 @@ public class GameState implements State {
 		parallaxCloud2 += 1;
 		speedX2 += 1;
 
+
+		for (ListIterator<AbstractDrawable> iter = entities.listIterator(); iter.hasNext(); ) {
+		    AbstractDrawable e = iter.next();
+		    if (e instanceof MainPlayer) {
+                        coll.tick();
+                    }
+                    e.tick();
+		}
+		/*for (AbstractDrawable e : entities) {
+		        if (e instanceof MainPlayer) {
+		            coll.tick();
+		        }
+=======
 		for (AbstractDrawable e : entities) {
 			if (e instanceof MainPlayer) {
 				coll.tick();
 			}
+>>>>>>> destination
 			e.tick();
-		}
+		}*/
 		camera.tick(player);
+		if (appEntities.size() != 0) {
+		    entities.addAll(appEntities);
+		    appEntities = new ArrayList<>();
+		}
 	}
 
 	public ArrayList<Tile> getTiles() {
@@ -207,7 +228,7 @@ public class GameState implements State {
 
 	public void addEntity(AbstractDrawable entity) {
 
-		entities.add(entity);
+		appEntities.add(entity);
 	}
 
 	public void renderBG(Graphics2D g) {

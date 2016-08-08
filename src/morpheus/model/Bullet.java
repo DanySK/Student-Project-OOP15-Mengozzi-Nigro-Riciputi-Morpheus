@@ -10,8 +10,16 @@ import morpheus.view.GameState;
  *
  */
 public class Bullet extends AbstractDrawable {
+
+    private static final double YOFFSET = 30;
+    private static final double XOFFSET = 15;
+    private static final double BULLETOFFSET = 750;
+    private static final int NCHECK = 5;
+    private boolean explosion;
     private int vel = 10;
+    private final double initialX;
     private final BulletAnimation animation;
+    private int check;
 
     /**
      * Create a bullet, he get shooted by the player and if it hits something it
@@ -27,10 +35,9 @@ public class Bullet extends AbstractDrawable {
      *            image of the bullet
      */
     public Bullet(final double x, final double y, final GameState game, final Image i) {
-        super(x, y, game, i);
+        super(x + XOFFSET, y + YOFFSET, game, i);
+        initialX = x + XOFFSET;
         animation = null;
-
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -47,14 +54,19 @@ public class Bullet extends AbstractDrawable {
      *            images of the bullet
      */
     public Bullet(final double x, final double y, final GameState game, final Image... i) {
-        super(x, y, game, i);
+        super(x + XOFFSET, y + YOFFSET, game, i);
+        initialX = x + XOFFSET;
         animation = new BulletAnimation(2, i);
     }
 
     @Override
     public void tick() {
-        this.incX(vel);
-
+        if (check == 0) {
+            if (getX() >= initialX + BULLETOFFSET) {
+                explode();
+            }
+            this.incX(vel);
+        }
     }
 
     /**
@@ -63,8 +75,10 @@ public class Bullet extends AbstractDrawable {
     public void explode() {
         animation.run();
         vel = 0;
+        check = 1;
     }
 
+    
     /**
      * Set the bullet velocity.
      * 
@@ -86,11 +100,36 @@ public class Bullet extends AbstractDrawable {
 
     @Override
     public void render(final Graphics2D g) {
-        if (animation == null) {
-            super.render(g);
-        } else {
-            animation.render(g, getX(), getY());
+        if (check > 0) {
+            check++;
         }
+        if (check >= NCHECK) {
+            setExplosion();
+        }
+        if (!explosion) {
+            if (animation == null) {
+                super.render(g);
+            } else {
+                animation.render(g, getX(), getY());
+            }
+        } 
+       
+    }
+
+    /**
+     * Set the explosion at true.
+     */
+    private void setExplosion() {
+        explosion = true;
+    }
+
+    /**
+     * Returns true if the bullet is exploded, false otherwise.
+     * 
+     * @return true if the bullet is exploded, false otherwise.
+     */
+    public boolean isExplosion() {
+        return explosion;
     }
 
     private static class BulletAnimation extends ModelAnimation {
@@ -102,7 +141,7 @@ public class Bullet extends AbstractDrawable {
          */
         BulletAnimation(final int speed, final Image... frames) {
             super(speed, frames);
-            
+
         }
 
         @Override
