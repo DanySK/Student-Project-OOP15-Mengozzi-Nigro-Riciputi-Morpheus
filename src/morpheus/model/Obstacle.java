@@ -1,6 +1,7 @@
 package morpheus.model;
 
-import morpheus.model.MainPlayer.Status;
+import java.awt.Graphics2D;
+
 import morpheus.view.state.GameState;
 
 /**
@@ -8,55 +9,68 @@ import morpheus.view.state.GameState;
  * @author jacopo
  *
  */
-public class Obstacle extends AbstractDrawable {
+public abstract class Obstacle extends AbstractDrawable {
+
+    private final ModelAnimation anime;
 
     /**
      * Create a object with animation.
+     * 
      * @param i
-	 *            have all the information of the images
+     *            have all the information of the images
      * @param x
-     *          posizione sull'asse x
+     *            posizione sull'asse x
      * @param y
-     *          posizione sull'asse y
-     * @param state 
-     *          state of game
+     *            posizione sull'asse y
+     * @param state
+     *            state of game
      */
-    public Obstacle(final int x, final int y, final GameState state, final Image... i) {
+    public Obstacle(final double x, final double y, final GameState state, final Image... i) {
         super(x, y, state, i);
-        
+        anime = new ModelAnimation(2, i);
     }
-    
+
     /**
      * Create a obstacle without animation.
-     
+     * 
      * @param x
-     *          posizione sull'asse x
+     *            posizione sull'asse x
      * @param y
-     *          posizione sull'asse y
+     *            posizione sull'asse y
      * @param state
-     *         state of game
+     *            state of game
      * @param i
-	 *         have all the information of the image
+     *            have all the information of the image
      */
-    public Obstacle(final int x, final int y, final GameState state, final Image i) {
+    public Obstacle(final double x, final double y, final GameState state, final Image i) {
         super(x, y, state, i);
+        anime = null;
     }
+
     /**
-     * The reaction at the intersection with the main character.
-     * Leads the death of him.
-     * @param m
-     *          the main character
+     * The reaction at the intersection with the main character. Leads the death
+     * of him.
+     * 
      */
-    public void reaction(final MainPlayer m) {
-        m.setStatus(Status.DEATH);
-  }
+    public abstract void reaction();
 
     @Override
     public void tick() {
-         //TODO Auto-generated method stub
-        
-   }
+       anime.run();
+    }
 
-	
+    @Override
+    /**
+     * Render the image on screen.
+     * @param g
+     *          the graphics
+     */
+    public void render(final Graphics2D g) {
+        if (anime == null) {
+            super.render(g);
+        } else {
+            anime.render(g, getX(), getY());
+        }
+    }
 
 }

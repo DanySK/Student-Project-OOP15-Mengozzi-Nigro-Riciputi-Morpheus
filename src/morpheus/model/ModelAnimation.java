@@ -1,6 +1,7 @@
 package morpheus.model;
 
 import java.awt.Graphics2D;
+import java.util.Arrays;
 
 /**
  * 
@@ -19,7 +20,7 @@ public class ModelAnimation {
 	/**
 	 * All the frames.
 	 */
-	private Image[] frames;
+	private final Image[] frames;
 
 	/**
 	 * Create an animation.
@@ -88,8 +89,7 @@ public class ModelAnimation {
 	 *             the animation's images
 	 */
 	protected Image[] getFrames() {
-	    Image[] i = frames;
-	    return i;
+	    return Arrays.copyOf(frames, frames.length);
 	}
 	
 }

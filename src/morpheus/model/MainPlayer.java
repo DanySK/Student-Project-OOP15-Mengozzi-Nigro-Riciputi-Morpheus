@@ -171,7 +171,6 @@ public final class MainPlayer extends AbstractDrawable {
                 }
             }
             if (KeyInput.isPressed(KeyEvent.VK_SPACE)) {
-                
                 shoot();
             }
 
@@ -183,10 +182,8 @@ public final class MainPlayer extends AbstractDrawable {
      * Fa muovere l'immagine di Morpheus sull'asse orrizzontale.
      */
     private void goOn() {
-
         this.incX(velRun);
         tileSynch += velRun;
-
     }
 
     private void fall() {
@@ -388,7 +385,6 @@ public final class MainPlayer extends AbstractDrawable {
     public void render(final Graphics2D g) {
         if (status.equals(Status.RUN) && isRunning()) {
             animation.render(g, getX(), getY());
-
         } else {
             super.render(g);
         }
