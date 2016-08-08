@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
 
@@ -17,6 +18,9 @@ import morpheus.model.AbstractDrawable;
 import morpheus.model.MainPlayer;
 import morpheus.view.RandomTile;
 import morpheus.view.Tile;
+import morpheus.view.Texture;
+
+
 
 /**
  * 		
@@ -94,6 +98,7 @@ public class GameState implements State {
 
 	private ArrayList<Tile> tiles;
 	private ArrayList<AbstractDrawable> entities;
+	private ArrayList<AbstractDrawable> appEntities;
 	private Camera camera;
 	private MainPlayer player;
 	private BufferedImage background;
@@ -134,6 +139,11 @@ public class GameState implements State {
 	private ArrayList<RandomTile> allRandomTiles;
 	private Collision coll;
 	AudioPlayer BGMusic;
+	//Per ora le metto qui ma in realtà andranno nel model queste variabili che contengono
+	//il numero di vite e di proiettili
+	private int nBullet = 0;
+	private int nLife = 3;
+	private Texture heart = new Texture("res/cuore.png");
 	
 	@Override
 	public void init() {
@@ -160,6 +170,7 @@ public class GameState implements State {
 		this.camera = new Camera(0, 0);
 		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
+		appEntities = new ArrayList<>();
 		this.player = MainPlayer.getPlayer(100, 100, this);
 		coll = new Collision(this);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
@@ -188,6 +199,13 @@ public class GameState implements State {
 
 	@Override
 	public void render(Graphics2D g) {
+		
+		heart.render(g, 200, 200);
+		
+		
+		
+		
+		
 		
 		// Lo sfondo è staccato sia dal movimento del giocatore sia dal
 		// movimento di camera
@@ -225,17 +243,27 @@ public class GameState implements State {
 		parallaxCloud2 += 1;
 		speedX2 += 1;
 		
-		for (AbstractDrawable e : entities) {
+		for (ListIterator<AbstractDrawable> iter = entities.listIterator(); iter.hasNext(); ) {
 			
-		        if (e instanceof MainPlayer) {
-		        	
-		            coll.tick();
-		        }
+			AbstractDrawable e = iter.next();
+			if (e instanceof MainPlayer) {
+				
+				coll.tick();
+			}
+
 			e.tick();
 		}
 		camera.tick(player);
+		if (appEntities.size() != 0) {
+
+				    entities.addAll(appEntities);
+				    appEntities = new ArrayList<>();
+		}
 	}
 
+			
+		
+		
 	public ArrayList<Tile> getTiles() {
 
 		return tiles;
@@ -269,8 +297,7 @@ public class GameState implements State {
 
 	public void addEntity(AbstractDrawable entity) {
 		
-
-		entities.add(entity);
+		appEntities.add(entity);
 	}
 
 	public void renderBG(Graphics2D g) {
