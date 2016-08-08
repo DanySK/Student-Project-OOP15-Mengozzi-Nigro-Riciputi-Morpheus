@@ -11,8 +11,8 @@ import com.sun.org.apache.xpath.internal.compiler.Keywords;
 import morpheus.Morpheus;
 import morpheus.controller.KeyInput;
 import morpheus.model.Exceptions.NoBulletException;
-import morpheus.view.GameState;
 import morpheus.view.Texture;
+import morpheus.view.state.GameState;
 
 /**
  * 

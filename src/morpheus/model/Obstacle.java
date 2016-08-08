@@ -1,7 +1,7 @@
 package morpheus.model;
 
 import morpheus.model.MainPlayer.Status;
-import morpheus.view.GameState;
+import morpheus.view.state.GameState;
 
 /**
  * 

@@ -13,7 +13,7 @@ import morpheus.view.state.GameState;
  * 
  *         Create a monster.
  */
-public abstract class AbstractMonster extends AbstractDrawable {
+public abstract class Monster extends AbstractDrawable {
 
     private final double initialX;
     private final double initialY;
@@ -32,10 +32,11 @@ public abstract class AbstractMonster extends AbstractDrawable {
      * @param i
      *            have all the information on the image
      */
-    public AbstractMonster(final double x, final double y, final GameState game, final Image i) {
+    public Monster(final double x, final double y, final GameState game, final Image i) {
         super(x, y, game, i);
         initialX = x;
         initialY = y;
+        anime = null;
     }
 
     /**
@@ -50,17 +51,14 @@ public abstract class AbstractMonster extends AbstractDrawable {
      * @param i
      *            have all the information on the images
      */
-    public AbstractMonster(final double x, final double y, final GameState game, final Image... i) {
+    public Monster(final double x, final double y, final GameState game, final Image[] i) {
         super(x, y, game, i);
         initialX = x;
         initialY = y;
         anime = new ModelAnimation(2, i);
     }
 
-    /**
-     * 
-     *   Monster behavior.
-     */
+    
     protected void mytick() {
        anime.run();
         if (direction) {
@@ -79,10 +77,12 @@ public abstract class AbstractMonster extends AbstractDrawable {
     @Override
     public void render(final Graphics2D g) {
         this.tick();
-        if (anime == null) {
-            super.render(g);
-        } else {
+        if (anime != null) {
+
             anime.render(g, getX(), getY());
+        } else {
+            super.render(g);
+
         }
     }
 
@@ -100,7 +100,7 @@ public abstract class AbstractMonster extends AbstractDrawable {
      * 
      * @return the initial Y value.
      */
-    protected double getInitialY() {
+    protected double getiInitialY() {
         return initialY;
     }
     
@@ -113,11 +113,6 @@ public abstract class AbstractMonster extends AbstractDrawable {
         this.anime = anime;
     }
     
-    /**
-     * Returns the animation.
-     * @return
-     *          the animation
-     */
     protected ModelAnimation getAnimation() {
         return anime;
     }
@@ -129,12 +124,7 @@ public abstract class AbstractMonster extends AbstractDrawable {
         direction = !direction;
     }
     
-    /**
-     * Returns the monster direction.
-     * @return
-     *          the monster direction
-     */
-    protected boolean isDirection() {
+    protected boolean getDirection() {
         return direction;
     }
     

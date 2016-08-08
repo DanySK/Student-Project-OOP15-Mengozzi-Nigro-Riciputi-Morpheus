@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import morpheus.model.Image;
 import morpheus.model.ModelAnimation;
-import morpheus.view.GameState;
+import morpheus.view.state.GameState;
 
 public class Ghost extends AbstractMonster {
 

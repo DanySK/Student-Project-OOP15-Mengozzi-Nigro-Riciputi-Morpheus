@@ -21,11 +21,8 @@ public class Texture {
 	// viene richiesta si prende direttamente da qui essendo precaricata)
 	private final static Map<String, TextureManager> texMap = new HashMap<>();
 	private TextureManager manager;
-	private String fileName;
-
 	public Texture(String fileName) {
 
-		this.fileName = fileName;
 		TextureManager oldTexture = texMap.get(fileName);
 		if (oldTexture != null) {
 

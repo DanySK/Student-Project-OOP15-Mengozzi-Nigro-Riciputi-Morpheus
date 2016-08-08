@@ -1,10 +1,8 @@
 package morpheus.view;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import morpheus.Morpheus;
 import morpheus.view.Sprite;
 
 public class Tile {

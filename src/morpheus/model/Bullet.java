@@ -2,7 +2,7 @@ package morpheus.model;
 
 import java.awt.Graphics2D;
 
-import morpheus.view.GameState;
+import morpheus.view.state.GameState;
 
 /**
  * 
