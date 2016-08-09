@@ -3,7 +3,7 @@ package morpheus.model.monster;
 import java.awt.Graphics2D;
 
 import morpheus.model.Image;
-import morpheus.model.ModelAnimation;
+import morpheus.model.Animation;
 import morpheus.view.state.GameState;
 
 /**
@@ -64,7 +64,7 @@ public class Penguin extends AbstractMonster {
         }
     }
 
-    private static class PenguinAnimation extends ModelAnimation {
+    private static class PenguinAnimation extends Animation {
 
         
       

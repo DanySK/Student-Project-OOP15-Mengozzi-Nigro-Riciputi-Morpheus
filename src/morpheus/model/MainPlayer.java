@@ -3,7 +3,6 @@ package morpheus.model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
 
 import morpheus.Morpheus;
 import morpheus.controller.KeyInput;
@@ -30,6 +29,7 @@ public final class MainPlayer extends AbstractDrawable {
     private static final int TYLESYNCHSTART = 200;
     private static final int NFALL = 55;
     private static final double GRAVITYPLUS = 0.6;
+    private static final int OFFSETCOLLISION = 5;
     /**
      * velocità iniziale.
      */
@@ -53,9 +53,9 @@ public final class MainPlayer extends AbstractDrawable {
 
     private int jmp = 10;
     private double gravity = INITIAL_GRAVITY;
-    private final Statistics s;
+    private final Option s;
     private Status status;
-    private final ModelAnimation animation;
+    private final Animation animation;
     private final Item item;
     private int tileSynch;
     private boolean inFall;
@@ -85,12 +85,12 @@ public final class MainPlayer extends AbstractDrawable {
      * @param state
      *            state of game
      */
-    private MainPlayer(final double x, final double y, final GameState state, final Image... i) {
+    private MainPlayer(final double x, final double y, final GameState state, final Option stat, final Image... i) {
         super(x, y, state, i);
-        s = new Statistics();
+        s = stat;
         status = Status.RUN;
         this.runGO = true;
-        animation = new ModelAnimation(4, i);
+        animation = new Animation(4, i);
         item = new Item();
         tileSynch = TYLESYNCHSTART;
         inFall = true;
@@ -113,11 +113,11 @@ public final class MainPlayer extends AbstractDrawable {
      *            the state of game
      * @return the main player
      */
-    public static MainPlayer getPlayer(final double x, final double y, final GameState state) {
+    public static MainPlayer getPlayer(final double x, final double y, final GameState state, final Option stat) {
 
         synchronized (MainPlayer.class) {
             if (player == null) {
-                player = new MainPlayer(x, y, state,
+                player = new MainPlayer(x, y, state, stat,
                         new Sprite(new SpriteSheet(new Texture("res/sayan60.png"), PLAYERWIDTH, PLAYERHEIGTH), 4, 1, 4)
                                 .getFramesAsList());
 
@@ -170,7 +170,7 @@ public final class MainPlayer extends AbstractDrawable {
                     jump();
                 }
             }
-            if (KeyInput.isPressed(KeyEvent.VK_SPACE)) {
+            if (KeyInput.isPressed(s.getKeyShoot())) {
                 shoot();
             }
 
@@ -455,8 +455,13 @@ public final class MainPlayer extends AbstractDrawable {
         this.verticalCollision = verticalCollision;
     }
 
+    /**
+     * Returns the bottom of the player.
+     * @return
+     *          the bottom of the player 
+     */
     public Rectangle getBottom() {
-        return new Rectangle((int) getX() + 5, (int) getY() + getHeight() - 3, getWidth() - 10, 1);
+        return new Rectangle((int) getX() + OFFSETCOLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 1);
     }
 
     /**

@@ -1,14 +1,6 @@
 package morpheus.model;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.imageio.ImageIO;
-
+import morpheus.model.Coin.TypeCoin;
 import morpheus.model.monster.AbstractMonster;
 import morpheus.model.monster.Ghost;
 import morpheus.model.monster.Penguin;
@@ -23,73 +15,46 @@ import morpheus.view.state.GameState;
  */
 public class ModelImpl implements Model {
 
-    private final Map<String, BufferedImage> textureMap;
+    private static final int DIMENSION16 = 16;
+    private static final int DIMENSION24 = 24;
+    private static final int DIMENSION30 = 30;
+    private static final int DIMENSION40 = 40;
+    private static final int DIMENSION64 = 64;
 
+    private final Option option;
+    
     /**
-     * 
-     * @param map
-     *            una mappa con tutte le path delle texture da caricare
+     * .
      */
     public ModelImpl() {
-        this.textureMap = new HashMap<>();
+        option = new Option();
     }
 
     @Override
-    public BufferedImage loader(final String file) {
-
-        try {
-            return ImageIO.read(new File(file));
-        } catch (IOException e) {
-            return null;
-        }
-
+    public void setKeyJump(final int key) {
+        option.setKeyJump(key);
     }
 
     @Override
-    public void setKeyJump(final String key) {
-
+    public int getKeyJump() {
+        return option.getKeyJump();
     }
 
     @Override
-    public String getKeyJump() {
-        return null;
+    public void setKeyShoot(final int key) {
+        option.setKeyShoot(key);
     }
 
     @Override
-    public void addTexture(final Pair<String, String> p) {
-        if (textureMap.containsKey(p.getKey())) {
-            throw new IllegalArgumentException();
-        }
-        textureMap.put(p.getKey(), this.loader(p.getValue()));
+    public int getKeyShoot() {
+        return option.getKeyShoot();
     }
 
     @Override
-    public BufferedImage getTexture(final String name) {
-        return textureMap.get(name);
-    }
-
-    @Override
-    public Map<String, BufferedImage> associate(final Map<String, String> map) {
-        for (final Entry<String, String> e : map.entrySet()) {
-            textureMap.put(e.getKey(), this.loader(e.getValue()));
-        }
-        return textureMap;
-    }
-
-    @Override
-    public void setKeyShoot(final String key) {
-
-    }
-
-    @Override
-    public String getKeyShoot() {
-        return null;
-    }
-
-    @Override
-    public Obstacle getBluePill(double x, double y, GameState state) {
-        return new Obstacle(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/bluePill.png"), 24, 24), 2, 1, 2).getFramesAsList()) {
+    public Pill getBluePill(final double x, final double y, final GameState state) {
+        return new Pill(x, y, state,
+                new Sprite(new SpriteSheet(new Texture("res/pillolaBlu.png"), DIMENSION16, DIMENSION16), 4, 1, 4)
+                        .getFramesAsList()) {
             @Override
             public void reaction() {
                 MainPlayer.getPlayer().getItem().incBullet();
@@ -98,9 +63,10 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Obstacle getRedPill(double x, double y, GameState state) {
-        return new Obstacle(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/redPill.png"), 24, 24), 2, 1, 2).getFramesAsList()) {
+    public Pill getRedPill(final double x, final double y, final GameState state) {
+        return new Pill(x, y, state,
+                new Sprite(new SpriteSheet(new Texture("res/redPill.png"), DIMENSION24, DIMENSION24), 2, 1, 2)
+                        .getFramesAsList()) {
             @Override
             public void reaction() {
                 MainPlayer.getPlayer().getItem().incHP();
@@ -109,8 +75,8 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public MainPlayer getMainPlayer(double x, double y, GameState state) {
-        return MainPlayer.getPlayer(x, y, state);
+    public MainPlayer getMainPlayer(final double x, final double y, final GameState state) {
+        return MainPlayer.getPlayer(x, y, state, option);
     }
 
     @Override
@@ -119,20 +85,46 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public AbstractMonster getGhost(double x, double y, GameState state) {
+    public AbstractMonster getGhost(final double x, final double y, final GameState state) {
         return new Ghost(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/ghost.png"), 40), 1, 1, 1).getFramesAsList());
+                new Sprite(new SpriteSheet(new Texture("res/ghost.png"), DIMENSION40), 1, 1, 1).getFramesAsList());
     }
 
     @Override
-    public AbstractMonster getTree(double x, double y, GameState state) {
+    public AbstractMonster getTree(final double x, final double y, final GameState state) {
         return new Tree(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/Evil_tree.png"), 30, 64), 3, 1, 3).getFramesAsList());
+                new Sprite(new SpriteSheet(new Texture("res/Evil_tree.png"), DIMENSION30, DIMENSION64), 3, 1, 3)
+                        .getFramesAsList());
     }
 
     @Override
-    public AbstractMonster getPenguin(double x, double y, GameState state) {
+    public AbstractMonster getPenguin(final double x, final double y, final GameState state) {
         return new Penguin(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/tux.png"), 30, 64), 3, 1, 3).getFramesAsList());
+                new Sprite(new SpriteSheet(new Texture("res/tux.png"), DIMENSION30, DIMENSION64), 3, 1, 3)
+                        .getFramesAsList());
+    }
+
+    @Override
+    public Coin getNormalCoin(final double x, final double y, final GameState state) {
+        return new Coin(x, y, state);
+    }
+
+    @Override
+    public Coin getDoubleCoin(final double x, final double y, final GameState state) {
+        return new Coin(x, y, TypeCoin.X2, state,
+                new Sprite(new SpriteSheet(new Texture("res/coin.png"), DIMENSION24, DIMENSION24), 10, 1, 10)
+                        .getFramesAsList());
+    }
+
+    @Override
+    public Coin getSpecialCoin(final double x, final double y, final GameState state) {
+        return new Coin(x, y, TypeCoin.SPECIAL, state,
+                new Sprite(new SpriteSheet(new Texture("res/coin_silver.png"), DIMENSION24, DIMENSION24), 8, 1, 8)
+                        .getFramesAsList());
+    }
+
+    @Override
+    public Option getOption() {
+        return option;
     }
 }

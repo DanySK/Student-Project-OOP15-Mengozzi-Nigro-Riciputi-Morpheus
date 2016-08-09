@@ -16,9 +16,12 @@ import morpheus.controller.Camera;
 import morpheus.controller.Collision;
 import morpheus.model.AbstractDrawable;
 import morpheus.model.MainPlayer;
+import morpheus.model.Model;
+import morpheus.model.ModelImpl;
+import morpheus.model.Option;
 import morpheus.view.RandomTile;
-import morpheus.view.Tile;
 import morpheus.view.Texture;
+import morpheus.view.Tile;
 
 
 
@@ -103,6 +106,7 @@ public class GameState implements State {
 	private MainPlayer player;
 	private BufferedImage background;
 	private BufferedImage background2;
+	private Model model;
 	// Variabili per la gestione dello scrolling dei background che permettono
 	// allo sfondo effetivamente di muoversi
 	private int parallaxMove1 = 0;
@@ -173,7 +177,8 @@ public class GameState implements State {
 		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
 		appEntities = new ArrayList<>();
-		this.player = MainPlayer.getPlayer(100, 100, this);
+		model = new ModelImpl();
+		this.player = model.getMainPlayer(100, 100, this);
 		coll = new Collision(this);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
 		// BitMap in Tile da renderizzare nella scena e le aggiungo alla lista

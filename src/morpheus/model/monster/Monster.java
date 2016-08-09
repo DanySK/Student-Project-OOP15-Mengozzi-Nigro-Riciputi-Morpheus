@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import morpheus.model.AbstractDrawable;
 import morpheus.model.Image;
-import morpheus.model.ModelAnimation;
+import morpheus.model.Animation;
 import morpheus.view.state.GameState;
 
 /**
@@ -18,7 +18,7 @@ public abstract class Monster extends AbstractDrawable {
     private final double initialX;
     private final double initialY;
     private boolean direction = true;
-    private ModelAnimation anime;
+    private Animation anime;
 
     /**
      * Create a static monster.
@@ -55,7 +55,7 @@ public abstract class Monster extends AbstractDrawable {
         super(x, y, game, i);
         initialX = x;
         initialY = y;
-        anime = new ModelAnimation(2, i);
+        anime = new Animation(2, i);
     }
 
     
@@ -109,11 +109,11 @@ public abstract class Monster extends AbstractDrawable {
      * @param anime
      *          the new animation
      */
-    protected void setAnime(final ModelAnimation anime) {
+    protected void setAnime(final Animation anime) {
         this.anime = anime;
     }
     
-    protected ModelAnimation getAnimation() {
+    protected Animation getAnimation() {
         return anime;
     }
     

@@ -1,7 +1,9 @@
 package morpheus.model;
 
-import morpheus.view.state.GameState;
+import java.awt.Graphics2D;
+
 import morpheus.view.Texture;
+import morpheus.view.state.GameState;
 
 /**
  * 
@@ -10,8 +12,10 @@ import morpheus.view.Texture;
  */
 public class Coin extends AbstractDrawable {
 
-	private final TypeCoin type;
-
+	private static final int NORMALCOINDIMENSION = 24;
+        private final TypeCoin type;
+	private final Animation anime;
+	
 	/**
 	 * Create a coin.
 	 * 
@@ -26,10 +30,10 @@ public class Coin extends AbstractDrawable {
 	 * @param type
 	 *            the type of coin
 	 */
-	public Coin(final Image[] i, final double x, final double y, final TypeCoin type, final GameState state) {
+	public Coin(final double x, final double y, final TypeCoin type, final GameState state, final Image... i) {
 		super(x, y, state, i);
 		this.type = type;
-
+		anime = new Animation(2, i);
 	}
 
 	/**
@@ -43,27 +47,26 @@ public class Coin extends AbstractDrawable {
 	 *            the gameState
 	 */
 	public Coin(final double x, final double y, final GameState state) {
-		super(x, y, state, new Image(new Texture("res/NormalCoin.png").getImage(), 20, 20));
+		super(x, y, state, new Image(new Texture("res/NormalCoin.png").getImage(), NORMALCOINDIMENSION, NORMALCOINDIMENSION));
 		this.type = TypeCoin.NORMAL;
+		anime = null;
 	}
 
 	/**
 	 * The reaction at the intersection with the main character. Leads the
 	 * increase of the total coin's value.
 	 * 
-	 * @param s
-	 *            the total value of coins
 	 */
-	public void reaction(final Statistics s) {
+	public void reaction() {
 		switch (type) {
 		case NORMAL:
-			s.incCoins();
+		    System.out.println("+1");
 			break;
 		case SPECIAL:
-			s.incCoins(10);
+		    System.out.println("+5");
 			break;
 		case X2:
-			s.incCoins(2);
+		    System.out.println("+2");
 			break;
 		default:
 			break;
@@ -93,8 +96,18 @@ public class Coin extends AbstractDrawable {
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
-
+		if (anime != null) {
+		    anime.run();
+		}
+	}
+	
+	@Override
+	public void render(final Graphics2D g) {
+	    if (anime == null) {
+	        super.render(g);
+	    } else {
+	        anime.render(g, getX(), getY());
+	    }
 	}
 
 }

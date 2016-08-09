@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
-import morpheus.model.ModelAnimation;
+import morpheus.model.Animation;
 import morpheus.view.Button;
 import morpheus.view.Sprite;
 import morpheus.view.SpriteSheet;
@@ -30,8 +30,8 @@ public class MenuState implements State{
 	 */
 	public static boolean DEFAULT_ANIMATION = true;
 	private Texture background;
-	private ModelAnimation player1;
-	private ModelAnimation player2;
+	private Animation player1;
+	private Animation player2;
 	private Button[] options;
 	private int currentSelection;
 	private static final int HITBOX_OFFSET = 15;
@@ -40,8 +40,8 @@ public class MenuState implements State{
 	public void init() {
 		
 		background = new Texture("res/matrix_blu.jpg");
-		player1 = new ModelAnimation(5, new Sprite(new SpriteSheet(new Texture("res/sayan2.png"), 83, 120), 4, 1, 4).getFramesAsList());
-		player2 = new ModelAnimation(5, new Sprite(new SpriteSheet(new Texture("res/violet2.png"), 83, 120), 4, 1, 4).getFramesAsList());
+		player1 = new Animation(5, new Sprite(new SpriteSheet(new Texture("res/sayan2.png"), 83, 120), 4, 1, 4).getFramesAsList());
+		player2 = new Animation(5, new Sprite(new SpriteSheet(new Texture("res/violet2.png"), 83, 120), 4, 1, 4).getFramesAsList());
 		
 		options = new Button[4];
 		

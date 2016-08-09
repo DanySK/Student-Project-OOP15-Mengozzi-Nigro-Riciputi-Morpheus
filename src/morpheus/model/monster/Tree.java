@@ -6,7 +6,7 @@ import java.util.List;
 
 import morpheus.model.Bullet;
 import morpheus.model.Image;
-import morpheus.model.ModelAnimation;
+import morpheus.model.Animation;
 import morpheus.view.Texture;
 import morpheus.view.state.GameState;
 
@@ -79,7 +79,7 @@ public class Tree extends AbstractMonster {
         threadStop = true;
     }
 
-    private static class TreeAnimation extends ModelAnimation implements Runnable {
+    private static class TreeAnimation extends Animation implements Runnable {
 
         private static final int THREADSLEEP = 1500;
         private static final int BULLETDIMENSION = 18;

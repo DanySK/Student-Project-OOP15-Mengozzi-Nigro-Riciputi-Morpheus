@@ -132,7 +132,7 @@ public class Bullet extends AbstractDrawable {
         return explosion;
     }
 
-    private static class BulletAnimation extends ModelAnimation {
+    private static class BulletAnimation extends Animation {
 
         /**
          * 

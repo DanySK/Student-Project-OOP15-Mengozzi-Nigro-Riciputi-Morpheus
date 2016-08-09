@@ -3,7 +3,7 @@ package morpheus.model.monster;
 import java.awt.Graphics2D;
 
 import morpheus.model.Image;
-import morpheus.model.ModelAnimation;
+import morpheus.model.Animation;
 import morpheus.view.state.GameState;
 
 public class Ghost extends AbstractMonster {
@@ -12,7 +12,7 @@ public class Ghost extends AbstractMonster {
     private static final int GHOSTOFFSET = 50;
     public Ghost(double x, double y, GameState game, Image... i) {
         super(x, y, game, i);
-        setAnime(new ModelAnimation(2, i) {
+        setAnime(new Animation(2, i) {
             
             @Override
             public void run() {

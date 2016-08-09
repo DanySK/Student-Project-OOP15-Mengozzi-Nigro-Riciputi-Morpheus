@@ -1,8 +1,5 @@
 package morpheus.model;
 
-import java.awt.image.BufferedImage;
-import java.util.Map;
-
 import morpheus.model.monster.AbstractMonster;
 import morpheus.view.state.GameState;
 /**
@@ -11,42 +8,40 @@ import morpheus.view.state.GameState;
  *
  */
 public interface Model {
-    /**
-     * Carica l'immagine.
-     * 
-     * @param file
-     *          prende come parametro il persorso del file da caricare
-     * @return
-     *          un BufferedImage con l'immagine passata
-     */
-     BufferedImage loader(String file);
+    
     /**
      * Setta il tasto per alzarsi.
      * 
      * @param key
      *          Valore del tasto da settare in formato stringa
      */
-    void setKeyShoot(String key);
+    void setKeyShoot(int key);
     /**
      * Setta il tasto per sparare.
      * 
      * @param key
      *          Valore del tasto da settare in formato stringa
      */
-    void setKeyJump(String key);
+    void setKeyJump(int key);
     
     /**
      * 
      * @return
      *          il valore in formato stringa del tasto per alzarsi
      */
-    String getKeyJump();
+    int getKeyJump();
     /**
      * @return          
      *          il valore in formato stringa del tasto per sparare
      */
-    String getKeyShoot();
+    int getKeyShoot();
     
+    /**
+     * Returns all the option.
+     * @return
+     *          all the option
+     */
+    Option getOption();
     /**
      * Add an obstacle at the game state.
      * This obstacle is a blue pill and his reaction Method will add a bullet to the MainPlayer.
@@ -59,7 +54,7 @@ public interface Model {
      * @return
      *          the obstacle
      */
-    Obstacle getBluePill(double x, double y, GameState state);
+    Pill getBluePill(double x, double y, GameState state);
     
     /**
      * Add an obstacle at the game state.
@@ -73,7 +68,7 @@ public interface Model {
      * @return
      *          the obstacle
      */
-    Obstacle getRedPill(double x, double y, GameState state);
+    Pill getRedPill(double x, double y, GameState state);
     
     /**
      * Create the player if doesn't exist. And return it.
@@ -137,31 +132,46 @@ public interface Model {
      *          the Penguin
      */
     AbstractMonster getPenguin(double x, double y, GameState state);
-    
+
     /**
-     * Aggiunge alla mappa delle texture una nuova texture.
-     * @param p
-     *          un Pair con:
-     *                  - nome da associare alla texture;
-     *                  - path del file da caricare;
-     */
-    void addTexture(Pair<String, String> p);
-    
-    /**
-     * Fornisce la texture richiesta.
-     * @param name
-     *          nome associato alla texture
+     * Add a coin at the game state.
+     * The coin's type is: Normal.
+     * @param x
+     *          X position
+     * @param y 
+     *          Y position
+     * @param state
+     *          GameState
      * @return
-     *          la texture o null se non è tra quelle caricate
+     *          the Coin
      */
-    BufferedImage getTexture(String name);
+    Coin getNormalCoin(double x, double y, GameState state);
     
     /**
-     * Associate a map of string to a map of String and bufferedImage.
-     * @param map
-     *          the map<String, String>
+     * Add a coin at the game state.
+     * The coin's type is: x2 coin.
+     * @param x
+     *          X position
+     * @param y 
+     *          Y position
+     * @param state
+     *          GameState
      * @return
-     *          a map
+     *          the Coin
      */
-    Map<String, BufferedImage> associate (Map<String, String> map);
+    Coin getDoubleCoin(double x, double y, GameState state);
+    
+    /**
+     * Add a coin at the game state.
+     * The coin's type is: Special.
+     * @param x
+     *          X position
+     * @param y 
+     *          Y position
+     * @param state
+     *          GameState
+     * @return
+     *          the Coin
+     */
+    Coin getSpecialCoin(double x, double y, GameState state);
 }

@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 
 import org.junit.Test;
 
-import morpheus.model.Statistics;
+import morpheus.model.Option;
 /**
  * Test for class Statistics.
  * @author jacopo
@@ -25,43 +25,29 @@ public class StatisticsTest {
      */
     @Test
     public void test() {
-        final Statistics s = new Statistics();
+        final Option s = new Option();
        
         
         if (s.isFirstOpen()) {
-            assertEquals(s.getFileName(), "res/Statistics.dat");
-            assertEquals(s.getCoins(), 0);
-            assertEquals(s.getKeyDown(), KeyEvent.VK_S);
+            assertEquals(s.getFileName(), "res/Option.dat");
+            assertEquals(s.getKeyShoot(), KeyEvent.VK_SPACE);
             assertEquals(s.getKeyJump(), KeyEvent.VK_W);
             assertFalse(s.isBlueMorpheusOpen());
             assertFalse(s.isRedMorpheusOpen());
         
-      
-            s.incCoins();
-            assertEquals(s.getCoins(), 1);
-        
-            for (int i = 0; i < NUM_TEST_10; i++) {
-                s.incCoins();
-            }
-            assertEquals(s.getCoins(), NUM_TEST_11);
-            s.incCoins(NUM_TEST_5);
-            assertEquals(s.getCoins(), NUM_TEST_16);
-            s.setKeyDown(KeyEvent.VK_0);
-            assertEquals(s.getKeyDown(), KeyEvent.VK_0);
+            s.setKeyShoot(KeyEvent.VK_0);
+            assertEquals(s.getKeyShoot(), KeyEvent.VK_0);
             s.setKeyJump(KeyEvent.VK_1);
             assertEquals(s.getKeyJump(), KeyEvent.VK_1);
             s.close();
         } else {
-            final int coin = s.getCoins();
+            s.setKeyJump(KeyEvent.VK_W);
+            s.setKeyShoot(KeyEvent.VK_SPACE);
             final int keyJump = s.getKeyJump();
-            final int keyDown = s.getKeyDown();
+            final int keyShoot = s.getKeyShoot();
             
-            for (int i = 0; i < 10; i++) {
-                s.incCoins(2);
-            }
-            assertEquals(s.getCoins(), coin + NUM_TEST_20);
             assertEquals(keyJump, KeyEvent.VK_W);
-            assertEquals(keyDown, KeyEvent.VK_S);
+            assertEquals(keyShoot, KeyEvent.VK_SPACE);
              
             s.close();
         }
