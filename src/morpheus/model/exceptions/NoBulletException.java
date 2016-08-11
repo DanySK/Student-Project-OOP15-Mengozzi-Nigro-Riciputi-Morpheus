@@ -1,4 +1,4 @@
-package morpheus.model.Exceptions;
+package morpheus.model.exceptions;
 
 /**
  * 

@@ -1,6 +1,6 @@
 package morpheus.controller;
 
-import morpheus.model.MainPlayer;
+import morpheus.model.Player;
 import morpheus.view.RandomTile;
 import morpheus.view.Tile;
 import morpheus.view.state.GameState;
@@ -8,11 +8,11 @@ import morpheus.view.state.GameState;
 public class Collision {
 
     private final GameState state;
-    private final MainPlayer player;
+    private final Player player;
 
-    public Collision(final GameState state) {
+    public Collision(final GameState state, final Player p) {
         this.state = state;
-        this.player = MainPlayer.getPlayer();
+        this.player = p;
     }
 
     public boolean hasVerticalCollision() {

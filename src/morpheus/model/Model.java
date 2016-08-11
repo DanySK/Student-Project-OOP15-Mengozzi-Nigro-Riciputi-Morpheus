@@ -71,7 +71,7 @@ public interface Model {
     AbstractPill getRedPill(double x, double y, GameState state);
     
     /**
-     * Create the player if doesn't exist. And return it.
+     * Create the main player if doesn't exist. And return it.
      * 
      * @param x
      *            x position
@@ -90,6 +90,27 @@ public interface Model {
      * @return the main player , it has not been initialized return null.
      */
     MainPlayer getMainPlayer();
+    
+    /**
+     * Create the side player if doesn't exist. And return it.
+     * 
+     * @param x
+     *            x position
+     * @param y
+     *            y position
+     * @param state
+     *            the state of game
+     * @return the main player
+     */
+    SidePlayer getSidePlayer(double x, double y, GameState state);
+    
+    /**
+     * 
+     * Returns to the side player , it has not been initialized return null.
+     * 
+     * @return the side player , it has not been initialized return null.
+     */
+    SidePlayer getSidePlayer();
     
     /**
      * Add a monster at the game state.

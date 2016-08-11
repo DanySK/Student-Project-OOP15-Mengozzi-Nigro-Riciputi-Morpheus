@@ -12,7 +12,7 @@ public class Animation {
 	private int count;
 	private int index;
 	private final int speed;
-	private final int numFrames;
+	private int numFrames;
 	/**
 	 * current frame.
 	 */
@@ -57,6 +57,15 @@ public class Animation {
 			count = 0;
 			nextFrame();
 		}
+	}
+	
+	/**
+	 * Set the last frames.
+	 * @param x
+	 *         the last position
+	 */
+	public void setNumFrames(final int x) {
+	    numFrames = x;
 	}
 
 	/**

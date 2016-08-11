@@ -1,7 +1,7 @@
 package morpheus.controller;
 
 import morpheus.Morpheus;
-import morpheus.model.MainPlayer;
+import morpheus.model.Player;
 
 public class Camera {
 	
@@ -13,7 +13,7 @@ public class Camera {
 		this.y = y;
 	}
 
-	public void tick(MainPlayer player) {
+	public void tick(Player player) {
 		x = -player.getX() + Morpheus.WIDTH / 8;//Rimettere /2 anziche /8
 	}
 

@@ -127,4 +127,14 @@ public class ModelImpl implements Model {
     public Option getOption() {
         return option;
     }
+
+    @Override
+    public SidePlayer getSidePlayer(final double x, final double y, final GameState state) {
+        return SidePlayer.getPlayer(x, y, state, option);
+    }
+
+    @Override
+    public SidePlayer getSidePlayer() {
+        return SidePlayer.getPlayer();
+    }
 }

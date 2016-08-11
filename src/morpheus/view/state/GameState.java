@@ -18,7 +18,7 @@ import morpheus.model.AbstractDrawable;
 import morpheus.model.MainPlayer;
 import morpheus.model.Model;
 import morpheus.model.ModelImpl;
-import morpheus.model.Option;
+import morpheus.model.Player;
 import morpheus.view.RandomTile;
 import morpheus.view.Texture;
 import morpheus.view.Tile;
@@ -103,7 +103,7 @@ public class GameState implements State {
 	private ArrayList<AbstractDrawable> entities;
 	private ArrayList<AbstractDrawable> appEntities;
 	private Camera camera;
-	private MainPlayer player;
+	private Player player;
 	private BufferedImage background;
 	private BufferedImage background2;
 	private Model model;
@@ -178,8 +178,8 @@ public class GameState implements State {
 		this.entities = new ArrayList<>();
 		appEntities = new ArrayList<>();
 		model = new ModelImpl();
-		this.player = model.getMainPlayer(100, 100, this);
-		coll = new Collision(this);
+		this.player = model.getSidePlayer(100, 100, this);
+		coll = new Collision(this, player);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
 		// BitMap in Tile da renderizzare nella scena e le aggiungo alla lista
 		// di Tile da renderizzare nel metodo render()
@@ -277,7 +277,7 @@ public class GameState implements State {
 		for (ListIterator<AbstractDrawable> iter = entities.listIterator(); iter.hasNext(); ) {
 			
 			AbstractDrawable e = iter.next();
-			if (e instanceof MainPlayer) {
+			if (e instanceof Player) {
 				
 				coll.tick();
 			}

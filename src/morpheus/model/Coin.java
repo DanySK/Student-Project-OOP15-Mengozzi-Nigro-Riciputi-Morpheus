@@ -57,7 +57,8 @@ public class Coin extends AbstractDrawable {
 	/**
 	 * The reaction at the intersection with the main character. Leads the
 	 * increase of the total coin's value.
-	 * 
+	 * @return
+	 *      the value to add at the score
 	 */
 	public int reaction() {
 		switch (type) {

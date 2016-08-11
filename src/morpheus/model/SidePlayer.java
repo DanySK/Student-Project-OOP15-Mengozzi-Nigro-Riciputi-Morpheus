@@ -6,16 +6,16 @@ import morpheus.view.state.GameState;
 /**
  * 
  * @author jacopo
- * 
- *         Create the main Character.
+ *
  */
-public final class MainPlayer extends Player {
+public final class SidePlayer extends Player {
 
-    private static MainPlayer player;
+    private static SidePlayer player;
 
     private static final int PLAYERHEIGTH = 60;
     private static final int PLAYERWIDTH = 38;
-    private static final int FALLWIDTH = 49;
+    private static final int FALLWIDTH = 52;
+    private static final int FALLHEIGHT = 51;
     private static final int FRAMES = 5;
 
     /**
@@ -33,13 +33,12 @@ public final class MainPlayer extends Player {
      * @param state
      *            state of game
      */
-    private MainPlayer(final double x, final double y, final GameState state, final Option stat, final Image... i) {
+    private SidePlayer(final double x, final double y, final GameState state, final Option stat, final Image... i) {
         super(x, y, state, stat, i);
-
     }
 
     /**
-     * Create the main player if doesn't exist. And return it.
+     * Create the side player if doesn't exist. And return it.
      * 
      * @param x
      *            x position
@@ -49,19 +48,19 @@ public final class MainPlayer extends Player {
      *            the state of game
      * @param stat
      *            option
-     * @return the main player
+     * @return the side player
      */
-    public static MainPlayer getPlayer(final double x, final double y, final GameState state, final Option stat) {
-        synchronized (MainPlayer.class) {
+    public static SidePlayer getPlayer(final double x, final double y, final GameState state, final Option stat) {
+        synchronized (SidePlayer.class) {
             if (player == null) {
                 final Image[] app = new Image[FRAMES];
                 final Image[] app1 = new Sprite(
-                        new SpriteSheet(new Texture("res/sayancorsapulito.png"), PLAYERWIDTH, PLAYERHEIGTH), 4, 1,
-                        4).getFramesAsList();
+                        new SpriteSheet(new Texture("res/sidecorsa.png"), PLAYERWIDTH, PLAYERHEIGTH), 4, 1, 4)
+                                .getFramesAsList();
                 System.arraycopy(app1, 0, app, 0, app1.length);
-                app[FRAMES - 1] = new Sprite(new SpriteSheet(new Texture("res/sayancaduta.png"), FALLWIDTH, PLAYERHEIGTH), 1,
-                        1, 1).getMainFrame();
-                player = new MainPlayer(x, y, state, stat, app);
+                app[FRAMES - 1] = new Sprite(new SpriteSheet(new Texture("res/sideCaduta.png"), FALLWIDTH, FALLHEIGHT), 1, 1,
+                        1).getMainFrame();
+                player = new SidePlayer(x, y, state, stat, app);
 
             }
         }
@@ -70,11 +69,11 @@ public final class MainPlayer extends Player {
 
     /**
      * 
-     * Returns to the main player , it has not been initialized return null.
+     * Returns to the side player , it has not been initialized return null.
      * 
-     * @return the main player , it has not been initialized return null.
+     * @return the side player , it has not been initialized return null.
      */
-    public static MainPlayer getPlayer() {
+    public static SidePlayer getPlayer() {
         return player;
     }
 
