@@ -54,7 +54,7 @@ public interface Model {
      * @return
      *          the obstacle
      */
-    Pill getBluePill(double x, double y, GameState state);
+    AbstractPill getBluePill(double x, double y, GameState state);
     
     /**
      * Add an obstacle at the game state.
@@ -68,7 +68,7 @@ public interface Model {
      * @return
      *          the obstacle
      */
-    Pill getRedPill(double x, double y, GameState state);
+    AbstractPill getRedPill(double x, double y, GameState state);
     
     /**
      * Create the player if doesn't exist. And return it.

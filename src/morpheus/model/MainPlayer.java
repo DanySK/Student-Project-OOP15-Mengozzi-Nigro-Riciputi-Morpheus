@@ -30,6 +30,8 @@ public final class MainPlayer extends AbstractDrawable {
     private static final int NFALL = 55;
     private static final double GRAVITYPLUS = 0.6;
     private static final int OFFSETCOLLISION = 5;
+    private static final int BULLETSIZE = 24;
+    private static final int NSCORE = 20;
     /**
      * velocità iniziale.
      */
@@ -39,37 +41,32 @@ public final class MainPlayer extends AbstractDrawable {
      * Gravità di partenza.
      */
     public static final double INITIAL_GRAVITY = 1.3;
-    /**
-     * Per animazione morte.
-     */
-    public static final int SLOWLY_DEATH = 4;
-    /**
-     * Pavimento.
-     */
-    public static final int FLOOR = 40;
-
-    private static final int BULLETSIZE = 24;
-    private volatile boolean runGO;
-
-    private int jmp = 10;
-    private double gravity = INITIAL_GRAVITY;
+    
+    
+    
     private final Option s;
-    private Status status;
     private final Animation animation;
     private final Item item;
+    private final int timeFall;
+    private final int jmp = 10;
+    private final double gravity = INITIAL_GRAVITY;
+    
+    private double velY = INITIAL_GRAVITY;
+   
     private int tileSynch;
+    private int velRun = INITIAL_VEL;
+    private int timeJump;
+    private int counterJump;
+    private int counterFall;
+    
+    private boolean inJump;
+    private boolean canJump = true;
     private boolean inFall;
     private boolean verticalCollision;
     private boolean doubleJump;
-    private int velRun = INITIAL_VEL;
-    private boolean canJump = true;
-    private double velY = INITIAL_GRAVITY;
-    private boolean inJump;
-    private int timeJump;
-    private int counterJump;
-    private final int timeFall;
-    private int counterFall;
-    
+    private boolean runGO;
+
+
     /**
      * 
      * L'oggetto prende in input l'altezza e la larghezza dell'immagine a
@@ -88,7 +85,6 @@ public final class MainPlayer extends AbstractDrawable {
     private MainPlayer(final double x, final double y, final GameState state, final Option stat, final Image... i) {
         super(x, y, state, i);
         s = stat;
-        status = Status.RUN;
         this.runGO = true;
         animation = new Animation(4, i);
         item = new Item();
@@ -111,10 +107,11 @@ public final class MainPlayer extends AbstractDrawable {
      *            y position
      * @param state
      *            the state of game
+     * @param stat
+     *            option
      * @return the main player
      */
     public static MainPlayer getPlayer(final double x, final double y, final GameState state, final Option stat) {
-
         synchronized (MainPlayer.class) {
             if (player == null) {
                 player = new MainPlayer(x, y, state, stat,
@@ -123,7 +120,6 @@ public final class MainPlayer extends AbstractDrawable {
 
             }
         }
-
         return player;
     }
 
@@ -148,32 +144,26 @@ public final class MainPlayer extends AbstractDrawable {
         if (isRunning()) {
             goOn();
         }
-        
+
         if (counterJump >= CHECKINJUMP) {
             jumping();
         }
         if (!inFall && counterJump == 0) {
             animation.run();
         }
-
-        if (status == Status.DEATH) {
-            death();
-        } else {
-            if (KeyInput.isPressed(s.getKeyJump())) {
-                if (inFall && doubleJump) {
-                    counterJump = 0;
-                    doubleJump = false;
-                    canJump = true;
-                    timeJump = NDOUBLEJUMP;
-                    jump();
-                } else {
-                    jump();
-                }
+        if (KeyInput.isPressed(s.getKeyJump())) {
+            if (inFall && doubleJump) {
+                counterJump = 0;
+                doubleJump = false;
+                canJump = true;
+                timeJump = NDOUBLEJUMP;
+                jump();
+            } else {
+                jump();
             }
-            if (KeyInput.isPressed(s.getKeyShoot())) {
-                shoot();
-            }
-
+        }
+        if (KeyInput.isPressed(s.getKeyShoot())) {
+            shoot();
         }
 
     }
@@ -192,7 +182,7 @@ public final class MainPlayer extends AbstractDrawable {
                 velY = gravity;
                 counterFall++;
             } else {
-                velY = gravity + GRAVITYPLUS; 
+                velY = gravity + GRAVITYPLUS;
             }
         }
         super.incY(velY);
@@ -215,9 +205,7 @@ public final class MainPlayer extends AbstractDrawable {
             canJump = false;
             counterJump = 1;
             inFall = false;
-
         }
-
     }
 
     private void jumping() {
@@ -280,16 +268,8 @@ public final class MainPlayer extends AbstractDrawable {
         return new Bullet(getX(), getY(), getState(),
                 new Sprite(new SpriteSheet(new Texture("res/bullet.png"), BULLETSIZE), 2, 1, 2).getFramesAsList());
     }
+    
 
-    /**
-     * Set the high of the jump.
-     * 
-     * @param x
-     *            the new valor of jump
-     */
-    public void setJump(final int x) {
-        this.jmp = x;
-    }
 
     /**
      * Set the Y change value.
@@ -310,15 +290,6 @@ public final class MainPlayer extends AbstractDrawable {
         return velY;
     }
 
-    /**
-     * Set the gravity.
-     * 
-     * @param x
-     *            the new valor
-     */
-    public void setGravity(final int x) {
-        this.gravity = x;
-    }
 
     /**
      * Set the run on true, so the character start his running.
@@ -343,32 +314,14 @@ public final class MainPlayer extends AbstractDrawable {
         return this.runGO;
     }
 
-    /**
-     * Set the field status.
-     * 
-     * @param s
-     *            new value of status
-     */
-    public void setStatus(final Status s) {
-        status = s;
-    }
 
     /**
-     * Return the character's status.
-     * 
-     * @return the character's status
-     * 
+     * Death of the player, stop it in the current position.
      */
-    public Status getStatus() {
-        return status;
-    }
-
-    private void death() {
-        if (getY() == FLOOR) {
-            velRun = 0;
-        } else {
-            incY(SLOWLY_DEATH);
-        }
+    public void death() {
+        this.stopRun();
+        this.stopJumping();
+        this.setVelY(0);
     }
 
     /**
@@ -383,7 +336,7 @@ public final class MainPlayer extends AbstractDrawable {
 
     @Override
     public void render(final Graphics2D g) {
-        if (status.equals(Status.RUN) && isRunning()) {
+        if (isRunning()) {
             animation.render(g, getX(), getY());
         } else {
             super.render(g);
@@ -457,23 +410,10 @@ public final class MainPlayer extends AbstractDrawable {
 
     /**
      * Returns the bottom of the player.
-     * @return
-     *          the bottom of the player 
+     * 
+     * @return the bottom of the player
      */
     public Rectangle getBottom() {
         return new Rectangle((int) getX() + OFFSETCOLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 1);
     }
-
-    /**
-     * 
-     * @author jacopo
-     *
-     */
-    public enum Status {
-        /**
-         * 
-         */
-        FLY, RUN, DEATH;
-    }
-
 }

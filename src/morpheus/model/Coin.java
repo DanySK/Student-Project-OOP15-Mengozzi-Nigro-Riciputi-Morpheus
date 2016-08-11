@@ -13,6 +13,8 @@ import morpheus.view.state.GameState;
 public class Coin extends AbstractDrawable {
 
 	private static final int NORMALCOINDIMENSION = 24;
+	private static final int COINVALUE = 5;
+	private static final int SPECIALCOINVALUE = 25;
         private final TypeCoin type;
 	private final Animation anime;
 	
@@ -57,19 +59,16 @@ public class Coin extends AbstractDrawable {
 	 * increase of the total coin's value.
 	 * 
 	 */
-	public void reaction() {
+	public int reaction() {
 		switch (type) {
 		case NORMAL:
-		    System.out.println("+1");
-			break;
+		   return COINVALUE;
 		case SPECIAL:
-		    System.out.println("+5");
-			break;
+		    return SPECIALCOINVALUE;
 		case X2:
-		    System.out.println("+2");
-			break;
+		   return 10;
 		default:
-			break;
+		    return 0;
 		}
 	}
 

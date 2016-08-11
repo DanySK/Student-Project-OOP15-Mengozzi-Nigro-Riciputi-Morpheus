@@ -9,9 +9,9 @@ import morpheus.view.state.GameState;
  * @author jacopo
  *
  */
-public abstract class Obstacle extends AbstractDrawable {
+public abstract class AbstractPill extends AbstractDrawable {
 
-    private final ModelAnimation anime;
+    private final Animation anime;
 
     /**
      * Create a object with animation.
@@ -25,9 +25,9 @@ public abstract class Obstacle extends AbstractDrawable {
      * @param state
      *            state of game
      */
-    public Obstacle(final double x, final double y, final GameState state, final Image... i) {
+    public AbstractPill(final double x, final double y, final GameState state, final Image... i) {
         super(x, y, state, i);
-        anime = new ModelAnimation(2, i);
+        anime = new Animation(2, i);
     }
 
     /**
@@ -42,7 +42,7 @@ public abstract class Obstacle extends AbstractDrawable {
      * @param i
      *            have all the information of the image
      */
-    public Obstacle(final double x, final double y, final GameState state, final Image i) {
+    public AbstractPill(final double x, final double y, final GameState state, final Image i) {
         super(x, y, state, i);
         anime = null;
     }

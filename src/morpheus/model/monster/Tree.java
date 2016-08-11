@@ -6,6 +6,7 @@ import java.util.List;
 
 import morpheus.model.Bullet;
 import morpheus.model.Image;
+import morpheus.model.MainPlayer;
 import morpheus.model.Animation;
 import morpheus.view.Texture;
 import morpheus.view.state.GameState;
@@ -138,6 +139,10 @@ public class Tree extends AbstractMonster {
      */
     public static class TreeBullet extends Bullet {
 
+        private static final double SCREENHEIGHT = 500;
+
+        private final double incY;
+
         /**
          * Create a tree bullet.
          * 
@@ -152,14 +157,22 @@ public class Tree extends AbstractMonster {
          */
         public TreeBullet(final double x, final double y, final GameState game, final Image i) {
             super(x, y, game, i);
-
+            final MainPlayer p = MainPlayer.getPlayer();
+            if (p.getY() > y) {
+                incY = 0;
+            } else {
+                incY = (SCREENHEIGHT - p.getY()) / ((x - p.getX()) / p.getVelRun());
+            }
+            System.out.println("A: " + (y - p.getY()));
+            System.out.println("B: " + (x - p.getX()));
+            System.out.println("IncY: " + incY);
         }
 
         @Override
         public void tick() {
+            this.decY(incY);
             this.decX(this.getBulletVelocity());
         }
 
     }
 }
-

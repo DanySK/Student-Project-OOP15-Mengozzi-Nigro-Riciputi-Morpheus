@@ -51,8 +51,8 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Pill getBluePill(final double x, final double y, final GameState state) {
-        return new Pill(x, y, state,
+    public AbstractPill getBluePill(final double x, final double y, final GameState state) {
+        return new AbstractPill(x, y, state,
                 new Sprite(new SpriteSheet(new Texture("res/pillolaBlu.png"), DIMENSION16, DIMENSION16), 4, 1, 4)
                         .getFramesAsList()) {
             @Override
@@ -63,9 +63,9 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Pill getRedPill(final double x, final double y, final GameState state) {
-        return new Pill(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/redPill.png"), DIMENSION24, DIMENSION24), 2, 1, 2)
+    public AbstractPill getRedPill(final double x, final double y, final GameState state) {
+        return new AbstractPill(x, y, state,
+                new Sprite(new SpriteSheet(new Texture("res/pillolaRossa.png"), DIMENSION16, DIMENSION16), 4, 1, 4)
                         .getFramesAsList()) {
             @Override
             public void reaction() {

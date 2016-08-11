@@ -6,11 +6,29 @@ import morpheus.model.Image;
 import morpheus.model.Animation;
 import morpheus.view.state.GameState;
 
+/**
+ * 
+ * @author jacopo
+ *
+ */
 public class Ghost extends AbstractMonster {
 
     
     private static final int GHOSTOFFSET = 50;
-    public Ghost(double x, double y, GameState game, Image... i) {
+    
+    /**
+     * Create a Ghost monster.
+     * 
+     * @param x
+     *            X position
+     * @param y
+     *            Y position
+     * @param game
+     *            GameState
+     * @param i
+     *            the animation's images
+     */
+    public Ghost(final double x, final double y, final GameState game, final Image... i) {
         super(x, y, game, i);
         setAnime(new Animation(2, i) {
             
