@@ -9,6 +9,8 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import morpheus.controller.AudioPlayer;
+
 /**
  * 		
  * @author Luca Mengozzi
@@ -39,6 +41,8 @@ public class RankedState implements State {
 	 * 		 
 	 */
 	private boolean exit;
+	//Da implementare con anche nessuna musica
+	private AudioPlayer BGMusic = new AudioPlayer("res/BGMusic.wav");;
 	
 	@Override
 	public void init() {
@@ -46,7 +50,7 @@ public class RankedState implements State {
 	}
 
 	@Override
-	public void enter() {
+	public void enter(StateManager stateManager) {
 		
 		//Imposto a false la variabile di uscita
 		exit = false;
@@ -180,5 +184,11 @@ public class RankedState implements State {
 			
 			stateManager.setState("MENU");
 		}
+	}
+
+	@Override
+	public AudioPlayer getMusic() {
+		
+		return BGMusic;
 	}
 }

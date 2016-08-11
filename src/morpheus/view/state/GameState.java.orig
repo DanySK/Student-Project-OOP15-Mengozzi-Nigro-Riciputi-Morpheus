@@ -8,20 +8,22 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
-
 import morpheus.Morpheus;
 import morpheus.controller.AudioPlayer;
 import morpheus.controller.BitMap;
 import morpheus.controller.Camera;
 import morpheus.controller.Collision;
 import morpheus.model.AbstractDrawable;
-import morpheus.view.GraphicNumbers;
+import morpheus.model.MainPlayer;
+import morpheus.view.Numbers;
 import morpheus.model.Model;
 import morpheus.model.ModelImpl;
+<<<<<<< local
+=======
 import morpheus.model.Player;
-import morpheus.view.GraphicBullet;
-import morpheus.view.GraphicLifes;
+>>>>>>> other
 import morpheus.view.RandomTile;
+import morpheus.view.Texture;
 import morpheus.view.Tile;
 
 /**
@@ -144,12 +146,12 @@ public class GameState implements State {
 	AudioPlayer BGMusic;
 	//Per ora le metto qui ma in realtà andranno nel model queste variabili che contengono
 	//il numero di vite e di proiettili
-	private int nBullet = 4;
+	private int nBullet = 5;
 	private int nLife = 3;
 	private int points = 0;
-	private GraphicNumbers num = new GraphicNumbers();
-	private GraphicLifes life = new GraphicLifes();
-	private GraphicBullet bullet = new GraphicBullet();
+	private Texture heart = new Texture("res/cuore.png");
+	private Texture bullet = new Texture("res/bullet2.png");
+	private Numbers num = new Numbers();
 	
 	@Override
 	public void init() {
@@ -222,10 +224,36 @@ public class GameState implements State {
 		g.translate(-camera.getX(), -camera.getY());
 		
 		//Renderizzo le vite
-		life.render(g, nLife);
+		if (nLife>=1){
+			
+			heart.render(g, 700, 50);
+		}
+		if (nLife>=2){
+			
+			heart.render(g, 650, 50);
+		}
+		if (nLife>=3){
+			
+			heart.render(g, 600, 50);
+		}
 		
 		//Renderizzo i proiettili
-		bullet.render(g, nBullet);
+		if (nBullet>=1){
+					
+			bullet.render(g, 500, 50);
+		}
+		if (nBullet>=2){
+					
+			bullet.render(g, 450, 50);
+		}
+		if (nBullet>=3){
+				
+			bullet.render(g, 400, 50);
+		}
+		if (nBullet>=4){
+					
+			bullet.render(g, 350, 50);
+		}
 		
 		//Renderizzo il punteggio
 		num.render(g, points);

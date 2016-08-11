@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
+import morpheus.controller.AudioPlayer;
+
 /**
  * 		
  * @author Luca Mengozzi
@@ -35,7 +37,9 @@ public class SettingsState implements State {
 	private final JButton violet = new JButton("Gulizia");
 	private JComboBox<String> j;
 	private JComboBox<String> s;
-	private JSlider m = new JSlider(0, 100);
+	private JSlider m = new JSlider(0, 100, 75);
+	//Da implementare con anche nessuna musica
+	private AudioPlayer BGMusic = new AudioPlayer("res/BGMusic.wav");;
 	private final String listj[] = new String[3];
 	private final String lists[] = new String[3];
 	/**
@@ -63,7 +67,7 @@ public class SettingsState implements State {
 	}
 
 	@Override
-	public void enter() {
+	public void enter(StateManager stateManager) {
 		
 		//Imposto a false la variabile di uscita
 		exit = false;
@@ -196,9 +200,21 @@ public class SettingsState implements State {
 	@Override
 	public void tick(StateManager stateManager) {
 		
+		//Varibile che conterrà il valore del volume preso dalla JSlider
+		double a = m.getValue();
+		a = a / 100;
+		//Il volume del gamestate sarà a
+		stateManager.getState("GAME").getMusic().setVolume(a);
+		
 		if (exit == true){
 			
 			stateManager.setState("MENU");
 		}
+	}
+
+	@Override
+	public AudioPlayer getMusic() {
+		
+		return BGMusic;
 	}
 }

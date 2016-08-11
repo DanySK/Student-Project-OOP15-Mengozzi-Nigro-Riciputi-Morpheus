@@ -19,17 +19,6 @@ public class Tile {
 
 	public void render(Graphics2D g) {
 		sprite.render(g, x, y);
-		/*if (Morpheus.DEBUG) {
-			g.setColor(Color.BLACK);
-			g.draw(getTop());
-			g.setColor(Color.BLUE);
-			g.draw(getBottom());
-			g.setColor(Color.MAGENTA);
-			g.draw(getLeft());
-			g.setColor(Color.ORANGE);
-			g.draw(getRight());
-		}*/
-
 	}
 
 	public boolean isSolid() {

@@ -1,0 +1,25 @@
+package morpheus.view;
+
+import java.awt.Graphics2D;
+
+public class GraphicLifes {
+
+	private Texture life = new Texture("res/cuorep.png");
+	
+	//Classico metodo render
+	public void render(Graphics2D g, int nLife){
+		
+		if (nLife>=1){
+			
+			life.render(g, 750, 50);
+		}
+		if (nLife>=2){
+			
+			life.render(g, 720, 50);
+		}
+		if (nLife>=3){
+			
+			life.render(g, 690, 50);
+		}
+	}
+}

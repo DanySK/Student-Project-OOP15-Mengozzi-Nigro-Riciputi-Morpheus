@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import morpheus.controller.AudioPlayer;
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
 import morpheus.model.Animation;
@@ -29,6 +30,8 @@ public class MenuState implements State{
 	 * 		 
 	 */
 	public static boolean DEFAULT_ANIMATION = true;
+	//Da implementare con anche nessuna musica
+	private AudioPlayer BGMusic = new AudioPlayer("res/BGMusic.wav");;
 	private Texture background;
 	private Animation player1;
 	private Animation player2;
@@ -53,7 +56,7 @@ public class MenuState implements State{
 	}
 
 	@Override
-	public void enter() {
+	public void enter(StateManager stateManager) {
 		
 	}
 
@@ -164,5 +167,11 @@ public class MenuState implements State{
 			System.exit(0);
 			break;
 		}
+	}
+
+	@Override
+	public AudioPlayer getMusic() {
+		
+		return BGMusic;
 	}
 }
