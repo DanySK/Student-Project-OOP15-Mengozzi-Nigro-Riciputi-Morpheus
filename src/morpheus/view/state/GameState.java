@@ -15,10 +15,7 @@ import morpheus.controller.BitMap;
 import morpheus.controller.Camera;
 import morpheus.controller.Collision;
 import morpheus.model.AbstractDrawable;
-<<<<<<< local
-=======
 import morpheus.view.GraphicNumbers;
->>>>>>> other
 import morpheus.model.Model;
 import morpheus.model.ModelImpl;
 import morpheus.model.Player;
@@ -153,28 +150,15 @@ public class GameState implements State {
 
 	private Collision coll;
 	AudioPlayer BGMusic;
-<<<<<<< local
-	// Per ora le metto qui ma in realtà andranno nel model queste variabili che
-	// contengono
-	// il numero di vite e di proiettili
-	private int nBullet = 5;
-=======
 	//Per ora le metto qui ma in realtà andranno nel model queste variabili che contengono
 	//il numero di vite e di proiettili
-	private int nBullet = 4;
->>>>>>> other
-	private int nLife = 3;
-<<<<<<< local
-	private Texture heart = new Texture("res/cuore.png");
-	private Texture bullet = new Texture("res/bullet2.png");
-
-=======
 	private int points = 0;
+	private int nBullet = 4;
+	private int nLife = 3;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
 	private GraphicBullet bullet = new GraphicBullet();
 	
->>>>>>> other
 	@Override
 	public void init() {
 
@@ -230,16 +214,10 @@ public class GameState implements State {
 	}
 
 	@Override
-<<<<<<< local
-	public void enter() {
-
-		BGMusic.setVolume(0.50);
-=======
 	public void enter(StateManager stateManager) {
 		
 		//Aggiorna le impostazioni
 		stateManager.getState("SETTINGS").tick(stateManager);
->>>>>>> other
 		BGMusic.playAndLoop();
 	}
 
@@ -258,41 +236,7 @@ public class GameState implements State {
 		// Renderizzo le RandomTile
 		this.renderWorld(g);
 		g.translate(-camera.getX(), -camera.getY());
-<<<<<<< local
 
-		// Renderizzo le vite
-		if (nLife >= 1) {
-
-			heart.render(g, 700, 50);
-		}
-		if (nLife >= 2) {
-
-			heart.render(g, 650, 50);
-		}
-		if (nLife >= 3) {
-
-			heart.render(g, 600, 50);
-		}
-
-		// Renderizzo i proiettili
-		if (nBullet >= 1) {
-
-			bullet.render(g, 500, 50);
-		}
-		if (nBullet >= 2) {
-
-			bullet.render(g, 450, 50);
-		}
-		if (nBullet >= 3) {
-
-			bullet.render(g, 400, 50);
-		}
-		if (nBullet >= 4) {
-
-			bullet.render(g, 350, 50);
-		}
-=======
-		
 		//Renderizzo le vite
 		life.render(g, nLife);
 		
@@ -301,7 +245,6 @@ public class GameState implements State {
 		
 		//Renderizzo il punteggio
 		num.render(g, points);
->>>>>>> other
 	}
 
 	@Override
@@ -405,24 +348,6 @@ public class GameState implements State {
 			g.drawImage(background, LINK - parallaxMove1, 0, null);
 		}
 
-<<<<<<< local
-		// BACKGROUND 2
-		if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
-
-			parallaxCloud1 = 0;
-		}
-		if ((speedX2 - SECONDEDGE) % (background2.getWidth() * 2) == 0) {
-
-			parallaxCloud2 = 0;
-		}
-
-		g.drawImage(background2, LINK - parallaxCloud2, 0, null);
-
-		if (speedX2 > FIRSTEDGE) {
-
-			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
-		}
-=======
 //		// BACKGROUND 2 PER ORA COMMENTATO PER FARE LE PROVE DELLE VITE IN ALTO
 //		if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
 //			
@@ -439,7 +364,7 @@ public class GameState implements State {
 //			
 //			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
 //		}
->>>>>>> other
+
 	}
 
 	public void renderWorld(Graphics2D g) {
