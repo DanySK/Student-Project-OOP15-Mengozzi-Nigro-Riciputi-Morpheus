@@ -18,6 +18,8 @@ public class BitMap {
 	// � CAMBIARE TUTTO)
 	public static double TILE_WIDTH = 64;
 	public static double TILE_HEIGHT = 64;
+	
+	private boolean first;
 
 	// Esprimono in numeri le dimensioni degli array relativamente alla
 	// dimensione che vogliamo dare alle mappe
@@ -25,11 +27,11 @@ public class BitMap {
 	// Array di RandomTile che servono per poter avere un contenitore per il
 	// valore di ritorno dell funzioni build()
 	// ed inviare il tutto al GameState
-	List<RandomTile> tiles = new ArrayList<>();
-	List<RandomTile> tiles1 = new ArrayList<>();
-	List<RandomTile> tiles2 = new ArrayList<>();
-	List<RandomTile> tiles3 = new ArrayList<>();
-	Random random;
+	private List<RandomTile> tiles = new ArrayList<>();
+	private List<RandomTile> tiles1 = new ArrayList<>();
+	private List<RandomTile> tiles2 = new ArrayList<>();
+	private List<RandomTile> tiles3 = new ArrayList<>();
+	private Random random;
 
 	/**
 	 * Initialize the class
@@ -45,20 +47,27 @@ public class BitMap {
 		// punto in cui cambiare
 		// posizione alle mappe stesse in modo che non sia visibile a schermo
 		// tale operazione
-		width = (int) Math.ceil((Morpheus.WIDTH + 400) / TILE_WIDTH);
-		random = new Random();
+		this.width = (int) Math.ceil((Morpheus.WIDTH + 400) / TILE_WIDTH);
+		this.first = true;
+		this.random = new Random();
 		TileMaps.init();
 	}
 
 	// Metodi che servono per convertire i valori degli Array soprastanti in
 	// Tile da renderizzare a schermo
+
 	/**
 	 * Build the list of tiles from the first map
 	 * 
 	 * @return List of Tiles
 	 */
 	public List<RandomTile> build() {
-		int[] randMap = getRandomTileMap();
+		int[] randMap;
+		if (first) {
+			randMap = TileMaps.getFirstMap();
+		} else {
+			randMap = getRandomTileMap();
+		}
 		for (int i = 0; i < randMap.length; i++) {
 			// E' un po' difficile da spiegare a parole comunque numera prima le
 			// righe e poi le colonne
@@ -77,6 +86,7 @@ public class BitMap {
 				tiles.add(tile);
 			}
 		}
+		first = false;
 		// Ritorna la lista
 		return tiles;
 	}
@@ -145,7 +155,9 @@ public class BitMap {
 	 * @return Array of integer
 	 */
 	public int[] getRandomTileMap() {
-		int mapID = 1;
+		int mapID = random.nextInt(10);
+		System.out.println(mapID);
+
 		switch (mapID) {
 		case 0:
 			return TileMaps.getMAP();
@@ -167,6 +179,8 @@ public class BitMap {
 			return TileMaps.getMAP8();
 		case 9:
 			return TileMaps.getMAP9();
+		case 10:
+			return TileMaps.getMAP10();
 
 		}
 		return null;
