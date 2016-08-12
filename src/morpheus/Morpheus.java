@@ -40,6 +40,14 @@ public class Morpheus extends Canvas implements Runnable {
 	//Generato numero seriale
 	private static final long serialVersionUID = 4143231894678455397L;
 	
+	/**
+	 * Frame di gioco principale
+	 */
+	private final JFrame frame;
+	
+	/**
+	 * Titolo del Frame di gioco principale
+	 */
 	private static final String TITLE = "MORPHEUS";
 	
 	/**
@@ -60,7 +68,7 @@ public class Morpheus extends Canvas implements Runnable {
 	private volatile boolean running;
 	
 	//Da eliminare se non serve
-	public static boolean DEBUG = true;
+	public static boolean DEBUG = false;
 	
 	// numero frame e tick al secondo che vogliamo ottenere
 	private static final double TARGET = 60.0;
@@ -101,7 +109,7 @@ public class Morpheus extends Canvas implements Runnable {
 		stateManager.addState(new SettingsState());
 
 		///////////// FRAME PRINCIPALE/////////////
-		final JFrame frame = new JFrame(TITLE);
+		frame = new JFrame(TITLE);
 		frame.getContentPane().add(this);
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setResizable(false);
@@ -143,8 +151,6 @@ public class Morpheus extends Canvas implements Runnable {
 		//g.translate(0, 30);//Mettere -30
 
 		// /////////////////////////////////////////////////////////////////
-		//g2D.setColor(Color.RED);
-		//g2D.fillRect(0, 0, WIDTH, HEIGHT);
 		stateManager.render(g2D);
 		// ////////////////////////////////////////////////////////////////
 

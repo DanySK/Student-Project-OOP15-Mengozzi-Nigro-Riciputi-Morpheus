@@ -2,6 +2,8 @@ package morpheus.view.state;
 
 import java.awt.Graphics2D;
 
+import morpheus.controller.AudioPlayer;
+
 /**
  * 		
  * Interfaccia generale di tutte le schermate con i metodi necessari per il funzionamento di base
@@ -27,7 +29,7 @@ public interface State {
 	 * @author Luca Mengozzi
 	 * 		 
 	 */
-	public void enter();
+	public void enter(StateManager stateManager);
 
 	/**
 	 * 		
@@ -64,5 +66,15 @@ public interface State {
 	 * 		 
 	 */
 	public String getName();
+
+	/**
+	 * 		
+	 * Metodo che ritorna l'audio dello state, in questo modo ogni schermata 
+	 * potrà avere una parte dedicata a se
+	 * 
+	 * @author Luca Mengozzi
+	 * 		 
+	 */
+	public AudioPlayer getMusic();
 }
 

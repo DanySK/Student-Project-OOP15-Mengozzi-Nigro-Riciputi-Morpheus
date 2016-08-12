@@ -59,7 +59,7 @@ public class StateManager{
 		if (currentState == null){
 			
 			//Si entra direttamente in quella
-			state.enter();
+			state.enter(this);
 			
 			//E si setta come corrente
 			currentState = state;
@@ -85,12 +85,23 @@ public class StateManager{
 		currentState.exit();
 		
 		//Entra nella schermata successiva
-		state.enter();
+		state.enter(this);
 		
 		//Setta come schermata corrente quella in cui si sta entrando
 		currentState = state;
 	}
 
+	/**
+	 * 
+	 * Setta come currentState una precisa schermata
+	 * 
+	 * @author Luca Mengozzi
+	 */
+	public State getState(String name){
+		
+		return map.get(name);
+	}
+	
 	/**
 	 * 
 	 * Classico metodo tick
