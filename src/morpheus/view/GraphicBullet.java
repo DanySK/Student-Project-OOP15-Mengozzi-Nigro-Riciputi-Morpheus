@@ -2,11 +2,22 @@ package morpheus.view;
 
 import java.awt.Graphics2D;
 
+/**
+ * 
+ * @author Luca Mengozzi		 
+ * 
+ * */
 public class GraphicBullet {
 
 	private Texture bullet = new Texture("res/bulletp.png");
 	
-	//Classico metodo render
+	/**
+	 * 
+	 * Classico metodo render
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 * */
 	public void render(Graphics2D g, int nBullet){
 			
 		if (nBullet>=1){

@@ -11,11 +11,32 @@ import java.util.Map;
  */
 public class GraphicNumbers {
 	
+	/**
+	 *  
+	 * Score massimo raggiungibile
+	 *  
+	 * @author Luca Mengozzi		 
+	 * 
+	 */
 	private final int MAX = 1000000;
+	/**
+	 * 
+	 * Mappa che conterrà le sprite relative ai numeri da renderizzare 
+	 *  
+	 * @author Luca Mengozzi		 
+	 * 
+	 */
 	private Map<Integer, Sprite> map = new HashMap<Integer, Sprite>();
 	private SpriteSheet s = new SpriteSheet(new Texture("res/nerip.png"), 25);
 	private Texture score = new Texture("res/scoreggia.png");
 	
+	/**
+	 * 
+	 * Costruttore con il quale si divide la spritesheet in piu sprite
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 * */
 	public GraphicNumbers(){
 		
 		for (int i=0; i<10; i++){
@@ -24,17 +45,25 @@ public class GraphicNumbers {
 		}
 	}
 	
+	/**
+	 * 
+	 * Classico metodo render
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 * */
 	public void render(Graphics2D g, int p){
 		
 		//Divido per 200 per gestirlo meglio e per aumentare la difficolta di gioco
 		p = p / 200;
 		
-		//Variabile che mi tiene il primo numero
+		//Variabile che mi tiene la prima cifra del numero
 		int f = 0;
 		
+		//Renderizzo l'immagine relativa alla parola "score:"
 		score.render(g, 25, 49);
 		
-		//Decido che un milione è il massimo
+		//Se il numero è pari o superiore al massimo renderizzo il massimo
 		if (p >= MAX){
 			
 			map.get(1).render(g, 138, 50);
@@ -197,7 +226,5 @@ public class GraphicNumbers {
 				}
 			}	
 		}
-		
-		
 	}	
 }
