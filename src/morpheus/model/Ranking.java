@@ -11,7 +11,9 @@ import java.util.List;
  * @author jacopo
  *
  */
-public class Ranking extends Storable {
+public final class Ranking extends Storable {
+    
+    private static Ranking rank;
     /**
      * 
      */
@@ -34,7 +36,7 @@ public class Ranking extends Storable {
      * @throws IOException
      *             In caso il file non esistesse
      */
-    public Ranking() {
+    private Ranking() {
         super(FILE);
         boolean avvert = false;
         Ranking rank = null;
@@ -52,6 +54,17 @@ public class Ranking extends Storable {
             this.app = rank.getPlayers();
         }
     }
+    
+    public  static Ranking getRankingClass() {
+        synchronized (Ranking.class) {
+            if (rank == null) {
+                rank = new Ranking();
+            }
+        }
+        return rank;
+    }
+    
+    
 
 
     /**

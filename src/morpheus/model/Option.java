@@ -9,62 +9,94 @@ import java.io.IOException;
  * @author jacopo
  *
  */
-public class Option extends Storable {
+public final class Option extends Storable {
 
+    private static Option statistics;
     /**
      * 
      */
     private static final long serialVersionUID = 3751161991209059959L;
-
+    
     private static final String FILE_NAME = "res/Option.dat";
-    private static final transient int DEFAULT_JUMP_KEY = KeyEvent.VK_W;
-    private static final transient int DEFAULT_SHOOT_KEY = KeyEvent.VK_SPACE;
+    public static final transient int DEFAULT_JUMP_KEY = KeyEvent.VK_W;
+    public static final transient int DEFAULT_SHOOT_KEY = KeyEvent.VK_SPACE;
+    public static final transient double DEFAULT_VOLUME = 0.7;
     private final boolean firstOpen;
 
     private int jumpKey;
     private int shootKey;
-    private boolean blueMorpheus;
-    private boolean redMorpheus;
+    private double volume;
+    private boolean mainPlayer;
+    private boolean sidePlayer;
 
     /**
      * Legge le Statistiche dal file predefinito e le carica in memoria.
      */
-    public Option() {
+    private Option() {
         super(FILE_NAME);
         boolean app = false;
         try {
             final Option stat = (Option) readObject();
-            blueMorpheus = stat.isBlueMorpheusOpen();
-            redMorpheus = stat.isRedMorpheusOpen();
+            mainPlayer = stat.isMainPlayerOpen();
+            sidePlayer = stat.isSidePlayerOpen();
             shootKey = stat.getKeyShoot();
             jumpKey = stat.getKeyJump();
+            volume = stat.getVolume();
         } catch (IOException e) {
             new File(FILE_NAME);
             app = true;
-            blueMorpheus = false;
-            redMorpheus = false;
+            mainPlayer = false;
+            sidePlayer = false;
             jumpKey = KeyEvent.VK_W;
             shootKey = KeyEvent.VK_SPACE;
+            volume = DEFAULT_VOLUME;
         }
         firstOpen = app;
     }
-
-    /**
-     * Dice se il pesonaggio BlueMorpheus è sbloccato.
-     * 
-     * @return True -> Sbloccato; False -> Bloccato;
-     */
-    public boolean isBlueMorpheusOpen() {
-        return this.blueMorpheus;
+    
+    public static Option getOption() {
+        synchronized (Option.class) {
+            if (statistics == null) {
+                statistics = new Option();
+            }
+        }
+        return statistics;
     }
 
     /**
-     * Dice se il pesonaggio RedMorpheus è sbloccato.
+     * Dice se il personaggio MainPlayer è selezionato.
      * 
-     * @return True -> Sbloccato; False -> Bloccato;
+     * @return True -> Selezionato; False -> Bloccato;
      */
-    public boolean isRedMorpheusOpen() {
-        return this.redMorpheus;
+    public boolean isMainPlayerOpen() {
+        return this.mainPlayer;
+    }
+    
+    /**
+     * Set the player selection.
+     * @param status
+     *          true this is the selected player, false otherwise.
+     */
+    public void setMainPlayerOpening(final boolean status) {
+        this.mainPlayer = status;
+    }
+
+    /**
+     * Dice se il personaggio SidePlayer è selezionato.
+     * 
+     * @return True -> Selezionato; False -> Bloccato;
+     */
+    public boolean isSidePlayerOpen() {
+        return this.sidePlayer;
+    }
+    
+    /**
+     * Set the player selection.
+     * @param status
+     *          true this is the selected player, false otherwise.
+     */
+    public void setSidePlayerOpening(final boolean status) {
+        this.sidePlayer = status;
     }
 
     /**
@@ -117,17 +149,17 @@ public class Option extends Storable {
     }
 
     /**
-     * @return the defaultdownkey
+     * @return the volume
      */
-    public static int getDefaultShootKey() {
-        return DEFAULT_SHOOT_KEY;
+    public double getVolume() {
+        return volume;
     }
 
     /**
-     * @return the defaultjumpkey
+     * @param volume the volume to set
      */
-    public static int getDefaultJumpKey() {
-        return DEFAULT_JUMP_KEY;
+    public void setVolume(final double volume) {
+        this.volume = volume;
     }
 
 }

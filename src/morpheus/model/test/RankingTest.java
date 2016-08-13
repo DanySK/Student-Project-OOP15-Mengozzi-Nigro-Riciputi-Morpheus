@@ -25,7 +25,7 @@ public class RankingTest {
     @Test
     public void testSorting() {
         
-        r = new Ranking();
+        r = Ranking.getRankingClass();
         
         final List<Element> list = new ArrayList<>();
         list.add(new Element("Mirko", 1000));
@@ -55,7 +55,7 @@ public class RankingTest {
             System.out.println("Entro qui?");
         }
         System.out.println("Test add");
-        r = new Ranking();
+        r = Ranking.getRankingClass();
     }
     
     /**

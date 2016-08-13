@@ -15,14 +15,13 @@ import morpheus.controller.BitMap;
 import morpheus.controller.Camera;
 import morpheus.controller.Collision;
 import morpheus.model.AbstractDrawable;
+import morpheus.view.GraphicNumbers;
 import morpheus.model.Model;
 import morpheus.model.ModelImpl;
 import morpheus.model.Player;
 import morpheus.view.GraphicBullet;
 import morpheus.view.GraphicLifes;
-import morpheus.view.GraphicNumbers;
 import morpheus.view.RandomTile;
-import morpheus.view.Texture;
 import morpheus.view.Tile;
 
 /**
@@ -152,14 +151,15 @@ public class GameState implements State {
 	private Collision coll;
 	AudioPlayer BGMusic;
 	//Per ora le metto qui ma in realtà andranno nel model queste variabili che contengono
-		//il numero di vite e di proiettili
-		private int nBullet = 4;
-		private int nLife = 3;
-		private int points = 0;
-		private GraphicNumbers num = new GraphicNumbers();
-		private GraphicLifes life = new GraphicLifes();
-		private GraphicBullet bullet = new GraphicBullet();
-		
+	//il numero di vite e di proiettili
+	private int nBullet = 4;
+	private int nLife = 3;
+
+	private int points = 0;
+	private GraphicNumbers num = new GraphicNumbers();
+	private GraphicLifes life = new GraphicLifes();
+	private GraphicBullet bullet = new GraphicBullet();
+	
 	@Override
 	public void init() {
 
@@ -215,10 +215,12 @@ public class GameState implements State {
 	}
 
 	@Override
+
 	public void enter(StateManager stateManager) {
 		
 		//Aggiorna le impostazioni
 		stateManager.getState("SETTINGS").tick(stateManager);
+
 		BGMusic.playAndLoop();
 	}
 
@@ -226,26 +228,28 @@ public class GameState implements State {
 	public void render(Graphics2D g) {
 
 		// Lo sfondo è staccato sia dal movimento del giocatore sia dal
-				// movimento di camera
-				this.renderBG(g);
-				
-				g.translate(camera.getX(), camera.getY());
-				// Entità
-				for (AbstractDrawable e : entities) {
-					e.render(g);
-				}
-				// Renderizzo le RandomTile
-				this.renderWorld(g);
-				g.translate(-camera.getX(), -camera.getY());
-				
-				//Renderizzo le vite
-				life.render(g, nLife);
-				
-				//Renderizzo i proiettili
-				bullet.render(g, nBullet);
-				
-				//Renderizzo il punteggio
-				num.render(g, points);
+		// movimento di camera
+		this.renderBG(g);
+
+		g.translate(camera.getX(), camera.getY());
+		// Entità
+		for (AbstractDrawable e : entities) {
+			e.render(g);
+		}
+		// Renderizzo le RandomTile
+		this.renderWorld(g);
+		g.translate(-camera.getX(), -camera.getY());
+
+		
+		//Renderizzo le vite
+		life.render(g, nLife);
+		
+		//Renderizzo i proiettili
+		bullet.render(g, nBullet);
+		
+		//Renderizzo il punteggio
+		num.render(g, points);
+
 	}
 
 	@Override
@@ -328,43 +332,59 @@ public class GameState implements State {
 	public void renderBG(Graphics2D g) {
 
 		// BACKGROUND 1
-				// Questi due if statement fanno in modo che le variabili che settano lo
-				// spostamento, e quindi anche la posizione iniziale di rendering, di
-				// ciascuna immagine di background si azzeri ogni volta che due
-				// background si sono susseguiti
-				if ((speedX1 - FIRSTEDGE) % (background.getWidth() * 2) == 0) {
-					
-					parallaxMove1 = 0;
-				}
-				if ((speedX1 - SECONDEDGE) % (background.getWidth() * 2) == 0) {
-					
-					parallaxMove2 = 0;
-				}
-				// Renderizza il primo background
-				g.drawImage(background, LINK - parallaxMove2, 0, null);
-				// Solo una volta che il primo background e' terminato si renderizza il
-				// secondo
-				if (speedX1 > FIRSTEDGE) {
-					
-					g.drawImage(background, LINK - parallaxMove1, 0, null);
-				}
+		// Questi due if statement fanno in modo che le variabili che settano lo
+		// spostamento, e quindi anche la posizione iniziale di rendering, di
+		// ciascuna immagine di background si azzeri ogni volta che due
+		// background si sono susseguiti
+		if ((speedX1 - FIRSTEDGE) % (background.getWidth() * 2) == 0) {
 
-//				// BACKGROUND 2 PER ORA COMMENTATO PER FARE LE PROVE DELLE VITE IN ALTO
-//				if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
-//					
-//					parallaxCloud1 = 0;
-//				}
-//				if ((speedX2 - SECONDEDGE) % (background2.getWidth() * 2) == 0) {
-//					
-//					parallaxCloud2 = 0;
-//				}
-		//
-//				g.drawImage(background2, LINK - parallaxCloud2, 0, null);
-		//
-//				if (speedX2 > FIRSTEDGE) {
-//					
-//					g.drawImage(background2, LINK - parallaxCloud1, 0, null);
-//				}
+			parallaxMove1 = 0;
+		}
+		if ((speedX1 - SECONDEDGE) % (background.getWidth() * 2) == 0) {
+
+			parallaxMove2 = 0;
+		}
+		// Renderizza il primo background
+		g.drawImage(background, LINK - parallaxMove2, 0, null);
+		// Solo una volta che il primo background e' terminato si renderizza il
+		// secondo
+		if (speedX1 > FIRSTEDGE) {
+
+			g.drawImage(background, LINK - parallaxMove1, 0, null);
+		}
+
+		// BACKGROUND 2
+		if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
+
+			parallaxCloud1 = 0;
+		}
+		if ((speedX2 - SECONDEDGE) % (background2.getWidth() * 2) == 0) {
+
+			parallaxCloud2 = 0;
+		}
+
+		g.drawImage(background2, LINK - parallaxCloud2, 0, null);
+
+		if (speedX2 > FIRSTEDGE) {
+
+			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
+		}
+//		// BACKGROUND 2 PER ORA COMMENTATO PER FARE LE PROVE DELLE VITE IN ALTO
+//		if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
+//			
+//			parallaxCloud1 = 0;
+//		}
+//		if ((speedX2 - SECONDEDGE) % (background2.getWidth() * 2) == 0) {
+//			
+//			parallaxCloud2 = 0;
+//		}
+//
+//		g.drawImage(background2, LINK - parallaxCloud2, 0, null);
+//
+//		if (speedX2 > FIRSTEDGE) {
+//			
+//			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
+//		}
 	}
 
 	public void renderWorld(Graphics2D g) {

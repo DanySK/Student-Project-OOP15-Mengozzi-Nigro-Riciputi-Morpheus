@@ -193,6 +193,18 @@ public class Player extends AbstractDrawable {
     public boolean isRunning() {
         return this.runGO;
     }
+    
+    /**
+     * Reset of the player for a new start.
+     * @param x
+     *          x start position
+     * @param y
+     *          y start position
+     */
+    public void reset(final double x, final double y) {
+        setX(x);
+        setY(y);
+    }
 
     /**
      * Death of the player, stop it in the current position.

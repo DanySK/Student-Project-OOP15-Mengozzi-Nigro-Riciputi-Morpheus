@@ -25,15 +25,15 @@ public class StatisticsTest {
      */
     @Test
     public void test() {
-        final Option s = new Option();
+        final Option s = Option.getOption();
        
         
         if (s.isFirstOpen()) {
             assertEquals(s.getFileName(), "res/Option.dat");
             assertEquals(s.getKeyShoot(), KeyEvent.VK_SPACE);
             assertEquals(s.getKeyJump(), KeyEvent.VK_W);
-            assertFalse(s.isBlueMorpheusOpen());
-            assertFalse(s.isRedMorpheusOpen());
+            assertFalse(s.isMainPlayerOpen());
+            assertFalse(s.isSidePlayerOpen());
         
             s.setKeyShoot(KeyEvent.VK_0);
             assertEquals(s.getKeyShoot(), KeyEvent.VK_0);
@@ -48,7 +48,7 @@ public class StatisticsTest {
             
             assertEquals(keyJump, KeyEvent.VK_W);
             assertEquals(keyShoot, KeyEvent.VK_SPACE);
-             
+             System.out.println("Volume:" + s.getVolume());
             s.close();
         }
         

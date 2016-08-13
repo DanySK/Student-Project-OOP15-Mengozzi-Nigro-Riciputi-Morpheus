@@ -155,6 +155,10 @@ public class GameState implements State {
 	private int points = 0;
 	private int nBullet = 4;
 	private int nLife = 3;
+
+
+	
+
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
 	private GraphicBullet bullet = new GraphicBullet();
@@ -218,6 +222,7 @@ public class GameState implements State {
 		
 		//Aggiorna le impostazioni
 		stateManager.getState("SETTINGS").tick(stateManager);
+
 		BGMusic.playAndLoop();
 	}
 
@@ -236,7 +241,6 @@ public class GameState implements State {
 		// Renderizzo le RandomTile
 		this.renderWorld(g);
 		g.translate(-camera.getX(), -camera.getY());
-
 		//Renderizzo le vite
 		life.render(g, nLife);
 		
@@ -348,6 +352,22 @@ public class GameState implements State {
 			g.drawImage(background, LINK - parallaxMove1, 0, null);
 		}
 
+		// BACKGROUND 2
+		if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
+
+			parallaxCloud1 = 0;
+		}
+		if ((speedX2 - SECONDEDGE) % (background2.getWidth() * 2) == 0) {
+
+			parallaxCloud2 = 0;
+		}
+
+		g.drawImage(background2, LINK - parallaxCloud2, 0, null);
+
+		if (speedX2 > FIRSTEDGE) {
+
+			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
+		}
 //		// BACKGROUND 2 PER ORA COMMENTATO PER FARE LE PROVE DELLE VITE IN ALTO
 //		if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
 //			
@@ -364,7 +384,6 @@ public class GameState implements State {
 //			
 //			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
 //		}
-
 	}
 
 	public void renderWorld(Graphics2D g) {

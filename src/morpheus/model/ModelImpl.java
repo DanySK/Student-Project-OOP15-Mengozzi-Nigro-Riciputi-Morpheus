@@ -22,12 +22,14 @@ public class ModelImpl implements Model {
     private static final int DIMENSION64 = 64;
 
     private final Option option;
-    
+    private final Ranking ranking;
+
     /**
      * .
      */
     public ModelImpl() {
-        option = new Option();
+        option = Option.getOption();
+        ranking = Ranking.getRankingClass();
     }
 
     @Override
@@ -124,11 +126,6 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Option getOption() {
-        return option;
-    }
-
-    @Override
     public SidePlayer getSidePlayer(final double x, final double y, final GameState state) {
         return SidePlayer.getPlayer(x, y, state, option);
     }
@@ -136,5 +133,45 @@ public class ModelImpl implements Model {
     @Override
     public SidePlayer getSidePlayer() {
         return SidePlayer.getPlayer();
+    }
+
+    @Override
+    public boolean isMainPlayerOpen() {
+        return option.isMainPlayerOpen();
+    }
+
+    @Override
+    public boolean isSidePlayerOpen() {
+        return option.isSidePlayerOpen();
+    }
+
+    @Override
+    public void setMainPlayerOpening(final boolean status) {
+        option.setMainPlayerOpening(status);
+    }
+
+    @Override
+    public void setSidePlayerOpening(final boolean status) {
+        option.setSidePlayerOpening(status);
+    }
+
+    @Override
+    public void saveOption() {
+        option.close();
+    }
+
+    @Override
+    public void setVolume(final double volume) {
+        option.setVolume(volume);
+    }
+
+    @Override
+    public double getVolume() {
+        return option.getVolume();
+    }
+
+    @Override
+    public Ranking getRanking() {
+        return ranking;
     }
 }

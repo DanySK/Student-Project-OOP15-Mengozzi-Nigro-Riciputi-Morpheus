@@ -25,6 +25,13 @@ public interface Model {
     void setKeyJump(int key);
     
     /**
+     * Set the game volume.
+     * @param volume
+     *          the new volume          
+     */
+    void setVolume(double volume);
+    
+    /**
      * 
      * @return
      *          il valore in formato stringa del tasto per alzarsi
@@ -37,11 +44,45 @@ public interface Model {
     int getKeyShoot();
     
     /**
-     * Returns all the option.
+     * Returns the game volume.
      * @return
-     *          all the option
+     *          the game volume
      */
-    Option getOption();
+    double getVolume();
+    
+    /**
+     * Returns true if the player is selected, false otherwise.
+     * @return
+     *          true if the player is selected, false otherwise.
+     */
+    boolean isMainPlayerOpen();
+    
+    /**
+     * Returns true if the player is selected, false otherwise.
+     * @return
+     *          true if the player is selected, false otherwise.
+     */
+    boolean isSidePlayerOpen();
+    
+    /**
+     * Set the player selection.
+     * @param status
+     *          true this is the selected player, false otherwise.
+     */
+    void setMainPlayerOpening(final boolean status);
+    
+    /**
+     * Set the player selection.
+     * @param status
+     *          true this is the selected player, false otherwise.
+     */
+    void setSidePlayerOpening(final boolean status);
+    
+    /**
+     * Save in the file the Option.
+     */
+    void saveOption();
+    
     /**
      * Add an obstacle at the game state.
      * This obstacle is a blue pill and his reaction Method will add a bullet to the MainPlayer.
@@ -195,4 +236,11 @@ public interface Model {
      *          the Coin
      */
     Coin getSpecialCoin(double x, double y, GameState state);
+    
+    /**
+     * Returns the ranking.
+     * @return
+     *          the ranking
+     */
+    Ranking getRanking();
 }
