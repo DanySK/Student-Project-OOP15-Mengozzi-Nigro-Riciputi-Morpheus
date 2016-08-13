@@ -8,8 +8,10 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
+
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
+import morpheus.view.state.DeathState;
 import morpheus.view.state.GameState;
 import morpheus.view.state.MenuState;
 import morpheus.view.state.RankedState;
@@ -107,6 +109,7 @@ public class Morpheus extends Canvas implements Runnable {
 		stateManager.addState(new GameState());
 		stateManager.addState(new RankedState());
 		stateManager.addState(new SettingsState());
+		stateManager.addState(new DeathState());
 
 		///////////// FRAME PRINCIPALE/////////////
 		frame = new JFrame(TITLE);

@@ -41,8 +41,6 @@ public class RankedState implements State {
 	 * 		 
 	 */
 	private boolean exit;
-	//Da implementare con anche nessuna musica
-	private AudioPlayer BGMusic = new AudioPlayer("res/BGMusic.wav");;
 	
 	@Override
 	public void init() {
@@ -189,6 +187,6 @@ public class RankedState implements State {
 	@Override
 	public AudioPlayer getMusic() {
 		
-		return BGMusic;
+		return null;
 	}
 }

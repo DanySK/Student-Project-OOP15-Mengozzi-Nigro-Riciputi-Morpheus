@@ -30,8 +30,6 @@ public class MenuState implements State{
 	 * 		 
 	 */
 	public static boolean DEFAULT_ANIMATION = true;
-	//Da implementare con anche nessuna musica
-	private AudioPlayer BGMusic = new AudioPlayer("res/BGMusic.wav");;
 	private Texture background;
 	private Animation player1;
 	private Animation player2;
@@ -160,7 +158,7 @@ public class MenuState implements State{
 			break;
 		case 2:
 			
-			stateManager.setState("Settings");
+			stateManager.setState("Death");
 			break;
 		case 3:
 			
@@ -172,6 +170,6 @@ public class MenuState implements State{
 	@Override
 	public AudioPlayer getMusic() {
 		
-		return BGMusic;
+		return null;
 	}
 }

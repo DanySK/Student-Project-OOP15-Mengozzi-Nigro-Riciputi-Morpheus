@@ -39,7 +39,6 @@ public class SettingsState implements State {
 	private JComboBox<String> s;
 	private JSlider m = new JSlider(0, 100, 75);
 	//Da implementare con anche nessuna musica
-	private AudioPlayer BGMusic = new AudioPlayer("res/BGMusic.wav");;
 	private final String listj[] = new String[3];
 	private final String lists[] = new String[3];
 	/**
@@ -215,6 +214,6 @@ public class SettingsState implements State {
 	@Override
 	public AudioPlayer getMusic() {
 		
-		return BGMusic;
+		return null;
 	}
 }
