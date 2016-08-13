@@ -158,7 +158,7 @@ public class MenuState implements State{
 			break;
 		case 2:
 			
-			stateManager.setState("Death");
+			stateManager.setState("Settings");
 			break;
 		case 3:
 			

@@ -59,7 +59,7 @@ public class DeathState implements State{
 		recordFrame.getContentPane().add(panelRecord);
 		panelRecord.add(new JLabel("Wow! You have scored a new RECORD!"));
 		panelRecord.add(new JLabel("Champion, tell us what is your name"));
-		champion.setSize(300, 30);
+		champion.setColumns(23);
 		panelRecord.add(champion);
 		panelRecord.add(new JButton("Ok"));
 		
@@ -112,7 +112,7 @@ public class DeathState implements State{
 	   //Se è il record appare la finestra che fa inserire il nome
 	   if (this.score==1200){
 		   
-		   recordFrame.setSize(300, 120);
+		   recordFrame.setSize(300, 130);
 		   recordFrame.setLocationRelativeTo(null);
 		   recordFrame.setVisible(true);
 	   }
