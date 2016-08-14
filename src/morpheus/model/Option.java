@@ -18,9 +18,19 @@ public final class Option extends Storable {
     private static final long serialVersionUID = 3751161991209059959L;
     
     private static final String FILE_NAME = "res/Option.dat";
+    /**
+     * Default Jump Key.
+     */
     public static final transient int DEFAULT_JUMP_KEY = KeyEvent.VK_W;
+    /**
+     * Default Shoot Key.
+     */
     public static final transient int DEFAULT_SHOOT_KEY = KeyEvent.VK_SPACE;
+    /**
+     * Default volume.
+     */
     public static final transient double DEFAULT_VOLUME = 0.75;
+
     private final boolean firstOpen;
 
     private int jumpKey;
@@ -54,6 +64,11 @@ public final class Option extends Storable {
         firstOpen = app;
     }
     
+    /**
+     * Returns the Option object.
+     * @return
+     *          the Option object
+     */
     public static Option getOption() {
         synchronized (Option.class) {
             if (statistics == null) {

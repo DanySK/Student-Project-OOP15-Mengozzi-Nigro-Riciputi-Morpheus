@@ -122,7 +122,6 @@ public abstract class AbstractDrawable implements Drawable {
 	 */
 	public Rectangle getBounds() {
 		return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), this.getHeight());
-		
 	}
 
 	/**
@@ -214,9 +213,7 @@ public abstract class AbstractDrawable implements Drawable {
 		if (image != null) {
 			return new ArrayList<>(Arrays.asList(image));
 		} 
-		
 		return null;
-		
 	}
 
 	/**

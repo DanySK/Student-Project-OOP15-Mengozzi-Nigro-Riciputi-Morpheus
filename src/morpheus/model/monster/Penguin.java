@@ -55,6 +55,16 @@ public class Penguin extends AbstractMonster {
         }
     }
     
+    
+    /**
+     * Set a new initialX for the monster.
+     * @param x
+     *          new x
+     */
+    public void setCentralX(final double x) {
+        this.setInitialX(x);
+    }
+    
     @Override
     public void render(final Graphics2D g) {
         if (getAnimation() == null) {

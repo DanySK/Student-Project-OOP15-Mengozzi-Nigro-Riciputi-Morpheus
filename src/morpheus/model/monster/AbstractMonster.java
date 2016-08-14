@@ -15,8 +15,8 @@ import morpheus.view.state.GameState;
  */
 public abstract class AbstractMonster extends AbstractDrawable {
 
-    private final double initialX;
-    private final double initialY;
+    private double initialX;
+    private double initialY;
     private boolean direction = true;
     private Animation anime;
 
@@ -74,6 +74,24 @@ public abstract class AbstractMonster extends AbstractDrawable {
                 direction = true;
             }
         }
+    }
+    
+    /**
+     * Set a new initialX for the monster.
+     * @param x
+     *          new X
+     */
+    protected void setInitialX(final double x) {
+        this.initialX = x;
+    }
+    
+    /**
+     * Set a new initialY for the monster.
+     * @param y
+     *          new Y
+     */
+    protected void setInitialY(final double y) {
+        this.initialY = y;
     }
 
     @Override

@@ -57,6 +57,15 @@ public class Ghost extends AbstractMonster {
             }
         }
     }
+    
+    /**
+     * Set a new initialY for the monster.
+     * @param y
+     *          new y
+     */
+    public void setCentralY(final double y) {
+        this.setInitialY(y);
+    }
 
     @Override
     public void render(final Graphics2D g) {

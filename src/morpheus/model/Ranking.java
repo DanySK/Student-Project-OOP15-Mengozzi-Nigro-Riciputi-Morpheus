@@ -55,6 +55,11 @@ public final class Ranking extends Storable {
         }
     }
     
+    /**
+     * Returns the Ranking object.
+     * @return
+     *          the Ranking object
+     */
     public  static Ranking getRankingClass() {
         synchronized (Ranking.class) {
             if (rank == null) {
