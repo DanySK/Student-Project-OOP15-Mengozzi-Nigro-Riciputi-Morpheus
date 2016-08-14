@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import morpheus.controller.AudioPlayer;
+import morpheus.model.Model;
 import morpheus.model.ModelImpl;
 import morpheus.model.Element;
 
@@ -45,7 +46,7 @@ public class RankedState implements State {
 	 */
 	private boolean exit;
 	private List<Element> elements;
-	private ModelImpl model = new ModelImpl();
+	private Model model = new ModelImpl();
 	
 	@Override
 	public void init() {

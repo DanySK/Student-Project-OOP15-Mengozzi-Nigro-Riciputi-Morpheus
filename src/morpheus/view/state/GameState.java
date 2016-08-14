@@ -161,6 +161,13 @@ public class GameState implements State {
 	@Override
 	public void init() {
 
+		//Carico la canzone
+		BGMusic = new AudioPlayer("res/BGMusic.wav");
+	}
+
+	@Override
+	public void enter(StateManager stateManager) {
+		
 		randomTiles = new ArrayList<>();
 		randomTiles1 = new ArrayList<>();
 		randomTiles2 = new ArrayList<>();
@@ -175,11 +182,9 @@ public class GameState implements State {
 		bitMap = new BitMap();
 		// Inizializzo le BitMap
 		bitMap.init();
-
+	
 		try {
 
-			// Ci sono anche wow.png e
-			// wow2.png///////////////////////////////////////////
 			background = ImageIO.read(new File("res/ultimo.png"));
 			background2 = ImageIO.read(new File("res/nuvole_buone.png"));
 		} catch (IOException e) {
@@ -191,7 +196,14 @@ public class GameState implements State {
 		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
 		appEntities = new ArrayList<>();
-		this.player = model.getSidePlayer(100, 100, this);
+		if (model.isMainPlayerOpen()){
+			
+			this.player = model.getMainPlayer(100, 100, this);
+		}
+		else{
+			
+			this.player = model.getSidePlayer(100, 100, this);
+		}
 		coll = new Collision(this, player);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
 		// BitMap in Tile da renderizzare nella scena e le aggiungo alla lista
@@ -207,13 +219,8 @@ public class GameState implements State {
 		allRandomTiles.addAll(randomTiles1);
 		allRandomTiles.addAll(randomTiles2);
 		allRandomTiles.addAll(randomTiles3);
-
-		BGMusic = new AudioPlayer("res/BGMusic.wav");
-	}
-
-	@Override
-	public void enter(StateManager stateManager) {
 		
+		//Imposto il volume
 		BGMusic.setVolume(model.getVolume());
 		BGMusic.playAndLoop();
 	}

@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 
 import morpheus.controller.AudioPlayer;
+import morpheus.model.Model;
 import morpheus.model.ModelImpl;
 
 /**
@@ -53,12 +54,20 @@ public class SettingsState implements State {
 	 * 		 
 	 */
 	private boolean exit;
-	private ModelImpl model = new ModelImpl();
+	private Model model = new ModelImpl();
 
 	@Override
 	public void init() {
 		
-		blonde.setEnabled(false);
+		if(model.isMainPlayerOpen()){
+			
+			blonde.setEnabled(false);
+		}
+		else{
+			
+			violet.setEnabled(false);
+		}
+		
 		
 		listj[0] = "W";
 		listj[1] = "Spacebar";
@@ -102,7 +111,6 @@ public class SettingsState implements State {
 			
 				blonde.setEnabled(false);
 				violet.setEnabled(true);
-				MenuState.DEFAULT_ANIMATION = true;
 				model.setMainPlayerOpening(true);
 				model.setSidePlayerOpening(false);
 				
@@ -116,7 +124,8 @@ public class SettingsState implements State {
 			
 				blonde.setEnabled(true);
 				violet.setEnabled(false);
-				MenuState.DEFAULT_ANIMATION = false;
+				model.setMainPlayerOpening(false);
+				model.setSidePlayerOpening(true);
 			}
 		});
 	

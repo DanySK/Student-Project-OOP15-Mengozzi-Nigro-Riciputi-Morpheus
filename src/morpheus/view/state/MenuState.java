@@ -9,6 +9,8 @@ import morpheus.controller.AudioPlayer;
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
 import morpheus.model.Animation;
+import morpheus.model.Model;
+import morpheus.model.ModelImpl;
 import morpheus.view.Button;
 import morpheus.view.Sprite;
 import morpheus.view.SpriteSheet;
@@ -29,13 +31,14 @@ public class MenuState implements State{
 	 * @author Luca Mengozzi
 	 * 		 
 	 */
-	public static boolean DEFAULT_ANIMATION = true;
+	//DA ELIMINAREEEEEEEEEEEEEEEEEEpublic static boolean DEFAULT_ANIMATION = true;
 	private Texture background;
 	private Animation player1;
 	private Animation player2;
 	private Button[] options;
 	private int currentSelection;
 	private static final int HITBOX_OFFSET = 15;
+	private Model model = new ModelImpl();
 
 	@Override
 	public void init() {
@@ -96,7 +99,7 @@ public class MenuState implements State{
 			select(stateManager);
 		}
 		//Tick dell'animazione
-		if (DEFAULT_ANIMATION){
+		if (model.isMainPlayerOpen()){
 			
 			player1.run();
 		}
@@ -110,7 +113,7 @@ public class MenuState implements State{
 	public void render(Graphics2D g) {
 		
 		background.render(g, 0, 0);
-		if (DEFAULT_ANIMATION){
+		if (model.isMainPlayerOpen()){
 			
 			player1.render(g, 500, 175);
 		}
