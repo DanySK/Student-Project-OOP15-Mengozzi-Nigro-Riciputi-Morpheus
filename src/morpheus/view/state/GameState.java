@@ -105,7 +105,7 @@ public class GameState implements State {
 	private Player player;
 	private BufferedImage background;
 	private BufferedImage background2;
-	private Model model;
+	private Model model = new ModelImpl();
 	// Variabili per la gestione dello scrolling dei background che permettono
 	// allo sfondo effetivamente di muoversi
 	private int parallaxMove1 = 0;
@@ -147,7 +147,6 @@ public class GameState implements State {
 	private ArrayList<RandomTile> append3;
 
 	private ArrayList<RandomTile> allRandomTiles;
-
 	private Collision coll;
 	AudioPlayer BGMusic;
 	//Per ora le metto qui ma in realtà andranno nel model queste variabili che contengono
@@ -155,10 +154,6 @@ public class GameState implements State {
 	private int points = 0;
 	private int nBullet = 4;
 	private int nLife = 3;
-
-
-	
-
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
 	private GraphicBullet bullet = new GraphicBullet();
@@ -196,7 +191,6 @@ public class GameState implements State {
 		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
 		appEntities = new ArrayList<>();
-		model = new ModelImpl();
 		this.player = model.getSidePlayer(100, 100, this);
 		coll = new Collision(this, player);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
@@ -220,9 +214,7 @@ public class GameState implements State {
 	@Override
 	public void enter(StateManager stateManager) {
 		
-		//Aggiorna le impostazioni
-		stateManager.getState("SETTINGS").tick(stateManager);
-
+		BGMusic.setVolume(model.getVolume());
 		BGMusic.playAndLoop();
 	}
 

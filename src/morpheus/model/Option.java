@@ -20,7 +20,7 @@ public final class Option extends Storable {
     private static final String FILE_NAME = "res/Option.dat";
     public static final transient int DEFAULT_JUMP_KEY = KeyEvent.VK_W;
     public static final transient int DEFAULT_SHOOT_KEY = KeyEvent.VK_SPACE;
-    public static final transient double DEFAULT_VOLUME = 0.7;
+    public static final transient double DEFAULT_VOLUME = 0.75;
     private final boolean firstOpen;
 
     private int jumpKey;

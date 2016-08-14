@@ -4,8 +4,11 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 
 import morpheus.controller.AudioPlayer;
+import morpheus.model.ModelImpl;
 
 /**
  * 		
@@ -40,6 +44,7 @@ public class SettingsState implements State {
 	private JSlider m = new JSlider(0, 100, 75);
 	//Da implementare con anche nessuna musica
 	private final String listj[] = new String[3];
+	private final Map<String, Integer> mapKey = new HashMap<>();
 	private final String lists[] = new String[3];
 	/**
 	 * Quando è true si esce dallo state		
@@ -48,21 +53,28 @@ public class SettingsState implements State {
 	 * 		 
 	 */
 	private boolean exit;
+	private ModelImpl model = new ModelImpl();
 
 	@Override
 	public void init() {
 		
 		blonde.setEnabled(false);
 		
-		listj[0] = "Q";
-		listj[1] = "W";
-		listj[2] = "E";
+		listj[0] = "W";
+		listj[1] = "Spacebar";
+		listj[2] = "Up";
 		j = new JComboBox<>(listj);
 		
-		lists[0] = "D";
-		lists[1] = "F";
-		lists[2] = "G";
+		lists[0] = "Spacebar";
+		lists[1] = "D";
+		lists[2] = "Right";
 		s = new JComboBox<>(lists);
+		
+		mapKey.put("W", KeyEvent.VK_W);
+		mapKey.put("D", KeyEvent.VK_D);
+		mapKey.put("Spacebar", KeyEvent.VK_SPACE);
+		mapKey.put("Up", KeyEvent.VK_UP);
+		mapKey.put("Right", KeyEvent.VK_RIGHT);
 	}
 
 	@Override
@@ -91,6 +103,9 @@ public class SettingsState implements State {
 				blonde.setEnabled(false);
 				violet.setEnabled(true);
 				MenuState.DEFAULT_ANIMATION = true;
+				model.setMainPlayerOpening(true);
+				model.setSidePlayerOpening(false);
+				
 			}
 		});
 	
@@ -202,8 +217,12 @@ public class SettingsState implements State {
 		//Varibile che conterrà il valore del volume preso dalla JSlider
 		double a = m.getValue();
 		a = a / 100;
-		//Il volume del gamestate sarà a
-		stateManager.getState("GAME").getMusic().setVolume(a);
+		//Il volume sarà a
+		model.setVolume(a);
+		
+		//Setta la configurazione dei tasti
+		model.setKeyJump(mapKey.get((String)j.getSelectedItem()));
+		model.setKeyShoot(mapKey.get((String)s.getSelectedItem()));
 		
 		if (exit == true){
 			
