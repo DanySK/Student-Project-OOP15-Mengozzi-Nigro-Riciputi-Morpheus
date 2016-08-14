@@ -5,11 +5,16 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import morpheus.controller.AudioPlayer;
+import morpheus.model.ModelImpl;
+import morpheus.model.Element;
 
 /**
  * 		
@@ -19,21 +24,21 @@ import morpheus.controller.AudioPlayer;
 public class RankedState implements State {
 
 	private JFrame frame;
-	private final JLabel num1 = new JLabel("1.");
-	private final JLabel num2 = new JLabel("2.");
-	private final JLabel num3 = new JLabel("3.");
-	private final JLabel num4 = new JLabel("4.");
-	private final JLabel num5 = new JLabel("5.");
-	private final JLabel name1 = new JLabel("LUCA MENGOZZI");
-	private final JLabel name2 = new JLabel("MATTEO NIGRO");
-	private final JLabel name3 = new JLabel("JACOPO RICIPUTI");
-	private final JLabel name4 = new JLabel("ROSSANO CODELUPPI");
-	private final JLabel name5 = new JLabel("SIMONE ZAZA");
-	private final JLabel res1 = new JLabel("700");
-	private final JLabel res2 = new JLabel("550");
-	private final JLabel res3 = new JLabel("400");
-	private final JLabel res4 = new JLabel("398");
-	private final JLabel res5 = new JLabel("5");
+	private final JLabel num1 = new JLabel();
+	private final JLabel num2 = new JLabel();
+	private final JLabel num3 = new JLabel();
+	private final JLabel num4 = new JLabel();
+	private final JLabel num5 = new JLabel();
+	private final JLabel name1 = new JLabel();
+	private final JLabel name2 = new JLabel();
+	private final JLabel name3 = new JLabel();
+	private final JLabel name4 = new JLabel();
+	private final JLabel name5 = new JLabel();
+	private final JLabel res1 = new JLabel();
+	private final JLabel res2 = new JLabel();
+	private final JLabel res3 = new JLabel();
+	private final JLabel res4 = new JLabel();
+	private final JLabel res5 = new JLabel();
 	/**
 	 * Quando è true si esce dallo state		
 	 * 
@@ -41,6 +46,8 @@ public class RankedState implements State {
 	 * 		 
 	 */
 	private boolean exit;
+	private List<Element> elements;
+	private ModelImpl model = new ModelImpl();
 	
 	@Override
 	public void init() {
@@ -52,6 +59,41 @@ public class RankedState implements State {
 		
 		//Imposto a false la variabile di uscita
 		exit = false;
+		
+		//Riempio la lista di elementi inizializzando la lista
+		elements = model.getRanking().getPartOfRanking(5);
+		
+		//Carico i dati dalla lista 
+		if (elements.size()>=1){
+			
+			num1.setText("1.");
+			name1.setText(elements.get(0).getName());
+			res1.setText(Integer.toString(elements.get(0).getScore()));
+		}
+		if (elements.size()>=2){
+			
+			num2.setText("2.");
+			name2.setText(elements.get(1).getName());
+			res2.setText(Integer.toString(elements.get(1).getScore()));
+		}
+		if (elements.size()>=3){
+			
+			num3.setText("3.");
+			name3.setText(elements.get(2).getName());
+			res3.setText(Integer.toString(elements.get(2).getScore()));
+		}
+		if (elements.size()>=4){
+			
+			num4.setText("4.");
+			name4.setText(elements.get(3).getName());
+			res4.setText(Integer.toString(elements.get(3).getScore()));
+		}
+		if (elements.size()>=5){
+			
+			num5.setText("5.");
+			name5.setText(elements.get(4).getName());
+			res5.setText(Integer.toString(elements.get(4).getScore()));
+		}
 		
 		//Creo il panel personalizzato
 		BackgroundRankedState background = new BackgroundRankedState();
