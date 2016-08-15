@@ -235,6 +235,7 @@ public class SettingsState implements State {
 		
 		if (exit == true){
 			
+			model.saveOption();
 			stateManager.setState("MENU");
 		}
 	}

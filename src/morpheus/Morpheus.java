@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
+import morpheus.model.Model;
+import morpheus.model.ModelImpl;
 import morpheus.view.state.DeathState;
 import morpheus.view.state.GameState;
 import morpheus.view.state.MenuState;
@@ -94,6 +96,9 @@ public class Morpheus extends Canvas implements Runnable {
 	//Dichiaro lo stateManager della classe view
 	private StateManager stateManager;
 	
+	//Creo un oggetto di tipo model
+	private Model model = new ModelImpl();
+	
 	//Costruttore che inizializza il Frame principale
 	public Morpheus(){
 		
@@ -122,6 +127,7 @@ public class Morpheus extends Canvas implements Runnable {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(final WindowEvent e) {
+				
 				System.err.println("Exiting game");
 				stop();
 			}
