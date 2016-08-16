@@ -74,7 +74,7 @@ public class StateManager{
 	 */
 	public void setState(String name){
 		
-		State state = map.get(name.toUpperCase());//Togliere toUpperCase
+		State state = map.get(name.toUpperCase());
 		if (state == null){
 			
 			System.err.println("State <" + name + "> does not exist!");

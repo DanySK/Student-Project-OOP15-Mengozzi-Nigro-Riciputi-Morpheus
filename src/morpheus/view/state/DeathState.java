@@ -180,6 +180,8 @@ public class DeathState implements State{
 			
 			stateManager.setState("MENU");
 		}
+		//Interrompe la musica
+		stateManager.getState("GAME").getMusic().setVolume(0);
 	}
 
 	@Override

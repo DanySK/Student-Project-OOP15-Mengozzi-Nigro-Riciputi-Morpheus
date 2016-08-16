@@ -31,7 +31,6 @@ public class MenuState implements State{
 	 * @author Luca Mengozzi
 	 * 		 
 	 */
-	//DA ELIMINAREEEEEEEEEEEEEEEEEEpublic static boolean DEFAULT_ANIMATION = true;
 	private Texture background;
 	private Animation player1;
 	private Animation player2;
@@ -54,6 +53,7 @@ public class MenuState implements State{
 		options[1] = new Button(225, "res/ranking_bianco.png", "res/ranking_nero.png");
 		options[2] = new Button(275, "res/settings_bianco.png", "res/settings_nero.png");
 		options[3] = new Button(325, "res/exit_bianco.png", "res/exit_nero.png");
+		
 	}
 
 	@Override
