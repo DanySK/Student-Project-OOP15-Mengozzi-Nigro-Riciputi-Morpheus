@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
+import morpheus.view.state.GameState;
+
 /**
  *  
  * @author Luca Mengozzi		 
@@ -52,10 +54,10 @@ public class GraphicNumbers {
 	 * @author Luca Mengozzi		 
 	 * 
 	 * */
-	public void render(Graphics2D g, int p){
+	public void render(Graphics2D g){
 		
-		//Divido per 200 per gestirlo meglio e per aumentare la difficolta di gioco
-		p = p / 200;
+		//Variabile che conterrà lo score da modificare
+		int p = GameState.score;
 		
 		//Variabile che mi tiene la prima cifra del numero
 		int f = 0;
@@ -226,5 +228,7 @@ public class GraphicNumbers {
 				}
 			}	
 		}
-	}	
+	}
 }
+
+

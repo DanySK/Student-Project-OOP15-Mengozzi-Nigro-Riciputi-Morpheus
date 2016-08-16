@@ -149,11 +149,10 @@ public class GameState implements State {
 	private ArrayList<RandomTile> allRandomTiles;
 	private Collision coll;
 	AudioPlayer BGMusic;
-	//Per ora le metto qui ma in realtà andranno nel model queste variabili che contengono
-	//il numero di vite e di proiettili
+	//Variabile che conterrà i punti secondo il normale scorrere del gioco
 	private int points = 0;
-	private int nBullet = 4;
-	private int nLife = 3;
+	//Variabile che conterrà i punti secondo la difficoltà scelta
+	public static int score = 0;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
 	private GraphicBullet bullet = new GraphicBullet();
@@ -241,13 +240,13 @@ public class GameState implements State {
 		this.renderWorld(g);
 		g.translate(-camera.getX(), -camera.getY());
 		//Renderizzo le vite
-		life.render(g, nLife);
+		life.render(g, model.getMainPlayer().getItem().getHP());
 		
 		//Renderizzo i proiettili
-		bullet.render(g, nBullet);
+		bullet.render(g, model.getMainPlayer().getItem().getBullet());
 		
 		//Renderizzo il punteggio
-		num.render(g, points);
+		num.render(g);
 	}
 
 	@Override
@@ -288,7 +287,16 @@ public class GameState implements State {
 			appEntities = new ArrayList<>();
 		}
 		
+		System.out.println("Y è " + model.getMainPlayer().getY());
+		if (model.getMainPlayer().getY()>453){
+			
+			
+			stateManager.setState("Death");
+		}
+		
+		//Incremento il punteggio
 		points++;
+		score = points / 200;
 	}
 
 	public ArrayList<Tile> getTiles() {

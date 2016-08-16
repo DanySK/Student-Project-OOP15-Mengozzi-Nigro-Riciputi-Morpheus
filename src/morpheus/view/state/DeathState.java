@@ -2,16 +2,24 @@ package morpheus.view.state;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import morpheus.controller.AudioPlayer;
+import morpheus.model.Element;
+import morpheus.model.Model;
+import morpheus.model.ModelImpl;
+import morpheus.model.Pair;
 
 /**
  *
@@ -24,7 +32,8 @@ public class DeathState implements State{
 	private JPanel panelRecord = new JPanel();
 	private JLabel labelScore;
 	private JTextField champion = new JTextField();
-	private int score = 1200;
+	private JButton confirm = new JButton("Ok");
+	private Model model = new ModelImpl();
 	/**
 	 * Quando è true si esce dallo state		
 	 * 
@@ -46,7 +55,7 @@ public class DeathState implements State{
 		exit = false;
 		
 		//Creo il panel personalizzato
-		labelScore = new JLabel("SCORE: " + Integer.toString(score));
+		labelScore = new JLabel("SCORE: " + Integer.toString(GameState.score));
 		labelScore.setHorizontalAlignment( JLabel.CENTER );
 		labelScore.setFont(new Font("TimesNewRoman", Font.BOLD, 30));
 		BackgroundDeathState background = new BackgroundDeathState();
@@ -61,7 +70,52 @@ public class DeathState implements State{
 		panelRecord.add(new JLabel("Champion, tell us what is your name"));
 		champion.setColumns(23);
 		panelRecord.add(champion);
-		panelRecord.add(new JButton("Ok"));
+		panelRecord.add(confirm);
+		confirm.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				try{
+					
+					model.getRanking().add(new Element(champion.getText(), GameState.score));
+				}catch(IllegalArgumentException e1){
+					
+					JDialog confirm2 = new JDialog();
+					JButton yes = new JButton("Yes");
+					JButton no = new JButton("No");
+					confirm2.getContentPane().add(new JLabel("This name is used yet. Are you sure do you want continue?"));
+					confirm2.getContentPane().add(yes);
+					confirm2.getContentPane().add(no);
+					yes.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							
+							model.getRanking().forceAdd(new Pair<String, Integer>(champion.getText(), GameState.score));
+						}
+					});
+					no.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							
+							confirm2.dispose();
+						}
+					});
+					confirm2.setVisible(true);
+				}
+				
+				try {
+					
+					model.getRanking().close();
+				} catch (IOException e2) {
+					
+					e2.printStackTrace();
+				}
+				recordFrame.dispose();
+			}
+		});
 		
 		
 		//Personalizzo la finestra(il frame)
@@ -110,7 +164,8 @@ public class DeathState implements State{
 	   mainFrame.setLocationRelativeTo(null);
 	   mainFrame.setVisible(true);
 	   //Se è il record appare la finestra che fa inserire il nome
-	   if (this.score==1200){
+	   //METTO 4 PERCHE ORA SONO 4 MA DOVRANNO ESSERE 5!!!!!!!!!!!!!!!!!!!!!!
+	   if (GameState.score>=model.getRanking().getPosition(4).getScore()){
 		   
 		   recordFrame.setSize(300, 130);
 		   recordFrame.setLocationRelativeTo(null);
@@ -136,6 +191,7 @@ public class DeathState implements State{
 	public void exit() {
 		
 		mainFrame.dispose();
+		recordFrame.dispose();
 	}
 
 	@Override

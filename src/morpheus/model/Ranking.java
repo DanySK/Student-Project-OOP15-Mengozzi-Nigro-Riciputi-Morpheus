@@ -90,6 +90,7 @@ public final class Ranking extends Storable {
      *             Leggere descrizione sopra per il lancio dell'eccezione
      */
     public void add(final Element el) throws IllegalArgumentException {
+    	
         if (app.contains(el.getName())) {
             throw new IllegalArgumentException();
         }
