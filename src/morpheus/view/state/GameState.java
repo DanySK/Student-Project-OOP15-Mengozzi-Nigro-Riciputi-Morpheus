@@ -195,13 +195,20 @@ public class GameState implements State {
 		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
 		appEntities = new ArrayList<>();
+		//Carico il personaggio
 		if (model.isMainPlayerOpen()){
-			
-			this.player = model.getMainPlayer(100, 100, this);
+					
+			if(model.getMainPlayer()==null){
+				
+				this.player = model.getMainPlayer(100, 100, this);
+			}
 		}
 		else{
-			
-			this.player = model.getSidePlayer(100, 100, this);
+				
+			if(model.getSidePlayer()==null){
+				
+				this.player = model.getSidePlayer(100, 100, this);
+			}
 		}
 		coll = new Collision(this, player);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
@@ -240,10 +247,24 @@ public class GameState implements State {
 		this.renderWorld(g);
 		g.translate(-camera.getX(), -camera.getY());
 		//Renderizzo le vite
-		life.render(g, model.getMainPlayer().getItem().getHP());
+		if (model.isMainPlayerOpen()){
+			
+			life.render(g, model.getMainPlayer().getItem().getHP());
+		}
+		else{
+				
+			life.render(g, model.getSidePlayer().getItem().getHP());
+		}
 		
 		//Renderizzo i proiettili
-		bullet.render(g, model.getMainPlayer().getItem().getBullet());
+		if (model.isMainPlayerOpen()){
+			
+			bullet.render(g, model.getMainPlayer().getItem().getBullet());
+		}
+		else{
+				
+			bullet.render(g, model.getSidePlayer().getItem().getBullet());
+		}
 		
 		//Renderizzo il punteggio
 		num.render(g);
@@ -251,7 +272,37 @@ public class GameState implements State {
 
 	@Override
 	public void exit() {
-
+		
+		if (model.isMainPlayerOpen()){
+			
+			model.getMainPlayer().setX(100);
+			model.getMainPlayer().setY(100);
+		}
+		else{
+				
+			model.getSidePlayer().setX(100);
+			model.getSidePlayer().setY(100);
+		}
+		
+		parallaxMove1 = 0;
+		parallaxMove2 = 795;
+		parallaxCloud1 = 0;
+		parallaxCloud2 = 795;
+		
+		Offset1 = 0;
+		Offset2 = 0;
+		
+		check = 1;
+		
+		point = 0;
+		point1 = 1200;
+		point2 = 2400;
+		point3 = 3600;
+		
+		speedX1 = 100;
+		speedX2 = 100;
+		
+		points = 0;
 	}
 
 	@Override
@@ -287,15 +338,32 @@ public class GameState implements State {
 			appEntities = new ArrayList<>();
 		}
 		
-		System.out.println("Y è " + model.getMainPlayer().getY());
-		if (model.getMainPlayer().getY()>453){
+		//System.out.println("X è " + model.getMainPlayer().getX());
+		//System.out.println("Y è " + model.getMainPlayer().getY());
+		if (model.isMainPlayerOpen()){
 			
-			
-			stateManager.setState("Death");
+			if (model.getMainPlayer().getY()>453){
+				
+				stateManager.setState("Death");
+			}
+		}
+		else{
+				
+			if (model.getSidePlayer().getY()>453){
+				
+				stateManager.setState("Death");
+			}
 		}
 		
-		//Incremento il punteggio
+		//Incremento il punteggio utilizzando esclusivamente il tempo 
+		//visto che la telecamera si muove (in generale questo sarebbe
+		//meglio ma visto il gioco andrebbe fatto l'altro)
 		points++;
+		
+		//Incremento in base all'avanzamente del personaggio visto che
+		//la telecamera non si muove
+		//points = model.getMainPlayer().getX();
+		
 		score = points / 200;
 	}
 
