@@ -105,7 +105,7 @@ public class GameState implements State {
 	private Player player;
 	private BufferedImage background;
 	private BufferedImage background2;
-	private Model model;
+	private Model model = new ModelImpl();
 	// Variabili per la gestione dello scrolling dei background che permettono
 	// allo sfondo effetivamente di muoversi
 	private int parallaxMove1 = 0;
@@ -147,15 +147,12 @@ public class GameState implements State {
 	private ArrayList<RandomTile> append3;
 
 	private ArrayList<RandomTile> allRandomTiles;
-
 	private Collision coll;
 	AudioPlayer BGMusic;
-	//Per ora le metto qui ma in realtà andranno nel model queste variabili che contengono
-	//il numero di vite e di proiettili
-	private int nBullet = 4;
-	private int nLife = 3;
-
+	//Variabile che conterrà i punti secondo il normale scorrere del gioco
 	private int points = 0;
+	//Variabile che conterrà i punti secondo la difficoltà scelta
+	public static int score = 0;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
 	private GraphicBullet bullet = new GraphicBullet();
@@ -163,6 +160,13 @@ public class GameState implements State {
 	@Override
 	public void init() {
 
+		//Carico la canzone
+		BGMusic = new AudioPlayer("res/BGMusic.wav");
+	}
+
+	@Override
+	public void enter(StateManager stateManager) {
+		
 		randomTiles = new ArrayList<>();
 		randomTiles1 = new ArrayList<>();
 		randomTiles2 = new ArrayList<>();
@@ -177,11 +181,9 @@ public class GameState implements State {
 		bitMap = new BitMap();
 		// Inizializzo le BitMap
 		bitMap.init();
-
+	
 		try {
 
-			// Ci sono anche wow.png e
-			// wow2.png///////////////////////////////////////////
 			background = ImageIO.read(new File("res/ultimo.png"));
 			background2 = ImageIO.read(new File("res/nuvole_buone.png"));
 		} catch (IOException e) {
@@ -193,8 +195,21 @@ public class GameState implements State {
 		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
 		appEntities = new ArrayList<>();
-		model = new ModelImpl();
-		this.player = model.getSidePlayer(100, 100, this);
+		//Carico il personaggio
+		if (model.isMainPlayerOpen()){
+				
+			if(model.getMainPlayer()==null){
+				
+				this.player = model.getMainPlayer(100, 100, this);
+			}
+		}
+		else{
+				
+			if(model.getSidePlayer()==null){
+				
+				this.player = model.getSidePlayer(100, 100, this);
+			}
+		}
 		coll = new Collision(this, player);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
 		// BitMap in Tile da renderizzare nella scena e le aggiungo alla lista
@@ -210,17 +225,9 @@ public class GameState implements State {
 		allRandomTiles.addAll(randomTiles1);
 		allRandomTiles.addAll(randomTiles2);
 		allRandomTiles.addAll(randomTiles3);
-
-		BGMusic = new AudioPlayer("res/BGMusic.wav");
-	}
-
-	@Override
-
-	public void enter(StateManager stateManager) {
 		
-		//Aggiorna le impostazioni
-		stateManager.getState("SETTINGS").tick(stateManager);
-
+		//Imposto il volume
+		BGMusic.setVolume(model.getVolume());
 		BGMusic.playAndLoop();
 	}
 
@@ -230,7 +237,8 @@ public class GameState implements State {
 		// Lo sfondo è staccato sia dal movimento del giocatore sia dal
 		// movimento di camera
 		this.renderBG(g);
-
+		
+		
 		g.translate(camera.getX(), camera.getY());
 		// Entità
 		for (AbstractDrawable e : entities) {
@@ -239,22 +247,74 @@ public class GameState implements State {
 		// Renderizzo le RandomTile
 		this.renderWorld(g);
 		g.translate(-camera.getX(), -camera.getY());
-
-		
 		//Renderizzo le vite
-		life.render(g, nLife);
+		if (model.isMainPlayerOpen()){
+			
+			life.render(g, model.getMainPlayer().getItem().getHP());
+		}
+		else{
+				
+			life.render(g, model.getSidePlayer().getItem().getHP());
+		}
 		
 		//Renderizzo i proiettili
-		bullet.render(g, nBullet);
+		if (model.isMainPlayerOpen()){
+			
+			bullet.render(g, model.getMainPlayer().getItem().getBullet());
+		}
+		else{
+				
+			bullet.render(g, model.getSidePlayer().getItem().getBullet());
+		}
 		
 		//Renderizzo il punteggio
-		num.render(g, points);
-
+		num.render(g);
 	}
 
 	@Override
 	public void exit() {
-
+		
+		if (model.isMainPlayerOpen()){
+<<<<<<< local
+			
+			model.getMainPlayer().reset(100, 100);
+//			model.getMainPlayer().setX(100);
+//			model.getMainPlayer().setY(100);
+//			Bisogna reimpostare le vite e i proiettili
+=======
+			model.getMainPlayer().reset(100, 100);
+>>>>>>> other
+		}
+		else{
+<<<<<<< local
+				
+			model.getSidePlayer().reset(100, 100);
+//			model.getSidePlayer().setX(100);
+//			model.getSidePlayer().setY(100);
+=======
+		    model.getSidePlayer().reset(100, 100);
+>>>>>>> other
+		}
+		
+		parallaxMove1 = 0;
+		parallaxMove2 = 795;
+		parallaxCloud1 = 0;
+		parallaxCloud2 = 795;
+		
+		Offset1 = 0;
+		Offset2 = 0;
+		
+		check = 1;
+		
+		point = 0;
+		point1 = 1200;
+		point2 = 2400;
+		point3 = 3600;
+		
+		speedX1 = 100;
+		speedX2 = 100;
+		
+		points = 0;
 	}
 
 	@Override
@@ -290,7 +350,33 @@ public class GameState implements State {
 			appEntities = new ArrayList<>();
 		}
 		
+		System.out.println("X è " + model.getMainPlayer().getX());
+		System.out.println("Y è " + model.getMainPlayer().getY());
+		if (model.isMainPlayerOpen()){
+			
+			if (model.getMainPlayer().getY()>453){
+				
+				stateManager.setState("Death");
+			}
+		}
+		else{
+				
+			if (model.getSidePlayer().getY()>453){
+				
+				stateManager.setState("Death");
+			}
+		}
+		
+		//Incremento il punteggio utilizzando esclusivamente il tempo 
+		//visto che la telecamera si muove (in generale questo sarebbe
+		//meglio ma visto il gioco andrebbe fatto l'altro)
 		points++;
+		
+		//Incremento in base all'avanzamente del personaggio visto che
+		//la telecamera non si muove
+		//points = model.getMainPlayer().getX();
+		
+		score = points / 200;
 	}
 
 	public ArrayList<Tile> getTiles() {

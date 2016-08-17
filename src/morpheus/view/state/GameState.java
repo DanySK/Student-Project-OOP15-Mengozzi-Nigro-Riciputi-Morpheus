@@ -197,7 +197,7 @@ public class GameState implements State {
 		appEntities = new ArrayList<>();
 		//Carico il personaggio
 		if (model.isMainPlayerOpen()){
-					
+				
 			if(model.getMainPlayer()==null){
 				
 				this.player = model.getMainPlayer(100, 100, this);
@@ -275,10 +275,17 @@ public class GameState implements State {
 	public void exit() {
 		
 		if (model.isMainPlayerOpen()){
+
 			model.getMainPlayer().reset(100, 100);
+//			model.getMainPlayer().setX(100);
+//			model.getMainPlayer().setY(100);
+//			Bisogna reimpostare le vite e i proiettili
 		}
 		else{
-		    model.getSidePlayer().reset(100, 100);
+
+			model.getSidePlayer().reset(100, 100);
+//			model.getSidePlayer().setX(100);
+//			model.getSidePlayer().setY(100);
 		}
 		
 		parallaxMove1 = 0;
@@ -335,8 +342,8 @@ public class GameState implements State {
 			appEntities = new ArrayList<>();
 		}
 		
-		//System.out.println("X è " + model.getMainPlayer().getX());
-		//System.out.println("Y è " + model.getMainPlayer().getY());
+		System.out.println("X è " + model.getMainPlayer().getX());
+		System.out.println("Y è " + model.getMainPlayer().getY());
 		if (model.isMainPlayerOpen()){
 			
 			if (model.getMainPlayer().getY()>453){
