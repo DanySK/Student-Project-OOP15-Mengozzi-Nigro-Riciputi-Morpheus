@@ -73,19 +73,19 @@ public class RankingTest {
     public void testAddElementAndLoadingFields() {
         r = Ranking.getRankingClass();
         
-        try {
-            r.add(new Element("taba", 2));
-        } catch (IllegalNameException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } 
+//        try {
+//            r.add(new Element("taba", 2));
+//        } catch (IllegalNameException e1) {
+//            // TODO Auto-generated catch block
+//            e1.printStackTrace();
+//        } 
         r.getRankingOnTerm();
-        try {
-            r.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        try {
+//            r.close();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
     }
 
 }

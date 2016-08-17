@@ -197,11 +197,14 @@ public class GameState implements State {
 		appEntities = new ArrayList<>();
 		//Carico il personaggio
 		if (model.isMainPlayerOpen()){
-				
+					
 			if(model.getMainPlayer()==null){
 				
 				this.player = model.getMainPlayer(100, 100, this);
+			} else {
+			    player.reset(100, 100, this);
 			}
+			
 		}
 		else{
 				
@@ -209,6 +212,7 @@ public class GameState implements State {
 				
 				this.player = model.getSidePlayer(100, 100, this);
 			}
+			player.reset(100, 100, this);
 		}
 		coll = new Collision(this, player);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
@@ -274,20 +278,6 @@ public class GameState implements State {
 	@Override
 	public void exit() {
 		
-		if (model.isMainPlayerOpen()){
-
-			model.getMainPlayer().reset(100, 100);
-//			model.getMainPlayer().setX(100);
-//			model.getMainPlayer().setY(100);
-//			Bisogna reimpostare le vite e i proiettili
-		}
-		else{
-
-			model.getSidePlayer().reset(100, 100);
-//			model.getSidePlayer().setX(100);
-//			model.getSidePlayer().setY(100);
-		}
-		
 		parallaxMove1 = 0;
 		parallaxMove2 = 795;
 		parallaxCloud1 = 0;
@@ -342,8 +332,8 @@ public class GameState implements State {
 			appEntities = new ArrayList<>();
 		}
 		
-		System.out.println("X è " + model.getMainPlayer().getX());
-		System.out.println("Y è " + model.getMainPlayer().getY());
+		//System.out.println("X è " + model.getMainPlayer().getX());
+		//System.out.println("Y è " + model.getMainPlayer().getY());
 		if (model.isMainPlayerOpen()){
 			
 			if (model.getMainPlayer().getY()>453){

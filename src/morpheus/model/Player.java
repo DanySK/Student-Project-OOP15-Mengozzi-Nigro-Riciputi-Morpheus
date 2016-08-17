@@ -234,9 +234,10 @@ public class Player extends AbstractDrawable {
      * @param y
      *            y start position
      */
-    public void reset(final double x, final double y) {
+    public void reset(final double x, final double y, final GameState state) {
         setX(x);
         setY(y);
+        setState(state);
         manager.reset();
         runGO = true;
         item.reset();

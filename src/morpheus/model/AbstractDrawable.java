@@ -21,7 +21,7 @@ public abstract class AbstractDrawable implements Drawable {
 	private final Image mainFrame;
 	private double x;
 	private double y;
-	private final GameState state;
+	private GameState state;
 	
 
 	/**
@@ -187,6 +187,11 @@ public abstract class AbstractDrawable implements Drawable {
 	 */
 	public void setY(final double y) {
 		this.y = y;
+	}
+	
+	protected void setState(final GameState game) {
+	    this.state = game;
+	    state.addEntity(this);
 	}
 
 	/**
