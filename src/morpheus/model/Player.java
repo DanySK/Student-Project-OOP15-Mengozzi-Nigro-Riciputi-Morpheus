@@ -3,12 +3,16 @@ package morpheus.model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 import morpheus.Morpheus;
 import morpheus.controller.KeyInput;
-import morpheus.model.exceptions.NoBulletException;
+import morpheus.model.exceptions.NoElementsException;
 import morpheus.view.Texture;
 import morpheus.view.state.GameState;
+
 /**
  * 
  * @author jacopo
@@ -16,10 +20,10 @@ import morpheus.view.state.GameState;
  */
 public class Player extends AbstractDrawable {
 
-    
     private static final int TYLESYNCHSTART = 200;
     private static final int OFFSETCOLLISION = 5;
     private static final int BULLETSIZE = 24;
+    private static final double DEATH_SIZE = 450;
     /**
      * velocità iniziale.
      */
@@ -32,19 +36,22 @@ public class Player extends AbstractDrawable {
     private int tileSynch;
     private int velRun = INITIAL_VEL;
     private boolean runGO;
-    
+    private boolean death;
+    private List<Bullet> bullets;
+
     /**
      * Create the player.
+     * 
      * @param x
-     *          x position
+     *            x position
      * @param y
-     *          y position
+     *            y position
      * @param game
-     *          game state
+     *            game state
      * @param option
-     *          Settings
+     *            Settings
      * @param i
-     *          animation's images
+     *            animation's images
      */
     public Player(final double x, final double y, final GameState game, final Option option, final Image... i) {
         super(x, y, game, i);
@@ -54,10 +61,16 @@ public class Player extends AbstractDrawable {
         item = new Item();
         manager = new PlayerManager(animation);
         tileSynch = TYLESYNCHSTART;
+        bullets = new ArrayList<>();
     }
 
     @Override
     public void tick() {
+        if (getY() >= DEATH_SIZE || getItem().getHP() <= 0) {
+            this.dead();
+            System.out.println("Death");
+        }
+
         if (!manager.isVerticalCollision()) {
             fall();
             super.incY(manager.getVelY());
@@ -73,7 +86,7 @@ public class Player extends AbstractDrawable {
         if (!manager.isInFall() && manager.getCounterJump() == 0) {
             animation.run();
         }
-      
+        checkBullets();
         if (KeyInput.isPressed(s.getKeyJump())) {
             if (manager.isInFall() && manager.isDoubleJump()) {
                 manager.setForDoubleJump();
@@ -86,7 +99,7 @@ public class Player extends AbstractDrawable {
             shoot();
         }
     }
-    
+
     /**
      * Fa muovere l'immagine di Morpheus sull'asse orrizzontale.
      */
@@ -138,18 +151,37 @@ public class Player extends AbstractDrawable {
     }
 
     /**
+     * Returns true if the player is dead. False otherwise.
+     * 
+     * @return true if the player is dead. False otherwise.
+     */
+    public boolean isDeath() {
+        return death;
+    }
+
+    /**
      * Create a bullet object and returns it.
      * 
-     * @throws NoBulletException
+     * @throws NoElementsException
      *             if the player try to shoot but he haven't bullet.
      * @return a bullet
      */
-    public Bullet shoot() throws NoBulletException {
+    public void shoot() {
         if (item.getBullet() <= 0) {
-            throw new NoBulletException();
+            System.out.println("You can't shoot. No bullet");
+        } else {
+            getItem().decBullet();
+            bullets.add(new Bullet(getX(), getY(), getState(),
+                    new Sprite(new SpriteSheet(new Texture("res/bullet.png"), BULLETSIZE), 2, 1, 2).getFramesAsList()));
         }
-        return new Bullet(getX(), getY(), getState(),
-                new Sprite(new SpriteSheet(new Texture("res/bullet.png"), BULLETSIZE), 2, 1, 2).getFramesAsList());
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public List<Bullet> getBullets() {
+        return bullets;
     }
 
     /**
@@ -193,26 +225,34 @@ public class Player extends AbstractDrawable {
     public boolean isRunning() {
         return this.runGO;
     }
-    
+
     /**
      * Reset of the player for a new start.
+     * 
      * @param x
-     *          x start position
+     *            x start position
      * @param y
-     *          y start position
+     *            y start position
      */
     public void reset(final double x, final double y) {
         setX(x);
         setY(y);
+        manager.reset();
+        runGO = true;
+        item.reset();
+        tileSynch = TYLESYNCHSTART;
+        bullets = new ArrayList<>();
+        death = false;
     }
 
     /**
      * Death of the player, stop it in the current position.
      */
-    public void death() {
+    public void dead() {
         this.stopRun();
         this.stopJumping();
         this.setVelY(0);
+        this.death = true;
     }
 
     /**
@@ -308,6 +348,15 @@ public class Player extends AbstractDrawable {
         return new Rectangle((int) getX() + OFFSETCOLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 1);
     }
 
+    private void checkBullets() {
+        for (final ListIterator<Bullet> iter = bullets.listIterator(); iter.hasNext();) {
+            final Bullet e = iter.next();
+            if (e.isExplosion()) {
+                iter.remove();
+            }
+        }
+    }
+
     /**
      * 
      * @author jacopo
@@ -317,12 +366,13 @@ public class Player extends AbstractDrawable {
 
         /**
          * Player Animation.
+         * 
          * @param speed
-         *         animation speed
+         *            animation speed
          * @param frames
-         *         animation's images
+         *            animation's images
          */
-        public PlayerAnimation(final int speed, final Image...frames) {
+        public PlayerAnimation(final int speed, final Image... frames) {
             super(speed, frames);
             setNumFrames(4);
         }
@@ -335,5 +385,3 @@ public class Player extends AbstractDrawable {
         }
     }
 }
-
-

@@ -8,18 +8,16 @@ package morpheus.model;
 public class Item {
 	private int hp;
 	private int bullet;
-	private boolean doubleJump;
 	
 	/**
 	 * Default item:
 	 * 3 life;
-	 * 1 bullet;
+	 * 5 bullet;
 	 * No doubleJump.
 	 */
 	public Item() {
 		hp = 3;
-		bullet = 1;
-		doubleJump = false;
+		bullet = 5;
 	}
 	
 	/**
@@ -37,13 +35,6 @@ public class Item {
 	}
 	
 	/**
-	 * Set the doubleJump at true.
-	 */
-	public void canDoubleJump() {
-		doubleJump = true;
-	}
-	
-	/**
 	 * Decrements life value of 1.
 	 */
 	public void decHP() {
@@ -55,13 +46,6 @@ public class Item {
 	 */
 	public void decBullet() {
 		bullet--;
-	}
-	
-	/**
-	 * Set the doubleJump at false.
-	 */
-	public void stopDoubleJump() {
-		doubleJump = false;
 	}
 	
 	/**
@@ -82,12 +66,8 @@ public class Item {
 		return bullet;
 	}
 	
-	/**
-	 * Return true if the doubleJump is available.
-	 * @return
-	 * 		true if the doubleJump is available, false otherwise
-	 */
-	public boolean isDoubleJump() {
-		return doubleJump;
+	public void reset() {
+	    hp = 3;
+	    bullet = 5;
 	}
 }

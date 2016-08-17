@@ -112,6 +112,20 @@ public interface Model {
     AbstractPill getRedPill(double x, double y, GameState state);
     
     /**
+     * Add an obstacle at the game state.
+     * This obstacle are a spikes and his reaction Method will decrement a life to the MainPlayer.
+     * @param x
+     *          X position
+     * @param y 
+     *          Y position
+     * @param state
+     *          GameState
+     * @return
+     *          the obstacle
+     */
+    Spikes getSpikes(double x, double y, GameState state);
+    
+    /**
      * Create the main player if doesn't exist. And return it.
      * 
      * @param x

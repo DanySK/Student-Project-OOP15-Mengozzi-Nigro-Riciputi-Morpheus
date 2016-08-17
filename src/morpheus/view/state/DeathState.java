@@ -20,6 +20,8 @@ import morpheus.model.Element;
 import morpheus.model.Model;
 import morpheus.model.ModelImpl;
 import morpheus.model.Pair;
+import morpheus.model.exceptions.IllegalNameException;
+import morpheus.model.exceptions.NoElementsException;
 
 /**
  *
@@ -92,7 +94,7 @@ public class DeathState implements State{
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							
-							model.getRanking().forceAdd(new Pair<String, Integer>(champion.getText(), GameState.score));
+							model.getRanking().forceAdd(new Element(champion.getText(), GameState.score));
 						}
 					});
 					no.addActionListener(new ActionListener() {
@@ -104,7 +106,10 @@ public class DeathState implements State{
 						}
 					});
 					confirm2.setVisible(true);
-				}
+				} catch (IllegalNameException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
 				
 				try {
 					
@@ -165,12 +170,17 @@ public class DeathState implements State{
 	   mainFrame.setVisible(true);
 	   //Se è il record appare la finestra che fa inserire il nome
 	   //METTO 4 PERCHE ORA SONO 4 MA DOVRANNO ESSERE 5!!!!!!!!!!!!!!!!!!!!!!
-	   if (GameState.score>=model.getRanking().getPosition(4).getScore()){
-		   
-		   recordFrame.setSize(300, 130);
-		   recordFrame.setLocationRelativeTo(null);
-		   recordFrame.setVisible(true);
-	   }
+	   try {
+        if (GameState.score>=model.getRanking().getPosition(4).getScore()){
+        	   
+        	   recordFrame.setSize(300, 130);
+        	   recordFrame.setLocationRelativeTo(null);
+        	   recordFrame.setVisible(true);
+           }
+    } catch (NoElementsException e1) {
+        // TODO Auto-generated catch block
+        e1.printStackTrace();
+    }
 	}
 
 	@Override

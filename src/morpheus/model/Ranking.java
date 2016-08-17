@@ -6,13 +6,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import morpheus.model.exceptions.IllegalNameException;
+import morpheus.model.exceptions.NoElementsException;
+
 /**
  * 
  * @author jacopo
  *
  */
 public final class Ranking extends Storable {
-    
+
     private static Ranking rank;
     /**
      * 
@@ -46,7 +49,7 @@ public final class Ranking extends Storable {
             new File(FILE);
             avvert = true;
         }
-        if (avvert) { 
+        if (avvert) {
             this.values = new ArrayList<>();
             this.app = new ArrayList<>();
         } else {
@@ -54,13 +57,13 @@ public final class Ranking extends Storable {
             this.app = rank.getPlayers();
         }
     }
-    
+
     /**
      * Returns the Ranking object.
-     * @return
-     *          the Ranking object
+     * 
+     * @return the Ranking object
      */
-    public  static Ranking getRankingClass() {
+    public static Ranking getRankingClass() {
         synchronized (Ranking.class) {
             if (rank == null) {
                 rank = new Ranking();
@@ -68,37 +71,36 @@ public final class Ranking extends Storable {
         }
         return rank;
     }
-    
-    
-
 
     /**
      * Aggiunge un elemento alla classifica.
      *
-     *!!!! Appunto da togliere !!!
-     * per mengo se non mi ricordo di dirtelo, questo metodo lancia eccezione perchè nel caso un elemento con quel nome
-     * si già presente avevo pensato che era carino che dalla view si lanciasse una finestra (tipo JDialogo) che chieda se si
-     * è sicuro di aggiornare il risultato, nel caso si risponda di aggiornare il risultato a quel punto devi chiamare il metodo forceAdd
+     * !!!! Appunto da togliere !!! per mengo se non mi ricordo di dirtelo,
+     * questo metodo lancia eccezione perchè nel caso un elemento con quel nome
+     * si già presente avevo pensato che era carino che dalla view si lanciasse
+     * una finestra (tipo JDialogo) che chieda se si è sicuro di aggiornare il
+     * risultato, nel caso si risponda di aggiornare il risultato a quel punto
+     * devi chiamare il metodo forceAdd
      * 
      * 
      * @param el
      *            Elemento da aggiungere alla classifica: chiave-> il nome;
      *            valore-> il punteggio.
-     * @throws IllegalArgumentException
-     *             se contiene già un elemento con quel nome.
-     *             !!! Appunto da togliere !!!
-     *             Leggere descrizione sopra per il lancio dell'eccezione
+     * @throws IllegalNameException
+     *             se contiene già un elemento con quel nome. !!! Appunto da
+     *             togliere !!! Leggere descrizione sopra per il lancio
+     *             dell'eccezione
      */
-    public void add(final Element el) throws IllegalArgumentException {
-    	
+    public void add(final Element el) throws IllegalNameException {
+
         if (app.contains(el.getName())) {
-            throw new IllegalArgumentException();
+            throw new IllegalNameException();
         }
         app.add(el.getName());
         values.add(el);
         toSort = true;
         if (values.size() > MAX_SIZE) {
-           remove(); 
+            remove();
         }
     }
 
@@ -109,15 +111,15 @@ public final class Ranking extends Storable {
      *            Elemento da aggiornare: chiave-> il nome; valore-> il
      *            punteggio
      */
-    public void forceAdd(final Pair<String, Integer> el) {
+    public void forceAdd(final Element el) {
         for (final Element e : values) {
-            if (e.getName().equals(el.getKey())) {
-                e.setScore(el.getValue());
+            if (e.getName().equals(el.getName())) {
+                e.setScore(el.getScore());
                 toSort = true;
             }
         }
     }
-    
+
     /**
      * Stampa la classifica su terminale.
      */
@@ -153,15 +155,20 @@ public final class Ranking extends Storable {
      * 
      * @param x
      *            il numero degli elementi da ritornare
+     * @throws NoElementsException
+     *             if the list haven't the required elements
      * @return una Lista, già ordinato con i primi x elementi della classifica
      * 
      */
-    public List<Element> getPartOfRanking(final int x) {
+    public List<Element> getPartOfRanking(final int x) throws NoElementsException {
+        if (x > values.size()) {
+            throw new NoElementsException();
+        }
         if (toSort) {
             Collections.sort(values, new Element()::compare);
             toSort = false;
         }
-        return new ArrayList<>(values.subList(0, x - 1));
+        return new ArrayList<>(values.subList(0, x));
     }
 
     /**
@@ -188,12 +195,17 @@ public final class Ranking extends Storable {
 
     /**
      * Get the Element at the x position.
+     * 
      * @param x
-     *          rank of the element
-     * @return
-     *          the desidered element
+     *            rank of the element
+     * @throws NoElementsException
+     *            if the list hasn't the required element
+     * @return the required element
      */
-    public Element getPosition(final int x) {
+    public Element getPosition(final int x) throws NoElementsException {
+        if (x > values.size()) {
+            throw new NoElementsException();
+        }
         if (toSort) {
             Collections.sort(values, new Element()::compare);
             toSort = false;
@@ -203,10 +215,14 @@ public final class Ranking extends Storable {
 
     /**
      * Fornisce il punteggio massimo e il giocatore che l'ha fatto.
-     * 
+     * @throws NoElementsException
+     *             if the list hasn't the required element
      * @return un Pair composto da: -Nome giocatore; -Punteggio.
      */
-    public Pair<String, Integer> getRecord() {
+    public Pair<String, Integer> getRecord() throws NoElementsException {
+        if (values.size() == 0) {
+            throw new NoElementsException();
+        }
         return values.get(0).getAsPair();
     }
 
@@ -216,9 +232,9 @@ public final class Ranking extends Storable {
     public boolean isToSort() {
         return toSort;
     }
-    
+
     private void remove() {
-        Collections.sort(values, new Element() :: compare);
+        Collections.sort(values, new Element()::compare);
         toSort = false;
         values.remove(MAX_SIZE);
     }

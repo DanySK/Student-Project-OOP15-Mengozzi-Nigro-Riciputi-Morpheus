@@ -174,4 +174,11 @@ public class ModelImpl implements Model {
     public Ranking getRanking() {
         return ranking;
     }
+
+    @Override
+    public Spikes getSpikes(double x, double y, GameState state) {
+        return new Spikes(x, y, state,
+                new Sprite(new SpriteSheet(new Texture("res/triangle.png"), DIMENSION64, DIMENSION16), 1, 1, 1)
+                        .getMainFrame());
+    }
 }

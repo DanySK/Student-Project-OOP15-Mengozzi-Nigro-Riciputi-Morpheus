@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import morpheus.model.Element;
 import morpheus.model.Ranking;
+import morpheus.model.exceptions.IllegalNameException;
+import morpheus.model.exceptions.NoElementsException;
 
 /**
  * 
@@ -22,29 +24,33 @@ public class RankingTest {
     /**
      * .
      */
-    @Test
     public void testSorting() {
         
         r = Ranking.getRankingClass();
         
         final List<Element> list = new ArrayList<>();
-        list.add(new Element("Mirko", 1000));
-        list.add(new Element("Luca", 500));
-        list.add(new Element("Niccolo", 59));
-        list.add(new Element("Jacopo", 10));
+        list.add(new Element("Mirko", 1));
+        list.add(new Element("Luca", 1));
+        list.add(new Element("Niccolo", 1));
+        list.add(new Element("Jacopo", 1));
         list.add(new Element("Matteo", 2));
-        list.add(new Element("Gio", 1001));
-        list.add(new Element("giac", 1021));
-        list.add(new Element("sab", 1201));
-        list.add(new Element("sturaro", 1111));
-        list.add(new Element("taba", 3001));
-        list.add(new Element("paolo", 111));
+        list.add(new Element("Gio", 1));
+        list.add(new Element("giac", 1));
+        list.add(new Element("sab", 1));
+        list.add(new Element("sturaro", 1));
+        list.add(new Element("taba", 1));
+        list.add(new Element("paolo", 1));
         Collections.sort(list, new Element() :: compare);
         System.out.println("Test sorting");
         r.getRankingOnTerm();
         
         for (int i = 1; i < 11; i++) {
-            assertEquals(r.getPosition(i).getText(), list.get(i - 1).getText());
+            try {
+                assertEquals(r.getPosition(i).getText(), list.get(i - 1).getText());
+            } catch (NoElementsException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }  
        
         try {
@@ -56,15 +62,30 @@ public class RankingTest {
         }
         System.out.println("Test add");
         r = Ranking.getRankingClass();
+        
     }
     
     /**
      * .
      */
+    
     @Test
     public void testAddElementAndLoadingFields() {
+        r = Ranking.getRankingClass();
         
-        //r.getRankingOnTerm();
+        try {
+            r.add(new Element("taba", 2));
+        } catch (IllegalNameException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } 
+        r.getRankingOnTerm();
+        try {
+            r.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }

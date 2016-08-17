@@ -237,7 +237,8 @@ public class GameState implements State {
 		// Lo sfondo è staccato sia dal movimento del giocatore sia dal
 		// movimento di camera
 		this.renderBG(g);
-
+		
+		
 		g.translate(camera.getX(), camera.getY());
 		// Entità
 		for (AbstractDrawable e : entities) {
@@ -274,14 +275,10 @@ public class GameState implements State {
 	public void exit() {
 		
 		if (model.isMainPlayerOpen()){
-			
-			model.getMainPlayer().setX(100);
-			model.getMainPlayer().setY(100);
+			model.getMainPlayer().reset(100, 100);
 		}
 		else{
-				
-			model.getSidePlayer().setX(100);
-			model.getSidePlayer().setY(100);
+		    model.getSidePlayer().reset(100, 100);
 		}
 		
 		parallaxMove1 = 0;

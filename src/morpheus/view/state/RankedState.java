@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import morpheus.controller.AudioPlayer;
 import morpheus.model.Model;
 import morpheus.model.ModelImpl;
+import morpheus.model.exceptions.NoElementsException;
 import morpheus.model.Element;
 
 /**
@@ -60,7 +61,12 @@ public class RankedState implements State {
 		exit = false;
 		
 		//Riempio la lista di elementi inizializzando la lista
-		elements = model.getRanking().getPartOfRanking(5);
+		try {
+            elements = model.getRanking().getPartOfRanking(5);
+        } catch (NoElementsException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
 		
 		//Carico i dati dalla lista 
 		if (elements.size()>=1){

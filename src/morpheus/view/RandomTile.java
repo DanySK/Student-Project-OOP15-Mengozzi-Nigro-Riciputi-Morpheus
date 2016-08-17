@@ -25,7 +25,7 @@ public class RandomTile {
 		// lo spazio per le altre quindi ci sar� modo e tempo per inserirle
 		switch (idSprite) {
 		case 1:
-			this.sprite = new Sprite(new SpriteSheet(new Texture("res/ground2.png"), 64), 5, 8);
+			this.sprite = new Sprite(new SpriteSheet(new Texture("res/provaTerreno.png"), 64), 1, 1);
 		case 2:
 
 		case 3:

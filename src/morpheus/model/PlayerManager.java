@@ -14,7 +14,7 @@ public class PlayerManager {
     private static final int NFALL = 55;
     private static final double GRAVITYPLUS = 0.6;
     private static final int NDOUBLEJUMP = 10;
-    private static final double GRAVITY = 1.5;
+    private static final double GRAVITY = 1.4;
     /**
      * For checking if the player is in Jump.
      */
@@ -225,6 +225,18 @@ public class PlayerManager {
      */
     public void setInFall(final boolean fall) {
         inFall = fall;
+    }
+    
+    /**
+     * Reset of the object.
+     */
+    public void reset() {
+        inFall = true;
+        inJump = true;
+        verticalCollision = false;
+        timeJump = NJUMP;
+        counterJump = 0;
+        counterFall = 0;
     }
     
     /**
