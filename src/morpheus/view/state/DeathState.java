@@ -35,7 +35,13 @@ public class DeathState implements State{
 	private JTextField champion = new JTextField();
 	private JButton confirm = new JButton("Ok");
 	private Model model = new ModelImpl();
-	private boolean exitRecord = false;
+	/**
+	 * Quando è true si esce dal recordFrame		
+	 * 
+	 * @author Luca Mengozzi
+	 * 		 
+	 */
+	private boolean exitRecord;
 	/**
 	 * Quando è true si esce dallo state		
 	 * 
@@ -58,6 +64,7 @@ public class DeathState implements State{
 		mainFrame = new JFrame("GAME OVER");
 		mainFrame.getContentPane().add(background);
 				
+		//Personalizzo il recordFrame
 		recordFrame.getContentPane().add(panelRecord);
 		panelRecord.add(new JLabel("Wow! You have scored a new RECORD!"));
 		panelRecord.add(new JLabel("Champion, tell us what is your name"));

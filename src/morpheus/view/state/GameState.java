@@ -24,6 +24,7 @@ import morpheus.view.GraphicLifes;
 import morpheus.view.RandomTile;
 import morpheus.view.Tile;
 
+
 /**
  * 
  * @author Luca Mengozzi
@@ -149,10 +150,8 @@ public class GameState implements State {
 	private ArrayList<RandomTile> allRandomTiles;
 	private Collision coll;
 	AudioPlayer BGMusic;
-	//Variabile che conterrà i punti secondo il normale scorrere del gioco
-	//private int points = 0;
-	//Variabile che conterrà i punti secondo la difficoltà scelta
-	public static int score = 0;
+	//Variabile globale che indicherà lo score
+	public static int score;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
 	private GraphicBullet bullet = new GraphicBullet();
@@ -211,8 +210,10 @@ public class GameState implements State {
 			if(model.getSidePlayer()==null){
 				
 				this.player = model.getSidePlayer(100, 100, this);
+			}else{
+				
+				player.reset(100, 100, this);
 			}
-			player.reset(100, 100, this);
 		}
 		coll = new Collision(this, player);
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
