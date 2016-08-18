@@ -2,9 +2,25 @@ package morpheus.model;
 
 import morpheus.view.state.GameState;
 
+/**
+ * 
+ * @author jacopo
+ *
+ */
 public class Spikes extends AbstractDrawable {
 
-    public Spikes(double x, double y, GameState game, Image i) {
+    /**
+     * Spikes.
+     * @param x
+     *          X position
+     * @param y
+     *          y position
+     * @param game
+     *          game state
+     * @param i
+     *          image
+     */
+    public Spikes(final double x, final double y, final GameState game, final Image i) {
         super(x, y, game, i);
     }
 
@@ -18,7 +34,7 @@ public class Spikes extends AbstractDrawable {
      * @param p
      *          the current player
      */
-    public void reaction(Player p) {
+    public void reaction(final Player p) {
         p.getItem().decHP();
     }
 

@@ -164,7 +164,6 @@ public class Player extends AbstractDrawable {
      * 
      * @throws NoElementsException
      *             if the player try to shoot but he haven't bullet.
-     * @return a bullet
      */
     public void shoot() {
         if (item.getBullet() <= 0) {
@@ -177,8 +176,9 @@ public class Player extends AbstractDrawable {
     }
 
     /**
+     * Returns the list of not exploded bullet.
      * 
-     * @return
+     * @return list of bullets.
      */
     public List<Bullet> getBullets() {
         return bullets;
@@ -233,6 +233,8 @@ public class Player extends AbstractDrawable {
      *            x start position
      * @param y
      *            y start position
+     * @param state
+     *            the game state
      */
     public void reset(final double x, final double y, final GameState state) {
         setX(x);

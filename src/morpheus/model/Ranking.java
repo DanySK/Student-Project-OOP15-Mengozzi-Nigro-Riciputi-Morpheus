@@ -220,7 +220,7 @@ public final class Ranking extends Storable {
      * @return un Pair composto da: -Nome giocatore; -Punteggio.
      */
     public Pair<String, Integer> getRecord() throws NoElementsException {
-        if (values.size() == 0) {
+        if (values.isEmpty()) {
             throw new NoElementsException();
         }
         return values.get(0).getAsPair();
@@ -236,7 +236,9 @@ public final class Ranking extends Storable {
     private void remove() {
         Collections.sort(values, new Element()::compare);
         toSort = false;
+        app.remove(values.get(MAX_SIZE));
         values.remove(MAX_SIZE);
+        
     }
 
 }

@@ -21,6 +21,7 @@ public class ModelImpl implements Model {
     private static final int DIMENSION39 = 39;
     private static final int DIMENSION40 = 40;
     private static final int DIMENSION64 = 64;
+    private static final int DIMENSION80 = 80;
 
     private final Option option;
     private final Ranking ranking;
@@ -103,9 +104,15 @@ public class ModelImpl implements Model {
 
     @Override
     public AbstractMonster getTree(final double x, final double y, final GameState state) {
-        return new Tree(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/Evil_tree.png"), DIMENSION30, DIMENSION64), 3, 1, 3)
-                        .getFramesAsList());
+        if (isMainPlayerOpen()) {
+            return new Tree(x, y, state, getMainPlayer(),
+                    new Sprite(new SpriteSheet(new Texture("res/Evil_tree.png"), DIMENSION30, DIMENSION64), 3, 1, 3)
+                            .getFramesAsList());
+        } else {
+            return new Tree(x, y, state, getSidePlayer(),
+                    new Sprite(new SpriteSheet(new Texture("res/Evil_tree.png"), DIMENSION30, DIMENSION64), 3, 1, 3)
+                            .getFramesAsList());
+        }
     }
 
     @Override
@@ -185,9 +192,9 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Spikes getSpikes(double x, double y, GameState state) {
+    public Spikes getSpikes(final double x, final double y, final GameState state) {
         return new Spikes(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/triangle.png"), DIMENSION64, DIMENSION16), 1, 1, 1)
+                new Sprite(new SpriteSheet(new Texture("res/spike.png"), DIMENSION64, DIMENSION80), 1, 1, 1)
                         .getMainFrame());
     }
 }

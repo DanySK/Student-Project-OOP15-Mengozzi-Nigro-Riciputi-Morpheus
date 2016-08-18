@@ -207,6 +207,11 @@ public abstract class AbstractDrawable implements Drawable {
         this.y = y;
     }
 
+    /**
+     * Set a new game state and add the drawable.
+     * @param game
+     *          the game state
+     */
     protected void setState(final GameState game) {
         this.state = game;
         state.addEntity(this);

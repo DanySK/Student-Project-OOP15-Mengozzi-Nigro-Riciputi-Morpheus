@@ -74,14 +74,11 @@ public class RankingTest {
         r = Ranking.getRankingClass();
         
         try {
-            r.add(new Element("taba", 2));
+            r.add(new Element("taba12", 6));
             r.add(new Element("taba1", 1));
-            r.add(new Element("taba2", 3));
-            r.add(new Element("taba3", 4));
-            r.add(new Element("taba4", 5));
+            
         } catch (IllegalNameException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+            System.out.println("Nome già presente");
         } 
         r.getRankingOnTerm();
         try {

@@ -8,10 +8,28 @@ import java.awt.geom.Area;
 import morpheus.Morpheus;
 import morpheus.view.state.GameState;
 
+/**
+ * 
+ * @author jacopo
+ *
+ */
 public class CameraOperator extends AbstractDrawable {
 
-    private Player player;
+    private static final int PLAYEROFFSET = 350;
+    private static final int XOFFSET = 110;
+    private final Player player;
 
+    /**
+     * The Operator, this class will move the camera.
+     * @param x
+     *          x position
+     * @param y
+     *          y position
+     * @param game
+     *          game state
+     * @param p
+     *          current player
+     */
     public CameraOperator(final double x, final double y, final GameState game, final Player p) {
         super(x, y, game);
         player = p;
@@ -20,7 +38,7 @@ public class CameraOperator extends AbstractDrawable {
     @Override
     public void tick() {
         int velX;
-        if ((player.getX() - getX()) <= 350) {
+        if ((player.getX() - getX()) <= PLAYEROFFSET) {
             velX = player.getVelRun() - 1;
             this.incX(velX);
         } else {
@@ -32,12 +50,17 @@ public class CameraOperator extends AbstractDrawable {
         }
     }
 
+    /**
+     * Return the Area.
+     * @return
+     *          the area
+     */
     public Area getArea() {
-        return new Area(new Rectangle((int) getX() - 110, (int) getY(), 10, Morpheus.HEIGHT));
+        return new Area(new Rectangle((int) getX() - XOFFSET, (int) getY(), 10, Morpheus.HEIGHT));
     }
 
     @Override
-    public void render(Graphics2D g) {
+    public void render(final Graphics2D g) {
       
         if (Morpheus.DEBUG) {
             g.setColor(Color.BLACK);

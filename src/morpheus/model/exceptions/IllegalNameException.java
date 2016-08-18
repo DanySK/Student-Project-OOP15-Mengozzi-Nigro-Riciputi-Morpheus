@@ -1,5 +1,10 @@
 package morpheus.model.exceptions;
 
+/**
+ * 
+ * @author jacopo
+ *
+ */
 public class IllegalNameException extends Exception {
 
     /**
