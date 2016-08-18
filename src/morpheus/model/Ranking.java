@@ -28,7 +28,7 @@ public final class Ranking extends Storable {
     /**
      * 
      */
-    private static final int MAX_SIZE = 10;
+    private static final int MAX_SIZE = 5;
     private final List<Element> values;
     private final List<String> app;
     private boolean toSort;
