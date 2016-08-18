@@ -150,7 +150,7 @@ public class GameState implements State {
 	private Collision coll;
 	AudioPlayer BGMusic;
 	//Variabile che conterrà i punti secondo il normale scorrere del gioco
-	private int points = 0;
+	//private int points = 0;
 	//Variabile che conterrà i punti secondo la difficoltà scelta
 	public static int score = 0;
 	private GraphicNumbers num = new GraphicNumbers();
@@ -202,9 +202,9 @@ public class GameState implements State {
 				
 				this.player = model.getMainPlayer(100, 100, this);
 			} else {
+				
 			    player.reset(100, 100, this);
 			}
-			
 		}
 		else{
 				
@@ -296,7 +296,7 @@ public class GameState implements State {
 		speedX1 = 100;
 		speedX2 = 100;
 		
-		points = 0;
+		//points = 0;
 	}
 
 	@Override
@@ -332,33 +332,32 @@ public class GameState implements State {
 			appEntities = new ArrayList<>();
 		}
 		
-		//System.out.println("X è " + model.getMainPlayer().getX());
-		//System.out.println("Y è " + model.getMainPlayer().getY());
 		if (model.isMainPlayerOpen()){
 			
-			if (model.getMainPlayer().getY()>453){
+			if (model.getMainPlayer().isDeath()){
 				
 				stateManager.setState("Death");
 			}
 		}
 		else{
 				
-			if (model.getSidePlayer().getY()>453){
+			if (model.getSidePlayer().isDeath()){
 				
 				stateManager.setState("Death");
 			}
 		}
 		
-		//Incremento il punteggio utilizzando esclusivamente il tempo 
-		//visto che la telecamera si muove (in generale questo sarebbe
-		//meglio ma visto il gioco andrebbe fatto l'altro)
-		points++;
-		
 		//Incremento in base all'avanzamente del personaggio visto che
-		//la telecamera non si muove
-		//points = model.getMainPlayer().getX();
+		//la telecamera non si muove indipendentemente dal player
 		
-		score = points / 200;
+		if (model.isMainPlayerOpen()){
+			
+			score = (int) model.getMainPlayer().getX() / 1000;
+		}
+		else{
+				
+			score = (int) model.getSidePlayer().getX() / 1000;
+		}
 	}
 
 	public ArrayList<Tile> getTiles() {

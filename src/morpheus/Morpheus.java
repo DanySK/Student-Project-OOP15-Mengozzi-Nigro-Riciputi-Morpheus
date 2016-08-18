@@ -11,8 +11,6 @@ import javax.swing.JFrame;
 
 import morpheus.controller.KeyInput;
 import morpheus.controller.MouseInput;
-import morpheus.model.Model;
-import morpheus.model.ModelImpl;
 import morpheus.view.state.DeathState;
 import morpheus.view.state.GameState;
 import morpheus.view.state.MenuState;
@@ -72,7 +70,7 @@ public class Morpheus extends Canvas implements Runnable {
 	private volatile boolean running;
 	
 	//Da eliminare se non serve
-	public static boolean DEBUG = true;
+	public static boolean DEBUG = false;
 	
 	// numero frame e tick al secondo che vogliamo ottenere
 	private static final double TARGET = 60.0;
@@ -95,9 +93,6 @@ public class Morpheus extends Canvas implements Runnable {
 
 	//Dichiaro lo stateManager della classe view
 	private StateManager stateManager;
-	
-	//Creo un oggetto di tipo model
-	private Model model = new ModelImpl();
 	
 	//Costruttore che inizializza il Frame principale
 	public Morpheus(){
@@ -157,7 +152,7 @@ public class Morpheus extends Canvas implements Runnable {
 		// correttamente
 		Graphics2D g2D = (Graphics2D) g;
 
-		g.translate(0, -30);//Mettere -30
+		//g.translate(0, -30);//Mettere -30
 
 		// /////////////////////////////////////////////////////////////////
 		stateManager.render(g2D);

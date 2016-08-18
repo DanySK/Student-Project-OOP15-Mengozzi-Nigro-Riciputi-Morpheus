@@ -19,7 +19,6 @@ import morpheus.controller.AudioPlayer;
 import morpheus.model.Element;
 import morpheus.model.Model;
 import morpheus.model.ModelImpl;
-import morpheus.model.Pair;
 import morpheus.model.exceptions.IllegalNameException;
 import morpheus.model.exceptions.NoElementsException;
 
@@ -36,6 +35,7 @@ public class DeathState implements State{
 	private JTextField champion = new JTextField();
 	private JButton confirm = new JButton("Ok");
 	private Model model = new ModelImpl();
+	private boolean exitRecord = false;
 	/**
 	 * Quando è true si esce dallo state		
 	 * 
@@ -46,15 +46,6 @@ public class DeathState implements State{
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void enter(StateManager stateManager) {
-		
-		//Imposto a false la variabile di uscita
-		exit = false;
 		
 		//Creo il panel personalizzato
 		labelScore = new JLabel("SCORE: " + Integer.toString(GameState.score));
@@ -63,16 +54,26 @@ public class DeathState implements State{
 		BackgroundDeathState background = new BackgroundDeathState();
 		background.setLayout(new BorderLayout());
 		background.add(labelScore, BorderLayout.SOUTH);
-		
+				
 		mainFrame = new JFrame("GAME OVER");
 		mainFrame.getContentPane().add(background);
-		
+				
 		recordFrame.getContentPane().add(panelRecord);
 		panelRecord.add(new JLabel("Wow! You have scored a new RECORD!"));
 		panelRecord.add(new JLabel("Champion, tell us what is your name"));
 		champion.setColumns(23);
 		panelRecord.add(champion);
 		panelRecord.add(confirm);
+	}
+
+	@Override
+	public void enter(StateManager stateManager) {
+		
+		//Imposto a false la variabile di uscita dallo state e di uscita dal recordFrame
+		exit = false;
+		exitRecord = false;
+		
+		labelScore.setText("SCORE: " + Integer.toString(GameState.score));
 		confirm.addActionListener(new ActionListener() {
 			
 			@Override
@@ -81,20 +82,26 @@ public class DeathState implements State{
 				try{
 					
 					model.getRanking().add(new Element(champion.getText(), GameState.score));
-				}catch(IllegalArgumentException e1){
+					exitRecord = true;
+				}catch(IllegalNameException e1){
 					
 					JDialog confirm2 = new JDialog();
+					JPanel panel = new JPanel();
 					JButton yes = new JButton("Yes");
 					JButton no = new JButton("No");
-					confirm2.getContentPane().add(new JLabel("This name is used yet. Are you sure do you want continue?"));
-					confirm2.getContentPane().add(yes);
-					confirm2.getContentPane().add(no);
+					panel.add(new JLabel("This name is used yet. Are you sure do you want continue?"));
+					panel.add(new JLabel("\"Yes\" will delete old result with the same name"));
+					panel.add(yes);
+					panel.add(no);
+					confirm2.getContentPane().add(panel);
 					yes.addActionListener(new ActionListener() {
 						
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							
 							model.getRanking().forceAdd(new Element(champion.getText(), GameState.score));
+							confirm2.dispose();
+							exitRecord = true;
 						}
 					});
 					no.addActionListener(new ActionListener() {
@@ -105,9 +112,11 @@ public class DeathState implements State{
 							confirm2.dispose();
 						}
 					});
+					confirm2.setSize(700, 75);
+					confirm2.setLocationRelativeTo(null);
 					confirm2.setVisible(true);
-				} catch (IllegalNameException e1) {
-                    // TODO Auto-generated catch block
+				} catch (IllegalArgumentException e1) {
+                    
                     e1.printStackTrace();
                 }
 				
@@ -118,7 +127,10 @@ public class DeathState implements State{
 					
 					e2.printStackTrace();
 				}
-				recordFrame.dispose();
+				if(exitRecord){
+					
+					recordFrame.dispose();
+				}
 			}
 		});
 		
@@ -169,18 +181,18 @@ public class DeathState implements State{
 	   mainFrame.setLocationRelativeTo(null);
 	   mainFrame.setVisible(true);
 	   //Se è il record appare la finestra che fa inserire il nome
-	   //METTO 4 PERCHE ORA SONO 4 MA DOVRANNO ESSERE 5!!!!!!!!!!!!!!!!!!!!!!
 	   try {
-        if (GameState.score>=model.getRanking().getPosition(4).getScore()){
+		   
+		   if (GameState.score>model.getRanking().getPosition(5).getScore()){
         	   
-        	   recordFrame.setSize(300, 130);
+        	   recordFrame.setSize(300, 121);
         	   recordFrame.setLocationRelativeTo(null);
         	   recordFrame.setVisible(true);
            }
-    } catch (NoElementsException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
-    }
+	   } catch (NoElementsException e1) {
+        
+		   e1.printStackTrace();
+	   }
 	}
 
 	@Override

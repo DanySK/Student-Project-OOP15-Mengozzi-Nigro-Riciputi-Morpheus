@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -46,7 +47,7 @@ public class RankedState implements State {
 	 * 		 
 	 */
 	private boolean exit;
-	private List<Element> elements;
+	private List<Element> elements = new ArrayList<>();
 	private Model model = new ModelImpl();
 	
 	@Override
@@ -62,9 +63,10 @@ public class RankedState implements State {
 		
 		//Riempio la lista di elementi inizializzando la lista
 		try {
+			
             elements = model.getRanking().getPartOfRanking(5);
         } catch (NoElementsException e1) {
-            // TODO Auto-generated catch block
+            
             e1.printStackTrace();
         }
 		
