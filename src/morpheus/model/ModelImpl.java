@@ -18,6 +18,7 @@ public class ModelImpl implements Model {
     private static final int DIMENSION16 = 16;
     private static final int DIMENSION24 = 24;
     private static final int DIMENSION30 = 30;
+    private static final int DIMENSION39 = 39;
     private static final int DIMENSION40 = 40;
     private static final int DIMENSION64 = 64;
 
@@ -59,7 +60,11 @@ public class ModelImpl implements Model {
                         .getFramesAsList()) {
             @Override
             public void reaction() {
-                MainPlayer.getPlayer().getItem().incBullet();
+                if (ModelImpl.this.isMainPlayerOpen()) {
+                    MainPlayer.getPlayer().getItem().incHP();
+                } else {
+                    SidePlayer.getPlayer().getItem().incHP();
+                }
             }
         };
     }
@@ -71,7 +76,11 @@ public class ModelImpl implements Model {
                         .getFramesAsList()) {
             @Override
             public void reaction() {
-                MainPlayer.getPlayer().getItem().incHP();
+                if (ModelImpl.this.isMainPlayerOpen()) {
+                    MainPlayer.getPlayer().getItem().incHP();
+                } else {
+                    SidePlayer.getPlayer().getItem().incHP();
+                }
             }
         };
     }
@@ -102,7 +111,7 @@ public class ModelImpl implements Model {
     @Override
     public AbstractMonster getPenguin(final double x, final double y, final GameState state) {
         return new Penguin(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/tux.png"), DIMENSION30, DIMENSION64), 3, 1, 3)
+                new Sprite(new SpriteSheet(new Texture("res/tux.png"), DIMENSION40, DIMENSION39), 2, 1, 2)
                         .getFramesAsList());
     }
 

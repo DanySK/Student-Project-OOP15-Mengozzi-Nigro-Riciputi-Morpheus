@@ -71,7 +71,7 @@ public class RandomTile {
 	}
 
 	public Rectangle getTop() {
-		return new Rectangle((int) x + 1 + offset, (int) y, sprite.getWidth() - 2, 4);
+		return new Rectangle((int) x + 1 + offset, (int) y, sprite.getWidth() - 4, 4);
 	}
 
 	public Rectangle getBottom() {

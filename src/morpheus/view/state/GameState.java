@@ -15,12 +15,13 @@ import morpheus.controller.BitMap;
 import morpheus.controller.Camera;
 import morpheus.controller.Collision;
 import morpheus.model.AbstractDrawable;
-import morpheus.view.GraphicNumbers;
+import morpheus.model.CameraOperator;
 import morpheus.model.Model;
 import morpheus.model.ModelImpl;
 import morpheus.model.Player;
 import morpheus.view.GraphicBullet;
 import morpheus.view.GraphicLifes;
+import morpheus.view.GraphicNumbers;
 import morpheus.view.RandomTile;
 import morpheus.view.Tile;
 
@@ -150,6 +151,10 @@ public class GameState implements State {
 	private ArrayList<RandomTile> allRandomTiles;
 	private Collision coll;
 	AudioPlayer BGMusic;
+	private CameraOperator operator;
+	//Variabile che conterrà i punti secondo il normale scorrere del gioco
+	private int points = 0;
+	//Variabile che conterrà i punti secondo la difficoltà scelta
 	//Variabile globale che indicherà lo score
 	public static int score;
 	private GraphicNumbers num = new GraphicNumbers();
@@ -231,6 +236,7 @@ public class GameState implements State {
 		allRandomTiles.addAll(randomTiles2);
 		allRandomTiles.addAll(randomTiles3);
 		
+		operator = new CameraOperator(0, 0, this, player);
 		//Imposto il volume
 		BGMusic.setVolume(model.getVolume());
 		BGMusic.playAndLoop();
@@ -268,7 +274,6 @@ public class GameState implements State {
 			bullet.render(g, model.getMainPlayer().getItem().getBullet());
 		}
 		else{
-				
 			bullet.render(g, model.getSidePlayer().getItem().getBullet());
 		}
 		
@@ -326,7 +331,8 @@ public class GameState implements State {
 
 			e.tick();
 		}
-		camera.tick(player);
+		
+		camera.tick(operator);
 		if (appEntities.size() != 0) {
 
 			entities.addAll(appEntities);
