@@ -25,7 +25,6 @@ import morpheus.view.GraphicNumbers;
 import morpheus.view.RandomTile;
 import morpheus.view.Tile;
 
-
 /**
  * 
  * @author Luca Mengozzi
@@ -160,17 +159,17 @@ public class GameState implements State {
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
 	private GraphicBullet bullet = new GraphicBullet();
-	
+
 	@Override
 	public void init() {
 
-		//Carico la canzone
+		// Carico la canzone
 		BGMusic = new AudioPlayer("res/BGMusic.wav");
 	}
 
 	@Override
 	public void enter(StateManager stateManager) {
-		
+
 		randomTiles = new ArrayList<>();
 		randomTiles1 = new ArrayList<>();
 		randomTiles2 = new ArrayList<>();
@@ -182,10 +181,10 @@ public class GameState implements State {
 		append3 = new ArrayList<>();
 
 		allRandomTiles = new ArrayList<>();
-		bitMap = new BitMap();
+		bitMap = new BitMap(this);
 		// Inizializzo le BitMap
 		bitMap.init();
-	
+
 		try {
 
 			background = ImageIO.read(new File("res/ultimo.png"));
@@ -199,24 +198,23 @@ public class GameState implements State {
 		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
 		appEntities = new ArrayList<>();
-		//Carico il personaggio
-		if (model.isMainPlayerOpen()){
-					
-			if(model.getMainPlayer()==null){
-				
+		// Carico il personaggio
+		if (model.isMainPlayerOpen()) {
+
+			if (model.getMainPlayer() == null) {
+
 				this.player = model.getMainPlayer(100, 100, this);
 			} else {
-				
-			    player.reset(100, 100, this);
+
+				player.reset(100, 100, this);
 			}
-		}
-		else{
-				
-			if(model.getSidePlayer()==null){
-				
+		} else {
+
+			if (model.getSidePlayer() == null) {
+
 				this.player = model.getSidePlayer(100, 100, this);
-			}else{
-				
+			} else {
+
 				player.reset(100, 100, this);
 			}
 		}
@@ -248,8 +246,7 @@ public class GameState implements State {
 		// Lo sfondo è staccato sia dal movimento del giocatore sia dal
 		// movimento di camera
 		this.renderBG(g);
-		
-		
+
 		g.translate(camera.getX(), camera.getY());
 		// Entità
 		for (AbstractDrawable e : entities) {
@@ -258,51 +255,50 @@ public class GameState implements State {
 		// Renderizzo le RandomTile
 		this.renderWorld(g);
 		g.translate(-camera.getX(), -camera.getY());
-		//Renderizzo le vite
-		if (model.isMainPlayerOpen()){
-			
+		// Renderizzo le vite
+		if (model.isMainPlayerOpen()) {
+
 			life.render(g, model.getMainPlayer().getItem().getHP());
-		}
-		else{
-				
+		} else {
+
 			life.render(g, model.getSidePlayer().getItem().getHP());
 		}
-		
-		//Renderizzo i proiettili
-		if (model.isMainPlayerOpen()){
-			
+
+		// Renderizzo i proiettili
+		if (model.isMainPlayerOpen()) {
+
 			bullet.render(g, model.getMainPlayer().getItem().getBullet());
 		}
 		else{
 			bullet.render(g, model.getSidePlayer().getItem().getBullet());
 		}
-		
-		//Renderizzo il punteggio
+
+		// Renderizzo il punteggio
 		num.render(g);
 	}
 
 	@Override
 	public void exit() {
-		
+
 		parallaxMove1 = 0;
 		parallaxMove2 = 795;
 		parallaxCloud1 = 0;
 		parallaxCloud2 = 795;
-		
+
 		Offset1 = 0;
 		Offset2 = 0;
-		
+
 		check = 1;
-		
+
 		point = 0;
 		point1 = 1200;
 		point2 = 2400;
 		point3 = 3600;
-		
+
 		speedX1 = 100;
 		speedX2 = 100;
-		
-		//points = 0;
+
+		// points = 0;
 	}
 
 	@Override
@@ -338,31 +334,29 @@ public class GameState implements State {
 			entities.addAll(appEntities);
 			appEntities = new ArrayList<>();
 		}
-		
-		if (model.isMainPlayerOpen()){
-			
-			if (model.getMainPlayer().isDeath()){
-				
+
+		if (model.isMainPlayerOpen()) {
+
+			if (model.getMainPlayer().isDeath()) {
+
+				stateManager.setState("Death");
+			}
+		} else {
+
+			if (model.getSidePlayer().isDeath()) {
+
 				stateManager.setState("Death");
 			}
 		}
-		else{
-				
-			if (model.getSidePlayer().isDeath()){
-				
-				stateManager.setState("Death");
-			}
-		}
-		
-		//Incremento in base all'avanzamente del personaggio visto che
-		//la telecamera non si muove indipendentemente dal player
-		
-		if (model.isMainPlayerOpen()){
-			
+
+		// Incremento in base all'avanzamente del personaggio visto che
+		// la telecamera non si muove indipendentemente dal player
+
+		if (model.isMainPlayerOpen()) {
+
 			score = (int) model.getMainPlayer().getX() / 1000;
-		}
-		else{
-				
+		} else {
+
 			score = (int) model.getSidePlayer().getX() / 1000;
 		}
 	}
@@ -401,6 +395,10 @@ public class GameState implements State {
 	public void addEntity(AbstractDrawable entity) {
 
 		appEntities.add(entity);
+	}
+
+	public ArrayList<AbstractDrawable> getEntities() {
+		return entities;
 	}
 
 	public void renderBG(Graphics2D g) {
@@ -443,27 +441,28 @@ public class GameState implements State {
 
 			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
 		}
-//		// BACKGROUND 2 PER ORA COMMENTATO PER FARE LE PROVE DELLE VITE IN ALTO
-//		if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
-//			
-//			parallaxCloud1 = 0;
-//		}
-//		if ((speedX2 - SECONDEDGE) % (background2.getWidth() * 2) == 0) {
-//			
-//			parallaxCloud2 = 0;
-//		}
-//
-//		g.drawImage(background2, LINK - parallaxCloud2, 0, null);
-//
-//		if (speedX2 > FIRSTEDGE) {
-//			
-//			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
-//		}
+		// // BACKGROUND 2 PER ORA COMMENTATO PER FARE LE PROVE DELLE VITE IN
+		// ALTO
+		// if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
+		//
+		// parallaxCloud1 = 0;
+		// }
+		// if ((speedX2 - SECONDEDGE) % (background2.getWidth() * 2) == 0) {
+		//
+		// parallaxCloud2 = 0;
+		// }
+		//
+		// g.drawImage(background2, LINK - parallaxCloud2, 0, null);
+		//
+		// if (speedX2 > FIRSTEDGE) {
+		//
+		// g.drawImage(background2, LINK - parallaxCloud1, 0, null);
+		// }
 	}
 
 	public void renderWorld(Graphics2D g) {
 
-		// Condiziow
+		// Condizioe
 		if (player.getTileSynch() != MOVEINCR * check) {
 
 			// Questa if decide che le bitmap vengono renderizzate ad una
@@ -498,7 +497,7 @@ public class GameState implements State {
 				randomTiles.removeAll(append);
 				randomTiles1.removeAll(append1);
 				randomTiles2.removeAll(append2);
-				
+
 				allRandomTiles.addAll(randomTiles);
 				allRandomTiles.addAll(randomTiles1);
 				allRandomTiles.addAll(randomTiles2);
@@ -519,15 +518,15 @@ public class GameState implements State {
 			Offset2 += OFFSETINCR;
 
 			allRandomTiles.removeAll(randomTiles3);
-			
+
 			append3.addAll(randomTiles3);
 
 			randomTiles3.removeAll(randomTiles3);
 
 			randomTiles3.addAll(bitMap.build3());
-			
+
 			randomTiles3.removeAll(append3);
-			
+
 			allRandomTiles.addAll(randomTiles3);
 		}
 		// Rendereizzo effettivamente tutte le RandomTile realativamente alla
@@ -554,7 +553,11 @@ public class GameState implements State {
 
 	@Override
 	public AudioPlayer getMusic() {
-		
+
 		return BGMusic;
+	}
+
+	public static GameState getInstance() {
+		return new GameState();
 	}
 }

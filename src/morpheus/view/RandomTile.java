@@ -20,20 +20,22 @@ public class RandomTile {
 		this.y = 0;
 		this.solid = true;
 		this.offset = 0;
-		// idSprite non � altro che il valore della BitMap della singola Tile che determina quale Tile verr� renderizzata.
-		// Per ora ho inserito solo un tipo di tile ma ho gia fatto 
+		// idSprite non � altro che il valore della BitMap della singola Tile
+		// che determina quale Tile verr� renderizzata.
+		// Per ora ho inserito solo un tipo di tile ma ho gia fatto
 		// lo spazio per le altre quindi ci sar� modo e tempo per inserirle
 		switch (idSprite) {
 		case 1:
 			this.sprite = new Sprite(new SpriteSheet(new Texture("res/provaTerreno.png"), 64), 1, 1);
+			break;
 		case 2:
+			break;
 
-		case 3:
-
-		case 4:
 		}
 	}
-	// Metodo render analogo a quello delle Tile normali se non per l�offset relativo alle collisioni
+
+	// Metodo render analogo a quello delle Tile normali se non per l�offset
+	// relativo alle collisioni
 	public void render(Graphics2D g, int offset) {
 		sprite.render(g, x + offset, y);
 		setOffset(offset);
@@ -95,6 +97,7 @@ public class RandomTile {
 			this.y = y * BitMap.TILE_HEIGHT;
 		}
 	}
+
 	// Metodo per impostare velocemente l�offset delle collisioni
 	public void setOffset(int offset) {
 		this.offset = offset;

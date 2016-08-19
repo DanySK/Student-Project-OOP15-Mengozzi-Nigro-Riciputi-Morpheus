@@ -6,6 +6,7 @@ import java.util.Random;
 
 import morpheus.Morpheus;
 import morpheus.view.RandomTile;
+import morpheus.view.state.GameState;
 
 /**
  * Set the Tile position in scene
@@ -18,8 +19,9 @@ public class BitMap {
 	// � CAMBIARE TUTTO)
 	public static double TILE_WIDTH = 64;
 	public static double TILE_HEIGHT = 64;
-	
+
 	private boolean first;
+	private GameState state;
 
 	// Esprimono in numeri le dimensioni degli array relativamente alla
 	// dimensione che vogliamo dare alle mappe
@@ -32,6 +34,10 @@ public class BitMap {
 	private List<RandomTile> tiles2 = new ArrayList<>();
 	private List<RandomTile> tiles3 = new ArrayList<>();
 	private Random random;
+
+	public BitMap(GameState state) {
+		this.state = state;
+	}
 
 	/**
 	 * Initialize the class
@@ -81,6 +87,11 @@ public class BitMap {
 			tile.setLocation(x, y);
 			// Questo controllo serve per evitare che di un NullPointerException
 			// nel caso in cui il valore della BitMap sia 0
+			if (randMap[i] != 0 && randMap[i] != 1 && randMap[i] != 2) {
+				Asset asset = new Asset();
+				asset.load(randMap[i], state);
+				asset.setLocation(x, y);
+			}
 			if (tile.getSprite() != null) {
 				// Aggiunge la Tile alla lista
 				tiles.add(tile);
@@ -104,6 +115,11 @@ public class BitMap {
 			int y = i / width;
 			RandomTile tile = new RandomTile(randMap[i]);
 			tile.setLocation(x, y);
+			if (randMap[i] != 0 && randMap[i] != 1 && randMap[i] != 2) {
+				Asset asset = new Asset();
+				asset.load(randMap[i], state);
+				asset.setLocation(x, y);
+			}
 			if (tile.getSprite() != null) {
 				tiles1.add(tile);
 			}
@@ -123,6 +139,11 @@ public class BitMap {
 			int y = i / width;
 			RandomTile tile = new RandomTile(randMap[i]);
 			tile.setLocation(x, y);
+			if (randMap[i] != 0 && randMap[i] != 1 && randMap[i] != 2) {
+				Asset asset = new Asset();
+				asset.load(randMap[i], state);
+				asset.setLocation(x, y);
+			}
 			if (tile.getSprite() != null) {
 				tiles2.add(tile);
 			}
@@ -142,6 +163,11 @@ public class BitMap {
 			int y = i / width;
 			RandomTile tile = new RandomTile(randMap[i]);
 			tile.setLocation(x, y);
+			if (randMap[i] != 0 && randMap[i] != 1 && randMap[i] != 2) {
+				Asset asset = new Asset();
+				asset.load(randMap[i], state);
+				asset.setLocation(x, y);
+			}
 			if (tile.getSprite() != null) {
 				tiles3.add(tile);
 			}
