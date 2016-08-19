@@ -62,9 +62,9 @@ public class ModelImpl implements Model {
             @Override
             public void reaction() {
                 if (ModelImpl.this.isMainPlayerOpen()) {
-                    MainPlayer.getPlayer().getItem().incHP();
+                    MainPlayer.getPlayer().getItem().incBullet();
                 } else {
-                    SidePlayer.getPlayer().getItem().incHP();
+                    SidePlayer.getPlayer().getItem().incBullet();
                 }
             }
         };
