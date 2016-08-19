@@ -35,7 +35,7 @@ public class Spikes extends AbstractDrawable {
      *          the current player
      */
     public void reaction(final Player p) {
-        p.getItem().decHP();
+        p.hit();
     }
 
 }

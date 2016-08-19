@@ -1,7 +1,5 @@
 package morpheus.model;
 
-import morpheus.model.Player.PlayerAnimation;
-
 /**
  * 
  * @author jacopo
@@ -15,6 +13,7 @@ public class PlayerManager {
     private static final double GRAVITYPLUS = 0.6;
     private static final int NDOUBLEJUMP = 10;
     private static final double GRAVITY = 1.4;
+    private static final int KNOCKSIZE = 120;
     /**
      * For checking if the player is in Jump.
      */
@@ -29,7 +28,9 @@ public class PlayerManager {
     private int timeJump;
     private int counterJump;
     private int counterFall;
+    private int knock;
     
+    private boolean check;
     private boolean inJump;
     private boolean canJump = true;
     private boolean inFall;
@@ -237,6 +238,7 @@ public class PlayerManager {
         timeJump = NJUMP;
         counterJump = 0;
         counterFall = 0;
+        knock = 0;
     }
     
     /**
@@ -246,5 +248,52 @@ public class PlayerManager {
      */
     public boolean isInFall() {
         return inFall;
+    }
+    
+    /**
+     * Death.
+     */
+    public void dead() {
+        this.stopJumping();
+        this.setVelY(0);
+    }
+    
+    /**
+     * Returns true if the champion have a collision, false otherwise.
+     * @return
+     *          true if the champion have a collision, false otherwise.
+     */
+    public boolean isKnocking() {
+        return knock > 0 ? true : false;
+    }
+    
+    /**
+     * Animation when the player is safe.
+     */
+    public void knocking() {
+        knock++;
+        if (knock % 10 == 0) {
+            check = !check;
+        }
+        if (check) {
+            if (isInFall()) {
+                animation.fall();
+            } else {
+                animation.run();
+            }
+        } else {
+            animation.hit();
+        }
+        if (knock == KNOCKSIZE) {
+            knock = 0;
+        }
+    }
+    
+    /**
+     * Player hit.
+     */
+    public void hit() {
+        knock++;
+        animation.hit();
     }
 }

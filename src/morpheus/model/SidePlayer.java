@@ -15,8 +15,7 @@ public final class SidePlayer extends Player {
     private static final int PLAYERHEIGTH = 60;
     private static final int PLAYERWIDTH = 38;
     private static final int FALLWIDTH = 52;
-    private static final int FALLHEIGHT = 51;
-    private static final int FRAMES = 5;
+    private static final int FRAMES = 6;
 
     /**
      * 
@@ -58,8 +57,11 @@ public final class SidePlayer extends Player {
                         new SpriteSheet(new Texture("res/sidecorsa.png"), PLAYERWIDTH, PLAYERHEIGTH), 4, 1, 4)
                                 .getFramesAsList();
                 System.arraycopy(app1, 0, app, 0, app1.length);
-                app[FRAMES - 1] = new Sprite(new SpriteSheet(new Texture("res/sideCaduta.png"), FALLWIDTH, FALLHEIGHT), 1, 1,
-                        1).getMainFrame();
+                app[FRAMES - 2] = new Sprite(
+                        new SpriteSheet(new Texture("res/sayancaduta.png"), FALLWIDTH, PLAYERHEIGTH), 1, 1, 1)
+                                .getMainFrame();
+                app[FRAMES - 1] = new Sprite(new SpriteSheet(new Texture("res/vuoto.png"), PLAYERWIDTH, PLAYERHEIGTH),
+                        1, 1, 1).getMainFrame();
                 player = new SidePlayer(x, y, state, stat, app);
 
             }

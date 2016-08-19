@@ -4,11 +4,10 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import morpheus.model.Animation;
 import morpheus.model.Bullet;
 import morpheus.model.Image;
-import morpheus.model.MainPlayer;
 import morpheus.model.Player;
-import morpheus.model.Animation;
 import morpheus.view.Texture;
 import morpheus.view.state.GameState;
 
@@ -22,7 +21,6 @@ public class Tree extends AbstractMonster {
 
     private final List<TreeBullet> bullets;
     private volatile boolean threadStop;
-    private static Player PLAYER;
 
     /**
      * Create a Tree monster.
@@ -38,10 +36,9 @@ public class Tree extends AbstractMonster {
      */
     public Tree(final double x, final double y, final GameState game, final Player p, final Image... i) {
         super(x, y, game, i);
-        final TreeAnimation anime = new TreeAnimation(this, i);
+        final TreeAnimation anime = new TreeAnimation(this, p, i);
         setAnime(anime);
         bullets = new ArrayList<>();
-        this.PLAYER = p;
         threadStop = false;
         new Thread(anime).start();
     }
@@ -88,9 +85,11 @@ public class Tree extends AbstractMonster {
         private static final int THREADSLEEP = 1500;
         private static final int BULLETDIMENSION = 18;
         private final Tree tree;
+        private final Player p;
 
-        TreeAnimation(final Tree tree, final Image... frames) {
+        TreeAnimation(final Tree tree, final Player p, final Image... frames) {
             super(2, frames);
+            this.p = p;
             tree.threadStop = false;
             this.tree = tree;
             setCurrentFrame(frames[0]);
@@ -129,7 +128,7 @@ public class Tree extends AbstractMonster {
         }
 
         private TreeBullet shoot() {
-            return new TreeBullet(tree.getX(), tree.getY(), tree.getState(),
+            return new TreeBullet(tree.getX(), tree.getY(), tree.getState(), p, 
                     new Image(new Texture("res/zucca.png").getImage(), BULLETDIMENSION, BULLETDIMENSION));
         }
 
@@ -145,7 +144,6 @@ public class Tree extends AbstractMonster {
         private static final double SCREENHEIGHT = 500;
 
         private final double incY;
-        private final Player p;
 
         /**
          * Create a tree bullet.
@@ -159,18 +157,14 @@ public class Tree extends AbstractMonster {
          * @param i
          *            the image
          */
-        public TreeBullet(final double x, final double y, final GameState game, final Image i) {
+        public TreeBullet(final double x, final double y, final GameState game, final Player p, final Image i) {
             super(x, y, game, i);
             
-            this.p = PLAYER;
             if (p.getY() > y) {
                 incY = 0;
             } else {
                 incY = (SCREENHEIGHT - p.getY()) / ((x - p.getX()) / p.getVelRun());
             }
-            System.out.println("A: " + (y - p.getY()));
-            System.out.println("B: " + (x - p.getX()));
-            System.out.println("IncY: " + incY);
         }
 
         @Override

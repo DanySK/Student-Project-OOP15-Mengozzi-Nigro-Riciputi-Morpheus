@@ -1,22 +1,19 @@
 package morpheus.model;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import morpheus.Morpheus;
+import com.sun.glass.events.KeyEvent;
+
 import morpheus.controller.KeyInput;
-import morpheus.model.exceptions.NoElementsException;
 import morpheus.view.Texture;
 import morpheus.view.state.GameState;
 
 /**
- * 
  * @author jacopo
- *
  */
 public class Player extends AbstractDrawable {
 
@@ -28,7 +25,6 @@ public class Player extends AbstractDrawable {
      * velocità iniziale.
      */
     public static final int INITIAL_VEL = 5;
-
     private final Option s;
     private final PlayerAnimation animation;
     private final Item item;
@@ -38,7 +34,6 @@ public class Player extends AbstractDrawable {
     private boolean runGO;
     private boolean death;
     private List<Bullet> bullets;
-
     /**
      * Create the player.
      * 
@@ -68,18 +63,14 @@ public class Player extends AbstractDrawable {
     public void tick() {
         if (getY() >= DEATH_SIZE || getItem().getHP() <= 0) {
             this.dead();
-            System.out.println("Death");
         }
-
         if (!manager.isVerticalCollision()) {
             fall();
             super.incY(manager.getVelY());
         }
-
         if (isRunning()) {
             goOn();
         }
-
         if (manager.getCounterJump() >= PlayerManager.CHECKINJUMP) {
             super.decY(manager.jumping());
         }
@@ -87,6 +78,9 @@ public class Player extends AbstractDrawable {
             animation.run();
         }
         checkBullets();
+        if (manager.isKnocking()) {
+            manager.knocking();
+        }
         if (KeyInput.isPressed(s.getKeyJump())) {
             if (manager.isInFall() && manager.isDoubleJump()) {
                 manager.setForDoubleJump();
@@ -97,6 +91,9 @@ public class Player extends AbstractDrawable {
         }
         if (KeyInput.isPressed(s.getKeyShoot())) {
             shoot();
+        }
+        if (KeyInput.isPressed(KeyEvent.VK_P)) {
+            hit();
         }
     }
 
@@ -143,27 +140,31 @@ public class Player extends AbstractDrawable {
 
     /**
      * Returns the run velocity.
-     * 
      * @return the run velocity
      */
     public int getVelRun() {
-        return this.velRun;
+        return velRun;
     }
 
     /**
      * Returns true if the player is dead. False otherwise.
-     * 
      * @return true if the player is dead. False otherwise.
      */
     public boolean isDeath() {
         return death;
     }
+    
+    /**
+     * Returns true if the champion have a collision, false otherwise.
+     * @return
+     *          true if the champion have a collision, false otherwise.
+     */
+    public boolean isKnocking() {
+        return manager.isKnocking();
+    }
 
     /**
-     * Create a bullet object and returns it.
-     * 
-     * @throws NoElementsException
-     *             if the player try to shoot but he haven't bullet.
+     * Create a bullet object.
      */
     public void shoot() {
         if (item.getBullet() <= 0) {
@@ -177,7 +178,6 @@ public class Player extends AbstractDrawable {
 
     /**
      * Returns the list of not exploded bullet.
-     * 
      * @return list of bullets.
      */
     public List<Bullet> getBullets() {
@@ -186,7 +186,6 @@ public class Player extends AbstractDrawable {
 
     /**
      * Set the Y change value.
-     * 
      * @param x
      *            the new valor
      */
@@ -196,7 +195,6 @@ public class Player extends AbstractDrawable {
 
     /**
      * Returns the Y change value.
-     * 
      * @return the Y change value
      */
     public double getVelY() {
@@ -219,7 +217,6 @@ public class Player extends AbstractDrawable {
 
     /**
      * Return true if the characters is moving. Else otherwise.
-     * 
      * @return true if the characters is moving, else otherwise
      */
     public boolean isRunning() {
@@ -228,7 +225,6 @@ public class Player extends AbstractDrawable {
 
     /**
      * Reset of the player for a new start.
-     * 
      * @param x
      *            x start position
      * @param y
@@ -253,14 +249,12 @@ public class Player extends AbstractDrawable {
      */
     public void dead() {
         this.stopRun();
-        this.stopJumping();
-        this.setVelY(0);
-        this.death = true;
+        manager.dead();
+        death = true;
     }
 
     /**
      * Set the run velocity.
-     * 
      * @param vel
      *            the new velocity
      */
@@ -275,18 +269,15 @@ public class Player extends AbstractDrawable {
         } else {
             super.render(g);
         }
-        if (Morpheus.DEBUG) {
-            g.setColor(Color.BLACK);
-            g.draw(this.getTop());
-            g.setColor(Color.BLUE);
-            g.draw(getBottom());
-            g.setColor(Color.MAGENTA);
-            g.draw(getLeft());
-            g.setColor(Color.ORANGE);
-            g.draw(getRight());
-        }
         stopRun();
-
+    }
+    
+    /**
+     * Dec life and give a immune status.
+     */
+    public void hit() {
+//        getItem().decHP();
+        manager.hit();
     }
 
     /**
@@ -344,8 +335,8 @@ public class Player extends AbstractDrawable {
 
     /**
      * Returns the bottom of the player.
-     * 
-     * @return the bottom of the player
+     * @return 
+     *          the bottom of the player
      */
     public Rectangle getBottom() {
         return new Rectangle((int) getX() + OFFSETCOLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 1);
@@ -357,34 +348,6 @@ public class Player extends AbstractDrawable {
             if (e.isExplosion()) {
                 iter.remove();
             }
-        }
-    }
-
-    /**
-     * 
-     * @author jacopo
-     *
-     */
-    public static class PlayerAnimation extends Animation {
-
-        /**
-         * Player Animation.
-         * 
-         * @param speed
-         *            animation speed
-         * @param frames
-         *            animation's images
-         */
-        public PlayerAnimation(final int speed, final Image... frames) {
-            super(speed, frames);
-            setNumFrames(4);
-        }
-
-        /**
-         * Set the fall's animation.
-         */
-        public void fall() {
-            setCurrentFrame(getFrames()[4]);
         }
     }
 }
