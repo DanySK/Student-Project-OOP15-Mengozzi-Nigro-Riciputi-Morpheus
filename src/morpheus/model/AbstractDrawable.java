@@ -22,6 +22,7 @@ public abstract class AbstractDrawable implements Drawable {
     private double x;
     private double y;
     private GameState state;
+    private boolean remove;
 
     /**
      * 
@@ -278,5 +279,20 @@ public abstract class AbstractDrawable implements Drawable {
     public GameState getState() {
         return state;
     }
+   
+    /**
+     * Set at true the remove of a Drawable.
+     */
+    public void setRemove() {
+        remove = true;
+    }
 
+    /**
+     * Returns true if the Drawable is to remove, false otherwise.
+     * @return
+     *          true if the Drawable is to remove, false otherwise.
+     */
+    public boolean isRemove() {
+        return remove;
+    }
 }

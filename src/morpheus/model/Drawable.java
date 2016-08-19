@@ -113,5 +113,16 @@ public interface Drawable {
      */
     int getWidth();
     
+    /**
+     * Set at true the remove of a Drawable.
+     */
+    void setRemove();
+    
+    /**
+     * Returns true if the Drawable is to remove, false otherwise.
+     * @return
+     *          true if the Drawable is to remove, false otherwise.
+     */
+    boolean isRemove();
   
 }

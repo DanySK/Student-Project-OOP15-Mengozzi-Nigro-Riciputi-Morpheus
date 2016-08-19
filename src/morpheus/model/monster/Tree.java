@@ -142,8 +142,10 @@ public class Tree extends AbstractMonster {
     public static class TreeBullet extends Bullet {
 
         private static final double SCREENHEIGHT = 500;
-
+        private static final double BULLETOFFSET = 750;
         private final double incY;
+
+        private final double initialX;
 
         /**
          * Create a tree bullet.
@@ -159,7 +161,7 @@ public class Tree extends AbstractMonster {
          */
         public TreeBullet(final double x, final double y, final GameState game, final Player p, final Image i) {
             super(x, y, game, i);
-            
+            initialX = x;
             if (p.getY() > y) {
                 incY = 0;
             } else {
@@ -169,6 +171,9 @@ public class Tree extends AbstractMonster {
 
         @Override
         public void tick() {
+            if (getX() >= initialX - BULLETOFFSET) {
+                setRemove();
+            }
             this.decY(incY);
             this.decX(this.getBulletVelocity());
         }

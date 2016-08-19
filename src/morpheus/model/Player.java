@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.sun.glass.events.KeyEvent;
-
 import morpheus.controller.KeyInput;
 import morpheus.view.Texture;
 import morpheus.view.state.GameState;
@@ -91,9 +89,6 @@ public class Player extends AbstractDrawable {
         }
         if (KeyInput.isPressed(s.getKeyShoot())) {
             shoot();
-        }
-        if (KeyInput.isPressed(KeyEvent.VK_P)) {
-            hit();
         }
     }
 

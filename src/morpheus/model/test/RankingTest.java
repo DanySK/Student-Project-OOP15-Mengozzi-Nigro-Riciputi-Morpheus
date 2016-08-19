@@ -71,14 +71,16 @@ public class RankingTest {
     
     @Test
     public void testAddElementAndLoadingFields() {
-        r = Ranking.getRankingClass();
         
+        r = Ranking.getRankingClass();
+        r.getRankingOnTerm();
         try {
-            r.add(new Element("taba12", 6));
-            r.add(new Element("taba1", 1));
+            r.add(new Element("taba31", 101));
+            r.add(new Element("taba12", 100));
             
         } catch (IllegalNameException e1) {
-            System.out.println("Nome già presente");
+            System.out.println("Nome presente");
+            r.forceAdd(new Element("taba12", 1109));
         } 
         r.getRankingOnTerm();
         try {

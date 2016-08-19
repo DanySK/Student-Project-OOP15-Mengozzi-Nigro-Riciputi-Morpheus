@@ -240,5 +240,5 @@ public final class Ranking extends Storable {
         values.remove(MAX_SIZE);
         
     }
-
+    
 }
