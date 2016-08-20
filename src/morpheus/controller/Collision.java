@@ -68,10 +68,10 @@ public class Collision {
 		if (player.isKnocking() == false) {
 			for (int i = 0; i < state.getEntities().size(); i++) {
 				if (state.getEntities().get(i) instanceof Spikes) {
-					AbstractDrawable ad = state.getEntities().get(i);
+					Spikes ad = (Spikes) state.getEntities().get(i);
 					if (player.getBottom().intersects(ad.getTop()) && player.getVelY() >= 0) {
 						player.groundCollission();
-						((Spikes) ad).reaction(player);
+						ad.reaction(player);
 						return true;
 					} else {
 						player.falling();
@@ -120,7 +120,7 @@ public class Collision {
 		if (player.isKnocking() == false) {
 			for (int i = 0; i < state.getEntities().size(); i++) {
 				if (state.getEntities().get(i) instanceof Spikes) {
-					AbstractDrawable ad = state.getEntities().get(i);
+					Spikes ad = (Spikes) state.getEntities().get(i);
 					if (player.getBounds().intersects(ad.getRight()) && player.getVelRun() <= 0) {
 						return true;
 					}
