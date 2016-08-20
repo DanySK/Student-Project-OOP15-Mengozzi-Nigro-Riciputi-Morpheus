@@ -29,19 +29,25 @@ import morpheus.model.exceptions.NoElementsException;
  */
 public class DeathState implements State{
 	
-	private JFrame mainFrame, recordFrame = new JFrame();
-	private JPanel panelRecord = new JPanel();
+	//Dichiaro i componenti relativi al frame principale
+	private JFrame mainFrame = new JFrame();
 	private JLabel labelScore;
-	private JTextField champion = new JTextField();
-	private JButton confirm = new JButton("Ok");
+			
+	//Dichiaro i componenti relativi al frame in caso di record
+	private JFrame recordFrame = new JFrame();
+	private JPanel panelRecord = new JPanel();
+	private JTextField name = new JTextField();
+	private JButton ok = new JButton("Ok");
+	
+	//Dichiaro i componenti relativi alla JDialog in caso di eccezione nome già esistente
+	JDialog dialog = new JDialog();
+	JPanel panelDialog = new JPanel();
+	JButton yes = new JButton("Yes");
+	JButton no = new JButton("No");
+	
+	//Creo un oggetto di tipo model
 	private Model model = new ModelImpl();
-	/**
-	 * Quando è true si esce dal recordFrame		
-	 * 
-	 * @author Luca Mengozzi
-	 * 		 
-	 */
-	private boolean exitRecord;
+	
 	/**
 	 * Quando è true si esce dallo state		
 	 * 
@@ -53,24 +59,34 @@ public class DeathState implements State{
 	@Override
 	public void init() {
 		
-		//Creo il panel personalizzato
+		//Personalizzo il frame principale
 		labelScore = new JLabel("SCORE: " + Integer.toString(GameState.score));
 		labelScore.setHorizontalAlignment( JLabel.CENTER );
 		labelScore.setFont(new Font("TimesNewRoman", Font.BOLD, 30));
 		BackgroundDeathState background = new BackgroundDeathState();
 		background.setLayout(new BorderLayout());
-		background.add(labelScore, BorderLayout.SOUTH);
-				
-		mainFrame = new JFrame("GAME OVER");
+		background.add(labelScore, BorderLayout.SOUTH);		
 		mainFrame.getContentPane().add(background);
+		mainFrame.setSize(500, 300);
+		mainFrame.setResizable(false);
+		mainFrame.setLocationRelativeTo(null);
 				
 		//Personalizzo il recordFrame
 		recordFrame.getContentPane().add(panelRecord);
 		panelRecord.add(new JLabel("Wow! You have scored a new RECORD!"));
 		panelRecord.add(new JLabel("Champion, tell us what is your name"));
-		champion.setColumns(23);
-		panelRecord.add(champion);
-		panelRecord.add(confirm);
+		name.setColumns(23);
+		panelRecord.add(name);
+		panelRecord.add(ok);
+		
+		//Personalizzo la JDialog
+		panelDialog.add(new JLabel("This name is used yet. Are you sure do you want continue?"));
+		panelDialog.add(new JLabel("\"Yes\" will delete old result with the same name"));
+		panelDialog.add(yes);
+		panelDialog.add(no);
+		dialog.getContentPane().add(panelDialog);
+		dialog.setSize(700, 75);
+		dialog.setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -78,37 +94,35 @@ public class DeathState implements State{
 		
 		//Imposto a false la variabile di uscita dallo state e di uscita dal recordFrame
 		exit = false;
-		exitRecord = false;
-		
+		//Aggiorno lo score nel main principale
 		labelScore.setText("SCORE: " + Integer.toString(GameState.score));
-		confirm.addActionListener(new ActionListener() {
+		
+		model.getRanking().getApp();
+		ok.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				try{
 					
-					model.getRanking().add(new Element(champion.getText(), GameState.score));
-					exitRecord = true;
+					model.getRanking().add(new Element(name.getText(), GameState.score));
 				}catch(IllegalNameException e1){
 					
-					JDialog confirm2 = new JDialog();
-					JPanel panel = new JPanel();
-					JButton yes = new JButton("Yes");
-					JButton no = new JButton("No");
-					panel.add(new JLabel("This name is used yet. Are you sure do you want continue?"));
-					panel.add(new JLabel("\"Yes\" will delete old result with the same name"));
-					panel.add(yes);
-					panel.add(no);
-					confirm2.getContentPane().add(panel);
 					yes.addActionListener(new ActionListener() {
 						
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							
-							model.getRanking().forceAdd(new Element(champion.getText(), GameState.score));
-							confirm2.dispose();
-							exitRecord = true;
+							model.getRanking().forceAdd(new Element(name.getText(), GameState.score));
+							try {
+								
+								model.getRanking().close();
+							} catch (IOException e2) {
+								
+								e2.printStackTrace();
+							}
+							dialog.setVisible(false);
+							recordFrame.setVisible(false);
 						}
 					});
 					no.addActionListener(new ActionListener() {
@@ -116,12 +130,12 @@ public class DeathState implements State{
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							
-							confirm2.dispose();
+							dialog.setVisible(false);;
 						}
 					});
-					confirm2.setSize(700, 75);
-					confirm2.setLocationRelativeTo(null);
-					confirm2.setVisible(true);
+					
+					//Rendo visibile la JDialog
+					dialog.setVisible(true);
 				} catch (IllegalArgumentException e1) {
                     
                     e1.printStackTrace();
@@ -133,10 +147,6 @@ public class DeathState implements State{
 				} catch (IOException e2) {
 					
 					e2.printStackTrace();
-				}
-				if(exitRecord){
-					
-					recordFrame.dispose();
 				}
 			}
 		});
@@ -183,23 +193,22 @@ public class DeathState implements State{
 			}
 		});
 			
-	   mainFrame.setSize(500, 300);
-	   mainFrame.setResizable(false);
-	   mainFrame.setLocationRelativeTo(null);
-	   mainFrame.setVisible(true);
-	   //Se è il record appare la finestra che fa inserire il nome
-	   try {
+		//Rendo visibile il frame principale
+		mainFrame.setVisible(true);
+	   
+		//Se è il record appare la finestra che fa inserire il nome
+		try {
 		   
-		   if (GameState.score>model.getRanking().getPosition(5).getScore()){
+			if (GameState.score>model.getRanking().getPosition(5).getScore()){
         	   
-        	   recordFrame.setSize(300, 121);
-        	   recordFrame.setLocationRelativeTo(null);
-        	   recordFrame.setVisible(true);
-           }
-	   } catch (NoElementsException e1) {
+				recordFrame.setSize(300, 121);
+				recordFrame.setLocationRelativeTo(null);
+				recordFrame.setVisible(true);
+			}
+		} catch (NoElementsException e1) {
         
-		   e1.printStackTrace();
-	   }
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
@@ -223,6 +232,7 @@ public class DeathState implements State{
 		
 		mainFrame.dispose();
 		recordFrame.dispose();
+		dialog.dispose();
 	}
 
 	@Override
