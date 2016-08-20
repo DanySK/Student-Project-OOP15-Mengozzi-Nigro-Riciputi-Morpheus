@@ -151,10 +151,10 @@ public class GameState implements State {
 	private Collision coll;
 	AudioPlayer BGMusic;
 	private CameraOperator operator;
-	// Variabile che conterrà i punti secondo il normale scorrere del gioco
-	private int points = 0;
-	// Variabile che conterrà i punti secondo la difficoltà scelta
-	// Variabile globale che indicherà lo score
+
+	//Variabile che conterrà i punti secondo la difficoltà scelta
+	//Variabile globale che indicherà lo score
+
 	public static int score;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();

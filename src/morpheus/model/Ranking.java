@@ -241,4 +241,11 @@ public final class Ranking extends Storable {
         
     }
     
+    public void getApp(){
+    	
+    	for(String s: app){
+    		
+    		System.out.println(s);
+    	}
+    }
 }
