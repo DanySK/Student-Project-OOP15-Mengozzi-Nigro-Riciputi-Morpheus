@@ -1,13 +1,13 @@
 package morpheus.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import morpheus.model.AbstractDrawable;
 import morpheus.model.AbstractPill;
 import morpheus.model.Bullet;
 import morpheus.model.Coin;
 import morpheus.model.Player;
+import morpheus.model.Spikes;
 import morpheus.model.monster.AbstractMonster;
 import morpheus.model.monster.Tree.TreeBullet;
 import morpheus.view.RandomTile;
@@ -19,13 +19,11 @@ public class Collision {
 	private final GameState state;
 	private final Player player;
 	private ArrayList<AbstractDrawable> playerBullets;
-	private ArrayList<AbstractDrawable> enemies;
 
 	public Collision(final GameState state, final Player p) {
 		this.state = state;
 		this.player = p;
 		this.playerBullets = new ArrayList<>();
-		this.enemies = new ArrayList<>();
 	}
 
 	public boolean hasVerticalCollision() {
@@ -65,6 +63,29 @@ public class Collision {
 				return true;
 			}
 		}
+
+		// SPIKES VERTICAL
+		if (player.isKnocking() == false) {
+			for (int i = 0; i < state.getEntities().size(); i++) {
+				if (state.getEntities().get(i) instanceof Spikes) {
+					AbstractDrawable ad = state.getEntities().get(i);
+					if (player.getBottom().intersects(ad.getTop()) && player.getVelY() >= 0) {
+						player.groundCollission();
+						((Spikes) ad).reaction(player);
+						return true;
+					} else {
+						player.falling();
+					}
+
+					if (player.getBounds().intersects(ad.getBottom()) && player.isInJump()) {
+						player.stopJumping();
+						return true;
+
+					}
+				}
+			}
+		}
+
 		return false;
 
 	}
@@ -94,91 +115,142 @@ public class Collision {
 				return true;
 			}
 		}
+
+		// SPIKES HORIZONTAL
+		if (player.isKnocking() == false) {
+			for (int i = 0; i < state.getEntities().size(); i++) {
+				if (state.getEntities().get(i) instanceof Spikes) {
+					AbstractDrawable ad = state.getEntities().get(i);
+					if (player.getBounds().intersects(ad.getRight()) && player.getVelRun() <= 0) {
+						return true;
+					}
+					if (player.getBounds().intersects(ad.getLeft()) && player.getVelRun() >= 0) {
+						return true;
+					}
+				}
+			}
+		}
+
 		return false;
 	}
 
-	// public boolean hasSpikeCollsion() {
-	// // SPIKES
-	//
-	// }
+	public boolean hasSpikeVerticalCollsion() {
+		// SPIKES VERTICAL
+		if (player.isKnocking() == false) {
+			for (int i = 0; i < state.getEntities().size(); i++) {
+				if (state.getEntities().get(i) instanceof Spikes) {
+					AbstractDrawable ad = state.getEntities().get(i);
+					if (player.getBottom().intersects(ad.getTop()) && player.getVelY() >= 0) {
+						player.hit();
+						player.groundCollission();
+						return true;
+					} else {
+						player.falling();
+					}
 
-//	public boolean hasHittedEnemy() {
-//		// HIT
-//		for (int i = 0; i < state.getEntities().size(); i++) {
-//			if (state.getEntities().get(i) instanceof Bullet) {
-//				playerBullets.add(state.getEntities().get(i));
-//			}
-//			if (state.getEntities().get(i) instanceof AbstractMonster) {
-//				enemies.add(state.getEntities().get(i));
-//			}
-//		}
-//		if (playerBullets.size() != 0 && enemies.size() != 0) {
-//			for (Iterator<AbstractDrawable> it = playerBullets.iterator(); it.hasNext();) {
-//				for (Iterator<AbstractDrawable> it1 = enemies.iterator(); it1.hasNext();) {
-//					AbstractDrawable ad = it.next();
-//					if (it.next().getBounds().intersects(it1.next().getBounds())) {
-//						state.getEntities().remove(ad);
-//						return true;
-//					}
-//				}
-//			}
-//		}
-//		return false;
-//	}
+					if (player.getBounds().intersects(ad.getBottom()) && player.isInJump()) {
+						player.stopJumping();
+						return true;
 
-	public boolean hasEnemyCollision() {
-		// ENEMIES
-		for (int i = 0; i < state.getEntities().size(); i++) {
-			if (state.getEntities().get(i) instanceof AbstractMonster) {
-				AbstractDrawable ad = state.getEntities().get(i);
-				if (player.getBounds().intersects(ad.getBounds())) {
-					return true;
+					}
 				}
 			}
 		}
 		return false;
 	}
 
-	public boolean hasCoinCollision() {
+	public boolean hasSpikeHorizontalCollision() {
+		// SPIKES HORIZONTAL
+		if (player.isKnocking() == false) {
+			for (int i = 0; i < state.getEntities().size(); i++) {
+				if (state.getEntities().get(i) instanceof Spikes) {
+					AbstractDrawable ad = state.getEntities().get(i);
+					if (player.getBounds().intersects(ad.getRight()) && player.getVelRun() <= 0) {
+						return true;
+					}
+					if (player.getBounds().intersects(ad.getLeft()) && player.getVelRun() >= 0) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public void hittedEnemy() {
+		// HIT
+		for (int i = 0; i < state.getEntities().size(); i++) {
+			if (state.getEntities().get(i) instanceof Bullet) {
+				playerBullets.add(state.getEntities().get(i));
+			}
+		}
+		for (int i = 0; i < player.getBullets().size(); i++) {
+			for (int j = 0; j < state.getEntities().size(); j++) {
+				if (state.getEntities().get(j) instanceof AbstractMonster) {
+					if (player.getBullets().get(i).getBounds().intersects(state.getEntities().get(j).getBounds())) {
+						state.getEntities().get(j).setRemove();
+					}
+				}
+			}
+		}
+
+	}
+
+	public void getEnemyCollision() {
+		// ENEMIES
+		if (player.isKnocking() == false) {
+			for (int i = 0; i < state.getEntities().size(); i++) {
+				if (state.getEntities().get(i) instanceof AbstractMonster) {
+					AbstractDrawable ad = state.getEntities().get(i);
+					if (player.getBounds().intersects(ad.getBounds())) {
+						player.hit();
+					}
+				}
+			}
+		}
+	}
+
+	public void getCoinCollision() {
 		// COINS
 		for (int i = 0; i < state.getEntities().size(); i++) {
 			if (state.getEntities().get(i) instanceof Coin) {
 				AbstractDrawable ad = state.getEntities().get(i);
 				if (player.getBounds().intersects(ad.getBounds())) {
-					state.getEntities().remove(ad);
-					return true;
+					state.getEntities().get(i).setRemove();
 				}
 			}
 		}
-		return false;
 	}
 
-	public boolean hasPillCollision() {
+	public void getPillCollision() {
 		// PILLS
 		for (int i = 0; i < state.getEntities().size(); i++) {
 			if (state.getEntities().get(i) instanceof AbstractPill) {
 				AbstractDrawable ad = state.getEntities().get(i);
-				if (player.getBounds().intersects(ad.getBounds()))
-					return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean hasBulletCollision() {
-		// BULLETS
-		for (int i = 0; i < state.getEntities().size(); i++) {
-			if (state.getEntities().get(i) instanceof TreeBullet) {
-				AbstractDrawable ad = state.getEntities().get(i);
 				if (player.getBounds().intersects(ad.getBounds())) {
-					return true;
+					((AbstractPill) state.getEntities().get(i)).reaction();
+					state.getEntities().get(i).setRemove();
 				}
 			}
 		}
-		return false;
+	}
+
+	public void getBulletCollision() {
+		// BULLETS
+		if (player.isKnocking() == false) {
+			for (int i = 0; i < state.getEntities().size(); i++) {
+				if (state.getEntities().get(i) instanceof TreeBullet) {
+					AbstractDrawable ad = state.getEntities().get(i);
+					if (player.getBounds().intersects(ad.getBounds())) {
+						player.hit();
+					}
+				}
+			}
+		}
 	}
 
 	public void tick() {
+
 		if (!hasHorizontalCollision()) {
 			player.startRun();
 		}
@@ -187,24 +259,14 @@ public class Collision {
 			player.setVerticalCollision(false);
 		}
 
-//		if (hasHittedEnemy()) {
-//
-//		}
+		hittedEnemy();
 
-		if (hasCoinCollision()) {
+		getCoinCollision();
 
-		}
+		getPillCollision();
 
-		if (hasPillCollision()) {
+		getEnemyCollision();
 
-		}
-
-		if (hasEnemyCollision()) {
-			player.hit();
-		}
-
-		if (hasBulletCollision()) {
-			player.hit();
-		}
+		getBulletCollision();
 	}
 }

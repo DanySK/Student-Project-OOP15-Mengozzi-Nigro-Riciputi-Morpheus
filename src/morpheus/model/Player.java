@@ -271,7 +271,7 @@ public class Player extends AbstractDrawable {
      * Dec life and give a immune status.
      */
     public void hit() {
-//        getItem().decHP();
+        getItem().decHP();
         manager.hit();
     }
 

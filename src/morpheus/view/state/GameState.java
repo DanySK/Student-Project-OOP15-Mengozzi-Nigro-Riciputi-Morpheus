@@ -151,10 +151,10 @@ public class GameState implements State {
 	private Collision coll;
 	AudioPlayer BGMusic;
 	private CameraOperator operator;
-	//Variabile che conterrà i punti secondo il normale scorrere del gioco
+	// Variabile che conterrà i punti secondo il normale scorrere del gioco
 	private int points = 0;
-	//Variabile che conterrà i punti secondo la difficoltà scelta
-	//Variabile globale che indicherà lo score
+	// Variabile che conterrà i punti secondo la difficoltà scelta
+	// Variabile globale che indicherà lo score
 	public static int score;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
@@ -222,10 +222,10 @@ public class GameState implements State {
 		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
 		// BitMap in Tile da renderizzare nella scena e le aggiungo alla lista
 		// di Tile da renderizzare nel metodo render()
-		randomTiles.addAll(bitMap.build());
-		randomTiles1.addAll(bitMap.build1());
-		randomTiles2.addAll(bitMap.build2());
-		randomTiles3.addAll(bitMap.build3());
+		randomTiles.addAll(bitMap.build(point));
+		randomTiles1.addAll(bitMap.build1(point1));
+		randomTiles2.addAll(bitMap.build2(point2));
+		randomTiles3.addAll(bitMap.build3(point3));
 		// Successivamente aggiungo ongi lista di RandomTile ad una singola
 		// grande lista per poterle poi prelevare tutte insieme e calcolarne le
 		// collisioni nella classe Collision
@@ -233,9 +233,9 @@ public class GameState implements State {
 		allRandomTiles.addAll(randomTiles1);
 		allRandomTiles.addAll(randomTiles2);
 		allRandomTiles.addAll(randomTiles3);
-		
+
 		operator = new CameraOperator(0, 0, this, player);
-		//Imposto il volume
+		// Imposto il volume
 		BGMusic.setVolume(model.getVolume());
 		BGMusic.playAndLoop();
 	}
@@ -268,8 +268,7 @@ public class GameState implements State {
 		if (model.isMainPlayerOpen()) {
 
 			bullet.render(g, model.getMainPlayer().getItem().getBullet());
-		}
-		else{
+		} else {
 			bullet.render(g, model.getSidePlayer().getItem().getBullet());
 		}
 
@@ -324,10 +323,13 @@ public class GameState implements State {
 
 				coll.tick();
 			}
+			if(e.isRemove()) {
+				iter.remove();
+			}
 
 			e.tick();
 		}
-		
+
 		camera.tick(operator);
 		if (appEntities.size() != 0) {
 
@@ -490,9 +492,9 @@ public class GameState implements State {
 				randomTiles1.removeAll(randomTiles1);
 				randomTiles2.removeAll(randomTiles2);
 
-				randomTiles.addAll(bitMap.build());
-				randomTiles1.addAll(bitMap.build1());
-				randomTiles2.addAll(bitMap.build2());
+				randomTiles.addAll(bitMap.build(point));
+				randomTiles1.addAll(bitMap.build1(point1));
+				randomTiles2.addAll(bitMap.build2(point2));
 
 				randomTiles.removeAll(append);
 				randomTiles1.removeAll(append1);
@@ -523,7 +525,7 @@ public class GameState implements State {
 
 			randomTiles3.removeAll(randomTiles3);
 
-			randomTiles3.addAll(bitMap.build3());
+			randomTiles3.addAll(bitMap.build3(point3));
 
 			randomTiles3.removeAll(append3);
 

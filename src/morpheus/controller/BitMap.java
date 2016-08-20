@@ -67,7 +67,7 @@ public class BitMap {
 	 * 
 	 * @return List of Tiles
 	 */
-	public List<RandomTile> build() {
+	public List<RandomTile> build(int offset) {
 		int[] randMap;
 		if (first) {
 			randMap = TileMaps.getFirstMap();
@@ -90,7 +90,7 @@ public class BitMap {
 			if (randMap[i] != 0 && randMap[i] != 1 && randMap[i] != 2) {
 				Asset asset = new Asset();
 				asset.load(randMap[i], state);
-				asset.setLocation(x, y);
+				asset.setLocation(x, y, offset);
 			}
 			if (tile.getSprite() != null) {
 				// Aggiunge la Tile alla lista
@@ -108,8 +108,8 @@ public class BitMap {
 	 * 
 	 * @return List of Tiles
 	 */
-	public List<RandomTile> build1() {
-		int[] randMap = getRandomTileMap();
+	public List<RandomTile> build1(int offset) {
+		int[] randMap = TileMaps.getMAP();
 		for (int i = 0; i < randMap.length; i++) {
 			int x = i % width;
 			int y = i / width;
@@ -118,7 +118,7 @@ public class BitMap {
 			if (randMap[i] != 0 && randMap[i] != 1 && randMap[i] != 2) {
 				Asset asset = new Asset();
 				asset.load(randMap[i], state);
-				asset.setLocation(x, y);
+				asset.setLocation(x, y, offset);
 			}
 			if (tile.getSprite() != null) {
 				tiles1.add(tile);
@@ -132,7 +132,7 @@ public class BitMap {
 	 * 
 	 * @return List of Tiles
 	 */
-	public List<RandomTile> build2() {
+	public List<RandomTile> build2(int offset) {
 		int[] randMap = getRandomTileMap();
 		for (int i = 0; i < randMap.length; i++) {
 			int x = i % width;
@@ -142,7 +142,7 @@ public class BitMap {
 			if (randMap[i] != 0 && randMap[i] != 1 && randMap[i] != 2) {
 				Asset asset = new Asset();
 				asset.load(randMap[i], state);
-				asset.setLocation(x, y);
+				asset.setLocation(x, y, offset);
 			}
 			if (tile.getSprite() != null) {
 				tiles2.add(tile);
@@ -156,7 +156,7 @@ public class BitMap {
 	 * 
 	 * @return List of Tiles
 	 */
-	public List<RandomTile> build3() {
+	public List<RandomTile> build3(int offset) {
 		int[] randMap = getRandomTileMap();
 		for (int i = 0; i < randMap.length; i++) {
 			int x = i % width;
@@ -166,7 +166,7 @@ public class BitMap {
 			if (randMap[i] != 0 && randMap[i] != 1 && randMap[i] != 2) {
 				Asset asset = new Asset();
 				asset.load(randMap[i], state);
-				asset.setLocation(x, y);
+				asset.setLocation(x, y, offset);
 			}
 			if (tile.getSprite() != null) {
 				tiles3.add(tile);

@@ -70,7 +70,7 @@ public class Morpheus extends Canvas implements Runnable {
 	private volatile boolean running;
 	
 	//Da eliminare se non serve
-	public static boolean DEBUG = false;
+	public static boolean DEBUG = true;
 	
 	// numero frame e tick al secondo che vogliamo ottenere
 	private static final double TARGET = 60.0;

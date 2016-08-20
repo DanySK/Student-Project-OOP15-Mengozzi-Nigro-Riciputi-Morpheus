@@ -1,5 +1,6 @@
 package morpheus.model;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import morpheus.Morpheus;
 import morpheus.view.state.GameState;
 
 /**
@@ -148,7 +150,7 @@ public abstract class AbstractDrawable implements Drawable {
      * @return Un rettangolo che rappresenta il lato superiore
      */
     public Rectangle getTop() {
-        return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), 1);
+        return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), 0);
     }
 
     /**
@@ -186,6 +188,16 @@ public abstract class AbstractDrawable implements Drawable {
      */
     public void render(final Graphics2D g) {
         g.drawImage(mainFrame.getImage(), (int) x, (int) y, null);
+        if (Morpheus.DEBUG) {
+			g.setColor(Color.BLACK);
+			g.draw(getTop());
+			g.setColor(Color.BLUE);
+			g.draw(getBottom());
+			g.setColor(Color.MAGENTA);
+			g.draw(getLeft());
+			g.setColor(Color.ORANGE);
+			g.draw(getRight());
+		}
     }
 
     /**

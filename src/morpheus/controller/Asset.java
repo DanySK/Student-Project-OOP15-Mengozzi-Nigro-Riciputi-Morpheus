@@ -51,8 +51,8 @@ public class Asset {
 		}
 	}
 
-	public void setLocation(int x, int y) {
-		asset.setX(x * BitMap.TILE_WIDTH);
+	public void setLocation(int x, int y,int offset) {
+		asset.setX(x * BitMap.TILE_WIDTH + offset);
 		asset.setY(y * BitMap.TILE_HEIGHT);
 	}
 
