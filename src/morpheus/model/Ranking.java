@@ -236,7 +236,7 @@ public final class Ranking extends Storable {
     private void remove() {
         Collections.sort(values, new Element()::compare);
         toSort = false;
-        app.remove(values.get(MAX_SIZE));
+        app.remove(values.get(MAX_SIZE).getName());
         values.remove(MAX_SIZE);
         
     }

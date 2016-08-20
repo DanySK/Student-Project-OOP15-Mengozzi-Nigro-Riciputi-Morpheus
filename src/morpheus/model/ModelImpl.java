@@ -194,7 +194,7 @@ public class ModelImpl implements Model {
     @Override
     public Spikes getSpikes(final double x, final double y, final GameState state) {
         return new Spikes(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/spike.png"), DIMENSION64, DIMENSION80), 1, 1, 1)
+                new Sprite(new SpriteSheet(new Texture("res/spike.png"), DIMENSION64, DIMENSION64), 1, 1, 1)
                         .getMainFrame());
     }
 }

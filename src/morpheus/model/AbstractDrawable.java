@@ -150,7 +150,7 @@ public abstract class AbstractDrawable implements Drawable {
      * @return Un rettangolo che rappresenta il lato superiore
      */
     public Rectangle getTop() {
-        return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), 0);
+        return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), 1);
     }
 
     /**
@@ -177,7 +177,7 @@ public abstract class AbstractDrawable implements Drawable {
      * @return Un rettangolo che rappresenta il lato inferiore
      */
     public Rectangle getBottom() {
-        return new Rectangle((int) this.getX(), (int) this.getY(), this.getWidth(), 1);
+        return new Rectangle((int) this.getX(), (int) this.getY() + getHeight(), this.getWidth(), 1);
     }
 
     /**

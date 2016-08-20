@@ -1,5 +1,7 @@
 package morpheus.model;
 
+import java.awt.Rectangle;
+
 import morpheus.view.state.GameState;
 
 /**
@@ -9,6 +11,7 @@ import morpheus.view.state.GameState;
  */
 public class Spikes extends AbstractDrawable {
 
+    private static final int OFFSET = 16;
     /**
      * Spikes.
      * @param x
@@ -36,6 +39,18 @@ public class Spikes extends AbstractDrawable {
      */
     public void reaction(final Player p) {
         p.hit();
+    }
+    
+    public Rectangle getTop() {
+        return new Rectangle((int) this.getX(), (int) this.getY() + OFFSET, this.getWidth(), 1);
+    }
+    
+    public Rectangle getLeft() {
+        return new Rectangle((int) this.getX(), (int) this.getY() + OFFSET, 1, this.getHeight() - OFFSET);
+    }
+
+    public Rectangle getRight() {
+        return new Rectangle((int) this.getX() + this.getWidth(), (int) this.getY() + OFFSET, 1, this.getHeight() - OFFSET);
     }
 
 }
