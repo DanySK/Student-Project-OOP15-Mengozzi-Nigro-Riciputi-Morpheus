@@ -11,6 +11,7 @@ import morpheus.view.state.GameState;
  */
 public abstract class AbstractPill extends AbstractDrawable {
 
+    private static final double DIMENSION64 = 64;
     private final Animation anime;
 
     /**
@@ -53,6 +54,16 @@ public abstract class AbstractPill extends AbstractDrawable {
      * 
      */
     public abstract void reaction();
+    
+    @Override
+    public void setX(final double x) {
+        super.setX(x + DIMENSION64 - getWidth());
+    }
+    
+    @Override
+    public void setY(final double y) {
+        super.setY(y + DIMENSION64 - getHeight());
+    }
 
     @Override
     public void tick() {

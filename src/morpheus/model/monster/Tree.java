@@ -31,6 +31,8 @@ public class Tree extends AbstractMonster {
      *            Y position
      * @param game
      *            GameState
+     * @param p
+     *            player
      * @param i
      *            the animation's images
      */
@@ -171,7 +173,7 @@ public class Tree extends AbstractMonster {
 
         @Override
         public void tick() {
-            if (getX() >= initialX - BULLETOFFSET) {
+            if (getX() <= initialX - BULLETOFFSET) {
                 setRemove();
             }
             this.decY(incY);

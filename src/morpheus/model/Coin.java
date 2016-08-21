@@ -15,6 +15,7 @@ public class Coin extends AbstractDrawable {
 	private static final int NORMALCOINDIMENSION = 24;
 	private static final int COINVALUE = 5;
 	private static final int SPECIALCOINVALUE = 25;
+    private static final double DIMENSION64 = 64;
         private final TypeCoin type;
 	private final Animation anime;
 	
@@ -93,6 +94,16 @@ public class Coin extends AbstractDrawable {
 		 */
 		NORMAL, SPECIAL, X2;
 	}
+	
+	@Override
+	    public void setX(final double x) {
+	        super.setX(x + DIMENSION64 - getWidth());
+	    }
+	    
+	    @Override
+	    public void setY(final double y) {
+	        super.setY(y + DIMENSION64 - getHeight());
+	    }
 
 	@Override
 	public void tick() {

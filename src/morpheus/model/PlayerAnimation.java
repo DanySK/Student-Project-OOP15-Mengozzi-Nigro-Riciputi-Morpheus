@@ -6,6 +6,8 @@ package morpheus.model;
  *
  */
 public class PlayerAnimation extends Animation {
+    
+    private static final int HITFRAME = 5;
 
     /**
      * Player Animation.
@@ -31,6 +33,6 @@ public class PlayerAnimation extends Animation {
      * Set a null frame.
      */
     public void hit() {
-        setCurrentFrame(getFrames()[5]);
+        setCurrentFrame(getFrames()[HITFRAME]);
     }
 }

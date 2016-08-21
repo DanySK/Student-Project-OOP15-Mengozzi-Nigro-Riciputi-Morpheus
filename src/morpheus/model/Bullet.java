@@ -121,6 +121,7 @@ public class Bullet extends AbstractDrawable {
      */
     private void setExplosion() {
         explosion = true;
+        setRemove();
     }
 
     /**

@@ -15,10 +15,13 @@ import morpheus.view.state.GameState;
  */
 public abstract class AbstractMonster extends AbstractDrawable {
 
+    public static final int DIMENSION64 = 64;
+    
     private double initialX;
     private double initialY;
     private boolean direction = true;
     private Animation anime;
+    
 
     /**
      * Create a static monster.
@@ -102,6 +105,18 @@ public abstract class AbstractMonster extends AbstractDrawable {
         } else {
             anime.render(g, getX(), getY());
         }
+    }
+    
+    @Override
+    public void setX(final double x) {
+        super.setX(x + DIMENSION64 - getWidth());
+        initialX = x + DIMENSION64 - getWidth();
+    }
+    
+    @Override
+    public void setY(final double y) {
+        super.setY(y + DIMENSION64 - getHeight());
+        initialY = y + DIMENSION64 - getHeight();
     }
 
     /**

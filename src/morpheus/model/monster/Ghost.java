@@ -64,9 +64,9 @@ public class Ghost extends AbstractMonster {
      *          new y
      */
     public void setCentralY(final double y) {
-        this.setInitialY(y);
+        this.setInitialY(y + AbstractMonster.DIMENSION64 - getHeight());
     }
-
+    
     @Override
     public void render(final Graphics2D g) {
         this.getAnimation().run();
