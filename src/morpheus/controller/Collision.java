@@ -9,6 +9,7 @@ import morpheus.model.Coin;
 import morpheus.model.Player;
 import morpheus.model.Spikes;
 import morpheus.model.monster.AbstractMonster;
+import morpheus.model.monster.Tree;
 import morpheus.model.monster.Tree.TreeBullet;
 import morpheus.view.RandomTile;
 import morpheus.view.Tile;
@@ -190,6 +191,10 @@ public class Collision {
 				if (state.getEntities().get(j) instanceof AbstractMonster) {
 					if (player.getBullets().get(i).getBounds().intersects(state.getEntities().get(j).getBounds())) {
 						state.getEntities().get(j).setRemove();
+						player.getBullets().get(i).explode();
+						if(state.getEntities().get(i) instanceof Tree) {
+							((Tree) state.getEntities().get(i)).stop();
+						}
 					}
 				}
 			}
