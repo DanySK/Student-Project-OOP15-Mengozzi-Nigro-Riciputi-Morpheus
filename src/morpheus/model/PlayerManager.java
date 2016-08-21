@@ -12,7 +12,7 @@ public class PlayerManager {
     private static final int NFALL = 55;
     private static final double GRAVITYPLUS = 0.6;
     private static final int NDOUBLEJUMP = 10;
-    private static final double GRAVITY = 1.4;
+    private static final double GRAVITY = 1.3;
     private static final int KNOCKSIZE = 120;
     /**
      * For checking if the player is in Jump.

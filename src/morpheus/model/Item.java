@@ -23,7 +23,9 @@ public class Item {
      * Increments life value of 1.
      */
     public void incHP() {
-        hp++;
+        if (hp < 3) {
+            hp++;
+        }
     }
 
     /**

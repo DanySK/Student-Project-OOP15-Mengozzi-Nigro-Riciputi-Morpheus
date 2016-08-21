@@ -323,11 +323,12 @@ public class GameState implements State {
 
 				coll.tick();
 			}
-			if(e.isRemove()) {
+			e.tick();
+			if (e.isRemove()) {
 				iter.remove();
 			}
 
-			e.tick();
+			
 		}
 
 		camera.tick(operator);

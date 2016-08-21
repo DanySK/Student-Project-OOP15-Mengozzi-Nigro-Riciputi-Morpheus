@@ -3,6 +3,7 @@ package morpheus.model.monster;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import morpheus.model.Animation;
 import morpheus.model.Bullet;
@@ -47,8 +48,12 @@ public class Tree extends AbstractMonster {
 
     @Override
     public void tick() {
-        for (final TreeBullet tb : bullets) {
-            tb.tick();
+        for (final ListIterator<TreeBullet> iter = bullets.listIterator(); iter.hasNext();) {
+            final TreeBullet e = iter.next();
+            e.tick();
+            if (e.isRemove()) {
+                iter.remove();
+            }
         }
     }
 
@@ -144,7 +149,8 @@ public class Tree extends AbstractMonster {
     public static class TreeBullet extends Bullet {
 
         private static final double SCREENHEIGHT = 500;
-        private static final double BULLETOFFSET = 750;
+        private static final double BULLETOFFSET = 300;
+        private static final int BULLETVEL = 5;
         private final double incY;
 
         private final double initialX;
@@ -165,10 +171,11 @@ public class Tree extends AbstractMonster {
             super(x, y, game, i);
             initialX = x;
             if (p.getY() > y) {
-                incY = 0;
+                incY = -(SCREENHEIGHT - p.getY()) / ((x - p.getX()) / p.getVelRun());
             } else {
                 incY = (SCREENHEIGHT - p.getY()) / ((x - p.getX()) / p.getVelRun());
             }
+            setBulletVelocity(BULLETVEL);
         }
 
         @Override

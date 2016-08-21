@@ -85,7 +85,7 @@ public class Bullet extends AbstractDrawable {
      * @param vel
      *            new velocity
      */
-    public void setBulletVelocity(final int vel) {
+    protected void setBulletVelocity(final int vel) {
         this.vel = vel;
     }
 
@@ -97,6 +97,7 @@ public class Bullet extends AbstractDrawable {
     public int getBulletVelocity() {
         return vel;
     }
+    
 
     @Override
     public void render(final Graphics2D g) {
