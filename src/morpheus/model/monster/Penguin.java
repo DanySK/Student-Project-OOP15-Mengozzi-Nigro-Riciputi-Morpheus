@@ -14,7 +14,8 @@ import morpheus.view.state.GameState;
 
 public class Penguin extends AbstractMonster {
 
-    private static final int PENGUINOFFSET = 15;
+    private static final int DIMENSION64 = 64;
+    private static final int PENGUINOFFSET = 30;
     
     /**
      * Create a Penguin monster.
@@ -61,7 +62,7 @@ public class Penguin extends AbstractMonster {
      *          new x
      */
     public void setCentralX(final double x) {
-        this.setInitialX(x + AbstractMonster.DIMENSION64 - getHeight());
+        this.setInitialX(x + DIMENSION64 - getHeight());
     }
     
     @Override

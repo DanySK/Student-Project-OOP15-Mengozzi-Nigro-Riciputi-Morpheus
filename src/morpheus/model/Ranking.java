@@ -250,9 +250,9 @@ public final class Ranking extends Storable {
     /**
      * .
      */
-    public void getApp(){
+    public void getApp() {
     	
-    	for (final String s: app){
+    	for (final String s: app) {
     		
     		System.out.println(s);
     	}

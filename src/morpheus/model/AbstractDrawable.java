@@ -188,16 +188,6 @@ public abstract class AbstractDrawable implements Drawable {
      */
     public void render(final Graphics2D g) {
         g.drawImage(mainFrame.getImage(), (int) x, (int) y, null);
-        if (Morpheus.DEBUG) {
-			g.setColor(Color.BLACK);
-			g.draw(getTop());
-			g.setColor(Color.BLUE);
-			g.draw(getBottom());
-			g.setColor(Color.MAGENTA);
-			g.draw(getLeft());
-			g.setColor(Color.ORANGE);
-			g.draw(getRight());
-		}
     }
 
     /**

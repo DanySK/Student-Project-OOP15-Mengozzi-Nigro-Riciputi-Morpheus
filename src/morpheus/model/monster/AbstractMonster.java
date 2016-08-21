@@ -15,7 +15,7 @@ import morpheus.view.state.GameState;
  */
 public abstract class AbstractMonster extends AbstractDrawable {
 
-    public static final int DIMENSION64 = 64;
+    private static final int DIMENSION64 = 64;
     
     private double initialX;
     private double initialY;

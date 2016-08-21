@@ -135,7 +135,7 @@ public class Tree extends AbstractMonster {
         }
 
         private TreeBullet shoot() {
-            return new TreeBullet(tree.getX(), tree.getY(), tree.getState(), p, 
+            return new TreeBullet(tree.getX(), tree.getY(), tree.getState(), p,
                     new Image(new Texture("res/zucca.png").getImage(), BULLETDIMENSION, BULLETDIMENSION));
         }
 
@@ -164,6 +164,8 @@ public class Tree extends AbstractMonster {
          *            Y position
          * @param game
          *            GameState
+         * @param p
+         *            player
          * @param i
          *            the image
          */
