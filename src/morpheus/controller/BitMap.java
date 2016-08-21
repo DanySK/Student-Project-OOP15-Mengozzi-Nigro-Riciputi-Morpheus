@@ -109,7 +109,7 @@ public class BitMap {
 	 * @return List of Tiles
 	 */
 	public List<RandomTile> build1(int offset) {
-		int[] randMap = TileMaps.getMAP();
+		int[] randMap = getRandomTileMap();
 		for (int i = 0; i < randMap.length; i++) {
 			int x = i % width;
 			int y = i / width;

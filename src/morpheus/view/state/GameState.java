@@ -248,12 +248,12 @@ public class GameState implements State {
 		this.renderBG(g);
 
 		g.translate(camera.getX(), camera.getY());
+		// Renderizzo le RandomTile
+		this.renderWorld(g);
 		// Entità
 		for (AbstractDrawable e : entities) {
 			e.render(g);
 		}
-		// Renderizzo le RandomTile
-		this.renderWorld(g);
 		g.translate(-camera.getX(), -camera.getY());
 		// Renderizzo le vite
 		if (model.isMainPlayerOpen()) {

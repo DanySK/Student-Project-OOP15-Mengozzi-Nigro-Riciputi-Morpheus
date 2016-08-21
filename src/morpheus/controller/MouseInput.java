@@ -12,9 +12,9 @@ public class MouseInput extends MouseAdapter {
     private static final boolean[] BUTTONS = new boolean[NUM_BUTTONS];
     private static final boolean[] LAST_BUTTONS = new boolean[NUM_BUTTONS];
     // Posizione corrente
-    private static int x = -1, y = -1;
+    private static int X = -1, Y = -1;
     // Posizione nel precedente tick
-    private static int lastX = x, lastY = y;
+    private static int lastX = X, lastY = Y;
     private static boolean moving;
 
     @Override
@@ -30,8 +30,8 @@ public class MouseInput extends MouseAdapter {
     @Override
     public void mouseMoved(final MouseEvent e) {
         // Tengo tracciata la posizione del mouse nello schermo
-        x = e.getX();
-        y = e.getY();
+        X = e.getX();
+        Y = e.getY();
         // se le coordinate presenti con quelle passate non combaciano allora il
         // mouse si sta muovendo(il motivo dell�utilizzo di || � che sia
         // possibile anche muoversi su due assi contemporaneamente)
@@ -48,12 +48,12 @@ public class MouseInput extends MouseAdapter {
             LAST_BUTTONS[i] = BUTTONS[i];
         }
         // Controlliamo se il mouse � fermo e se lo � lo segnaliamo
-        if (x == lastX && y == lastY) {
+        if (X == lastX && Y == lastY) {
             moving = false;
         }
         // Aggiorno la posizione precedente
-        lastX = x;
-        lastY = y;
+        lastX = X;
+        lastY = Y;
     }
 
     /**
@@ -113,7 +113,7 @@ public class MouseInput extends MouseAdapter {
      * @return la coordinata X della posizione del cursore
      */
     public static int getX() {
-        return x;
+        return X;
     }
 
     /**
@@ -123,7 +123,7 @@ public class MouseInput extends MouseAdapter {
      * @return la coordinata Y della posizione del cursore
      */
     public static int getY() {
-        return y;
+        return Y;
     }
 
     /**

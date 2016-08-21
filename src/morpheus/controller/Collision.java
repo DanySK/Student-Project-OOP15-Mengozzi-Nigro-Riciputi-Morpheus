@@ -136,49 +136,6 @@ public class Collision {
 		return false;
 	}
 
-	public boolean hasSpikeVerticalCollsion() {
-		// SPIKES VERTICAL
-		if (player.isKnocking() == false) {
-			for (int i = 0; i < state.getEntities().size(); i++) {
-				if (state.getEntities().get(i) instanceof Spikes) {
-					AbstractDrawable ad = state.getEntities().get(i);
-					if (player.getBottom().intersects(ad.getTop()) && player.getVelY() >= 0) {
-						player.hit();
-						player.groundCollission();
-						return true;
-					} else {
-						player.falling();
-					}
-
-					if (player.getBounds().intersects(ad.getBottom()) && player.isInJump()) {
-						player.stopJumping();
-						return true;
-
-					}
-				}
-			}
-		}
-		return false;
-	}
-
-	public boolean hasSpikeHorizontalCollision() {
-		// SPIKES HORIZONTAL
-		if (player.isKnocking() == false) {
-			for (int i = 0; i < state.getEntities().size(); i++) {
-				if (state.getEntities().get(i) instanceof Spikes) {
-					AbstractDrawable ad = state.getEntities().get(i);
-					if (player.getBounds().intersects(ad.getRight()) && player.getVelRun() <= 0) {
-						return true;
-					}
-					if (player.getBounds().intersects(ad.getLeft()) && player.getVelRun() >= 0) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-
 	public void hittedEnemy() {
 		// HIT
 		for (int i = 0; i < state.getEntities().size(); i++) {
@@ -192,7 +149,7 @@ public class Collision {
 					if (player.getBullets().get(i).getBounds().intersects(state.getEntities().get(j).getBounds())) {
 						state.getEntities().get(j).setRemove();
 						player.getBullets().get(i).explode();
-						if(state.getEntities().get(i) instanceof Tree) {
+						if (state.getEntities().get(i) instanceof Tree) {
 							((Tree) state.getEntities().get(i)).stop();
 						}
 					}
