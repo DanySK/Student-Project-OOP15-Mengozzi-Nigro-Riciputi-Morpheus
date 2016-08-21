@@ -13,7 +13,7 @@ import morpheus.view.state.GameState;
  */
 public class Ghost extends AbstractMonster {
 
-    
+    private static final int DIMENSION64 = 64;
     private static final int GHOSTOFFSET = 50;
     
     /**
@@ -64,7 +64,7 @@ public class Ghost extends AbstractMonster {
      *          new y
      */
     public void setCentralY(final double y) {
-        this.setInitialY(y + AbstractMonster.DIMENSION64 - getHeight());
+        this.setInitialY(y + DIMENSION64 - getHeight());
     }
     
     @Override

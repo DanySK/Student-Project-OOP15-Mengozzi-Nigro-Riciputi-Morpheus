@@ -8,6 +8,7 @@ package morpheus.model;
 public class Item {
 
     private static final int BULLETS = 5;
+    private static final int MAXHP = 3;
     private int hp;
     private int bullet;
 
@@ -23,7 +24,7 @@ public class Item {
      * Increments life value of 1.
      */
     public void incHP() {
-        if (hp < 3) {
+        if (getHP() < MAXHP) {
             hp++;
         }
     }
