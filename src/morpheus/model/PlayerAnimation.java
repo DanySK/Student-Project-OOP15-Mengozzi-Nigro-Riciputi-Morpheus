@@ -27,6 +27,9 @@ public class PlayerAnimation extends Animation {
         setCurrentFrame(getFrames()[4]);
     }
     
+    /**
+     * Set a null frame.
+     */
     public void hit() {
         setCurrentFrame(getFrames()[5]);
     }

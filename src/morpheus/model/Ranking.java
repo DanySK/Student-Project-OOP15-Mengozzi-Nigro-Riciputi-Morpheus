@@ -118,6 +118,10 @@ public final class Ranking extends Storable {
                 toSort = true;
             }
         }
+        if (values.size() > MAX_SIZE) {
+            remove();
+        }
+        
     }
 
     /**
@@ -236,14 +240,19 @@ public final class Ranking extends Storable {
     private void remove() {
         Collections.sort(values, new Element()::compare);
         toSort = false;
-        app.remove(values.get(MAX_SIZE).getName());
+        if (app.remove(values.get(MAX_SIZE).getName())) {
+            System.out.println("Rimozione nome avvenuta");
+        }
         values.remove(MAX_SIZE);
         
     }
     
+    /**
+     * .
+     */
     public void getApp(){
     	
-    	for(String s: app){
+    	for (final String s: app){
     		
     		System.out.println(s);
     	}

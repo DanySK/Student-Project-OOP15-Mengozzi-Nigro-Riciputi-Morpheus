@@ -75,12 +75,15 @@ public class RankingTest {
         r = Ranking.getRankingClass();
         r.getRankingOnTerm();
         try {
-            r.add(new Element("taba31", 101));
             r.add(new Element("taba12", 100));
-            
+            r.add(new Element("taba", 110));
+            r.add(new Element("taba1", 1100));
+            r.add(new Element("taba2", 1200));
+            r.add(new Element("taba3", 10));
+            r.add(new Element("taba12", 800));
         } catch (IllegalNameException e1) {
             System.out.println("Nome presente");
-            r.forceAdd(new Element("taba12", 1109));
+            r.forceAdd(new Element("taba12", 1100));
         } 
         r.getRankingOnTerm();
         try {

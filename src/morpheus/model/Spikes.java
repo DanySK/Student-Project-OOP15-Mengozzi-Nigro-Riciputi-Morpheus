@@ -11,7 +11,7 @@ import morpheus.view.state.GameState;
  */
 public class Spikes extends AbstractDrawable {
 
-    private static final int OFFSET = 16;
+    private static final int OFFSET = 15;
     /**
      * Spikes.
      * @param x
@@ -40,15 +40,18 @@ public class Spikes extends AbstractDrawable {
     public void reaction(final Player p) {
         p.hit();
     }
-    
+
+    @Override
     public Rectangle getTop() {
-        return new Rectangle((int) this.getX(), (int) this.getY() + OFFSET, this.getWidth(), 1);
+        return new Rectangle((int) this.getX(), (int) this.getY() + OFFSET - 4, this.getWidth(), 4);
     }
     
+    @Override
     public Rectangle getLeft() {
         return new Rectangle((int) this.getX(), (int) this.getY() + OFFSET, 1, this.getHeight() - OFFSET);
     }
 
+    @Override
     public Rectangle getRight() {
         return new Rectangle((int) this.getX() + this.getWidth(), (int) this.getY() + OFFSET, 1, this.getHeight() - OFFSET);
     }

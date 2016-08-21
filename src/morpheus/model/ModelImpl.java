@@ -21,7 +21,6 @@ public class ModelImpl implements Model {
     private static final int DIMENSION39 = 39;
     private static final int DIMENSION40 = 40;
     private static final int DIMENSION64 = 64;
-    private static final int DIMENSION80 = 80;
 
     private final Option option;
     private final Ranking ranking;
