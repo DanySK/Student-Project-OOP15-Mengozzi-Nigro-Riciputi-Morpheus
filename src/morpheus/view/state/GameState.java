@@ -14,6 +14,7 @@ import morpheus.controller.AudioPlayer;
 import morpheus.controller.BitMap;
 import morpheus.controller.Camera;
 import morpheus.controller.Collision;
+import morpheus.controller.RandomTile;
 import morpheus.model.AbstractDrawable;
 import morpheus.model.CameraOperator;
 import morpheus.model.Model;
@@ -22,8 +23,6 @@ import morpheus.model.Player;
 import morpheus.view.GraphicBullet;
 import morpheus.view.GraphicLifes;
 import morpheus.view.GraphicNumbers;
-import morpheus.view.RandomTile;
-import morpheus.view.Tile;
 
 /**
  * 
@@ -99,7 +98,6 @@ public class GameState implements State {
 	 */
 	private static int OFFSETINCR = 800;
 
-	private ArrayList<Tile> tiles;
 	private ArrayList<AbstractDrawable> entities;
 	private ArrayList<AbstractDrawable> appEntities;
 	private Camera camera;
@@ -195,7 +193,6 @@ public class GameState implements State {
 		}
 
 		this.camera = new Camera(0, 0);
-		this.tiles = new ArrayList<>();
 		this.entities = new ArrayList<>();
 		appEntities = new ArrayList<>();
 		// Carico il personaggio
@@ -364,10 +361,6 @@ public class GameState implements State {
 		}
 	}
 
-	public ArrayList<Tile> getTiles() {
-
-		return tiles;
-	}
 
 	// Creo dei getter sia per le singole liste di RadomTile sia per la lista
 	// che le contiene tutte

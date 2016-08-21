@@ -11,42 +11,38 @@ import morpheus.model.Spikes;
 import morpheus.model.monster.AbstractMonster;
 import morpheus.model.monster.Tree;
 import morpheus.model.monster.Tree.TreeBullet;
-import morpheus.view.RandomTile;
-import morpheus.view.Tile;
 import morpheus.view.state.GameState;
 
+/**
+ * Class that manage all the collisions of the game
+ * 
+ * @author matteo
+ *
+ */
 public class Collision {
 
 	private final GameState state;
 	private final Player player;
 	private ArrayList<AbstractDrawable> playerBullets;
 
+	/**
+	 * Main constructor
+	 * 
+	 * @param state
+	 * @param p
+	 */
 	public Collision(final GameState state, final Player p) {
 		this.state = state;
 		this.player = p;
 		this.playerBullets = new ArrayList<>();
 	}
 
+	/**
+	 * Manage the vertical collision of all tiles of the game
+	 * 
+	 * @return
+	 */
 	public boolean hasVerticalCollision() {
-		// NORMAL TILES
-		for (int i = 0; i < state.getTiles().size(); i++) {
-			Tile t = state.getTiles().get(i);
-			if (player.getBottom().intersects(t.getTop()) && player.getVelY() > 0) {
-				player.groundCollission();
-				return true;
-			} else {
-				player.falling();
-			}
-
-			if (player.getBounds().intersects(t.getBottom()) && player.getVelY() < 0) {
-				player.setVelY(0);
-				return true;
-			}
-		}
-		// Aggiunto il calcolo delle collisioni sia verticali sia orizzontali
-		// (vedi metodo sotto) delle RandomTile prendendole dal metodo
-		// getAllRandomTiles() del GameState in cui � contenuto un Array con
-		// tutte le RandomTile calcolate dalle BitMap
 
 		// RANDOM TILES
 		for (int i = 0; i < state.getAllRandomTiles().size(); i++) {
@@ -92,20 +88,12 @@ public class Collision {
 
 	}
 
+	/**
+	 * Manage the Horiztal collision of all tiles of the game
+	 * 
+	 * @return
+	 */
 	public boolean hasHorizontalCollision() {
-		// NORMAL TILES
-		for (int i = 0; i < state.getTiles().size(); i++) {
-			Tile t = state.getTiles().get(i);
-			if (player.getBounds().intersects(t.getRight()) && player.getVelRun() < 0) {
-				player.setVelRun(0);
-				return true;
-			}
-			if (player.getBounds().intersects(t.getLeft()) && player.getVelRun() > 0) {
-				player.setVelRun(0);
-				return true;
-			}
-		}
-
 		// RANDOM TILES
 
 		for (int i = 0; i < state.getAllRandomTiles().size(); i++) {
@@ -136,6 +124,9 @@ public class Collision {
 		return false;
 	}
 
+	/**
+	 * Set the Collision between the player's bullets and the enemy
+	 */
 	public void hittedEnemy() {
 		// HIT
 		for (int i = 0; i < state.getEntities().size(); i++) {
@@ -159,6 +150,9 @@ public class Collision {
 
 	}
 
+	/**
+	 * Set the Collision between player and all kinds of Coins
+	 */
 	public void getCoinCollision() {
 		// COINS
 		for (int i = 0; i < state.getEntities().size(); i++) {
@@ -172,6 +166,9 @@ public class Collision {
 		}
 	}
 
+	/**
+	 * Set the collision between the player and all kinds of enemies
+	 */
 	public void getEnemyCollision() {
 		// ENEMIES
 		if (player.isKnocking() == false) {
@@ -186,6 +183,9 @@ public class Collision {
 		}
 	}
 
+	/**
+	 * Set the Collision between the player and all kinds of Pills
+	 */
 	public void getPillCollision() {
 		// PILLS
 		for (int i = 0; i < state.getEntities().size(); i++) {
@@ -199,6 +199,9 @@ public class Collision {
 		}
 	}
 
+	/**
+	 * Set the Collision between the player and the enemie's bullets
+	 */
 	public void getBulletCollision() {
 		// BULLETS
 		if (player.isKnocking() == false) {
@@ -214,6 +217,9 @@ public class Collision {
 		}
 	}
 
+	/**
+	 * Tick method for logical operations
+	 */
 	public void tick() {
 
 		if (!hasHorizontalCollision()) {

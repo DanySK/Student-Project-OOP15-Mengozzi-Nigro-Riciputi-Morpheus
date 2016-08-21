@@ -4,12 +4,21 @@ import morpheus.model.AbstractDrawable;
 import morpheus.model.ModelImpl;
 import morpheus.view.state.GameState;
 
+/**
+ * Manage all the Assets of the game but not Tiles
+ * 
+ * @author matteo
+ *
+ */
 public class Asset {
 	private double x;
 	private double y;
 	private ModelImpl model;
 	private AbstractDrawable asset;
 
+	/**
+	 * Main Constructor
+	 */
 	public Asset() {
 		this.x = 0;
 		this.y = 0;
@@ -17,6 +26,13 @@ public class Asset {
 		this.asset = null;
 	}
 
+	/**
+	 * Method that load the wright kind of asset according to the iD passed by
+	 * parameter
+	 * 
+	 * @param IdEnemy
+	 * @param state
+	 */
 	public void load(int IdEnemy, GameState state) {
 
 		switch (IdEnemy) {
@@ -51,10 +67,19 @@ public class Asset {
 		}
 	}
 
-	public void setLocation(int x, int y,int offset) {
+	/**
+	 * Change the location of the asset converting the bitMap values in pixel
+	 * coordinates
+	 * 
+	 * @param x
+	 * @param y
+	 * @param offset
+	 *            .Necessary cause we have to move the TileMaps during the game
+	 */
+	public void setLocation(int x, int y, int offset) {
 		asset.setX(x * BitMap.TILE_WIDTH + offset);
 		asset.setY(y * BitMap.TILE_HEIGHT);
-		
+
 	}
 
 }
