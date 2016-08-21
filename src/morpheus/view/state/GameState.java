@@ -151,8 +151,8 @@ public class GameState implements State {
 	private CameraOperator operator;
 
 	//Variabile che conterrà i punti secondo la difficoltà scelta
+	private int points = 0;
 	//Variabile globale che indicherà lo score
-
 	public static int score;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
@@ -294,7 +294,7 @@ public class GameState implements State {
 		speedX1 = 100;
 		speedX2 = 100;
 
-		// points = 0;
+		points = 0;
 	}
 
 	@Override
@@ -349,15 +349,16 @@ public class GameState implements State {
 			}
 		}
 
-		// Incremento in base all'avanzamente del personaggio visto che
-		// la telecamera non si muove indipendentemente dal player
+		// Incremento in base al tempo visto che 
+		// la telecamera si muove dipendentemente dal player
 
+		points++;
 		if (model.isMainPlayerOpen()) {
 
-			score = (int) model.getMainPlayer().getX() / 1000;
+			score = points / 100;
 		} else {
 
-			score = (int) model.getSidePlayer().getX() / 1000;
+			score = points / 100;
 		}
 	}
 
