@@ -38,6 +38,7 @@ public class MenuState implements State{
 	private int currentSelection;
 	private static final int HITBOX_OFFSET = 15;
 	private Model model = new ModelImpl();
+	private AudioPlayer menuMusic;
 
 	@Override
 	public void init() {
@@ -53,11 +54,13 @@ public class MenuState implements State{
 		options[1] = new Button(225, "res/ranking_bianco.png", "res/ranking_nero.png");
 		options[2] = new Button(275, "res/settings_bianco.png", "res/settings_nero.png");
 		options[3] = new Button(325, "res/exit_bianco.png", "res/exit_nero.png");
-		
+		menuMusic = new AudioPlayer("res/MenuMusic.wav");
 	}
 
 	@Override
 	public void enter(StateManager stateManager) {
+		menuMusic.setVolume(model.getVolume());
+		menuMusic.playAndLoop();
 		
 	}
 
@@ -138,7 +141,7 @@ public class MenuState implements State{
 
 	@Override
 	public void exit() {
-		
+		menuMusic.stop();
 	}
 	
 	@Override
