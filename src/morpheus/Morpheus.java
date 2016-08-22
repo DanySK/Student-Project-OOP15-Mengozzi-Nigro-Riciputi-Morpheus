@@ -6,7 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import morpheus.controller.KeyInput;
@@ -113,6 +115,9 @@ public class Morpheus extends Canvas implements Runnable {
 
 		///////////// FRAME PRINCIPALE/////////////
 		frame = new JFrame(TITLE);
+		final URL url = Morpheus.class.getResource("/morpheus.png");
+	        final ImageIcon img = new ImageIcon(url);
+	        frame.setIconImage(img.getImage());
 		frame.getContentPane().add(this);
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setResizable(false);

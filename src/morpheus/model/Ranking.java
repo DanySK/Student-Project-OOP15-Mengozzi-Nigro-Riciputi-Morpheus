@@ -192,18 +192,15 @@ public final class Ranking extends Storable {
      *             if the list is Empty.
      */
     public Element getPosition(final int x) throws NoElementsException {
-        if (values.isEmpty()) {
+        if (x >= MAX_SIZE) {
             throw new NoElementsException();
         }
-        int app = x;
-        if (app > values.size()) {
-            app = values.size();
-        }
+        
         if (toSort) {
             Collections.sort(values, new Element()::compare);
             toSort = false;
         }
-        return values.get(app-1);
+        return values.get(x - 1);
     }
 
     /**
