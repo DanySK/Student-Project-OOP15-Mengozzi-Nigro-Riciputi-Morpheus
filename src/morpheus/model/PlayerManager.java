@@ -1,5 +1,7 @@
 package morpheus.model;
 
+import morpheus.controller.AudioPlayer;
+
 /**
  * 
  * @author jacopo
@@ -35,6 +37,7 @@ public class PlayerManager {
     private boolean inFall;
     private boolean verticalCollision;
     private boolean doubleJump;
+    private AudioPlayer jumpFX;
 
     /**
      * This class handles the fall and the player's jump.
@@ -51,6 +54,7 @@ public class PlayerManager {
         counterJump = 0;
         timeFall = NFALL;
         counterFall = 0;
+        jumpFX = new AudioPlayer("res/JumpFX.wav");
     }
 
     /**
@@ -79,6 +83,8 @@ public class PlayerManager {
             canJump = false;
             counterJump = 1;
             inFall = false;
+            jumpFX.setVolume(0.5);
+            jumpFX.play();
             return JUMPVALUE;
         }
         return 0;
