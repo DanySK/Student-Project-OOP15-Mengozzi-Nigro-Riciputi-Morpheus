@@ -192,7 +192,7 @@ public final class Ranking extends Storable {
      *             if the list is Empty.
      */
     public Element getPosition(final int x) throws NoElementsException {
-        if (x > MAX_SIZE) {
+        if (x > values.size()) {
             throw new NoElementsException();
         }
         
