@@ -153,9 +153,9 @@ public class GameState implements State {
 	//Variabile che conterrà i punti secondo la difficoltà scelta
 	private int points = 0;
 	//Variabile globale che indicherà lo score
-	public static int score;
+	public static int score = 0;
 	//Variabile globale che indicherà il bonus
-	public static int bonus;
+	public static int bonus = 0;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
 	private GraphicBullet bullet = new GraphicBullet();

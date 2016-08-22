@@ -197,6 +197,7 @@ public class DeathState implements State{
 	   
 		//Se è il record appare la finestra che fa inserire il nome
 			try {
+				
                 if (GameState.score>model.getRanking().getPosition(5).getScore()){
                    
                 	recordFrame.setSize(300, 121);
@@ -205,43 +206,113 @@ public class DeathState implements State{
                 }
             } catch (NoElementsException e1) {
                 
-            	try{
-					
-					model.getRanking().add(new Element(name.getText(), GameState.score));
-				}catch(IllegalNameException e4){
-					
-					yes.addActionListener(new ActionListener() {
-						
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							
-							model.getRanking().forceAdd(new Element(name.getText(), GameState.score));
-							try {
-								
-								model.getRanking().close();
-							} catch (IOException e2) {
-								
-								e2.printStackTrace();
-							}
-							dialog.setVisible(false);
-							recordFrame.setVisible(false);
-						}
-					});
-					no.addActionListener(new ActionListener() {
-						
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							
-							dialog.setVisible(false);;
-						}
-					});
-					
-					//Rendo visibile la JDialog
-					dialog.setVisible(true);
-				} catch (IllegalArgumentException e3) {
-                    
-                    e3.printStackTrace();
-                } 
+            	recordFrame.setSize(300, 121);
+            	recordFrame.setLocationRelativeTo(null);
+            	recordFrame.setVisible(true);
+            	ok.addActionListener(new ActionListener() {
+        			
+        			@Override
+        			public void actionPerformed(ActionEvent e) {
+        				
+        				try{
+        					
+        					model.getRanking().add(new Element(name.getText(), GameState.score));
+        				}catch(IllegalNameException e1){
+        					
+        					yes.addActionListener(new ActionListener() {
+        						
+        						@Override
+        						public void actionPerformed(ActionEvent e) {
+        							
+        							model.getRanking().forceAdd(new Element(name.getText(), GameState.score));
+        							try {
+        								
+        								model.getRanking().close();
+        							} catch (IOException e2) {
+        								
+        								e2.printStackTrace();
+        							}
+        							dialog.setVisible(false);
+        							recordFrame.setVisible(false);
+        						}
+        					});
+        					no.addActionListener(new ActionListener() {
+        						
+        						@Override
+        						public void actionPerformed(ActionEvent e) {
+        							
+        							dialog.setVisible(false);;
+        						}
+        					});
+        					
+        					//Rendo visibile la JDialog
+        					dialog.setVisible(true);
+        				} catch (IllegalArgumentException e1) {
+                            
+                            e1.printStackTrace();
+                        } 
+        				
+        				try {
+        					
+        					model.getRanking().close();
+        				} catch (IOException e2) {
+        					
+        					e2.printStackTrace();
+        				}
+        			}
+        		});
+            	ok.addActionListener(new ActionListener() {
+        			
+        			@Override
+        			public void actionPerformed(ActionEvent e) {
+        				
+        				try{
+        					
+        					model.getRanking().add(new Element(name.getText(), GameState.score));
+        				}catch(IllegalNameException e1){
+        					
+        					yes.addActionListener(new ActionListener() {
+        						
+        						@Override
+        						public void actionPerformed(ActionEvent e) {
+        							
+        							model.getRanking().forceAdd(new Element(name.getText(), GameState.score));
+        							try {
+        								
+        								model.getRanking().close();
+        							} catch (IOException e2) {
+        								
+        								e2.printStackTrace();
+        							}
+        							dialog.setVisible(false);
+        							recordFrame.setVisible(false);
+        						}
+        					});
+        					no.addActionListener(new ActionListener() {
+        						
+        						@Override
+        						public void actionPerformed(ActionEvent e) {
+        							
+        							dialog.setVisible(false);;
+        						}
+        					});
+        					
+        					//Rendo visibile la JDialog
+        					dialog.setVisible(true);
+        				} catch (IllegalArgumentException e1) {
+                            
+                            e1.printStackTrace();
+                        } 
+        				
+        				try {
+        					
+        					model.getRanking().close();
+        				} catch (IOException e2) {
+        					
+        					e2.printStackTrace();
+        				}
+        			}
+        		});
             }
 	}
 
