@@ -2,6 +2,7 @@ package morpheus.model;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -334,8 +335,8 @@ public class Player extends AbstractDrawable {
      * @return 
      *          the bottom of the player
      */
-    public Rectangle getBottom() {
-        return new Rectangle((int) getX() + OFFSET_COLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 1);
+    public Area getBottomArea() {
+        return new Area (new Rectangle((int) getX() + OFFSET_COLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 2));
     }
 
     private void checkBullets() {
