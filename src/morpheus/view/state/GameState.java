@@ -441,23 +441,6 @@ public class GameState implements State {
 
 			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
 		}
-		// // BACKGROUND 2 PER ORA COMMENTATO PER FARE LE PROVE DELLE VITE IN
-		// ALTO
-		// if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
-		//
-		// parallaxCloud1 = 0;
-		// }
-		// if ((speedX2 - SECONDEDGE) % (background2.getWidth() * 2) == 0) {
-		//
-		// parallaxCloud2 = 0;
-		// }
-		//
-		// g.drawImage(background2, LINK - parallaxCloud2, 0, null);
-		//
-		// if (speedX2 > FIRSTEDGE) {
-		//
-		// g.drawImage(background2, LINK - parallaxCloud1, 0, null);
-		// }
 	}
 
 	public void renderWorld(Graphics2D g) {
