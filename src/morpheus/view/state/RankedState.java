@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import morpheus.controller.AudioPlayer;
 import morpheus.model.Model;
 import morpheus.model.ModelImpl;
-import morpheus.model.exceptions.NoElementsException;
 import morpheus.model.Element;
 
 /**
