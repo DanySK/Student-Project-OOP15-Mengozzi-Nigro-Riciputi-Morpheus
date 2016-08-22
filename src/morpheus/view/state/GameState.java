@@ -170,6 +170,9 @@ public class GameState implements State {
 	@Override
 	public void enter(StateManager stateManager) {
 
+		points = 0;
+		bonus = 0;
+		
 		randomTiles = new ArrayList<>();
 		randomTiles1 = new ArrayList<>();
 		randomTiles2 = new ArrayList<>();
@@ -295,9 +298,6 @@ public class GameState implements State {
 
 		speedX1 = 100;
 		speedX2 = 100;
-
-		points = 0;
-		bonus = 0;
 	}
 
 	@Override
