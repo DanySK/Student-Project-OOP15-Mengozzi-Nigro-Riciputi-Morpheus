@@ -297,6 +297,7 @@ public class GameState implements State {
 		speedX2 = 100;
 
 		points = 0;
+		bonus = 0;
 	}
 
 	@Override
