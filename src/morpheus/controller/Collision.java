@@ -159,7 +159,7 @@ public class Collision {
 			if (state.getEntities().get(i) instanceof Coin) {
 				AbstractDrawable ad = state.getEntities().get(i);
 				if (player.getBounds().intersects(ad.getBounds())) {
-					GameState.score += ((Coin) state.getEntities().get(i)).reaction();
+					GameState.bonus += ((Coin) state.getEntities().get(i)).reaction();
 					state.getEntities().get(i).setRemove();
 				}
 			}
