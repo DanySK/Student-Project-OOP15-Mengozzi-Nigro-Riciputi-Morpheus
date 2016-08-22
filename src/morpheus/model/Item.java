@@ -13,7 +13,7 @@ public class Item {
     private int bullet;
 
     /**
-     * Default item: 3 life; 5 bullet; No doubleJump.
+     * Default item: 3 life; 5 bullet.
      */
     public Item() {
         hp = 3;
@@ -21,7 +21,7 @@ public class Item {
     }
 
     /**
-     * Increments life value of 1.
+     * Increments life value of 1. If life are >= 3 don't do nothing.
      */
     public void incHP() {
         if (getHP() < MAXHP) {
@@ -51,9 +51,9 @@ public class Item {
     }
 
     /**
-     * Returns the lifes.
+     * Returns the life.
      * 
-     * @return the lifes
+     * @return the life
      */
     public int getHP() {
         return hp;

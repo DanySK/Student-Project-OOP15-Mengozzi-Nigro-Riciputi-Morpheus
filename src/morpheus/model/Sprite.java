@@ -50,14 +50,14 @@ public class Sprite {
     /**
      * Return the list with all the image on the input sheet .
      * @return
-     *          a list of BufferedImage
+     *          a list of Image
      */
     public List<Image> getFrames() {
         return new ArrayList<>(frames);
     }
     
     /**
-     * Return an array of BufferedImage with all the frames for the animation.
+     * Return an array of Image with all the frames for the animation.
      * @return
      *          an array of frames for the animation
      */

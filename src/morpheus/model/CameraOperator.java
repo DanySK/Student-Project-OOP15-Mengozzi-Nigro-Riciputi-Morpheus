@@ -20,14 +20,15 @@ public class CameraOperator extends AbstractDrawable {
 
     /**
      * The Operator, this class will move the camera.
+     * 
      * @param x
-     *          x position
+     *            X position
      * @param y
-     *          y position
+     *            Y position
      * @param game
-     *          game state
+     *            game state
      * @param p
-     *          current player
+     *            current player
      */
     public CameraOperator(final double x, final double y, final GameState game, final Player p) {
         super(x, y, game);
@@ -51,15 +52,15 @@ public class CameraOperator extends AbstractDrawable {
 
     /**
      * Return the Area.
-     * @return
-     *          the area
+     * 
+     * @return the area
      */
     public Area getArea() {
         return new Area(new Rectangle((int) getX() - XOFFSET, (int) getY(), 10, Morpheus.HEIGHT));
     }
-    
+
     @Override
-    public void render(Graphics2D g) {
-        
+    public void render(final Graphics2D g) {
+
     }
 }

@@ -22,11 +22,11 @@ public final class Ranking extends Storable {
      */
     private static final long serialVersionUID = 3005073739818117637L;
     /**
-     * 
+     * File name.
      */
     private static final String FILE = "res/Ranking.dat";
     /**
-     * 
+     * Max Element in the file.
      */
     private static final int MAX_SIZE = 5;
     private final List<Element> values;
@@ -34,10 +34,8 @@ public final class Ranking extends Storable {
     private boolean toSort;
 
     /**
-     * Legge la classifica e la carica in memoria.
-     * 
-     * @throws IOException
-     *             In caso il file non esistesse
+     * Reads the ranking and load it in memory. If the file doesn't exist it
+     * will create a new File.
      */
     private Ranking() {
         super(FILE);
@@ -73,23 +71,12 @@ public final class Ranking extends Storable {
     }
 
     /**
-     * Aggiunge un elemento alla classifica.
-     *
-     * !!!! Appunto da togliere !!! per mengo se non mi ricordo di dirtelo,
-     * questo metodo lancia eccezione perchè nel caso un elemento con quel nome
-     * si già presente avevo pensato che era carino che dalla view si lanciasse
-     * una finestra (tipo JDialogo) che chieda se si è sicuro di aggiornare il
-     * risultato, nel caso si risponda di aggiornare il risultato a quel punto
-     * devi chiamare il metodo forceAdd
-     * 
+     * Add an element to the ranking.
      * 
      * @param el
-     *            Elemento da aggiungere alla classifica: chiave-> il nome;
-     *            valore-> il punteggio.
+     *            Element to add: key-> name; value-> score.
      * @throws IllegalNameException
-     *             se contiene già un elemento con quel nome. !!! Appunto da
-     *             togliere !!! Leggere descrizione sopra per il lancio
-     *             dell'eccezione
+     *             if contains the name yet.
      */
     public void add(final Element el) throws IllegalNameException {
 
@@ -105,11 +92,10 @@ public final class Ranking extends Storable {
     }
 
     /**
-     * Forza l'aggiornamento dello score di un Risultato già inserito.
+     * Force the update of the score of a Element already in the ranking.
      * 
      * @param el
-     *            Elemento da aggiornare: chiave-> il nome; valore-> il
-     *            punteggio
+     *            Element to add: key-> name; value-> score.
      */
     public void forceAdd(final Element el) {
         for (final Element e : values) {
@@ -121,11 +107,11 @@ public final class Ranking extends Storable {
         if (values.size() > MAX_SIZE) {
             remove();
         }
-        
+
     }
 
     /**
-     * Stampa la classifica su terminale.
+     * Print the ranking on terminal.
      */
     public void getRankingOnTerm() {
         if (toSort) {
@@ -139,10 +125,10 @@ public final class Ranking extends Storable {
     }
 
     /**
-     * Salva i cambiamenti alla classifica su file.
+     * Save the ranking in the file.
      * 
      * @throws IOException
-     *             In caso il file non esistesse
+     *             if file doesn't exist.
      */
     public void close() throws IOException {
         if (toSort) {
@@ -153,32 +139,31 @@ public final class Ranking extends Storable {
     }
 
     /**
-     * Ritorna una Lista con i primi x elementi desiderati, se x è più grande
-     * del numero degli elementi disponibili verranno riportati tutti gli
-     * elementi.
+     * Returns a list with the first x items you want, if x is greater of all
+     * the number of available items will be reported all elements.
      * 
      * @param x
-     *            il numero degli elementi da ritornare
-     * @throws NoElementsException
-     *             if the list haven't the required elements
-     * @return una Lista, già ordinato con i primi x elementi della classifica
+     *            elements to return
+     * @return a list , already ordered with the first x elements of the ranking
+     * 
      * 
      */
-    public List<Element> getPartOfRanking(final int x) throws NoElementsException {
-        if (x > values.size()) {
-            throw new NoElementsException();
+    public List<Element> getPartOfRanking(final int x) {
+        int app = x;
+        if (app > values.size()) {
+            app = values.size();
         }
         if (toSort) {
             Collections.sort(values, new Element()::compare);
             toSort = false;
         }
-        return new ArrayList<>(values.subList(0, x));
+        return new ArrayList<>(values.subList(0, app));
     }
 
     /**
-     * Ritorna la classifica per intero.
+     * Returns the full ranking.
      * 
-     * @return una Lista con l'intera classifica
+     * @return a list with the full ranking
      */
     public List<Element> getRanking() {
         if (toSort) {
@@ -189,9 +174,9 @@ public final class Ranking extends Storable {
     }
 
     /**
-     * La lista dei nomi del giocatori presenti nella classifica.
+     * Returns a List of name of the players in the ranking.
      * 
-     * @return La lista dei nomi del giocatori presenti nella classifica
+     * @return List of name of the players in the ranking.
      */
     public List<String> getPlayers() {
         return new ArrayList<>(app);
@@ -202,26 +187,31 @@ public final class Ranking extends Storable {
      * 
      * @param x
      *            rank of the element
-     * @throws NoElementsException
-     *            if the list hasn't the required element
      * @return the required element
+     * @throws NoElementsException
+     *             if the list is Empty.
      */
     public Element getPosition(final int x) throws NoElementsException {
-        if (x > values.size()) {
+        if (values.isEmpty()) {
             throw new NoElementsException();
+        }
+        int app = x;
+        if (app > values.size()) {
+            app = values.size();
         }
         if (toSort) {
             Collections.sort(values, new Element()::compare);
             toSort = false;
         }
-        return values.get(x - 1);
+        return values.get(app);
     }
 
     /**
-     * Fornisce il punteggio massimo e il giocatore che l'ha fatto.
+     * Returns a Pair with the best score and the name of the player.
+     * 
      * @throws NoElementsException
      *             if the list hasn't the required element
-     * @return un Pair composto da: -Nome giocatore; -Punteggio.
+     * @return a Pair: -Player name; -Score.
      */
     public Pair<String, Integer> getRecord() throws NoElementsException {
         if (values.isEmpty()) {
@@ -231,7 +221,9 @@ public final class Ranking extends Storable {
     }
 
     /**
-     * @return the toSort
+     * Returns true if the list is to sort, false otherwise.
+     * 
+     * @return true if the list is to sort, false otherwise.
      */
     public boolean isToSort() {
         return toSort;
@@ -244,17 +236,7 @@ public final class Ranking extends Storable {
             System.out.println("Rimozione nome avvenuta");
         }
         values.remove(MAX_SIZE);
-        
+
     }
-    
-    /**
-     * .
-     */
-    public void getApp() {
-    	
-    	for (final String s: app) {
-    		
-    		System.out.println(s);
-    	}
-    }
+
 }

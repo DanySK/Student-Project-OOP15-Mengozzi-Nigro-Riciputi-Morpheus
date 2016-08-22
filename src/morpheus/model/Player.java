@@ -15,10 +15,12 @@ import morpheus.view.state.GameState;
  */
 public class Player extends AbstractDrawable {
 
-    private static final int TYLESYNCHSTART = 200;
-    private static final int OFFSETCOLLISION = 5;
-    private static final int BULLETSIZE = 24;
+    private static final int TYLE_SYNCH_START = 200;
+    private static final int OFFSET_COLLISION = 5;
+    private static final int BULLET_SIZE = 24;
+    private static final int PLAYER_SPEED_ANIMATION = 6;
     private static final double DEATH_SIZE = 450;
+    
     /**
      * velocità iniziale.
      */
@@ -50,10 +52,10 @@ public class Player extends AbstractDrawable {
         super(x, y, game, i);
         s = option;
         this.runGO = true;
-        animation = new PlayerAnimation(4, i);
+        animation = new PlayerAnimation(PLAYER_SPEED_ANIMATION, i);
         item = new Item();
         manager = new PlayerManager(animation);
-        tileSynch = TYLESYNCHSTART;
+        tileSynch = TYLE_SYNCH_START;
         bullets = new ArrayList<>();
     }
 
@@ -93,7 +95,7 @@ public class Player extends AbstractDrawable {
     }
 
     /**
-     * Fa muovere l'immagine di Morpheus sull'asse orrizzontale.
+     * Move the player on the horizontal axis. 
      */
     private void goOn() {
         this.incX(velRun);
@@ -167,7 +169,7 @@ public class Player extends AbstractDrawable {
         } else {
             getItem().decBullet();
             bullets.add(new Bullet(getX(), getY(), getState(),
-                    new Sprite(new SpriteSheet(new Texture("res/bullet.png"), BULLETSIZE), 2, 1, 2).getFramesAsList()));
+                    new Sprite(new SpriteSheet(new Texture("res/bullet.png"), BULLET_SIZE), 2, 1, 2).getFramesAsList()));
         }
     }
 
@@ -234,7 +236,7 @@ public class Player extends AbstractDrawable {
         manager.reset();
         runGO = true;
         item.reset();
-        tileSynch = TYLESYNCHSTART;
+        tileSynch = TYLE_SYNCH_START;
         bullets = new ArrayList<>();
         death = false;
     }
@@ -277,7 +279,6 @@ public class Player extends AbstractDrawable {
 
     /**
      * Returns the player's item.
-     * 
      * @return the player's item
      */
     public Item getItem() {
@@ -334,7 +335,7 @@ public class Player extends AbstractDrawable {
      *          the bottom of the player
      */
     public Rectangle getBottom() {
-        return new Rectangle((int) getX() + OFFSETCOLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 1);
+        return new Rectangle((int) getX() + OFFSET_COLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 1);
     }
 
     private void checkBullets() {

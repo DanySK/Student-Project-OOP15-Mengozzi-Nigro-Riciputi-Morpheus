@@ -30,11 +30,11 @@ public class SpriteSheet {
      * 
      * Sprite image initialization, contains the texture and the size information.
      * @param t
-     *          Texture da cui prendere la immagine
+     *          Texture 
      * @param width
-     *          larghezza dell'immagine
+     *          width
      * @param height
-     *          altezza dell'immagine
+     *          height
      */
     public SpriteSheet(final Texture t, final int width, final int height) {
         this.image = t;

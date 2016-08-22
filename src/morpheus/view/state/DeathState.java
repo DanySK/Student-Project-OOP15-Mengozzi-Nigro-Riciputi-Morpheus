@@ -97,7 +97,6 @@ public class DeathState implements State{
 		//Aggiorno lo score nel main principale
 		labelScore.setText("SCORE: " + Integer.toString(GameState.score));
 		
-		model.getRanking().getApp();
 		ok.addActionListener(new ActionListener() {
 			
 			@Override
@@ -197,18 +196,18 @@ public class DeathState implements State{
 		mainFrame.setVisible(true);
 	   
 		//Se è il record appare la finestra che fa inserire il nome
-		try {
 		   
-			if (GameState.score>model.getRanking().getPosition(5).getScore()){
-        	   
-				recordFrame.setSize(300, 121);
-				recordFrame.setLocationRelativeTo(null);
-				recordFrame.setVisible(true);
-			}
-		} catch (NoElementsException e1) {
-        
-			e1.printStackTrace();
-		}
+			try {
+                if (GameState.score>model.getRanking().getPosition(5).getScore()){
+                   
+                	recordFrame.setSize(300, 121);
+                	recordFrame.setLocationRelativeTo(null);
+                	recordFrame.setVisible(true);
+                }
+            } catch (NoElementsException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
 	}
 
 	@Override

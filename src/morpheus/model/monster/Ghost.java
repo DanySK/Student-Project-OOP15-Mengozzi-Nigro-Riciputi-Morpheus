@@ -1,8 +1,10 @@
 package morpheus.model.monster;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import morpheus.model.Image;
+import morpheus.Morpheus;
 import morpheus.model.Animation;
 import morpheus.view.state.GameState;
 
@@ -76,6 +78,16 @@ public class Ghost extends AbstractMonster {
         } else {
             getAnimation().render(g, getX(), getY());
         }
+        if (Morpheus.DEBUG) {
+            g.setColor(Color.BLACK);
+            g.draw(getTop());
+            g.setColor(Color.BLUE);
+            g.draw(getBottom());
+            g.setColor(Color.MAGENTA);
+            g.draw(getLeft());
+            g.setColor(Color.ORANGE);
+            g.draw(getRight());
+    }
     }
 
 }

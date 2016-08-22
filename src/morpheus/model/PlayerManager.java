@@ -18,29 +18,29 @@ public class PlayerManager {
      * For checking if the player is in Jump.
      */
     public static final int CHECKINJUMP = 1;
-    
-    
+
     private final int timeFall;
     private final PlayerAnimation animation;
-    
+
     private double velY = GRAVITY;
-    
+
     private int timeJump;
     private int counterJump;
     private int counterFall;
     private int knock;
-    
+
     private boolean check;
     private boolean inJump;
     private boolean canJump = true;
     private boolean inFall;
     private boolean verticalCollision;
     private boolean doubleJump;
-    
+
     /**
      * This class handles the fall and the player's jump.
+     * 
      * @param anime
-     *          player animation
+     *            player animation
      */
     public PlayerManager(final PlayerAnimation anime) {
         animation = anime;
@@ -52,7 +52,7 @@ public class PlayerManager {
         timeFall = NFALL;
         counterFall = 0;
     }
-    
+
     /**
      * Player fall.
      */
@@ -67,11 +67,11 @@ public class PlayerManager {
             }
         }
     }
-    
+
     /**
      * Player initial jump.
-     * @return          
-     *          jump value
+     * 
+     * @return jump value
      */
     public double jump() {
         if (canJump) {
@@ -83,11 +83,11 @@ public class PlayerManager {
         }
         return 0;
     }
-    
+
     /**
      * Player jump.
-     * @return
-     *          jump value
+     * 
+     * @return jump value
      */
     public double jumping() {
         counterJump++;
@@ -97,7 +97,7 @@ public class PlayerManager {
         }
         return JUMPVALUE;
     }
-    
+
     /**
      * Set all the variable for simulating the ground collision.
      */
@@ -108,7 +108,7 @@ public class PlayerManager {
         counterFall = 0;
         jumpPermission();
     }
-    
+
     /**
      * Allow the jump at the player.
      */
@@ -117,7 +117,7 @@ public class PlayerManager {
         setDoubleJump(true);
         timeJump = NJUMP;
     }
-    
+
     /**
      * Doesn't allow the player to jump.
      */
@@ -125,7 +125,7 @@ public class PlayerManager {
         counterJump = -1;
         velY = 0;
     }
-    
+
     /**
      * Setting all variable for a second jump.
      */
@@ -154,7 +154,7 @@ public class PlayerManager {
     public double getVelY() {
         return velY;
     }
-    
+
     /**
      * @return the inJump
      */
@@ -171,7 +171,7 @@ public class PlayerManager {
     public void setInJump(final boolean inJump) {
         this.inJump = inJump;
     }
-    
+
     /**
      * Returns true if the player has vertical collision, false otherwise.
      * 
@@ -191,8 +191,6 @@ public class PlayerManager {
     public void setVerticalCollision(final boolean verticalCollision) {
         this.verticalCollision = verticalCollision;
     }
-    
-    
 
     /**
      * @return the doubleJump
@@ -203,31 +201,33 @@ public class PlayerManager {
 
     /**
      * Set the doubleJump.
-     * @param doubleJump 
-     *          value, true if can doubleJump, false otherwise
+     * 
+     * @param doubleJump
+     *            value, true if can doubleJump, false otherwise
      */
     public void setDoubleJump(final boolean doubleJump) {
         this.doubleJump = doubleJump;
     }
-    
+
     /**
      * Returns the counter for the jump.
-     * @return
-     *          the counter for the jump
+     * 
+     * @return the counter for the jump
      */
     public int getCounterJump() {
         return counterJump;
     }
-    
+
     /**
      * Set if the player is in fall or not.
+     * 
      * @param fall
-     *          true is in fall, false isn't in fall
+     *            true is in fall, false isn't in fall
      */
     public void setInFall(final boolean fall) {
         inFall = fall;
     }
-    
+
     /**
      * Reset of the object.
      */
@@ -240,16 +240,16 @@ public class PlayerManager {
         counterFall = 0;
         knock = 0;
     }
-    
+
     /**
      * Returns if the player is in fall.
-     * @return
-     *          true is in fall, false isn't in fall
+     * 
+     * @return true is in fall, false isn't in fall
      */
     public boolean isInFall() {
         return inFall;
     }
-    
+
     /**
      * Death.
      */
@@ -257,16 +257,16 @@ public class PlayerManager {
         this.stopJumping();
         this.setVelY(0);
     }
-    
+
     /**
      * Returns true if the champion have a collision, false otherwise.
-     * @return
-     *          true if the champion have a collision, false otherwise.
+     * 
+     * @return true if the champion have a collision, false otherwise.
      */
     public boolean isKnocking() {
         return knock > 0 ? true : false;
     }
-    
+
     /**
      * Animation when the player is safe.
      */
@@ -288,7 +288,7 @@ public class PlayerManager {
             knock = 0;
         }
     }
-    
+
     /**
      * Player hit.
      */

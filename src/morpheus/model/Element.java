@@ -3,7 +3,6 @@ package morpheus.model;
 import java.io.Serializable;
 import java.util.Comparator;
 
-
 /**
  * 
  * @author jacopo
@@ -24,23 +23,24 @@ public class Element implements Comparator<Element>, Serializable {
     }
 
     /**
-     * Build a Element with name = pair.getKey()
-     *                 and  score = pair.getValue().
+     * Build a Element with name = pair.getKey() and score = pair.getValue().
+     * 
      * @param pair
-     *          valor of the Element
+     *            valor of the Element
      */
     public Element(final Pair<String, Integer> pair) {
         this.name = pair.getKey();
         this.score = pair.getValue();
     }
+
     /**
-     * /**
-     * Build a Element. 
+     * 
+     * Build a Element.
      *
      * @param name
-     *          the name 
+     *            the name
      * @param score
-     *          the score
+     *            the score
      */
     public Element(final String name, final int score) {
         this.name = name;
@@ -48,43 +48,47 @@ public class Element implements Comparator<Element>, Serializable {
     }
 
     /**
-     * Setta lo score.
+     * Set the score.
      * 
      * @param score
-     *            valore del nuovo score
+     *            new score
      */
     public void setScore(final int score) {
         this.score = score;
     }
 
     /**
+     * Returns the element's name.
      * 
-     * @return Il nome dell'elemento
+     * @return the element's name
      */
     public String getName() {
         return this.name;
     }
 
     /**
+     * the element's score.
      * 
-     * @return Il punteggio dell'elemento
+     * @return the element's score
      */
     public int getScore() {
         return this.score;
     }
 
     /**
+     * Returns the element in format "Name XXXX".
      * 
-     * @return La descrizione Stringa dell'elemento
+     * @return the element in format "Name XXXX".
      */
     public String getText() {
         return this.name + "\t" + this.score;
     }
 
     /**
-     * Un Pair che rappresenta l'elemento.
      * 
-     * @return Un Pair che rappresenta l'elemento
+     * Returns a pair that representing the Element.
+     * 
+     * @return a pair that representing the Element.
      */
     public Pair<String, Integer> getAsPair() {
         return new Pair<String, Integer>(this.getName(), this.getScore());

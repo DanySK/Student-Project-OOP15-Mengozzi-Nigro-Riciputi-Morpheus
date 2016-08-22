@@ -15,7 +15,6 @@ import morpheus.view.state.GameState;
  */
 public class ModelImpl implements Model {
 
-    private static final int DIMENSION16 = 16;
     private static final int DIMENSION24 = 24;
     private static final int DIMENSION30 = 30;
     private static final int DIMENSION39 = 39;
@@ -56,7 +55,7 @@ public class ModelImpl implements Model {
     @Override
     public AbstractPill getBluePill(final double x, final double y, final GameState state) {
         return new AbstractPill(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/pillolaBlu.png"), DIMENSION16, DIMENSION16), 4, 1, 4)
+                new Sprite(new SpriteSheet(new Texture("res/pillolaBlu.png"), DIMENSION24, DIMENSION24), 4, 1, 4)
                         .getFramesAsList()) {
             @Override
             public void reaction() {
@@ -72,7 +71,7 @@ public class ModelImpl implements Model {
     @Override
     public AbstractPill getRedPill(final double x, final double y, final GameState state) {
         return new AbstractPill(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/pillolaRossa.png"), DIMENSION16, DIMENSION16), 4, 1, 4)
+                new Sprite(new SpriteSheet(new Texture("res/pillolaRossa.png"), DIMENSION24, DIMENSION24), 4, 1, 4)
                         .getFramesAsList()) {
             @Override
             public void reaction() {

@@ -5,7 +5,7 @@ import morpheus.model.ModelImpl;
 import morpheus.view.state.GameState;
 
 /**
- * Manage all the Assets of the game but not Tiles
+ * Manage all the Assets of the game but not Tiles.
  * 
  * @author matteo
  *
@@ -17,7 +17,7 @@ public class Asset {
 	private AbstractDrawable asset;
 
 	/**
-	 * Main Constructor
+	 * Main Constructor.
 	 */
 	public Asset() {
 		this.x = 0;

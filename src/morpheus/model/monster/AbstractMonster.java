@@ -16,12 +16,11 @@ import morpheus.view.state.GameState;
 public abstract class AbstractMonster extends AbstractDrawable {
 
     private static final int DIMENSION64 = 64;
-    
+
     private double initialX;
     private double initialY;
     private boolean direction = true;
     private Animation anime;
-    
 
     /**
      * Create a static monster.
@@ -62,10 +61,10 @@ public abstract class AbstractMonster extends AbstractDrawable {
 
     /**
      * 
-     *   Monster behavior.
+     * Monster behavior.
      */
     protected void mytick() {
-       anime.run();
+        anime.run();
         if (direction) {
             incX(1);
             if (getX() >= initialX + 10) {
@@ -78,20 +77,22 @@ public abstract class AbstractMonster extends AbstractDrawable {
             }
         }
     }
-    
+
     /**
      * Set a new initialX for the monster.
+     * 
      * @param x
-     *          new X
+     *            new X
      */
     protected void setInitialX(final double x) {
         this.initialX = x;
     }
-    
+
     /**
      * Set a new initialY for the monster.
+     * 
      * @param y
-     *          new Y
+     *            new Y
      */
     protected void setInitialY(final double y) {
         this.initialY = y;
@@ -106,13 +107,13 @@ public abstract class AbstractMonster extends AbstractDrawable {
             anime.render(g, getX(), getY());
         }
     }
-    
+
     @Override
     public void setX(final double x) {
         super.setX(x + DIMENSION64 - getWidth());
         initialX = x + DIMENSION64 - getWidth();
     }
-    
+
     @Override
     public void setY(final double y) {
         super.setY(y + DIMENSION64 - getHeight());
@@ -136,41 +137,40 @@ public abstract class AbstractMonster extends AbstractDrawable {
     protected double getInitialY() {
         return initialY;
     }
-    
+
     /**
      * Set the animation style.
+     * 
      * @param anime
-     *          the new animation
+     *            the new animation
      */
     protected void setAnime(final Animation anime) {
         this.anime = anime;
     }
-    
+
     /**
      * Returns the animation.
-     * @return
-     *          the animation
+     * 
+     * @return the animation
      */
     protected Animation getAnimation() {
         return anime;
     }
-    
+
     /**
      * Change the monster direction.
      */
     protected void changeDirection() {
         direction = !direction;
     }
-    
+
     /**
      * Returns the monster direction.
-     * @return
-     *          the monster direction
+     * 
+     * @return the monster direction
      */
     protected boolean isDirection() {
         return direction;
     }
-    
-   
 
 }

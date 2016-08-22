@@ -12,19 +12,21 @@ import morpheus.view.state.GameState;
 public abstract class AbstractPill extends AbstractDrawable {
 
     private static final double DIMENSION64 = 64;
+    private static final int WAIT = 10;
+    private int counter;
     private final Animation anime;
 
     /**
      * Create a object with animation.
      * 
      * @param i
-     *            have all the information of the images
+     *            array of Image
      * @param x
-     *            posizione sull'asse x
+     *            X position
      * @param y
-     *            posizione sull'asse y
+     *            Y position
      * @param state
-     *            state of game
+     *            game state
      */
     public AbstractPill(final double x, final double y, final GameState state, final Image... i) {
         super(x, y, state, i);
@@ -35,13 +37,13 @@ public abstract class AbstractPill extends AbstractDrawable {
      * Create a obstacle without animation.
      * 
      * @param x
-     *            posizione sull'asse x
+     *            X position
      * @param y
-     *            posizione sull'asse y
+     *            Y position
      * @param state
-     *            state of game
+     *            game state
      * @param i
-     *            have all the information of the image
+     *            Image
      */
     public AbstractPill(final double x, final double y, final GameState state, final Image i) {
         super(x, y, state, i);
@@ -54,12 +56,12 @@ public abstract class AbstractPill extends AbstractDrawable {
      * 
      */
     public abstract void reaction();
-    
+
     @Override
     public void setX(final double x) {
         super.setX(x + DIMENSION64 - getWidth());
     }
-    
+
     @Override
     public void setY(final double y) {
         super.setY(y + DIMENSION64 - getHeight());
@@ -67,14 +69,19 @@ public abstract class AbstractPill extends AbstractDrawable {
 
     @Override
     public void tick() {
-       anime.run();
+        counter++;
+        if (counter == WAIT) {
+            anime.run();
+            counter = 0;
+        }
     }
 
     @Override
     /**
      * Render the image on screen.
+     * 
      * @param g
-     *          the graphics
+     *            the graphics
      */
     public void render(final Graphics2D g) {
         if (anime == null) {

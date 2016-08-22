@@ -15,6 +15,7 @@ public class Bullet extends AbstractDrawable {
     private static final double XOFFSET = 15;
     private static final double BULLETOFFSET = 750;
     private static final int NCHECK = 5;
+
     private boolean explosion;
     private int vel = 10;
     private final double initialX;
@@ -22,17 +23,17 @@ public class Bullet extends AbstractDrawable {
     private int check;
 
     /**
-     * Create a bullet, he get shooted by the player and if it hits something it
+     * Create a bullet, he get shooter by the player and if it hits something it
      * explode.
      * 
      * @param x
-     *            its x position
+     *            X position
      * @param y
-     *            its y position
+     *            Y position
      * @param game
-     *            the state of game
+     *            game state
      * @param i
-     *            image of the bullet
+     *            array of Image
      */
     public Bullet(final double x, final double y, final GameState game, final Image i) {
         super(x + XOFFSET, y + YOFFSET, game, i);
@@ -41,17 +42,17 @@ public class Bullet extends AbstractDrawable {
     }
 
     /**
-     * Create a bullet, he get shooted by the player and if it hits something it
+     * Create a bullet, he get shooter by the player and if it hits something it
      * explode.
      * 
      * @param x
-     *            its x position
+     *            X position
      * @param y
-     *            its y position
+     *            Y position
      * @param game
-     *            the state of game
+     *            game state
      * @param i
-     *            images of the bullet
+     *            Image
      */
     public Bullet(final double x, final double y, final GameState game, final Image... i) {
         super(x + XOFFSET, y + YOFFSET, game, i);
@@ -70,7 +71,7 @@ public class Bullet extends AbstractDrawable {
     }
 
     /**
-     * 
+     * Bullet Explosion.
      */
     public void explode() {
         animation.run();
@@ -78,7 +79,6 @@ public class Bullet extends AbstractDrawable {
         check = 1;
     }
 
-    
     /**
      * Set the bullet velocity.
      * 
@@ -97,7 +97,6 @@ public class Bullet extends AbstractDrawable {
     public int getBulletVelocity() {
         return vel;
     }
-    
 
     @Override
     public void render(final Graphics2D g) {
@@ -113,8 +112,8 @@ public class Bullet extends AbstractDrawable {
             } else {
                 animation.render(g, getX(), getY());
             }
-        } 
-       
+        }
+
     }
 
     /**
@@ -137,9 +136,12 @@ public class Bullet extends AbstractDrawable {
     private static class BulletAnimation extends Animation {
 
         /**
+         * Bullet Animation.
          * 
          * @param speed
+         *            frame change speed
          * @param frames
+         *            array of Image
          */
         BulletAnimation(final int speed, final Image... frames) {
             super(speed, frames);

@@ -12,25 +12,23 @@ public final class SidePlayer extends Player {
 
     private static SidePlayer player;
 
-    private static final int PLAYERHEIGTH = 60;
+    private static final int PLAYERHEIGTH = 59;
     private static final int PLAYERWIDTH = 38;
     private static final int FALLWIDTH = 52;
     private static final int FRAMES = 6;
 
     /**
      * 
-     * L'oggetto prende in input l'altezza e la larghezza dell'immagine a
-     * schermo, le sue cordinate e un BufferedImage che sarà l'immagine che si
-     * andrà a disegnare sull'oggetto graphics passato al costruttore.
+     * Create the side Player.
      * 
      * @param i
-     *            have all the information of the images
+     *            array of Image
      * @param x
-     *            posizione sull'asse x
+     *            X position
      * @param y
-     *            posizione sull'asse y
+     *            Y position
      * @param state
-     *            state of game
+     *            game state
      */
     private SidePlayer(final double x, final double y, final GameState state, final Option stat, final Image... i) {
         super(x, y, state, stat, i);
@@ -58,7 +56,7 @@ public final class SidePlayer extends Player {
                                 .getFramesAsList();
                 System.arraycopy(app1, 0, app, 0, app1.length);
                 app[FRAMES - 2] = new Sprite(
-                        new SpriteSheet(new Texture("res/sayancaduta.png"), FALLWIDTH, PLAYERHEIGTH), 1, 1, 1)
+                        new SpriteSheet(new Texture("res/sideCaduta.png"), FALLWIDTH, PLAYERHEIGTH), 1, 1, 1)
                                 .getMainFrame();
                 app[FRAMES - 1] = new Sprite(new SpriteSheet(new Texture("res/vuoto.png"), PLAYERWIDTH, PLAYERHEIGTH),
                         1, 1, 1).getMainFrame();

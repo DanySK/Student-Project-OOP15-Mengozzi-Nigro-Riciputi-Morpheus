@@ -14,115 +14,111 @@ public interface Drawable {
      * Logic implementation for the object move.
      */
     void tick();
-    /**
-     * Incrementa la posizione sull'asse X.
-     * @param add
-     *          Valore da aggiungere
-     */
 
     /**
-     * L'area sotto forma di rettangolo che delimita l'immagine.
-     * @return
-     *          L'area sotto forma di rettangolo che delimita l'immagine
+     * Returns a rectangle that representing the image's bounds.
+     * 
+     * @return a rectangle that representing the image's bounds.
      */
     Rectangle getBounds();
-    
+
     /**
-     * Un rettangolo che rappresenta il lato superiore.
-     * @return
-     *          Un rettangolo che rappresenta il lato superiore
+     * Returns a rectangle that representing the image's top bound.
+     * 
+     * @return a rectangle that representing the image's top bound.
      */
     Rectangle getTop();
-    
+
     /**
-     * Un rettangolo che rappresenta il lato di sinistra.
-     * @return
-     *          Un rettangolo che rappresenta il lato di sinistra
+     * Returns a rectangle that representing the image's left bound.
+     * 
+     * @return a rectangle that representing the image's left bound.
      */
     Rectangle getLeft();
-    
+
     /**
-     * Un rettangolo che rappresenta il lato di destra.
-     * @return
-     *          Un rettangolo che rappresenta il lato di destra
+     * Returns a rectangle that representing the image's right bound.
+     * 
+     * @return a rectangle that representing the image's right bound.
      */
     Rectangle getRight();
-    
+
     /**
-     * Un rettangolo che rappresenta il lato inferiore.
-     * @return
-     *          Un rettangolo che rappresenta il lato inferiore
+     * Returns a rectangle that representing the image's bottom bound.
+     * 
+     * @return a rectangle that representing the image's bottom bound.
      */
     Rectangle getBottom();
-    
+
     /**
-     * Disegna l'immagine sull'elemento Graphics.
+     * Take in input a graphics element and draw the image in the window.
+     * 
      * @param g
-     * 		the graphics object
+     *            the graphic element
      */
     void render(final Graphics2D g);
-    
+
     /**
-     * Setter della posizione sull'asse X dell'immagine.
+     * Set the X position.
+     * 
      * @param x
-     *          posizione sull'asse X
+     *            new X position
      */
     void setX(final double x);
-    
+
     /**
-     * Setter della posizione sull'asse Y dell'immagine.
+     * Set the Y position.
+     * 
      * @param y
-     *          posizione sull'asse Y
+     *            new Y position
      */
     void setY(final double y);
-    
-    
-    
+
     /**
+     * Returns the X position.
      * 
-     * @return
-     *          La posizione sull'asse X
+     * @return the X position
      */
     double getX();
-    
+
     /**
+     * Returns the Y position.
      * 
-     * @return
-     *          La posizione sull'asse Y
+     * @return the Y position
      */
     double getY();
-    
+
     /**
+     * Return the main image of the Drawable object.
      * 
-     * @return
-     *          Il BufferedImage relativo a Morpheus
+     * @return the main image
      */
     BufferedImage getMainImage();
-    
+
     /**
+     * Image's height.
      * 
-     * @return
-     *          L'altezza dell'immagine
+     * @return image's height
      */
     int getHeight();
-    
+
     /**
+     * Image's width.
      * 
-     * @return
-     *          La larghezza dell'immagine
+     * @return image's width
      */
     int getWidth();
-    
+
     /**
      * Set at true the remove of a Drawable.
      */
     void setRemove();
-    
+
     /**
      * Returns true if the Drawable is to remove, false otherwise.
-     * @return
-     *          true if the Drawable is to remove, false otherwise.
+     * 
+     * @return true if the Drawable is to remove, false otherwise.
      */
     boolean isRemove();
-  
+
 }

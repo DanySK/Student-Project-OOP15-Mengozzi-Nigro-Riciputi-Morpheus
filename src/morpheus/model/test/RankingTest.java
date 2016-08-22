@@ -45,12 +45,12 @@ public class RankingTest {
         r.getRankingOnTerm();
         
         for (int i = 1; i < 11; i++) {
-            try {
-                assertEquals(r.getPosition(i).getText(), list.get(i - 1).getText());
-            } catch (NoElementsException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+                try {
+                    assertEquals(r.getPosition(i).getText(), list.get(i - 1).getText());
+                } catch (NoElementsException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
         }  
        
         try {

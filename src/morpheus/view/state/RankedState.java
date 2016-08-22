@@ -62,13 +62,8 @@ public class RankedState implements State {
 		exit = false;
 		
 		//Riempio la lista di elementi inizializzando la lista
-		try {
 			
             elements = model.getRanking().getPartOfRanking(5);
-        } catch (NoElementsException e1) {
-            
-            e1.printStackTrace();
-        }
 		
 		//Carico i dati dalla lista 
 		if (elements.size()>=1){

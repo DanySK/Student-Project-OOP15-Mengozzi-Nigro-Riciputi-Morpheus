@@ -1,10 +1,12 @@
 package morpheus.model.monster;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import morpheus.Morpheus;
 import morpheus.model.Animation;
 import morpheus.model.Bullet;
 import morpheus.model.Image;
@@ -20,8 +22,14 @@ import morpheus.view.state.GameState;
 
 public class Tree extends AbstractMonster {
 
+    private static final int READY = 70;
+    private static final int GO = 140;
+    private static final int SLEEP = 180;
+    private static final int BULLETDIMENSION = 18;
     private final List<TreeBullet> bullets;
-    private volatile boolean threadStop;
+    private final Player p;
+    private int counter;
+    private final TreeAnimation anime;
 
     /**
      * Create a Tree monster.
@@ -39,11 +47,10 @@ public class Tree extends AbstractMonster {
      */
     public Tree(final double x, final double y, final GameState game, final Player p, final Image... i) {
         super(x, y, game, i);
-        final TreeAnimation anime = new TreeAnimation(this, p, i);
+        anime = new TreeAnimation(i);
+        this.p = p;
         setAnime(anime);
         bullets = new ArrayList<>();
-        threadStop = false;
-        new Thread(anime).start();
     }
 
     @Override
@@ -54,6 +61,22 @@ public class Tree extends AbstractMonster {
             if (e.isRemove()) {
                 iter.remove();
             }
+        }
+        counter++;
+        switch (counter) {
+        case READY:
+            anime.animationReady();
+            break;
+        case GO:
+            anime.animationShoot();
+            shoot();
+            break;
+        case SLEEP:
+            anime.animationWait();
+            counter = 0;
+            break;
+        default:
+            break;
         }
     }
 
@@ -67,6 +90,16 @@ public class Tree extends AbstractMonster {
         getAnimation().render(g, getX(), getY());
         for (final Bullet b : bullets) {
             b.render(g);
+        }
+        if (Morpheus.DEBUG) {
+            g.setColor(Color.BLACK);
+            g.draw(getTop());
+            g.setColor(Color.BLUE);
+            g.draw(getBottom());
+            g.setColor(Color.MAGENTA);
+            g.draw(getLeft());
+            g.setColor(Color.ORANGE);
+            g.draw(getRight());
         }
     }
 
@@ -84,59 +117,35 @@ public class Tree extends AbstractMonster {
      * Stop the thread.
      */
     public void stop() {
-        threadStop = true;
+        setRemove();
     }
 
-    private static class TreeAnimation extends Animation implements Runnable {
+    private TreeBullet shoot() {
+        return new TreeBullet(getX(), getY(), getState(), p,
+                new Image(new Texture("res/zucca.png").getImage(), BULLETDIMENSION, BULLETDIMENSION));
+    }
 
-        private static final int THREADSLEEP = 1500;
-        private static final int BULLETDIMENSION = 18;
-        private final Tree tree;
-        private final Player p;
+    private static class TreeAnimation extends Animation {
 
-        TreeAnimation(final Tree tree, final Player p, final Image... frames) {
+        private static final int WAIT = 2;
+        private static final int READY = 1;
+        private static final int SHOOT = 0;
+
+        TreeAnimation(final Image... frames) {
             super(2, frames);
-            this.p = p;
-            tree.threadStop = false;
-            this.tree = tree;
-            setCurrentFrame(frames[0]);
+            setCurrentFrame(frames[WAIT]);
         }
 
-        public void run() {
-
-            while (!tree.threadStop) {
-                super.run();
-                tree.addBullet(shoot());
-
-                try {
-
-                    Thread.sleep(100);
-                    super.run();
-                } catch (InterruptedException e) {
-                    System.out.println("ThreadError");
-                }
-                try {
-                    Thread.sleep(100);
-                    super.run();
-
-                } catch (InterruptedException e) {
-                    System.out.println("ThreadError");
-                }
-
-                try {
-                    Thread.sleep(THREADSLEEP);
-                    super.run();
-
-                } catch (InterruptedException e) {
-                    System.out.println("ThreadError");
-                }
-
-            }
+        public void animationWait() {
+            setCurrentFrame(getFrames()[WAIT]);
         }
 
-        private TreeBullet shoot() {
-            return new TreeBullet(tree.getX(), tree.getY(), tree.getState(), p,
-                    new Image(new Texture("res/zucca.png").getImage(), BULLETDIMENSION, BULLETDIMENSION));
+        public void animationReady() {
+            setCurrentFrame(getFrames()[READY]);
+        }
+
+        public void animationShoot() {
+            setCurrentFrame(getFrames()[SHOOT]);
         }
 
     }
@@ -148,9 +157,9 @@ public class Tree extends AbstractMonster {
      */
     public static class TreeBullet extends Bullet {
 
-        private static final double SCREENHEIGHT = 500;
         private static final double BULLETOFFSET = 300;
-        private static final int BULLETVEL = 5;
+        private static final int BULLETVEL = 3;
+        private static final double MAXY = 5;
         private final double incY;
 
         private final double initialX;
@@ -172,10 +181,25 @@ public class Tree extends AbstractMonster {
         public TreeBullet(final double x, final double y, final GameState game, final Player p, final Image i) {
             super(x, y, game, i);
             initialX = x;
+            double app;
             if (p.getY() > y) {
-                incY = -(SCREENHEIGHT - p.getY()) / ((x - p.getX()) / p.getVelRun());
+                app = -(p.getY() - y) / ((x - p.getX()));
+                if (app < -MAXY) {
+                    incY = -MAXY;
+                } else {
+                    incY = app;
+                }
+                System.out.println("IncY: " + incY);
+                System.out.println("MaxY: " + -MAXY);
             } else {
-                incY = (SCREENHEIGHT - p.getY()) / ((x - p.getX()) / p.getVelRun());
+                app = (p.getY() - y) / ((x - p.getX()));
+                if (app < MAXY) {
+                    incY = MAXY;
+                } else {
+                    incY = app;
+                }
+                System.out.println("IncY: " + incY);
+                System.out.println("MaxY: " + MAXY);
             }
             setBulletVelocity(BULLETVEL);
         }

@@ -16,7 +16,7 @@ public final class Option extends Storable {
      * 
      */
     private static final long serialVersionUID = 3751161991209059959L;
-    
+
     private static final String FILE_NAME = "res/Option.dat";
     /**
      * Default Jump Key.
@@ -40,7 +40,8 @@ public final class Option extends Storable {
     private boolean sidePlayer;
 
     /**
-     * Legge le Statistiche dal file predefinito e le carica in memoria.
+     * Reads Option to the selected file and load it in memory. If the file
+     * doesn't exist it will create a new File.
      */
     private Option() {
         super(FILE_NAME);
@@ -63,11 +64,11 @@ public final class Option extends Storable {
         }
         firstOpen = app;
     }
-    
+
     /**
      * Returns the Option object.
-     * @return
-     *          the Option object
+     * 
+     * @return the Option object
      */
     public static Option getOption() {
         synchronized (Option.class) {
@@ -79,71 +80,76 @@ public final class Option extends Storable {
     }
 
     /**
-     * Dice se il personaggio MainPlayer è selezionato.
+     * Returns true if the player is selected, false otherwise.
      * 
-     * @return True -> Selezionato; False -> Bloccato;
+     * @return true if the player is selected, false otherwise.
      */
     public boolean isMainPlayerOpen() {
         return this.mainPlayer;
     }
-    
+
     /**
      * Set the player selection.
+     * 
      * @param status
-     *          true this is the selected player, false otherwise.
+     *            true this is the selected player, false otherwise.
      */
     public void setMainPlayerOpening(final boolean status) {
         this.mainPlayer = status;
     }
 
     /**
-     * Dice se il personaggio SidePlayer è selezionato.
+     * Returns true if the player is selected, false otherwise.
      * 
-     * @return True -> Selezionato; False -> Bloccato;
+     * @return true if the player is selected, false otherwise.
      */
     public boolean isSidePlayerOpen() {
         return this.sidePlayer;
     }
-    
+
     /**
      * Set the player selection.
+     * 
      * @param status
-     *          true this is the selected player, false otherwise.
+     *            true this is the selected player, false otherwise.
      */
     public void setSidePlayerOpening(final boolean status) {
         this.sidePlayer = status;
     }
 
     /**
-     * Setta il tasto per alzarsi.
+     * Sets the key to jump.
      * 
      * @param key
-     *            Valore del tasto da settare in formato intero
+     *            key int value
      */
     public void setKeyJump(final int key) {
         jumpKey = key;
     }
 
     /**
-     * Setta il tasto per abbassarsi.
+     * Sets the key to shoot.
      * 
      * @param key
-     *            Valore del tasto da settare in formato intero
+     *            key int value
      */
     public void setKeyShoot(final int key) {
         shootKey = key;
     }
 
     /**
+     * Returns int value of the jump key.
      * 
-     * @return il valore in formato stringa del tasto per alzarsi
+     * @return int value of the jump key.
      */
     public int getKeyJump() {
         return jumpKey;
     }
 
     /**
-     * @return il valore in formato stringa del tasto per abbassarsi
+     * Returns int value of the shoot key.
+     * 
+     * @return int value of the shoot key.
      */
     public int getKeyShoot() {
         return shootKey;
@@ -164,6 +170,8 @@ public final class Option extends Storable {
     }
 
     /**
+     * Returns the volume.
+     * 
      * @return the volume
      */
     public double getVolume() {
@@ -171,7 +179,10 @@ public final class Option extends Storable {
     }
 
     /**
-     * @param volume the volume to set
+     * Sets the volume.
+     * 
+     * @param volume
+     *            new value for volume
      */
     public void setVolume(final double volume) {
         this.volume = volume;
