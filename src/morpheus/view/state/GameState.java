@@ -153,9 +153,9 @@ public class GameState implements State {
 	//Variabile che conterrà i punti secondo la difficoltà scelta
 	private int points = 0;
 	//Variabile globale che indicherà lo score
-	public static int score;
+	public static int score = 0;
 	//Variabile globale che indicherà il bonus
-	public static int bonus;
+	public static int bonus = 0;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
 	private GraphicBullet bullet = new GraphicBullet();
@@ -170,6 +170,9 @@ public class GameState implements State {
 	@Override
 	public void enter(StateManager stateManager) {
 
+		points = 0;
+		bonus = 0;
+		
 		randomTiles = new ArrayList<>();
 		randomTiles1 = new ArrayList<>();
 		randomTiles2 = new ArrayList<>();
@@ -295,9 +298,6 @@ public class GameState implements State {
 
 		speedX1 = 100;
 		speedX2 = 100;
-
-		points = 0;
-		bonus = 0;
 	}
 
 	@Override
