@@ -7,12 +7,12 @@ package morpheus.model;
  */
 public class PlayerManager {
 
-    private static final int NJUMP = 11;
+    private static final int NJUMP = 13;
     private static final double JUMPVALUE = 10;
     private static final int NFALL = 55;
     private static final double GRAVITYPLUS = 0.6;
-    private static final int NDOUBLEJUMP = 10;
-    private static final double GRAVITY = 1.7;
+    private static final int NDOUBLEJUMP = 12;
+    private static final double GRAVITY = 2;
     private static final int KNOCKSIZE = 120;
     /**
      * For checking if the player is in Jump.

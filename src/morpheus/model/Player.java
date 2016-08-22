@@ -1,5 +1,6 @@
 package morpheus.model;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
@@ -23,15 +24,15 @@ public class Player extends AbstractDrawable {
     private static final double DEATH_SIZE = 450;
     
     /**
-     * velocità iniziale.
+     * Initial velocity.
      */
-    public static final int INITIAL_VEL = 5;
+    public static final double INITIAL_VEL = 5;
     private final Option s;
     private final PlayerAnimation animation;
     private final Item item;
     private final PlayerManager manager;
     private int tileSynch;
-    private int velRun = INITIAL_VEL;
+    private double velRun = INITIAL_VEL;
     private boolean runGO;
     private boolean death;
     private List<Bullet> bullets;
@@ -100,6 +101,7 @@ public class Player extends AbstractDrawable {
      */
     private void goOn() {
         this.incX(velRun);
+        System.out.println("Velocità:" + velRun);
         tileSynch += velRun;
     }
 
@@ -120,6 +122,7 @@ public class Player extends AbstractDrawable {
      */
     public void groundCollission() {
         manager.groundCollission();
+        setVelRun(INITIAL_VEL);
     }
 
     /**
@@ -140,7 +143,7 @@ public class Player extends AbstractDrawable {
      * Returns the run velocity.
      * @return the run velocity
      */
-    public int getVelRun() {
+    public double getVelRun() {
         return velRun;
     }
 
@@ -256,7 +259,7 @@ public class Player extends AbstractDrawable {
      * @param vel
      *            the new velocity
      */
-    public void setVelRun(final int vel) {
+    public void setVelRun(final double vel) {
         this.velRun = vel;
     }
 
@@ -267,6 +270,8 @@ public class Player extends AbstractDrawable {
         } else {
             super.render(g);
         }
+        g.setColor(Color.black);
+        g.fill(this.getBottomArea());
         stopRun();
     }
     
@@ -336,7 +341,7 @@ public class Player extends AbstractDrawable {
      *          the bottom of the player
      */
     public Area getBottomArea() {
-        return new Area (new Rectangle((int) getX() + OFFSET_COLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 2));
+        return new Area(new Rectangle((int) getX() + OFFSET_COLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 2));
     }
 
     private void checkBullets() {
