@@ -203,7 +203,7 @@ public final class Ranking extends Storable {
             Collections.sort(values, new Element()::compare);
             toSort = false;
         }
-        return values.get(app);
+        return values.get(app-1);
     }
 
     /**

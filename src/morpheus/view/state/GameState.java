@@ -154,6 +154,8 @@ public class GameState implements State {
 	private int points = 0;
 	//Variabile globale che indicherà lo score
 	public static int score;
+	//Variabile globale che indicherà il bonus
+	public static int bonus;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
 	private GraphicBullet bullet = new GraphicBullet();
@@ -355,10 +357,10 @@ public class GameState implements State {
 		points++;
 		if (model.isMainPlayerOpen()) {
 
-			score = points / 100;
+			score = points / 100 + bonus;
 		} else {
 
-			score = points / 100;
+			score = points / 100 + bonus;
 		}
 	}
 
