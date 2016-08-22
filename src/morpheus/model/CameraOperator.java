@@ -37,7 +37,7 @@ public class CameraOperator extends AbstractDrawable {
 
     @Override
     public void tick() {
-        int velX;
+        double velX;
         if ((player.getX() - getX()) <= PLAYEROFFSET) {
             velX = player.getVelRun() - 1;
             this.incX(velX);

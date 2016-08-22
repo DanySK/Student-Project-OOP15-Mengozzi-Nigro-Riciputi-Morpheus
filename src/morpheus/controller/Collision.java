@@ -1,5 +1,6 @@
 package morpheus.controller;
 
+import java.awt.geom.Area;
 import java.util.ArrayList;
 
 import morpheus.model.AbstractDrawable;
@@ -43,11 +44,13 @@ public class Collision {
 	 * @return
 	 */
 	public boolean hasVerticalCollision() {
-
+	        Area a = new Area();
 		// RANDOM TILES
 		for (int i = 0; i < state.getAllRandomTiles().size(); i++) {
 			RandomTile rt1 = state.getAllRandomTiles().get(i);
-			if (player.getBottom().intersects(rt1.getTop()) && player.getVelY() >= 0) {
+			a = player.getBottomArea();
+			a.intersect(rt1.getTop());
+			if ( !a.isEmpty() && player.getVelY() >= 0) {
 
 				player.groundCollission();
 				return true;

@@ -3,6 +3,7 @@ package morpheus.controller;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.Area;
 
 import morpheus.Morpheus;
 import morpheus.view.Sprite;
@@ -106,8 +107,8 @@ public class RandomTile {
 	 * 
 	 * @return the rectangle that surround only the top side of the Tile
 	 */
-	public Rectangle getTop() {
-		return new Rectangle((int) x + 1 + offset, (int) y, sprite.getWidth() - 4, 4);
+	public Area getTop() {
+		return new Area (new Rectangle((int) x + 1 + offset, (int) y, sprite.getWidth() - 4, 4));
 	}
 
 	/**

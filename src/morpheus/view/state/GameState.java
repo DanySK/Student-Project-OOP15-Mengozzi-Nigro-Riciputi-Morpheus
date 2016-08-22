@@ -147,7 +147,7 @@ public class GameState implements State {
 
 	private ArrayList<RandomTile> allRandomTiles;
 	private Collision coll;
-	AudioPlayer BGMusic;
+	private AudioPlayer BGMusic;
 	private CameraOperator operator;
 
 	//Variabile che conterrà i punti secondo la difficoltà scelta
