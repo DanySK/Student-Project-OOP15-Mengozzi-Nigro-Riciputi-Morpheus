@@ -105,8 +105,11 @@ public class DeathState implements State{
 				try{
 					
 					model.getRanking().add(new Element(name.getText(), GameState.score));
+					recordFrame.setVisible(false);
 				}catch(IllegalNameException e1){
 					
+					//Rendo visibile la JDialog
+					dialog.setVisible(true);
 					yes.addActionListener(new ActionListener() {
 						
 						@Override
@@ -133,8 +136,7 @@ public class DeathState implements State{
 						}
 					});
 					
-					//Rendo visibile la JDialog
-					dialog.setVisible(true);
+					
 				} catch (IllegalArgumentException e1) {
                     
                     e1.printStackTrace();
@@ -217,8 +219,11 @@ public class DeathState implements State{
         				try{
         					
         					model.getRanking().add(new Element(name.getText(), GameState.score));
+        					recordFrame.setVisible(false);
         				}catch(IllegalNameException e1){
         					
+        					//Rendo visibile la JDialog
+        					dialog.setVisible(true);
         					yes.addActionListener(new ActionListener() {
         						
         						@Override
@@ -245,60 +250,7 @@ public class DeathState implements State{
         						}
         					});
         					
-        					//Rendo visibile la JDialog
-        					dialog.setVisible(true);
-        				} catch (IllegalArgumentException e1) {
-                            
-                            e1.printStackTrace();
-                        } 
-        				
-        				try {
         					
-        					model.getRanking().close();
-        				} catch (IOException e2) {
-        					
-        					e2.printStackTrace();
-        				}
-        			}
-        		});
-            	ok.addActionListener(new ActionListener() {
-        			
-        			@Override
-        			public void actionPerformed(ActionEvent e) {
-        				
-        				try{
-        					
-        					model.getRanking().add(new Element(name.getText(), GameState.score));
-        				}catch(IllegalNameException e1){
-        					
-        					yes.addActionListener(new ActionListener() {
-        						
-        						@Override
-        						public void actionPerformed(ActionEvent e) {
-        							
-        							model.getRanking().forceAdd(new Element(name.getText(), GameState.score));
-        							try {
-        								
-        								model.getRanking().close();
-        							} catch (IOException e2) {
-        								
-        								e2.printStackTrace();
-        							}
-        							dialog.setVisible(false);
-        							recordFrame.setVisible(false);
-        						}
-        					});
-        					no.addActionListener(new ActionListener() {
-        						
-        						@Override
-        						public void actionPerformed(ActionEvent e) {
-        							
-        							dialog.setVisible(false);;
-        						}
-        					});
-        					
-        					//Rendo visibile la JDialog
-        					dialog.setVisible(true);
         				} catch (IllegalArgumentException e1) {
                             
                             e1.printStackTrace();

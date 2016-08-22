@@ -358,10 +358,10 @@ public class GameState implements State {
 		points++;
 		if (model.isMainPlayerOpen()) {
 
-			score = points / 100 + bonus;
+			score = (points / 100) + bonus;
 		} else {
 
-			score = points / 100 + bonus;
+			score = (points / 100) + bonus;
 		}
 	}
 

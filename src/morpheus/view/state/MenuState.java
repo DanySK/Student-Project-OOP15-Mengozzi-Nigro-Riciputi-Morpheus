@@ -59,8 +59,8 @@ public class MenuState implements State{
 
 	@Override
 	public void enter(StateManager stateManager) {
-		menuMusic.setVolume(model.getVolume());
-		menuMusic.playAndLoop();
+//		menuMusic.setVolume(model.getVolume());
+//		menuMusic.playAndLoop();
 		
 	}
 
@@ -141,7 +141,7 @@ public class MenuState implements State{
 
 	@Override
 	public void exit() {
-		menuMusic.stop();
+//		menuMusic.stop();
 	}
 	
 	@Override
