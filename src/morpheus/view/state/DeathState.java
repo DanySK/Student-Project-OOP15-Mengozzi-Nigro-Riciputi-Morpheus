@@ -143,14 +143,6 @@ public class DeathState implements State {
 
                     e1.printStackTrace();
                 }
-
-                try {
-
-                    model.getRanking().close();
-                } catch (IOException e2) {
-
-                    e2.printStackTrace();
-                }
             }
         });
 

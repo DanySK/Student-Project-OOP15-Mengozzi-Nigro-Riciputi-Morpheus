@@ -44,13 +44,5 @@ public class GraphicBullet {
 					
 			bullet.render(g, 480, 50);
 		}
-		if (nBullet>=7){
-				
-			bullet.render(g, 450, 50);
-		}
-		if (nBullet>=8){
-					
-			bullet.render(g, 420, 50);
-		}
 	}
 }

@@ -38,8 +38,8 @@ public class SettingsState implements State {
 	private final JLabel jump = new JLabel("JUMP:");
 	private final JLabel shoot = new JLabel("SHOOT:");
 	private final JLabel sound = new JLabel("SOUND:");
-	private final JButton blonde = new JButton("Valpiani");
-	private final JButton violet = new JButton("Gulizia");
+	private final JButton blonde = new JButton("Simon");
+	private final JButton violet = new JButton("Eric");
 	private JComboBox<String> j;
 	private JComboBox<String> s;
 	private JSlider m = new JSlider(0, 100, 75);
