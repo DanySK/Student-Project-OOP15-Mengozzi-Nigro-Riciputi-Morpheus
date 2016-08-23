@@ -37,17 +37,13 @@ public class Texture {
 	 */   
     public Texture(String fileName) {
 
-        // Cerco la texture nella mappa
         TextureManager oldTexture = texMap.get(fileName);
-        // Se è già presente
         if (oldTexture != null) {
 
             manager = oldTexture;
-            // Se non è presente la aggiungo alla mappa
         } else {
 
             System.out.println("loading textures: " + fileName);
-            // Carico le Texture ex novo dalle risorse
             final URL url = Texture.class.getResource(fileName);
             final ImageIcon img = new ImageIcon(url);
             manager = new TextureManager(img.getImage());

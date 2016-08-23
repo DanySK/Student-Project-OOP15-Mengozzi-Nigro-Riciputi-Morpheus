@@ -1,13 +1,8 @@
 package morpheus.view.state;
 
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
-
-import javax.imageio.ImageIO;
 
 import morpheus.Morpheus;
 import morpheus.controller.AudioPlayer;
@@ -23,6 +18,7 @@ import morpheus.model.Player;
 import morpheus.view.GraphicBullet;
 import morpheus.view.GraphicLifes;
 import morpheus.view.GraphicNumbers;
+import morpheus.view.Texture;
 
 /**
  * 
@@ -93,8 +89,8 @@ public class GameState implements State {
 	private ArrayList<AbstractDrawable> appEntities;
 	private Camera camera;
 	private Player player;
-	private BufferedImage background;
-	private BufferedImage background2;
+	private Texture background;
+	private Texture background2;
 	private Model model = new ModelImpl();
 	private int parallaxMove1 = 0;
 	private int parallaxMove2 = 795;
@@ -140,7 +136,7 @@ public class GameState implements State {
 	}
 
 	@Override
-	public void enter(StateManager stateManager) {
+	public void enter(StateManager stateManager){
 
 		points = 0;
 		bonus = 0;
@@ -159,14 +155,8 @@ public class GameState implements State {
 		bitMap = new BitMap(this);
 		bitMap.init();
 
-		try {
-
-			background = ImageIO.read(new File("res/ultimo.png"));
-			background2 = ImageIO.read(new File("res/nuvole_buone.png"));
-		} catch (IOException e) {
-
-			System.out.println("Failed to load background image");
-		}
+		background = new Texture("/ultimo.png");
+		background2 = new Texture("/nuvole_buone.png");
 
 		this.camera = new Camera(0, 0);
 		this.entities = new ArrayList<>();
@@ -368,11 +358,11 @@ public class GameState implements State {
 
 			parallaxMove2 = 0;
 		}
-		g.drawImage(background, LINK - parallaxMove2, 0, null);
+		g.drawImage(background.getImage(), LINK - parallaxMove2, 0, null);
 		
 		if (speedX1 > FIRSTEDGE) {
 
-			g.drawImage(background, LINK - parallaxMove1, 0, null);
+			g.drawImage(background.getImage(), LINK - parallaxMove1, 0, null);
 		}
 
 		if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
@@ -383,11 +373,11 @@ public class GameState implements State {
 
 			parallaxCloud2 = 0;
 		}
-		g.drawImage(background2, LINK - parallaxCloud2, 0, null);
+		g.drawImage(background2.getImage(), LINK - parallaxCloud2, 0, null);
 
 		if (speedX2 > FIRSTEDGE) {
 
-			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
+			g.drawImage(background2.getImage(), LINK - parallaxCloud1, 0, null);
 		}
 	}
 	/**
