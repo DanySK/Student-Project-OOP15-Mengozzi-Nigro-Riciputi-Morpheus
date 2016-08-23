@@ -52,6 +52,14 @@ public class RandomTile {
 	public void render(Graphics2D g, int offset) {
 		sprite.render(g, x + offset, y);
 		setOffset(offset);
+		g.setColor(Color.BLACK);
+		g.draw(getTop());
+		g.setColor(Color.BLUE);
+                g.draw(getLeft());
+                g.setColor(Color.red);
+                g.draw(getRight());
+                g.setColor(Color.green);
+                g.draw(getBottom());
 	}
 
 	/**
@@ -123,7 +131,7 @@ public class RandomTile {
 	 * @return the rectangle that surround only the left side of the Tile
 	 */
 	public Rectangle getLeft() {
-		return new Rectangle((int) x + offset, (int) y + 6, 4, sprite.getHeight() - 6);
+		return new Rectangle((int) x + offset, (int) y + 10, 4, sprite.getHeight() - 10 );
 	}
 
 	/**
