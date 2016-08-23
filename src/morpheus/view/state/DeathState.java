@@ -104,10 +104,18 @@ public class DeathState implements State {
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("OK 23");
                 try {
 
                     model.getRanking().add(new Element(name.getText(), GameState.score));
+                    try {
+
+                        model.getRanking().close();
+                    } catch (IOException e2) {
+
+                        e2.printStackTrace();
+                    }
+                    dialog.setVisible(false);
+                    recordFrame.setVisible(false);
                 } catch (IllegalNameException e1) {
 
                     yes.addActionListener(new ActionListener() {
