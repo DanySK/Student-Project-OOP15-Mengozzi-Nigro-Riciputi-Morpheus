@@ -5,6 +5,8 @@ import morpheus.model.monster.AbstractMonster;
 import morpheus.model.monster.Ghost;
 import morpheus.model.monster.Penguin;
 import morpheus.model.monster.Tree;
+import morpheus.view.Sprite;
+import morpheus.view.SpriteSheet;
 import morpheus.view.Texture;
 import morpheus.view.state.GameState;
 
@@ -55,7 +57,7 @@ public class ModelImpl implements Model {
     @Override
     public AbstractPill getBluePill(final double x, final double y, final GameState state) {
         return new AbstractPill(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/pillolaBlu.png"), DIMENSION24, DIMENSION24), 4, 1, 4)
+                new Sprite(new SpriteSheet(new Texture("/pillolaBlu.png"), DIMENSION24, DIMENSION24), 4, 1, 4)
                         .getFramesAsList()) {
             @Override
             public void reaction() {
@@ -71,7 +73,7 @@ public class ModelImpl implements Model {
     @Override
     public AbstractPill getRedPill(final double x, final double y, final GameState state) {
         return new AbstractPill(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/pillolaRossa.png"), DIMENSION24, DIMENSION24), 4, 1, 4)
+                new Sprite(new SpriteSheet(new Texture("/pillolaRossa.png"), DIMENSION24, DIMENSION24), 4, 1, 4)
                         .getFramesAsList()) {
             @Override
             public void reaction() {
@@ -97,18 +99,18 @@ public class ModelImpl implements Model {
     @Override
     public AbstractMonster getGhost(final double x, final double y, final GameState state) {
         return new Ghost(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/ghost.png"), DIMENSION40), 1, 1, 1).getFramesAsList());
+                new Sprite(new SpriteSheet(new Texture("/ghost.png"), DIMENSION40), 1, 1, 1).getFramesAsList());
     }
 
     @Override
     public AbstractMonster getTree(final double x, final double y, final GameState state) {
         if (isMainPlayerOpen()) {
             return new Tree(x, y, state, getMainPlayer(),
-                    new Sprite(new SpriteSheet(new Texture("res/Evil_tree.png"), DIMENSION30, DIMENSION64), 3, 1, 3)
+                    new Sprite(new SpriteSheet(new Texture("/Evil_tree.png"), DIMENSION30, DIMENSION64), 3, 1, 3)
                             .getFramesAsList());
         } else {
             return new Tree(x, y, state, getSidePlayer(),
-                    new Sprite(new SpriteSheet(new Texture("res/Evil_tree.png"), DIMENSION30, DIMENSION64), 3, 1, 3)
+                    new Sprite(new SpriteSheet(new Texture("/Evil_tree.png"), DIMENSION30, DIMENSION64), 3, 1, 3)
                             .getFramesAsList());
         }
     }
@@ -116,7 +118,7 @@ public class ModelImpl implements Model {
     @Override
     public AbstractMonster getPenguin(final double x, final double y, final GameState state) {
         return new Penguin(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/tux.png"), DIMENSION40, DIMENSION39), 2, 1, 2)
+                new Sprite(new SpriteSheet(new Texture("/tux.png"), DIMENSION40, DIMENSION39), 2, 1, 2)
                         .getFramesAsList());
     }
 
@@ -128,14 +130,14 @@ public class ModelImpl implements Model {
     @Override
     public Coin getDoubleCoin(final double x, final double y, final GameState state) {
         return new Coin(x, y, TypeCoin.X2, state,
-                new Sprite(new SpriteSheet(new Texture("res/coin.png"), DIMENSION24, DIMENSION24), 10, 1, 10)
+                new Sprite(new SpriteSheet(new Texture("/coin.png"), DIMENSION24, DIMENSION24), 10, 1, 10)
                         .getFramesAsList());
     }
 
     @Override
     public Coin getSpecialCoin(final double x, final double y, final GameState state) {
         return new Coin(x, y, TypeCoin.SPECIAL, state,
-                new Sprite(new SpriteSheet(new Texture("res/coin_silver.png"), DIMENSION24, DIMENSION24), 8, 1, 8)
+                new Sprite(new SpriteSheet(new Texture("/coin_silver.png"), DIMENSION24, DIMENSION24), 8, 1, 8)
                         .getFramesAsList());
     }
 
@@ -192,7 +194,7 @@ public class ModelImpl implements Model {
     @Override
     public Spikes getSpikes(final double x, final double y, final GameState state) {
         return new Spikes(x, y, state,
-                new Sprite(new SpriteSheet(new Texture("res/spike.png"), DIMENSION64, DIMENSION64), 1, 1, 1)
+                new Sprite(new SpriteSheet(new Texture("/spike.png"), DIMENSION64, DIMENSION64), 1, 1, 1)
                         .getMainFrame());
     }
 }

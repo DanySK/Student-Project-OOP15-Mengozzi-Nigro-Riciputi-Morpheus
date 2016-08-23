@@ -1,5 +1,7 @@
 package morpheus.model;
 
+import morpheus.view.Sprite;
+import morpheus.view.SpriteSheet;
 import morpheus.view.Texture;
 import morpheus.view.state.GameState;
 
@@ -54,13 +56,13 @@ public final class MainPlayer extends Player {
             if (player == null) {
                 final Image[] app = new Image[FRAMES];
                 final Image[] app1 = new Sprite(
-                        new SpriteSheet(new Texture("res/sayancorsapulito.png"), PLAYERWIDTH, PLAYERHEIGTH), 4, 1, 4)
+                        new SpriteSheet(new Texture("/sayancorsapulito.png"), PLAYERWIDTH, PLAYERHEIGTH), 4, 1, 4)
                                 .getFramesAsList();
                 System.arraycopy(app1, 0, app, 0, app1.length);
                 app[FRAMES - 2] = new Sprite(
-                        new SpriteSheet(new Texture("res/sayancaduta.png"), FALLWIDTH, PLAYERHEIGTH), 1, 1, 1)
+                        new SpriteSheet(new Texture("/sayancaduta.png"), FALLWIDTH, PLAYERHEIGTH), 1, 1, 1)
                                 .getMainFrame();
-                app[FRAMES - 1] = new Sprite(new SpriteSheet(new Texture("res/vuoto.png"), PLAYERWIDTH, PLAYERHEIGTH),
+                app[FRAMES - 1] = new Sprite(new SpriteSheet(new Texture("/vuoto.png"), PLAYERWIDTH, PLAYERHEIGTH),
                         1, 1, 1).getMainFrame();
                 player = new MainPlayer(x, y, state, stat, app);
 

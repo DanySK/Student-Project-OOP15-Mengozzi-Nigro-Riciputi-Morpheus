@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 import morpheus.controller.KeyInput;
+import morpheus.view.Sprite;
+import morpheus.view.SpriteSheet;
 import morpheus.view.Texture;
 import morpheus.view.state.GameState;
 

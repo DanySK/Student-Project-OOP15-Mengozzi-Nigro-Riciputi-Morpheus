@@ -4,10 +4,14 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
+import morpheus.Morpheus;
 
 /**
  * 
@@ -54,7 +58,8 @@ public class Texture {
 
 				System.out.println("loading textures: " + fileName);
 				//Carico le Texture ex novo dalle risorse
-				manager = new TextureManager(ImageIO.read(new File(fileName)));
+				final URL url = Morpheus.class.getResource(fileName);
+				manager = new TextureManager(ImageIO.read(new File(url.toString())));
 				texMap.put(fileName, manager);
 			} catch (IOException e) {
 

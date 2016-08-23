@@ -110,7 +110,7 @@ public class Tree extends AbstractMonster {
 
     private TreeBullet shoot() {
         return new TreeBullet(getX(), getY(), getState(), p,
-                new Image(new Texture("res/zucca.png").getImage(), BULLETDIMENSION, BULLETDIMENSION));
+                new Image(new Texture("/zucca.png").getImage(), BULLETDIMENSION, BULLETDIMENSION));
     }
 
     private static class TreeAnimation extends Animation {
