@@ -43,7 +43,7 @@ public class MenuState implements State{
 	@Override
 	public void init() {
 		
-		background = new Texture("res/matrix_blu.jpg");
+		background = new Texture("/matrix_blu.jpg");
 		player1 = new Animation(5, new Sprite(new SpriteSheet(new Texture("res/sayan2.png"), 83, 120), 4, 1, 4).getFramesAsList());
 		player2 = new Animation(5, new Sprite(new SpriteSheet(new Texture("res/violet2.png"), 83, 120), 4, 1, 4).getFramesAsList());
 		
