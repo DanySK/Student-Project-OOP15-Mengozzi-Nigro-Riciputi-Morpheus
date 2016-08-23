@@ -7,10 +7,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -55,6 +57,9 @@ public class SettingsState implements State {
 	 */
 	private boolean exit;
 	private Model model = new ModelImpl();
+	private final URL url = SettingsState.class.getResource("/morpheus.png");
+    private final ImageIcon img = new ImageIcon(url);
+    
 
 	@Override
 	public void init() {
@@ -96,6 +101,7 @@ public class SettingsState implements State {
 		BackgroundSettingsState background = new BackgroundSettingsState();
 		background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
 		frame  = new JFrame("Options");
+		frame.setIconImage(img.getImage());
 		frame.getContentPane().add(background);
 	
 		//PANNELLO 1

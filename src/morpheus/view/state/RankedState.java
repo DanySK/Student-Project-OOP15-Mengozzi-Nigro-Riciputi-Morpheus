@@ -5,9 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -48,7 +50,9 @@ public class RankedState implements State {
 	private boolean exit;
 	private List<Element> elements = new ArrayList<>();
 	private Model model = new ModelImpl();
-	
+	private final URL url = RankedState.class.getResource("/morpheus.png");
+    private final ImageIcon img = new ImageIcon(url);
+    
 	@Override
 	public void init() {
 
@@ -100,6 +104,7 @@ public class RankedState implements State {
 		BackgroundRankedState background = new BackgroundRankedState();
 		background.setLayout(new GridLayout(5, 3));
 		frame = new JFrame("Leaderboard");
+		frame.setIconImage(img.getImage());
 		frame.getContentPane().add(background);
 
 		//Imposto l'allineamento
