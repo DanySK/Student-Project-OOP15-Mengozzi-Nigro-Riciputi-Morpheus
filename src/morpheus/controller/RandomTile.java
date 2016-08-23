@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
 
-import morpheus.Morpheus;
 import morpheus.view.Sprite;
 import morpheus.view.SpriteSheet;
 import morpheus.view.Texture;
@@ -53,17 +52,6 @@ public class RandomTile {
 	public void render(Graphics2D g, int offset) {
 		sprite.render(g, x + offset, y);
 		setOffset(offset);
-		if (Morpheus.DEBUG) {
-			g.setColor(Color.BLACK);
-			g.draw(getTop());
-			g.setColor(Color.BLUE);
-			g.draw(getBottom());
-			g.setColor(Color.MAGENTA);
-			g.draw(getLeft());
-			g.setColor(Color.ORANGE);
-			g.draw(getRight());
-		}
-
 	}
 
 	/**
@@ -108,7 +96,7 @@ public class RandomTile {
 	 * @return the rectangle that surround only the top side of the Tile
 	 */
 	public Area getTop() {
-		return new Area (new Rectangle((int) x + 1 + offset, (int) y, sprite.getWidth() - 4, 4));
+		return new Area (new Rectangle((int) x + 1 + offset, (int) y, sprite.getWidth() - 7, 6));
 	}
 
 	/**

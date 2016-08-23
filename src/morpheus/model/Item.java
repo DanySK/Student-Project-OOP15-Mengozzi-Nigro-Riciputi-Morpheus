@@ -9,6 +9,8 @@ public class Item {
 
     private static final int BULLETS = 5;
     private static final int MAXHP = 3;
+    private static final int INCBULLET = 6;
+    
     private int hp;
     private int bullet;
 
@@ -33,7 +35,7 @@ public class Item {
      * Increments bullet value of 1.
      */
     public void incBullet() {
-        bullet++;
+        bullet = INCBULLET;
     }
 
     /**

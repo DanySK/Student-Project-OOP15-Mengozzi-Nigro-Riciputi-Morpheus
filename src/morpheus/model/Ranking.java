@@ -81,6 +81,7 @@ public final class Ranking extends Storable {
     public void add(final Element el) throws IllegalNameException {
 
         if (app.contains(el.getName())) {
+            System.out.println("Lancio eccezione per nome già presente");
             throw new IllegalNameException();
         }
         app.add(el.getName());

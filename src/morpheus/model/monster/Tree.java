@@ -1,12 +1,10 @@
 package morpheus.model.monster;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import morpheus.Morpheus;
 import morpheus.model.Animation;
 import morpheus.model.Bullet;
 import morpheus.model.Image;
@@ -90,16 +88,6 @@ public class Tree extends AbstractMonster {
         getAnimation().render(g, getX(), getY());
         for (final Bullet b : bullets) {
             b.render(g);
-        }
-        if (Morpheus.DEBUG) {
-            g.setColor(Color.BLACK);
-            g.draw(getTop());
-            g.setColor(Color.BLUE);
-            g.draw(getBottom());
-            g.setColor(Color.MAGENTA);
-            g.draw(getLeft());
-            g.setColor(Color.ORANGE);
-            g.draw(getRight());
         }
     }
 
@@ -189,8 +177,6 @@ public class Tree extends AbstractMonster {
                 } else {
                     incY = app;
                 }
-                System.out.println("IncY: " + incY);
-                System.out.println("MaxY: " + -MAXY);
             } else {
                 app = (p.getY() - y) / ((x - p.getX()));
                 if (app < MAXY) {
@@ -198,8 +184,6 @@ public class Tree extends AbstractMonster {
                 } else {
                     incY = app;
                 }
-                System.out.println("IncY: " + incY);
-                System.out.println("MaxY: " + MAXY);
             }
             setBulletVelocity(BULLETVEL);
         }

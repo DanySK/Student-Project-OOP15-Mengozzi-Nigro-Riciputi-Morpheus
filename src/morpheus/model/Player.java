@@ -1,6 +1,5 @@
 package morpheus.model;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
@@ -21,7 +20,9 @@ public class Player extends AbstractDrawable {
     private static final int OFFSET_COLLISION = 5;
     private static final int BULLET_SIZE = 24;
     private static final int PLAYER_SPEED_ANIMATION = 6;
+    private static final int OFFSET = 15;
     private static final double DEATH_SIZE = 450;
+    
     
     /**
      * Initial velocity.
@@ -101,7 +102,6 @@ public class Player extends AbstractDrawable {
      */
     private void goOn() {
         this.incX(velRun);
-        System.out.println("Velocità:" + velRun);
         tileSynch += velRun;
     }
 
@@ -122,7 +122,6 @@ public class Player extends AbstractDrawable {
      */
     public void groundCollission() {
         manager.groundCollission();
-        setVelRun(INITIAL_VEL);
     }
 
     /**
@@ -270,8 +269,6 @@ public class Player extends AbstractDrawable {
         } else {
             super.render(g);
         }
-        g.setColor(Color.black);
-        g.fill(this.getBottomArea());
         stopRun();
     }
     
@@ -341,7 +338,7 @@ public class Player extends AbstractDrawable {
      *          the bottom of the player
      */
     public Area getBottomArea() {
-        return new Area(new Rectangle((int) getX() + OFFSET_COLLISION, (int) getY() + getHeight() - 3, getWidth() - 10, 2));
+        return new Area(new Rectangle((int) getX() + OFFSET_COLLISION, (int) getY() + getHeight() - 3, getWidth() - OFFSET , 3));
     }
 
     private void checkBullets() {
