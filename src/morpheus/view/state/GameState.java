@@ -33,67 +33,58 @@ public class GameState implements State {
 
 	/**
 	 * 
-	 * Punto esatto in cui il background comincia si comincia a renderizzare
-	 * relativamente alla dimensione della finestra di gioco
+	 * Exact point where the background starts to render relatively to the dimension of the viewport
 	 * 
-	 * @author Luca Mengozzi
+	 * @author matteo
 	 * 
 	 */
 	private static int LINK = Morpheus.WIDTH - 5;
 
 	/**
 	 * 
-	 * Punto esatto in cui termina la prima immagine di background
-	 * 
-	 * @author Luca Mengozzi
+	 * Exact point where the first background image end
+	 * @author matteo
 	 * 
 	 */
 	private static int FIRSTEDGE = 304;
 
 	/**
 	 * 
-	 * Punto esatto in cui termina la seconda immagine di background
-	 * 
-	 * @author Luca Mengozzi
+	 * Exact point where second background image end
+	 * @author matteo
 	 * 
 	 */
 	private static int SECONDEDGE = 1304;
 
 	/**
 	 * 
-	 * Distanza a cui verranno renderizzate le prime 3 BitMap
-	 * 
-	 * @author Luca Mengozzi
+	 * Point where the first three maps are rendered
+	 * @author matteo
 	 * 
 	 */
 	private static int DISTANCE1 = 4000;
 
 	/**
 	 * 
-	 * Distaza a cui verrà renderizzata la terza BitMap
-	 * 
-	 * @author Luca Mengozzi
+	 * Point where the last map is rendered
+	 * @author matteo
 	 * 
 	 */
 	private static int DISTANCE2 = 5600;
 
 	/**
 	 * 
-	 * Valore di cui la posizione delle RandomTile verrà incrementata per poter
-	 * traslare da una posizione all'altra nello spazio e dare l'impressione di
-	 * infinito
-	 * 
-	 * @author Luca Mengozzi
+	 * Value where the position of the randomTile will be incremented to translate from a position to another in space and give the feeling of infinite
+	 * @author matteo
 	 * 
 	 */
 	private static int MOVEINCR = 4800;
 
 	/**
 	 * 
-	 * Valore incrementativo dell�offset della posizione dell RandomTile e delle
-	 * loro collisioni
+	 * Offset value of the position of RandomTiles and their collisions
 	 * 
-	 * @author Luca Mengozzi
+	 * @author matteo
 	 * 
 	 */
 	private static int OFFSETINCR = 800;
@@ -400,7 +391,11 @@ public class GameState implements State {
 	public ArrayList<AbstractDrawable> getEntities() {
 		return entities;
 	}
-
+	/**
+	 * Render all the parallax levels of the background
+	 * @param g
+	 * @author matteo
+	 */
 	public void renderBG(Graphics2D g) {
 
 		// BACKGROUND 1
@@ -442,7 +437,11 @@ public class GameState implements State {
 			g.drawImage(background2, LINK - parallaxCloud1, 0, null);
 		}
 	}
-
+	/**
+	 * Render the whole assets of the world
+	 * @param g
+	 * @author matteo
+	 */
 	public void renderWorld(Graphics2D g) {
 
 		// Condizioe
@@ -538,9 +537,5 @@ public class GameState implements State {
 	public AudioPlayer getMusic() {
 
 		return BGMusic;
-	}
-
-	public static GameState getInstance() {
-		return new GameState();
 	}
 }
