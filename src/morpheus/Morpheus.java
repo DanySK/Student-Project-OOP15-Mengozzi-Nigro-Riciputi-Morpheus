@@ -71,12 +71,6 @@ public class Morpheus extends Canvas implements Runnable {
 	// Utilizzo di volatile per evitare problemi di caching sul valore
 	private volatile boolean running;
 	
-<<<<<<< local
-	//Da eliminare se non serve
-	public static boolean DEBUG = false;
-=======
->>>>>>> other
-	
 	// numero frame e tick al secondo che vogliamo ottenere
 	private static final double TARGET = 60.0;
 	
