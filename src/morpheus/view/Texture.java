@@ -43,11 +43,10 @@ public class Texture {
             manager = oldTexture;
         } else {
 
-            System.out.println("loading textures: " + fileName);
             final URL url = Texture.class.getResource(fileName);
+            System.out.println("loading textures: " + url.getPath());
             final ImageIcon img = new ImageIcon(url);
             manager = new TextureManager(img.getImage());
-            
             texMap.put(fileName, manager);
         }
     }

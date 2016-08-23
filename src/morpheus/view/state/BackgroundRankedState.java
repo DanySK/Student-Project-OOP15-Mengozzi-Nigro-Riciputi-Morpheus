@@ -1,11 +1,10 @@
 package morpheus.view.state;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.MediaTracker;
-import java.awt.Toolkit;
-
 import javax.swing.JPanel;
+
+import morpheus.view.Texture;
 
 /**
  * 
@@ -15,7 +14,7 @@ import javax.swing.JPanel;
 public class BackgroundRankedState extends JPanel{
 	
 	private static final long serialVersionUID = 8773250085938571559L;
-	private final Image img;
+	private final Texture img;
 	
 	/**
 	 * 
@@ -26,7 +25,7 @@ public class BackgroundRankedState extends JPanel{
 	 * */
 	public BackgroundRankedState(){
 			
-		img = Toolkit.getDefaultToolkit().createImage("res/coppap2.png");
+		img = new Texture("/coppap2.png");
 		check();
 	}
 		
@@ -40,7 +39,7 @@ public class BackgroundRankedState extends JPanel{
 	private void check(){
 			
 		MediaTracker track = new MediaTracker(this);
-		track.addImage(img, 0);
+		track.addImage(img.getImage(), 0);
 		try{
 				
 			track.waitForID(0);
@@ -60,7 +59,7 @@ public class BackgroundRankedState extends JPanel{
 	protected void paintComponent(Graphics g) {
 			  
 	   setOpaque(false);
-	   g.drawImage(img, 90, 0, null);
+	   g.drawImage(img.getImage(), 90, 0, null);
 	   super.paintComponent(g);
 	}	  
 }
