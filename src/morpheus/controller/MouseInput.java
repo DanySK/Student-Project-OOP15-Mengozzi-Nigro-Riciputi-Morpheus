@@ -7,13 +7,10 @@ import java.awt.event.MouseEvent;
  * Manage the Mouse buttons
  */
 public class MouseInput extends MouseAdapter {
-	// Stessa strategia di KeyInput
 	private static final int NUM_BUTTONS = 10;
 	private static final boolean[] BUTTONS = new boolean[NUM_BUTTONS];
 	private static final boolean[] LAST_BUTTONS = new boolean[NUM_BUTTONS];
-	// Posizione corrente
 	private static int X = -1, Y = -1;
-	// Posizione nel precedente tick
 	private static int lastX = X, lastY = Y;
 	private static boolean moving;
 
@@ -29,12 +26,8 @@ public class MouseInput extends MouseAdapter {
 
 	@Override
 	public void mouseMoved(final MouseEvent e) {
-		// Tengo tracciata la posizione del mouse nello schermo
 		X = e.getX();
 		Y = e.getY();
-		// se le coordinate presenti con quelle passate non combaciano allora il
-		// mouse si sta muovendo(il motivo dell�utilizzo di || � che sia
-		// possibile anche muoversi su due assi contemporaneamente)
 		moving = true;
 		
 
@@ -48,11 +41,9 @@ public class MouseInput extends MouseAdapter {
 		for (int i = 0; i < NUM_BUTTONS; i++) {
 			LAST_BUTTONS[i] = BUTTONS[i];
 		}
-		// Controlliamo se il mouse � fermo e se lo � lo segnaliamo
 		if (X == lastX && Y == lastY) {
 			moving = false;
 		}
-		// Aggiorno la posizione precedente
 		lastX = X;
 		lastY = Y;
 	}
