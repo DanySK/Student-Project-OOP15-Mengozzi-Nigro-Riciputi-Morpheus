@@ -1,6 +1,7 @@
 package morpheus.model;
 
 import java.awt.Rectangle;
+import java.awt.geom.Area;
 
 import morpheus.view.state.GameState;
 
@@ -41,9 +42,8 @@ public class Spikes extends AbstractDrawable {
         p.hit();
     }
 
-    @Override
-    public Rectangle getTop() {
-        return new Rectangle((int) this.getX(), (int) this.getY() + OFFSET - 4, this.getWidth(), 4);
+    public Area getTopArea() {
+        return new Area(new Rectangle((int) this.getX(), (int) this.getY() + OFFSET - 4, this.getWidth(), 4));
     }
     
     @Override

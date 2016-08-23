@@ -79,7 +79,8 @@ public final class Ranking extends Storable {
      *             if contains the name yet.
      */
     public void add(final Element el) throws IllegalNameException {
-
+        System.out.println("Inserisco: Nome -> " + el.getName() + " Score: " + el.getScore());
+        
         if (app.contains(el.getName())) {
         	System.out.println("nome" + el.getName());
             System.out.println("Lancio eccezione per nome già presente");

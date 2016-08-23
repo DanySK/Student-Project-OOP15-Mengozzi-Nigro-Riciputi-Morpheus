@@ -69,9 +69,12 @@ public class Collision {
 		for (int i = 0; i < state.getEntities().size(); i++) {
 			if (state.getEntities().get(i) instanceof Spikes) {
 				Spikes ad = (Spikes) state.getEntities().get(i);
-				if (ad.getTop().intersects(player.getBottom()) && player.getVelY() >= 0) {
+				a = player.getBottomArea();
+	                        a.intersect(ad.getTopArea());
+	                        if ( !a.isEmpty() && player.getVelY() >= 0) {
+
 					player.groundCollission();
-					if (player.isKnocking() == false) {
+					if (!player.isKnocking()) {
 						ad.reaction(player);
 					}
 					return true;
