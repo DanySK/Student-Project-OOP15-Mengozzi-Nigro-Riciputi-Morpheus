@@ -48,7 +48,6 @@ public class RankedState implements State {
 	 * @author Luca Mengozzi
 	 * 		 
 	 */		
-	 
 	private boolean exit;
 	private List<Element> elements = new ArrayList<>();
 	private Model model = new ModelImpl();
@@ -63,14 +62,10 @@ public class RankedState implements State {
 	@Override
 	public void enter(StateManager stateManager) {
 		
-		//Imposto a false la variabile di uscita
 		exit = false;
 		
-		//Riempio la lista di elementi inizializzando la lista
-			
-            elements = model.getRanking().getPartOfRanking(5);
+        elements = model.getRanking().getPartOfRanking(5);
 		
-		//Carico i dati dalla lista 
 		if (elements.size()>=1){
 			
 			num1.setText("1.");
@@ -102,14 +97,12 @@ public class RankedState implements State {
 			res5.setText(Integer.toString(elements.get(4).getScore()));
 		}
 		
-		//Creo il panel personalizzato
 		BackgroundRankedState background = new BackgroundRankedState();
 		background.setLayout(new GridLayout(5, 3));
 		frame = new JFrame("Leaderboard");
 		frame.setIconImage(img.getImage());
 		frame.getContentPane().add(background);
 
-		//Imposto l'allineamento
 	    num1.setHorizontalAlignment( JLabel.CENTER );
 	    name1.setHorizontalAlignment( JLabel.CENTER );
 	    res1.setHorizontalAlignment( JLabel.CENTER );
@@ -126,7 +119,6 @@ public class RankedState implements State {
 	    name5.setHorizontalAlignment( JLabel.CENTER );
 	    res5.setHorizontalAlignment( JLabel.CENTER );
 	    
-	    //Imposto il font
 	    num1.setFont(new Font("TimesNewRoman", Font.ITALIC, 18));
 	    name1.setFont(new Font("TimesNewRoman", Font.ITALIC, 18));
 	    res1.setFont(new Font("TimesNewRoman", Font.ITALIC, 18));
@@ -143,7 +135,6 @@ public class RankedState implements State {
 	    name5.setFont(new Font("TimesNewRoman", Font.ITALIC, 18));
 	    res5.setFont(new Font("TimesNewRoman", Font.ITALIC, 18));
 	    
-	    //Aggiungo componenti al pannello
 		background.add(num1);
 		background.add(name1);
 		background.add(res1);
@@ -160,7 +151,6 @@ public class RankedState implements State {
 		background.add(name5);
 		background.add(res5);
 
-		//Personalizzo la finestra(il frame)
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowListener() {
 			
@@ -201,7 +191,6 @@ public class RankedState implements State {
 			}
 		});
 		
-		//Imposto il frame
 		frame.setSize(500, 300);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);

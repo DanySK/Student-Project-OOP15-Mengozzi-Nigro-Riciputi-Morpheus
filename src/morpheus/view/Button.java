@@ -62,7 +62,6 @@ public class Button extends Rectangle {
 		
 		this.x = (Morpheus.WIDTH - mainTexture.getImage().getWidth()) / 4;
 		this.y = yPosition - mainTexture.getImage().getHeight();
-		//Le prossime tre righe dovrebbero essere superflue
 		width = mainTexture.getImage().getWidth();
 		height = mainTexture.getImage().getHeight();
 		mainTexture.render(g, x, y);

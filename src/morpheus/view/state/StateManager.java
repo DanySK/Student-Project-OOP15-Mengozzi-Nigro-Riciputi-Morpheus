@@ -49,19 +49,12 @@ public class StateManager{
 	 */
 	public void addState(State state){
 		
-		//Inserisce nella mappa il nome della schermata creata
 		map.put(state.getName().toUpperCase(), state);
-		
-		//Inizializza la schermata (se necessario)
 		state.init();
 		
-		//Se non è impostata nessuna schermata corrente
 		if (currentState == null){
 			
-			//Si entra direttamente in quella
 			state.enter(this);
-			
-			//E si setta come corrente
 			currentState = state;
 		}
 	}
@@ -81,13 +74,8 @@ public class StateManager{
 			return;
 		}
 		
-		//Esce dalla schermata vecchia che risulta ancora la corrente
 		currentState.exit();
-		
-		//Entra nella schermata successiva
 		state.enter(this);
-		
-		//Setta come schermata corrente quella in cui si sta entrando
 		currentState = state;
 	}
 

@@ -109,8 +109,7 @@ public class Sprite {
            images[i] = b;
            i++;
        }
-       return images;
-         
+       return images; 
     }
     
     /**

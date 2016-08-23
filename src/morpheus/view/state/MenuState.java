@@ -41,7 +41,6 @@ public class MenuState implements State{
 		
 		options = new Button[4];
 		
-		//Imposto i bottoni
 		options[0] = new Button(175, "/play_bianco.png", "/play_nero.png");
 		options[1] = new Button(225, "/ranking_bianco.png", "/ranking_nero.png");
 		options[2] = new Button(275, "/settings_bianco.png", "/settings_nero.png");
@@ -74,10 +73,6 @@ public class MenuState implements State{
 				currentSelection = 0;
 			}
 		}
-		// Utilizzo mouse per navigazione menu, va per forza sotto la
-		// configurazione da tastiera per dare precedenza al mouse e non
-		// permettere ai tasti di funzionare quando il mouse sta sopra un
-		// opzione del menu
 		boolean clicked = false;
 		for (int i = 0; i < options.length; i++) {
 			
@@ -93,7 +88,7 @@ public class MenuState implements State{
 			
 			select(stateManager);
 		}
-		//Tick dell'animazione
+		
 		if (model.isMainPlayerOpen()){
 			
 			player1.run();
@@ -117,7 +112,6 @@ public class MenuState implements State{
 			player2.render(g, 500, 175);
 		}
 		
-		//Renderizzo il bottone selezionato
 		for (int i=0; i<options.length; i++) {
 			
 			if (i == currentSelection) {

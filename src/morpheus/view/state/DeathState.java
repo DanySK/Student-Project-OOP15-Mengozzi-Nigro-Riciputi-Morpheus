@@ -32,27 +32,21 @@ import morpheus.model.exceptions.NoElementsException;
  */
 public class DeathState implements State {
 
-    // Dichiaro i componenti relativi al frame principale
     private JFrame mainFrame = new JFrame();
     private JLabel labelScore;
 
-    // Dichiaro i componenti relativi al frame in caso di record
     private JFrame recordFrame = new JFrame();
     private JPanel panelRecord = new JPanel();
     private JTextField name = new JTextField();
     private JButton ok = new JButton("Ok");
 
-    // Dichiaro i componenti relativi alla JDialog in caso di eccezione nome già
-    // esistente
     JDialog dialog = new JDialog();
     JPanel panelDialog = new JPanel();
     JButton yes = new JButton("Yes");
     JButton no = new JButton("No");
 
-    // Creo un oggetto di tipo model
     private Model model = new ModelImpl();
     
-    //Creo le icone per le finestre
     private final URL url = DeathState.class.getResource("/morpheus.png");
     private final ImageIcon img = new ImageIcon(url);
 
@@ -68,7 +62,6 @@ public class DeathState implements State {
     @Override
     public void init() {
 
-        // Personalizzo il frame principale
         labelScore = new JLabel("SCORE: " + Integer.toString(GameState.score));
         labelScore.setHorizontalAlignment(JLabel.CENTER);
         labelScore.setFont(new Font("TimesNewRoman", Font.BOLD, 30));
@@ -81,7 +74,6 @@ public class DeathState implements State {
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setIconImage(img.getImage());
 
-        // Personalizzo il recordFrame
         recordFrame.getContentPane().add(panelRecord);
         panelRecord.add(new JLabel("Wow! You have scored a new RECORD!"));
         panelRecord.add(new JLabel("Champion, tell us what is your name"));
@@ -90,7 +82,6 @@ public class DeathState implements State {
         panelRecord.add(ok);
         recordFrame.setIconImage(img.getImage());
 
-        // Personalizzo la JDialog
         panelDialog.add(new JLabel("This name is used yet. Are you sure do you want continue?"));
         panelDialog.add(new JLabel("\"Yes\" will delete old result with the same name"));
         panelDialog.add(yes);
@@ -100,7 +91,6 @@ public class DeathState implements State {
         dialog.setLocationRelativeTo(null);
         dialog.setIconImage(img.getImage());
         
-        //Do le funzioni ai bottoni
         ok.addActionListener(new ActionListener() {
             
             @Override
@@ -142,11 +132,9 @@ public class DeathState implements State {
                         public void actionPerformed(ActionEvent e) {
 
                             dialog.setVisible(false);
-                            
                         }
                     });
 
-                    // Rendo visibile la JDialog
                     dialog.setVisible(true);
                 } catch (IllegalArgumentException e1) {
 
@@ -155,7 +143,6 @@ public class DeathState implements State {
             }
         });
 
-        // Personalizzo la finestra(il frame)
         mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         mainFrame.addWindowListener(new WindowListener() {
 
@@ -200,16 +187,11 @@ public class DeathState implements State {
     @Override
     public void enter(StateManager stateManager) {
 
-        // Imposto a false la variabile di uscita dallo state e di uscita dal
-        // recordFrame
         exit = false;
-        // Aggiorno lo score nel main principale
         labelScore.setText("SCORE: " + Integer.toString(GameState.score));
 
-        // Rendo visibile il frame principale
         mainFrame.setVisible(true);
 
-        // Se è il record appare la finestra che fa inserire il nome
         try {
 
             if (GameState.score > model.getRanking().getPosition(5).getScore()) {
@@ -233,7 +215,6 @@ public class DeathState implements State {
 
             stateManager.setState("MENU");
         }
-        // Interrompe la musica
         stateManager.getState("GAME").getMusic().setVolume(0);
     }
 
@@ -261,5 +242,4 @@ public class DeathState implements State {
 
         return null;
     }
-
 }

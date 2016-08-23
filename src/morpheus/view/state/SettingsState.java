@@ -45,7 +45,6 @@ public class SettingsState implements State {
 	private JComboBox<String> j;
 	private JComboBox<String> s;
 	private JSlider m = new JSlider(0, 100, 75);
-	//Da implementare con anche nessuna musica
 	private final String listj[] = new String[3];
 	private final Map<String, Integer> mapKey = new HashMap<>();
 	private final String lists[] = new String[3];
@@ -92,17 +91,14 @@ public class SettingsState implements State {
 	@Override
 	public void enter(StateManager stateManager) {
 		
-		//Imposto a false la variabile di uscita
 		exit = false;
 	
-		//Creo il panel personalizzato
 		BackgroundSettingsState background = new BackgroundSettingsState();
 		background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
 		frame  = new JFrame("Options");
 		frame.setIconImage(img.getImage());
 		frame.getContentPane().add(background);
 	
-		//PANNELLO 1
 		player.setFont(new Font("TimesRoman", Font.BOLD, 24));
 		p1.add(player);
 		p1.add(blonde);
@@ -133,25 +129,18 @@ public class SettingsState implements State {
 			}
 		});
 	
-		//PANNELLO 2
-	
 		jump.setFont(new Font("TimesRoman", Font.BOLD, 24));
 		p2.add(jump);
 		p2.add(j);
-	
-		//PANNELLO 3
 	
 		shoot.setFont(new Font("TimesRoman", Font.BOLD, 24));
 		p3.add(shoot);
 		p3.add(s);
 	
-		//PANNELLO 4
-	
 		sound.setFont(new Font("TimesRoman", Font.BOLD, 24));
 		p4.add(sound);
 		p4.add(m);
 	
-		//Aggiungo i pannelli al pannello principale
 		background.add(p1);
 		background.add(p2);
 		background.add(p3);
@@ -161,7 +150,6 @@ public class SettingsState implements State {
 		p3.setOpaque(false);
 		p4.setOpaque(false);
 		
-		//Personalizzo la finestra(il frame)
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowListener() {
 				
@@ -227,13 +215,10 @@ public class SettingsState implements State {
 	@Override
 	public void tick(StateManager stateManager) {
 		
-		//Varibile che conterrà il valore del volume preso dalla JSlider
 		double a = m.getValue();
 		a = a / 100;
-		//Il volume sarà a
 		model.setVolume(a);
 		
-		//Setta la configurazione dei tasti
 		model.setKeyJump(mapKey.get((String)j.getSelectedItem()));
 		model.setKeyShoot(mapKey.get((String)s.getSelectedItem()));
 		

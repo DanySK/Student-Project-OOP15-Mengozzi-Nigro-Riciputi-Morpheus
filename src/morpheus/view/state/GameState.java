@@ -96,36 +96,21 @@ public class GameState implements State {
 	private BufferedImage background;
 	private BufferedImage background2;
 	private Model model = new ModelImpl();
-	// Variabili per la gestione dello scrolling dei background che permettono
-	// allo sfondo effetivamente di muoversi
 	private int parallaxMove1 = 0;
 	private int parallaxMove2 = 795;
 	private int parallaxCloud1 = 0;
 	private int parallaxCloud2 = 795;
-	// Servono per mantenere aggiornate le coordinate delle collisioni rispetto
-	// alla posizione delle Tile all'interno dell'algoritmo procedurale
 	private int Offset1 = 0;
 	private int Offset2 = 0;
-	// Serve per la verifica della condizione che scandisce la successione di
-	// ogni BitMap successiva all'altra
 	private int check = 1;
-	// Indicano i punti esatti in cui le BitMap vengono renderizzate
 	private int point = 0;
 	private int point1 = 1200;
 	private int point2 = 2400;
 	private int point3 = 3600;
-	// Il movimento dei background e' legato a queste due variabili che
-	// scandiscono il tempo di rendering e partono dalla posizione iniziale del
-	// giocatore
 	private long speedX1 = 100;
 	private long speedX2 = 100;
-	// Si crea una BitMap per costruire la mappa di gioco
 	private BitMap bitMap;
-	// Ho utilizzato 4 Array di RandomTile e non uno solo per cercare di rendere
-	// il
-	// più randomico possibile il sistema e per fare si che sia possibile una
-	// proceduralità delle BitMap stesse(sistema randomico non ancora
-	// implementato)
+	
 	private ArrayList<RandomTile> randomTiles;
 	private ArrayList<RandomTile> randomTiles1;
 	private ArrayList<RandomTile> randomTiles2;
@@ -141,11 +126,8 @@ public class GameState implements State {
 	private AudioPlayer BGMusic;
 	private CameraOperator operator;
 
-	//Variabile che conterrà i punti secondo la difficoltà scelta
 	private int points = 0;
-	//Variabile globale che indicherà lo score
 	public static int score = 0;
-	//Variabile globale che indicherà il bonus
 	public static int bonus = 0;
 	private GraphicNumbers num = new GraphicNumbers();
 	private GraphicLifes life = new GraphicLifes();
@@ -154,7 +136,6 @@ public class GameState implements State {
 	@Override
 	public void init() {
 
-		// Carico la canzone
 		BGMusic = new AudioPlayer("res/BGMusic.wav");
 	}
 
@@ -176,7 +157,6 @@ public class GameState implements State {
 
 		allRandomTiles = new ArrayList<>();
 		bitMap = new BitMap(this);
-		// Inizializzo le BitMap
 		bitMap.init();
 
 		try {
@@ -191,7 +171,7 @@ public class GameState implements State {
 		this.camera = new Camera(0, 0);
 		this.entities = new ArrayList<>();
 		appEntities = new ArrayList<>();
-		// Carico il personaggio
+		
 		if (model.isMainPlayerOpen()) {
 
 			if (model.getMainPlayer() == null) {
@@ -212,23 +192,19 @@ public class GameState implements State {
 			}
 		}
 		coll = new Collision(this, player);
-		// Utilizzo il metodo build() delle BitMap per convertire i valori delle
-		// BitMap in Tile da renderizzare nella scena e le aggiungo alla lista
-		// di Tile da renderizzare nel metodo render()
+		
 		randomTiles.addAll(bitMap.build(point));
 		randomTiles1.addAll(bitMap.build1(point1));
 		randomTiles2.addAll(bitMap.build2(point2));
 		randomTiles3.addAll(bitMap.build3(point3));
-		// Successivamente aggiungo ongi lista di RandomTile ad una singola
-		// grande lista per poterle poi prelevare tutte insieme e calcolarne le
-		// collisioni nella classe Collision
+		
 		allRandomTiles.addAll(randomTiles);
 		allRandomTiles.addAll(randomTiles1);
 		allRandomTiles.addAll(randomTiles2);
 		allRandomTiles.addAll(randomTiles3);
 
 		operator = new CameraOperator(0, 0, this, player);
-		// Imposto il volume
+		
 		BGMusic.setVolume(model.getVolume());
 		BGMusic.playAndLoop();
 	}
@@ -236,19 +212,14 @@ public class GameState implements State {
 	@Override
 	public void render(Graphics2D g) {
 
-		// Lo sfondo è staccato sia dal movimento del giocatore sia dal
-		// movimento di camera
 		this.renderBG(g);
-
 		g.translate(camera.getX(), camera.getY());
-		// Renderizzo le RandomTile
 		this.renderWorld(g);
-		// Entità
 		for (AbstractDrawable e : entities) {
 			e.render(g);
 		}
 		g.translate(-camera.getX(), -camera.getY());
-		// Renderizzo le vite
+		
 		if (model.isMainPlayerOpen()) {
 
 			life.render(g, model.getMainPlayer().getItem().getHP());
@@ -256,8 +227,7 @@ public class GameState implements State {
 
 			life.render(g, model.getSidePlayer().getItem().getHP());
 		}
-
-		// Renderizzo i proiettili
+		
 		if (model.isMainPlayerOpen()) {
 
 			bullet.render(g, model.getMainPlayer().getItem().getBullet());
@@ -265,7 +235,6 @@ public class GameState implements State {
 			bullet.render(g, model.getSidePlayer().getItem().getBullet());
 		}
 
-		// Renderizzo il punteggio
 		num.render(g);
 	}
 
@@ -318,8 +287,6 @@ public class GameState implements State {
 			if (e.isRemove()) {
 				iter.remove();
 			}
-
-			
 		}
 
 		camera.tick(operator);
@@ -343,9 +310,6 @@ public class GameState implements State {
 			}
 		}
 
-		// Incremento in base al tempo visto che 
-		// la telecamera si muove dipendentemente dal player
-
 		points++;
 		if (model.isMainPlayerOpen()) {
 
@@ -356,9 +320,6 @@ public class GameState implements State {
 		}
 	}
 
-
-	// Creo dei getter sia per le singole liste di RadomTile sia per la lista
-	// che le contiene tutte
 	public ArrayList<RandomTile> getRandomTiles() {
 
 		return randomTiles;
@@ -391,6 +352,7 @@ public class GameState implements State {
 	public ArrayList<AbstractDrawable> getEntities() {
 		return entities;
 	}
+	
 	/**
 	 * Render all the parallax levels of the background
 	 * @param g
@@ -398,11 +360,6 @@ public class GameState implements State {
 	 */
 	public void renderBG(Graphics2D g) {
 
-		// BACKGROUND 1
-		// Questi due if statement fanno in modo che le variabili che settano lo
-		// spostamento, e quindi anche la posizione iniziale di rendering, di
-		// ciascuna immagine di background si azzeri ogni volta che due
-		// background si sono susseguiti
 		if ((speedX1 - FIRSTEDGE) % (background.getWidth() * 2) == 0) {
 
 			parallaxMove1 = 0;
@@ -411,16 +368,13 @@ public class GameState implements State {
 
 			parallaxMove2 = 0;
 		}
-		// Renderizza il primo background
 		g.drawImage(background, LINK - parallaxMove2, 0, null);
-		// Solo una volta che il primo background e' terminato si renderizza il
-		// secondo
+		
 		if (speedX1 > FIRSTEDGE) {
 
 			g.drawImage(background, LINK - parallaxMove1, 0, null);
 		}
 
-		// BACKGROUND 2
 		if ((speedX2 - FIRSTEDGE) % (background2.getWidth() * 2) == 0) {
 
 			parallaxCloud1 = 0;
@@ -429,7 +383,6 @@ public class GameState implements State {
 
 			parallaxCloud2 = 0;
 		}
-
 		g.drawImage(background2, LINK - parallaxCloud2, 0, null);
 
 		if (speedX2 > FIRSTEDGE) {
@@ -444,17 +397,10 @@ public class GameState implements State {
 	 */
 	public void renderWorld(Graphics2D g) {
 
-		// Condizioe
 		if (player.getTileSynch() != MOVEINCR * check) {
 
-			// Questa if decide che le bitmap vengono renderizzate ad una
-			// distanza di 4000 l'una dall'altra, l'offset qui serve per fare in
-			// modo che vengano renderizzate prima e non si veda nella scena la
-			// loro effetiva comparsa
 			if ((player.getTileSynch() - (DISTANCE1 + Offset1)) % DISTANCE1 == 0) {
 
-				// Incremento le variabili per "spostare" le BitMap ogni 4000 +
-				// offset punti
 				point += MOVEINCR;
 				point1 += MOVEINCR;
 				point2 += MOVEINCR;
@@ -485,18 +431,13 @@ public class GameState implements State {
 				allRandomTiles.addAll(randomTiles2);
 			}
 		}
-		// Faccio la stessa cosa con la terza BitMap che rimane separata dalle
-		// altre perch� se le spostassi tutte insieme sparirebbe il terreno
-		// sotto il giocatore non permettendogli di avanzare
+		
 		if ((player.getTileSynch() - (DISTANCE2 - Offset2)) % DISTANCE2 == 0) {
 
 			point3 += MOVEINCR;
-			// Incremento la variabile del check qui perch� il valore del
-			// controllo in questione viene poco dopo i valori in cui verranno
-			// renderizzate le prime tre BitMap e se lo incrementassi prima il
-			// valore non sarebbe aggioranto per il check successivo sballando
-			// il tutto
+			
 			check++;
+			
 			Offset2 += OFFSETINCR;
 
 			allRandomTiles.removeAll(randomTiles3);
@@ -511,8 +452,7 @@ public class GameState implements State {
 
 			allRandomTiles.addAll(randomTiles3);
 		}
-		// Rendereizzo effettivamente tutte le RandomTile realativamente alla
-		// posizione precedentemente calcolata
+		
 		for (RandomTile t : randomTiles) {
 
 			t.render(g, point);

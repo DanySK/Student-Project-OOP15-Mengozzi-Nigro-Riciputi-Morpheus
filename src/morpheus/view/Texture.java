@@ -2,16 +2,11 @@ package morpheus.view;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
-import morpheus.Morpheus;
 
 /**
  * 
@@ -22,7 +17,6 @@ import morpheus.Morpheus;
  * 
  */
 public class Texture {
-
 
 	/**
 	 * 
@@ -60,7 +54,6 @@ public class Texture {
             
             texMap.put(fileName, manager);
         }
-
     }
 
 	/**
@@ -98,7 +91,6 @@ public class Texture {
 
         return manager.getWidth();
     }
-
 
 	/**
 	 * 

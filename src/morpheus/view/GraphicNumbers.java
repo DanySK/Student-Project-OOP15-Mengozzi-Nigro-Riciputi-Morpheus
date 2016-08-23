@@ -56,16 +56,12 @@ public class GraphicNumbers {
 	 * */
 	public void render(Graphics2D g){
 		
-		//Variabile che conterrà lo score da modificare
 		int p = GameState.score;
 		
-		//Variabile che mi tiene la prima cifra del numero
 		int f = 0;
 		
-		//Renderizzo l'immagine relativa alla parola "score:"
 		score.render(g, 25, 49);
 		
-		//Se il numero è pari o superiore al massimo renderizzo il massimo
 		if (p >= MAX){
 			
 			map.get(1).render(g, 138, 50);
@@ -91,7 +87,7 @@ public class GraphicNumbers {
 					map.get(i).render(g, 138, 50);
 				}
 			}	
-			//Aggiro il problema numerico dello zero
+			
 			if(Integer.parseInt(Integer.toString(p).substring(1, 2))==0){
 				
 				map.get(0).render(g, 160, 50);
@@ -126,7 +122,7 @@ public class GraphicNumbers {
 					map.get(i).render(g, 160, 50);
 				}
 			}	
-			//Aggiro il problema numerico dello zero
+			
 			if(Integer.parseInt(Integer.toString(p).substring(1, 2))==0){
 				
 				map.get(0).render(g, 182, 50);
@@ -157,7 +153,7 @@ public class GraphicNumbers {
 					map.get(i).render(g, 182, 50);
 				}
 			}
-			//Aggiro il problema numerico dello zero
+			
 			if(Integer.parseInt(Integer.toString(p).substring(1, 2))==0){
 				
 				map.get(0).render(g, 204, 50);
@@ -184,7 +180,7 @@ public class GraphicNumbers {
 					map.get(i).render(g, 204, 50);
 				}
 			}
-			//Aggiro il problema numerico dello zero
+			
 			if(Integer.parseInt(Integer.toString(p).substring(1, 2))==0){
 				
 				map.get(0).render(g, 226, 50);
@@ -195,7 +191,6 @@ public class GraphicNumbers {
 			}
 			f = f * 100;
 			p = p % f;
-			
 		}
 		
 		if(p < 100 && p >= 10){
@@ -208,7 +203,7 @@ public class GraphicNumbers {
 					map.get(i).render(g, 226, 50);
 				}
 			}	
-			//Aggiro il problema numerico dello zero
+			
 			if(Integer.parseInt(Integer.toString(p).substring(1, 2))==0){
 				
 				map.get(0).render(g, 248, 50);
