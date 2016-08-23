@@ -132,7 +132,7 @@ public class GameState implements State {
 	@Override
 	public void init() {
 
-		BGMusic = new AudioPlayer("res/BGMusic.wav");
+		BGMusic = new AudioPlayer("/BGMusic.wav");
 	}
 
 	@Override

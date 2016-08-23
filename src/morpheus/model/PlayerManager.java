@@ -54,7 +54,7 @@ public class PlayerManager {
         counterJump = 0;
         timeFall = NFALL;
         counterFall = 0;
-        jumpFX = new AudioPlayer("res/JumpFX.wav");
+        jumpFX = new AudioPlayer("/JumpFX.wav");
     }
 
     /**

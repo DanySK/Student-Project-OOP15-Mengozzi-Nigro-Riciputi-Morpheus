@@ -1,6 +1,7 @@
 package morpheus.controller;
 
 import java.io.File;
+import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -23,7 +24,8 @@ public class AudioPlayer {
 	 */
 	public AudioPlayer(String fileName) {
 		try {
-			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(fileName));
+			final URL url = AudioPlayer.class.getResource(fileName);
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(url.getPath()));
 			clip = AudioSystem.getClip();
 			clip.open(ais);
 		} catch (Exception e) {

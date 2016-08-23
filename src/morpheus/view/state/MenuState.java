@@ -45,7 +45,7 @@ public class MenuState implements State{
 		options[1] = new Button(225, "/ranking_bianco.png", "/ranking_nero.png");
 		options[2] = new Button(275, "/settings_bianco.png", "/settings_nero.png");
 		options[3] = new Button(325, "/exit_bianco.png", "/exit_nero.png");
-		menuMusic = new AudioPlayer("res/MenuMusic.wav");
+		menuMusic = new AudioPlayer("/MenuMusic.wav");
 	}
 
 	@Override
