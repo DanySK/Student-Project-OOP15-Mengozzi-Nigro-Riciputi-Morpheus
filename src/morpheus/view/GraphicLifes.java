@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
  * */
 public class GraphicLifes {
 
-	private Texture life = new Texture("res/cuorep.png");
+	private Texture life = new Texture("/cuorep.png");
 	
 	/**
 	 * 

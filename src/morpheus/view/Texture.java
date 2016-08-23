@@ -54,7 +54,7 @@ public class Texture {
 
             System.out.println("loading textures: " + fileName);
             // Carico le Texture ex novo dalle risorse
-            final URL url = Morpheus.class.getResource(fileName);
+            final URL url = Texture.class.getResource(fileName);
             final ImageIcon img = new ImageIcon(url);
             manager = new TextureManager(img.getImage());
             

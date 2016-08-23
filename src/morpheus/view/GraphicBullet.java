@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
  * */
 public class GraphicBullet {
 
-	private Texture bullet = new Texture("res/bulletp.png");
+	private Texture bullet = new Texture("/bulletp.png");
 	
 	/**
 	 * 

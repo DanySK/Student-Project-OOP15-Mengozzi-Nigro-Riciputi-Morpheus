@@ -29,8 +29,8 @@ public class GraphicNumbers {
 	 * 
 	 */
 	private Map<Integer, Sprite> map = new HashMap<Integer, Sprite>();
-	private SpriteSheet s = new SpriteSheet(new Texture("res/nerip.png"), 25);
-	private Texture score = new Texture("res/score3.png");
+	private SpriteSheet s = new SpriteSheet(new Texture("/nerip.png"), 25);
+	private Texture score = new Texture("/score3.png");
 	
 	/**
 	 * 

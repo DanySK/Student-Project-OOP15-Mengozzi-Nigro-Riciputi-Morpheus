@@ -34,7 +34,7 @@ public class RandomTile {
 
 		switch (idSprite) {
 		case 1:
-			this.sprite = new Sprite(new SpriteSheet(new Texture("res/Terreno.png"), 64), 1, 1);
+			this.sprite = new Sprite(new SpriteSheet(new Texture("/Terreno.png"), 64), 1, 1);
 			break;
 		case 2:
 			break;

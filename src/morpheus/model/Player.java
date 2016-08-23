@@ -174,7 +174,7 @@ public class Player extends AbstractDrawable {
         } else {
             getItem().decBullet();
             bullets.add(new Bullet(getX(), getY(), getState(),
-                    new Sprite(new SpriteSheet(new Texture("res/bullet.png"), BULLET_SIZE), 2, 1, 2).getFramesAsList()));
+                    new Sprite(new SpriteSheet(new Texture("/bullet.png"), BULLET_SIZE), 2, 1, 2).getFramesAsList()));
         }
     }
 

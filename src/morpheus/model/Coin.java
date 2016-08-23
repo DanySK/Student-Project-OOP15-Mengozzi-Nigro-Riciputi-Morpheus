@@ -53,7 +53,7 @@ public class Coin extends AbstractDrawable {
      */
     public Coin(final double x, final double y, final GameState state) {
         super(x, y, state,
-                new Image(new Texture("res/NormalCoin.png").getImage(), NORMALCOINDIMENSION, NORMALCOINDIMENSION));
+                new Image(new Texture("/NormalCoin.png").getImage(), NORMALCOINDIMENSION, NORMALCOINDIMENSION));
         this.type = TypeCoin.NORMAL;
         anime = null;
     }
