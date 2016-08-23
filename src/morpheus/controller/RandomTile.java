@@ -52,14 +52,6 @@ public class RandomTile {
 	public void render(Graphics2D g, int offset) {
 		sprite.render(g, x + offset, y);
 		setOffset(offset);
-		g.setColor(Color.BLACK);
-		g.draw(getTop());
-		g.setColor(Color.BLUE);
-                g.draw(getLeft());
-                g.setColor(Color.red);
-                g.draw(getRight());
-                g.setColor(Color.green);
-                g.draw(getBottom());
 	}
 
 	/**
