@@ -55,6 +55,11 @@ public class Sprite {
         
     }
     
+    /**
+     * Costructor of the sprite
+     *          
+     * @author Luca Mengozzi
+     */
 	public Sprite(SpriteSheet spriteSheet, int x, int y) {
 		
 		this.image = spriteSheet.getTexture().getImage().getSubimage(
@@ -63,22 +68,42 @@ public class Sprite {
 				spriteSheet.getHeight());
 	}
 	
+	/**
+     * Costructor that take the path
+     *          
+     * @author Luca Mengozzi
+     */
 	public Sprite(String textName) {
 		
 		Texture tex = new Texture(textName);
 		image = tex.getImage();
 	}
 
+	/**
+     * Classic render method
+     *          
+     * @author Luca Mengozzi
+     */
 	public void render(Graphics2D g, double x, double y) {
 		
 		g.drawImage(image, (int) x, (int) y, null);
 	}
 	
+	/**
+     * Return the width
+     *          
+     * @author Luca Mengozzi
+     */
 	public int getWidth() {
 		
 		return image.getWidth();
 	}
 	
+	/**
+     * Return the height
+     *          
+     * @author Luca Mengozzi
+     */
 	public int getHeight(){
 		
 		return image.getHeight();

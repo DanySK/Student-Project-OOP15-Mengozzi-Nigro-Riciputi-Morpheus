@@ -61,7 +61,7 @@ public class StateManager{
 
 	/**
 	 * 
-	 * Setta come currentState una precisa schermata
+	 * Set like current state a selected viewport
 	 * 
 	 * @author Luca Mengozzi
 	 */

@@ -61,6 +61,13 @@ public class TextureManager {
         return image.getHeight();
     }
 
+    /**
+     * 
+     * Create a buffered image with transparency, draw the image on to the buffered image
+     * and return the buffered image
+     *          
+     * @author Luca Mengozzi
+     */
     private BufferedImage toBufferedImage(Image img) {
         if (img instanceof BufferedImage) {
             return (BufferedImage) img;

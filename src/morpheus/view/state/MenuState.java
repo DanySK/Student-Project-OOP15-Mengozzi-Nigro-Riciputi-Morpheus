@@ -137,6 +137,13 @@ public class MenuState implements State{
 		return "Menu";
 	}
 	
+	/**
+	 * 		
+	 * Select the state from the state manager
+	 * 
+	 * @author Luca Mengozzi
+	 * 		 
+	 */
 	private void select(StateManager stateManager) {
 		
 		switch (currentSelection) {
