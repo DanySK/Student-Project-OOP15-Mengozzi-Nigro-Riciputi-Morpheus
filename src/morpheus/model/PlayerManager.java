@@ -37,7 +37,7 @@ public class PlayerManager {
     private boolean inFall;
     private boolean verticalCollision;
     private boolean doubleJump;
-    private AudioPlayer jumpFX;
+    private final AudioPlayer jumpFX;
 
     /**
      * This class handles the fall and the player's jump.
@@ -75,15 +75,17 @@ public class PlayerManager {
     /**
      * Player initial jump.
      * 
+     * @param o
+     *            option file
      * @return jump value
      */
-    public double jump() {
+    public double jump(final Option o) {
         if (canJump) {
             setInJump(true);
             canJump = false;
             counterJump = 1;
             inFall = false;
-            jumpFX.setVolume(0.5);
+            jumpFX.setVolume(o.getVolume());
             jumpFX.play();
             return JUMPVALUE;
         }
