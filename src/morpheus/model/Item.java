@@ -7,7 +7,7 @@ package morpheus.model;
  */
 public class Item {
 
-    private static final int BULLETS = 5;
+    private static final int BULLETS = 3;
     private static final int MAXHP = 3;
     private static final int INCBULLET = 6;
     
