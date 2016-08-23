@@ -42,6 +42,12 @@ public class Spikes extends AbstractDrawable {
         p.hit();
     }
 
+    /**
+     * Returns the bottom area collision of the player.
+     * @return
+     *          the bottom area collision of the player.
+     *          
+     */
     public Area getTopArea() {
         return new Area(new Rectangle((int) this.getX(), (int) this.getY() + OFFSET - 4, this.getWidth(), 4));
     }

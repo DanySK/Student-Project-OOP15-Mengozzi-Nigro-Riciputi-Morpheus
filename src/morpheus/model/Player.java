@@ -87,9 +87,9 @@ public class Player extends AbstractDrawable {
         if (KeyInput.isPressed(s.getKeyJump())) {
             if (manager.isInFall() && manager.isDoubleJump()) {
                 manager.setForDoubleJump();
-                super.decY(manager.jump());
+                super.decY(manager.jump(s));
             } else {
-                super.decY(manager.jump());
+                super.decY(manager.jump(s));
             }
         }
         if (KeyInput.isPressed(s.getKeyShoot())) {
@@ -338,7 +338,7 @@ public class Player extends AbstractDrawable {
      *          the bottom of the player
      */
     public Area getBottomArea() {
-        return new Area(new Rectangle((int) getX() + OFFSET_COLLISION, (int) getY() + getHeight() - 3, getWidth() - OFFSET , 3));
+        return new Area(new Rectangle((int) getX() + OFFSET_COLLISION, (int) getY() + getHeight() - 3, getWidth() - OFFSET, 3));
     }
 
     private void checkBullets() {
