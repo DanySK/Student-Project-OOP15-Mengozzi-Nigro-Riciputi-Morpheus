@@ -15,7 +15,7 @@ public class TextureManager {
 
     /**
      * 
-     * Costruttore che prende in input l'immagine
+     * Constructor that takes an image as input
      * 
      * @author Luca Mengozzi
      * 
@@ -27,7 +27,7 @@ public class TextureManager {
 
     /**
      * 
-     * Ritorna l'immagine
+     * Returns the image
      * 
      * @author Luca Mengozzi
      * 
@@ -39,7 +39,7 @@ public class TextureManager {
 
     /**
      * 
-     * Ritorna la larghezza
+     * Returns the width
      * 
      * @author Luca Mengozzi
      * 
@@ -51,7 +51,7 @@ public class TextureManager {
 
     /**
      * 
-     * Ritorna l'altezza
+     * Returns the height
      * 
      * @author Luca Mengozzi
      * 

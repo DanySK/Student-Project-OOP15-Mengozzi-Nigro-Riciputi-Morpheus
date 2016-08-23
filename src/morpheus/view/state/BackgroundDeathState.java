@@ -19,7 +19,7 @@ public class BackgroundDeathState extends JPanel{
 	
 	/**
 	 * 
-	 * L'oggetto inizializza l'immagine e controlla che venga effettivamente caricata
+	 * Inizialize the image and check it
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
@@ -32,7 +32,7 @@ public class BackgroundDeathState extends JPanel{
 		
 	/**
 	 * 
-	 * Controlla che l'immagine venga caricata
+	 * Check the image
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 
@@ -52,7 +52,7 @@ public class BackgroundDeathState extends JPanel{
 		
 	/**
 	 * 		
-	 * Disegna sul pannello
+	 * Paint the panel
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 

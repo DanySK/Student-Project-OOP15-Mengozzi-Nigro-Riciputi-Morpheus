@@ -16,7 +16,7 @@ public class Button extends Rectangle {
 	private static final long serialVersionUID = -4663253695375762967L;
 	/**
 	 * 
-	 * Verifica la selezione del bottone, se è true è selezionato
+	 * Check the selection of the button, if is true is selected
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
@@ -27,7 +27,7 @@ public class Button extends Rectangle {
 
 	/**
 	 * 
-	 * Costruttore che inizializza il bottone
+	 * Costructor that inizialize the button
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
@@ -41,7 +41,7 @@ public class Button extends Rectangle {
 
 	/**
 	 * 
-	 * Setta il bottone a selezionato
+	 * Set the button and select it
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
@@ -53,7 +53,7 @@ public class Button extends Rectangle {
 
 	/**
 	 * 
-	 * Classico metodo render
+	 * Classic render method
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 

@@ -28,6 +28,8 @@ public class Sprite {
      *          Number of columns in the matrix
      * @param x
      *          Number of image in the sheet
+     *          
+     * @author Luca Mengozzi
      */
     public Sprite(final SpriteSheet sheet, final int columns, final int lines, final int x) {
         frames = new ArrayList<>();
@@ -88,6 +90,8 @@ public class Sprite {
      * Return the list with all the image on the input sheet .
      * @return
      *          a list of BufferedImage
+     *          
+     * @author Luca Mengozzi
      */
     public List<Image> getFrames() {
         return new ArrayList<>(frames);
@@ -97,6 +101,8 @@ public class Sprite {
      * Return an array of BufferedImage with all the frames for the animation.
      * @return
      *          an array of frames for the animation
+     *          
+     * @author Luca Mengozzi
      */
     public Image[] getFramesAsList() {
        Image[] images = new Image[frames.size()];
@@ -113,6 +119,8 @@ public class Sprite {
      * Returns the main Frame.
      * @return
      * 		the main Frame
+     * 
+     * @author Luca Mengozzi
      */
     public Image getMainFrame() {
     	return frames.get(0);

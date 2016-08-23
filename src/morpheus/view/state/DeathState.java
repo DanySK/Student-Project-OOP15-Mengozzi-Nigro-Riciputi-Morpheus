@@ -57,11 +57,12 @@ public class DeathState implements State {
     private final ImageIcon img = new ImageIcon(url);
 
     /**
-     * Quando è true si esce dallo state
-     * 
-     * @author Luca Mengozzi
-     * 
-     */
+     *
+	 * If is true, it exit from the state		
+	 * 
+	 * @author Luca Mengozzi
+	 * 		 
+	 */
     private boolean exit;
 
     @Override

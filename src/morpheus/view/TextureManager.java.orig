@@ -1,0 +1,61 @@
+package morpheus.view;
+
+import java.awt.image.BufferedImage;
+
+/**
+ * 
+ * @author Luca Mengozzi		 
+ * 
+ */
+public class TextureManager {
+	
+	private BufferedImage image;
+	
+	/**
+	 * 
+	 * Constructor that takes an image as input
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 */
+	public TextureManager(BufferedImage image) {
+		
+		this.image = image;
+	}
+	
+	/**
+	 * 
+	 * Return the image
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 */
+	public BufferedImage getImage() {
+		
+		return image;
+	}
+	
+	/**
+	 * 
+	 * Return the width
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 */
+	public int getWidth() {
+		
+		return image.getWidth();
+	}
+	
+	/**
+	 * 
+	 * Return the height
+	 * 
+	 * @author Luca Mengozzi		 
+	 * 
+	 */
+	public int getHeight() {
+		
+		return image.getHeight();
+	}
+}

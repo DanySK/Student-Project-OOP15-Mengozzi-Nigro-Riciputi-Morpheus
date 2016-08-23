@@ -6,8 +6,8 @@ import java.util.Map;
 
 /**
  * 		
- * Classe per la gestione delle schermate per quanto riguarda l'aggiunta e lo switch delle stesse 
- * inoltre permette di avere un solo metodo rispettivamente per tick e render nella main class
+ * Class for the management of the viewport, about the adding and the switching of them.
+ * It also allows you to have only one method respectively tick and render the main class
  * 
  * @author Luca Mengozzi
  * 		 
@@ -16,7 +16,7 @@ public class StateManager{
 	
 	/**
 	 * 
-	 * Mappa utlizzata per mantenere in memoria le schermate
+	 * Map used for keep the viewport in memory
 	 * 
 	 * @author Luca Mengozzi
 	 */
@@ -24,7 +24,7 @@ public class StateManager{
 	
 	/**
 	 * 
-	 * Variabile utlizzata per identificare la schermata corrente
+	 * Variabil used for identify the corrent viewport
 	 * 
 	 * @author Luca Mengozzi
 	 */
@@ -32,7 +32,7 @@ public class StateManager{
 
 	/**
 	 * 
-	 * Costruttore con cui viene inizializzata la mappa
+	 * Costructor that can initialize the map
 	 * 
 	 * @author Luca Mengozzi
 	 */
@@ -43,7 +43,7 @@ public class StateManager{
 
 	/**
 	 * 
-	 * Aggiunge una schermata e la rende disponibile
+	 * Add a viewport e it makes available
 	 * 
 	 * @author Luca Mengozzi
 	 */
@@ -93,7 +93,7 @@ public class StateManager{
 
 	/**
 	 * 
-	 * Setta come currentState una precisa schermata
+	 * Set like currentState a selected viewport
 	 * 
 	 * @author Luca Mengozzi
 	 */
@@ -104,7 +104,7 @@ public class StateManager{
 	
 	/**
 	 * 
-	 * Classico metodo tick
+	 * Classic tick method
 	 * 
 	 * @author Luca Mengozzi
 	 */
@@ -115,7 +115,7 @@ public class StateManager{
 
 	/**
 	 * 
-	 * Classico metodo render
+	 * Classic render method
 	 * 
 	 * @author Luca Mengozzi
 	 */

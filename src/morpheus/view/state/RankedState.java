@@ -42,11 +42,13 @@ public class RankedState implements State {
 	private final JLabel res4 = new JLabel();
 	private final JLabel res5 = new JLabel();
 	/**
-	 * Quando è true si esce dallo state		
+	 * 
+	 * If is true, it exit from the state		
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 
-	 */
+	 */		
+	 
 	private boolean exit;
 	private List<Element> elements = new ArrayList<>();
 	private Model model = new ModelImpl();

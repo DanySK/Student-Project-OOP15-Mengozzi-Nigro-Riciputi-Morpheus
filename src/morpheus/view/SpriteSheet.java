@@ -12,7 +12,7 @@ public class SpriteSheet {
 
 	/**
 	 * 
-	 * Costruttore nel caso le sprite siano quadrata
+	 * Costructor if it is a square sprite
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
@@ -24,8 +24,7 @@ public class SpriteSheet {
 
 	/**
 	 * 
-	 * Costruttore nel caso le sprite non siano quadrate ma abbiano altezze
-	 * e larghezze diverse
+	 * Costructor if it is not a square sprite
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
@@ -39,7 +38,7 @@ public class SpriteSheet {
 
 	/**
 	 * 
-	 * Ritorna la texture contenente la spritesheet
+	 * Return the texture contains the spritesheet
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
@@ -51,7 +50,7 @@ public class SpriteSheet {
 
 	/**
 	 * 
-	 * Ritorna la larghezza di ogni singola sprite all'interno della spritesheet
+	 * Return the width of each sprite in the spritesheet
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
@@ -63,7 +62,7 @@ public class SpriteSheet {
 
 	/**
 	 * 
-	 * Ritorna l'altezza di ogni singola sprite all'interno della spritesheet
+	 * Return the height of each sprite in the spritesheet
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 

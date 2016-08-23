@@ -15,7 +15,7 @@ public class GraphicNumbers {
 	
 	/**
 	 *  
-	 * Score massimo raggiungibile
+	 * Maximum score 
 	 *  
 	 * @author Luca Mengozzi		 
 	 * 
@@ -23,7 +23,7 @@ public class GraphicNumbers {
 	private final int MAX = 1000000;
 	/**
 	 * 
-	 * Mappa che conterrà le sprite relative ai numeri da renderizzare 
+	 * Map that will contain the sprite relative to the numbers to be rendered
 	 *  
 	 * @author Luca Mengozzi		 
 	 * 
@@ -34,7 +34,7 @@ public class GraphicNumbers {
 	
 	/**
 	 * 
-	 * Costruttore con il quale si divide la spritesheet in piu sprite
+	 * Costructor which divides the spritesheet in more sprite
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
@@ -49,7 +49,7 @@ public class GraphicNumbers {
 	
 	/**
 	 * 
-	 * Classico metodo render
+	 * Classic render method
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 

@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
 import morpheus.Morpheus;
 
 /**
@@ -18,11 +16,10 @@ import morpheus.Morpheus;
  * This class includes the management of textures and sprites 
  * allow the memory load by loading only once a texture required multiple times
  * 
- * @author Luca Mengozzi
+ * @author Luca Mengozzi		 
  * 
  */
 public class Texture {
-
 
 	/**
 	 * 
@@ -40,28 +37,32 @@ public class Texture {
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
-	 */   
-    public Texture(String fileName) {
+	 */
+	public Texture(String fileName) {
 
-        // Cerco la texture nella mappa
-        TextureManager oldTexture = texMap.get(fileName);
-        // Se è già presente
-        if (oldTexture != null) {
+		//Cerco la texture nella mappa
+		TextureManager oldTexture = texMap.get(fileName);
+		//Se è già presente
+		if (oldTexture != null) {
 
-            manager = oldTexture;
-            // Se non è presente la aggiungo alla mappa
-        } else {
+			manager = oldTexture;
+			//Se non è presente la aggiungo alla mappa
+		} else {
 
-            System.out.println("loading textures: " + fileName);
-            // Carico le Texture ex novo dalle risorse
-            final URL url = Morpheus.class.getResource(fileName);
-            final ImageIcon img = new ImageIcon(url);
-            manager = new TextureManager(img.getImage());
-            
-            texMap.put(fileName, manager);
-        }
+			try {
 
-    }
+				System.out.println("loading textures: " + fileName);
+				//Carico le Texture ex novo dalle risorse
+				final URL url = Morpheus.class.getResource(fileName);
+				manager = new TextureManager(ImageIO.read(new File(url.toString())));
+				texMap.put(fileName, manager);
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		}
+
+	}
 
 	/**
 	 * 
@@ -72,8 +73,8 @@ public class Texture {
 	 */
 	public void render(Graphics2D g, double x, double y) {
 
-        g.drawImage(manager.getImage(), (int) x, (int) y, null);
-    }
+		g.drawImage(manager.getImage(), (int) x, (int) y, null);
+	}
 
 	/**
 	 * 
@@ -84,8 +85,8 @@ public class Texture {
 	 */
 	public BufferedImage getImage() {
 
-        return manager.getImage();
-    }
+		return manager.getImage();
+	}
 
 	/**
 	 * 
@@ -96,9 +97,8 @@ public class Texture {
 	 */
 	public int getWidth() {
 
-        return manager.getWidth();
-    }
-
+		return manager.getWidth();
+	}
 
 	/**
 	 * 
@@ -111,4 +111,5 @@ public class Texture {
 
 		return manager.getHeight();
 	}
+
 }

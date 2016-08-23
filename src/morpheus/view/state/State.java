@@ -6,7 +6,7 @@ import morpheus.controller.AudioPlayer;
 
 /**
  * 		
- * Interfaccia generale di tutte le schermate con i metodi necessari per il funzionamento di base
+ * General interface of all screens with the methods necessary for the basic functioning
  * 
  * @author Luca Mengozzi
  * 		 
@@ -15,7 +15,7 @@ public interface State {
 
 	/**
 	 * 		
-	 * Metodo eseguito una sola volta durante l'inizializzazione
+	 * Method performed only once during initialization
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 
@@ -24,7 +24,7 @@ public interface State {
 
 	/**
 	 * 		
-	 * Metodo eseguito ogni volta che lo state viene selezionato
+	 * Method performed whenever the state is selected
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 
@@ -33,7 +33,7 @@ public interface State {
 
 	/**
 	 * 		
-	 * Metodo eseguito continuamente riguardante la parte logica(tick)
+	 * Method continuously performed on the logical part (tick)
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 
@@ -42,7 +42,7 @@ public interface State {
 
 	/**
 	 * 		
-	 * Metodo eseguito continuamente riguardante la parte grafica(render)
+	 * Method continuously performed on the graphical part (render)
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 
@@ -51,7 +51,7 @@ public interface State {
 	
 	/**
 	 * 		
-	 * Metodo eseguito all'uscita dello state
+	 * A method performed at the exit of the state
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 
@@ -60,7 +60,7 @@ public interface State {
 
 	/**
 	 * 		
-	 * Metodo che restituisce il nome dello state selezionato
+	 * Method that returns the name of the state
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 
@@ -69,8 +69,8 @@ public interface State {
 
 	/**
 	 * 		
-	 * Metodo che ritorna l'audio dello state, in questo modo ogni schermata 
-	 * potrà avere una parte dedicata a se
+	 * Method that returns the audio of the state, in this way each viewport 
+	 * may have a part dedicated to itself
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 

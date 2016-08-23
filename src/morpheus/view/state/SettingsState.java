@@ -50,7 +50,7 @@ public class SettingsState implements State {
 	private final Map<String, Integer> mapKey = new HashMap<>();
 	private final String lists[] = new String[3];
 	/**
-	 * Quando è true si esce dallo state		
+	 * If is true, it exit from the state		
 	 * 
 	 * @author Luca Mengozzi
 	 * 		 
@@ -60,7 +60,6 @@ public class SettingsState implements State {
 	private final URL url = SettingsState.class.getResource("/morpheus.png");
     private final ImageIcon img = new ImageIcon(url);
     
-
 	@Override
 	public void init() {
 		
@@ -72,7 +71,6 @@ public class SettingsState implements State {
 			
 			violet.setEnabled(false);
 		}
-		
 		
 		listj[0] = "W";
 		listj[1] = "Spacebar";

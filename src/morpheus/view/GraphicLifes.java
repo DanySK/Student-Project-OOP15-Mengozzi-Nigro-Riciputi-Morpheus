@@ -13,7 +13,7 @@ public class GraphicLifes {
 	
 	/**
 	 * 
-	 * Classico metodo render
+	 * Classic render method
 	 * 
 	 * @author Luca Mengozzi		 
 	 * 
